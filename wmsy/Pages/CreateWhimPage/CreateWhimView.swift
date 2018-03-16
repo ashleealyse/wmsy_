@@ -24,7 +24,7 @@ class CreateWhimView: UIView {
     // Button to select address: "Open Map to Select Meeting Location"
     // Address Label
     
-    
+    // "Host a Whim" button
     
     /*
     // Only override draw() if you perform custom drawing.
