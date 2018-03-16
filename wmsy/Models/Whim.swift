@@ -7,3 +7,15 @@
 //
 
 import Foundation
+
+struct Whim: Codable {
+    let id: String
+    let title: String
+    let description: String
+    let hostID: String
+    let location: String
+    let postedTimestamp: Int
+    let visibilityDuration: Int
+    let finalized: Bool
+    let whimChats: [Message]
+}
