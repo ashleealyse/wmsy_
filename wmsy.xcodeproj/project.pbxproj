@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8139A99D205C2E9F006C7058 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8139A99C205C2E9F006C7058 /* GoogleService-Info.plist */; };
 		81903105205ADCF200932A55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81903104205ADCF200932A55 /* AppDelegate.swift */; };
 		81903107205ADCF200932A55 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81903106205ADCF200932A55 /* ViewController.swift */; };
 		8190310A205ADCF200932A55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81903108205ADCF200932A55 /* Main.storyboard */; };
 		8190310C205ADCF200932A55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8190310B205ADCF200932A55 /* Assets.xcassets */; };
 		8190310F205ADCF200932A55 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8190310D205ADCF200932A55 /* LaunchScreen.storyboard */; };
 		8190311A205ADCF200932A55 /* wmsyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81903119205ADCF200932A55 /* wmsyTests.swift */; };
-		81903125205ADEC600932A55 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81903124205ADEC600932A55 /* GoogleService-Info.plist */; };
 		81BAD676205AED5D00C7F039 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BAD675205AED5D00C7F039 /* LoginVC.swift */; };
 		81BAD678205AED7100C7F039 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BAD677205AED7100C7F039 /* LoginView.swift */; };
 		81BAD67B205AEDAA00C7F039 /* FeedMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BAD67A205AEDAA00C7F039 /* FeedMapVC.swift */; };
@@ -56,6 +56,7 @@
 		12481557B949A7967EAD55F0 /* Pods-wmsyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wmsyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-wmsyTests/Pods-wmsyTests.release.xcconfig"; sourceTree = "<group>"; };
 		7ABB5CDA9ED0EA6DABA10A94 /* Pods_wmsyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wmsyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CEEC5ACCA9E78DD3C3881CA /* Pods_wmsy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wmsy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8139A99C205C2E9F006C7058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		81903101205ADCF200932A55 /* wmsy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wmsy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81903104205ADCF200932A55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		81903106205ADCF200932A55 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -66,7 +67,6 @@
 		81903115205ADCF200932A55 /* wmsyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = wmsyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		81903119205ADCF200932A55 /* wmsyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wmsyTests.swift; sourceTree = "<group>"; };
 		8190311B205ADCF200932A55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		81903124205ADEC600932A55 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		81BAD675205AED5D00C7F039 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		81BAD677205AED7100C7F039 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		81BAD67A205AEDAA00C7F039 /* FeedMapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedMapVC.swift; sourceTree = "<group>"; };
@@ -154,7 +154,7 @@
 				81903106205ADCF200932A55 /* ViewController.swift */,
 				8190310B205ADCF200932A55 /* Assets.xcassets */,
 				8190310D205ADCF200932A55 /* LaunchScreen.storyboard */,
-				81903124205ADEC600932A55 /* GoogleService-Info.plist */,
+				8139A99C205C2E9F006C7058 /* GoogleService-Info.plist */,
 				81903110205ADCF200932A55 /* Info.plist */,
 			);
 			path = wmsy;
@@ -362,7 +362,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8190310F205ADCF200932A55 /* LaunchScreen.storyboard in Resources */,
-				81903125205ADEC600932A55 /* GoogleService-Info.plist in Resources */,
+				8139A99D205C2E9F006C7058 /* GoogleService-Info.plist in Resources */,
 				8190310C205ADCF200932A55 /* Assets.xcassets in Resources */,
 				8190310A205ADCF200932A55 /* Main.storyboard in Resources */,
 			);
