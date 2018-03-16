@@ -76,6 +76,7 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - SnapKit (4.0.0)
 
 DEPENDENCIES:
   - FacebookCore
@@ -85,6 +86,7 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Database
   - Firebase/Storage
+  - SnapKit (~> 4.0)
 
 SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
@@ -105,7 +107,8 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 390ea358e5a0d0133153806f744662dad933d06b
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
 
-PODFILE CHECKSUM: 01ac4e0a66f0ba202bcea5bae14c01ea9ea2ac26
+PODFILE CHECKSUM: 6bcc40328f80abde8415672e2e328edcda360ac5
 
 COCOAPODS: 1.4.0
