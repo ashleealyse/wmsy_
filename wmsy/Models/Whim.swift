@@ -18,4 +18,6 @@ struct Whim: Codable {
     let visibilityDuration: Int
     let finalized: Bool
     let whimChats: [Message]
+    
+    static let firstWhim = Whim(id: "nbjaeksd345", title: "First Whim", description: "Join me on my first whim", hostID: "gaefnsdk345", location: "2 Rivington Street, New York, NY", postedTimestamp: 4567898765, visibilityDuration: 56788765, finalized: false, whimChats: [Message.singleMessage])
 }
