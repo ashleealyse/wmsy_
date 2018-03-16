@@ -10,12 +10,30 @@ import UIKit
 
 class FeedMapVC: UIViewController {
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        
+        configureNavBar()
     }
 
+    
+    // setup UIBarButtonItem
+    private func configureNavBar() {
+//        navigationItem.title = "wmsy"
+        // top left bar button item to Host a Whim (popsicles with a + symbol?)
+        let topLeftBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "wmsyCategoryIcon"), style: .plain, target: self, action: #selector(hostAWhim))
+        navigationItem.leftBarButtonItem = topLeftBarItem
+        
+    }
+    @objc func hostAWhim() {
+        navigationController?.pushViewController(CreateWhimTVC(), animated: true)
+    }
+    
+    
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
