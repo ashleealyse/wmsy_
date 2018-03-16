@@ -1,14 +1,14 @@
 //
-//  CreateInvitationTVC.swift
+//  CreateWhimTVC.swift
 //  wmsy
 //
-//  Created by C4Q on 3/15/18.
+//  Created by C4Q on 3/16/18.
 //  Copyright © 2018 C4Q. All rights reserved.
 //
 
 import UIKit
 
-class CreateInvitationTVC: UITableViewController {
+class CreateWhimTVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
