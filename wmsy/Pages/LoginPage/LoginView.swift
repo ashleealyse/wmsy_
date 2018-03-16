@@ -8,14 +8,53 @@
 
 import UIKit
 
+
+protocol loginViewDelegate: class {
+    func loginButtonPressed()
+    
+}
+
 class LoginView: UIView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    
+    weak var delegate: loginViewDelegate?
+    
+    lazy var facebookButton : UIButton = {
+        // Add a custom login button to your app
+        let myLoginButton = UIButton(type: .custom)
+        myLoginButton.backgroundColor = UIColor.darkGray
+        myLoginButton.frame = CGRect(x: 0,y: 0,width: 180, height: 40)
+        myLoginButton.center = self.center
+        myLoginButton.setTitle("My Login Button", for: .normal)
+        
+        // Handle clicks on the button
+        myLoginButton.addTarget(self, action: #selector(loginButtonClicked), for: .touchUpInside)
+        
+        return myLoginButton
+    }()
+    
+    @objc func loginButtonClicked(){
+        self.delegate?.loginButtonPressed()
     }
-    */
-
+    
+    override init(frame: CGRect) {
+        super.init(frame: UIScreen.main.bounds)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    private func commonInit(){
+        backgroundColor = .white
+        setButton()
+    }
+    
+    private func setButton(){
+        self.addSubview(facebookButton)
+    }
+    
+    
+    
+    
 }
