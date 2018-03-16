@@ -13,6 +13,7 @@ pod 'Firebase/Storage'
 pod 'FacebookCore'
 pod 'FacebookLogin'
 pod 'FacebookShare'
+pod 'SnapKit', '~> 4.0'
 
   target 'wmsyTests' do
     inherit! :search_paths
