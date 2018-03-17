@@ -191,7 +191,7 @@ extension CreateWhimTVC: UIPickerViewDataSource, UIPickerViewDelegate {
         case 0:
             print("1 hour until Whim expires")
         default:
-            print("\(hourIndex - 1) hours until Whim expires")
+            print("\(hourIndex + 1) hours until Whim expires")
         }
     }
     

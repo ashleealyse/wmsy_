@@ -15,15 +15,15 @@ class WhimExpirationTableViewCell: UITableViewCell {
     lazy var expirationLabel: UILabel = {
         let lb = UILabel()
         lb.backgroundColor = Stylesheet.Colors.WMSYAshGrey
-        lb.text = "Whim will expire in _ hours"
+        lb.text = "hours until Whim expires"
         return lb
     }()
     
     // Pickerview with 1 - 24 hours
     lazy var hourPickerView: UIPickerView = {
        let pv = UIPickerView()
-        
-        
+        pv.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
+        pv.clipsToBounds = true
         return pv
     }()
 
@@ -41,20 +41,31 @@ class WhimExpirationTableViewCell: UITableViewCell {
     }
     
     func setUpConstraints() {
-        contentView.addSubview(expirationLabel)
-        expirationLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(contentView.snp.top).offset(5)
-            make.leading.equalTo(contentView.snp.leading).offset(5)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-5)
-        }
         
         contentView.addSubview(hourPickerView)
         hourPickerView.snp.makeConstraints { (make) in
-            make.top.equalTo(expirationLabel.snp.bottom)
+            make.top.equalTo(contentView.snp.top).offset(5)
             make.leading.equalTo(contentView.snp.leading).offset(5)
+            make.width.equalTo(contentView.snp.width).multipliedBy(0.3)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-5)
+//            let screenHeight = UIScreen.main.bounds.height
+//            make.height.equalTo(screenHeight).multipliedBy(0.1)
+        }
+        
+        
+        contentView.addSubview(expirationLabel)
+        expirationLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(contentView.snp.top).offset(5)
+//            make.width.equalTo(contentView.snp.width).multipliedBy(0.5)
+            make.leading.equalTo(hourPickerView.snp.trailing).offset(5)
             make.trailing.equalTo(contentView.snp.trailing).offset(-5)
             make.bottom.equalTo(contentView.snp.bottom).offset(-5)
         }
+        
+
+        
+        
+
     }
     
     
