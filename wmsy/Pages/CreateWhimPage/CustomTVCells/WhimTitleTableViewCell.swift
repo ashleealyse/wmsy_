@@ -14,6 +14,8 @@ class WhimTitleTableViewCell: UITableViewCell {
     // Title Textfield with max 100 characters
     lazy var titleTextfield: UITextField = {
         let tf = UITextField()
+        tf.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
+        tf.borderStyle = .roundedRect
         tf.placeholder = "Enter a title for your Whim"
         return tf
     }()
@@ -21,6 +23,7 @@ class WhimTitleTableViewCell: UITableViewCell {
     // Dynamic label with remaining characters out of 100
     lazy var charactersRemainingLabel: UILabel = {
         let lb = UILabel()
+        lb.backgroundColor = Stylesheet.Colors.WMSYAshGrey
         lb.text = "100 Characters Remaining"
         return lb
     }()
@@ -39,17 +42,20 @@ class WhimTitleTableViewCell: UITableViewCell {
     }
     
     func setUpConstraints() {
-        addSubview(titleTextfield)
+        contentView.addSubview(titleTextfield)
         titleTextfield.snp.makeConstraints { (make) in
-            make.top.leading.trailing.equalTo(safeAreaLayoutGuide)
-            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.5)
+            make.top.equalTo(contentView.snp.top).offset(5)
+            make.leading.equalTo(contentView.snp.leading).offset(5)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-5)
+//            make.height.equalTo(contentView.snp.height).multipliedBy(0.5)
         }
         
-        addSubview(charactersRemainingLabel)
+        contentView.addSubview(charactersRemainingLabel)
         charactersRemainingLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(titleTextfield.snp.bottom)
-            make.leading.trailing.equalTo(safeAreaLayoutGuide)
-            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.5)
+            make.top.equalTo(titleTextfield.snp.bottom).offset(5)
+            make.leading.equalTo(contentView.snp.leading).offset(5)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-5)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-5)
         }
     }
     

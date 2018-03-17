@@ -7,17 +7,19 @@
 //
 
 import UIKit
+import SnapKit
 
 class WhimCategoryCollectionViewCell: UICollectionViewCell {
     
     lazy var categoryImage: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = Stylesheet.Colors.WMSYIsabelline
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.layer.borderColor = Stylesheet.Colors.WMSYMummysTomb.cgColor
-        imageView.layer.borderWidth = 2.0
-        imageView.layer.cornerRadius = imageView.bounds.width / 2.0
+        imageView.layer.borderWidth = 0.5
+        imageView.layer.cornerRadius = imageView.bounds.width / 5.0
+        
         return imageView
     }()
     
