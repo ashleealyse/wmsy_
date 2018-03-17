@@ -61,11 +61,7 @@ class WhimExpirationTableViewCell: UITableViewCell {
             make.trailing.equalTo(contentView.snp.trailing).offset(-5)
             make.bottom.equalTo(contentView.snp.bottom).offset(-5)
         }
-        
-
-        
-        
-
+       
     }
     
     
