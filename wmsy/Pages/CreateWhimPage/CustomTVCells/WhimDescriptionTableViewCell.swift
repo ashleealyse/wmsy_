@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class WhimDescriptionTableViewCell: UITableViewCell {
 
@@ -42,7 +43,7 @@ class WhimDescriptionTableViewCell: UITableViewCell {
     }
     
     func setUpConstraints() {
-        addSubview(descriptionTextfield)
+        contentView.addSubview(descriptionTextfield)
         descriptionTextfield.snp.makeConstraints { (make) in
             make.top.equalTo(contentView.snp.top).offset(5)
             make.leading.equalTo(contentView.snp.leading).offset(5)
@@ -50,11 +51,11 @@ class WhimDescriptionTableViewCell: UITableViewCell {
 //            make.height.equalTo(contentView.snp.height).multipliedBy(0.5)
         }
         
-        addSubview(charactersRemainingLabel)
+        contentView.addSubview(charactersRemainingLabel)
         charactersRemainingLabel.snp.makeConstraints { (make) in
             make.top.equalTo(descriptionTextfield.snp.bottom)
-            make.leading.equalTo(safeAreaLayoutGuide).offset(5)
-            make.trailing.equalTo(safeAreaLayoutGuide).offset(-5)
+            make.leading.equalTo(contentView.snp.leading).offset(5)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-5)
             make.bottom.equalTo(contentView.snp.bottom).offset(-5)
         }
     }

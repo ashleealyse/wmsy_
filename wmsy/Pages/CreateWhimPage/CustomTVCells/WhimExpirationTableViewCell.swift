@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class WhimExpirationTableViewCell: UITableViewCell {
 
@@ -40,18 +41,18 @@ class WhimExpirationTableViewCell: UITableViewCell {
     }
     
     func setUpConstraints() {
-        addSubview(expirationLabel)
+        contentView.addSubview(expirationLabel)
         expirationLabel.snp.makeConstraints { (make) in
             make.top.equalTo(contentView.snp.top).offset(5)
             make.leading.equalTo(contentView.snp.leading).offset(5)
             make.trailing.equalTo(contentView.snp.trailing).offset(-5)
         }
         
-        addSubview(hourPickerView)
+        contentView.addSubview(hourPickerView)
         hourPickerView.snp.makeConstraints { (make) in
             make.top.equalTo(expirationLabel.snp.bottom)
-            make.leading.equalTo(safeAreaLayoutGuide).offset(5)
-            make.trailing.equalTo(safeAreaLayoutGuide).offset(-5)
+            make.leading.equalTo(contentView.snp.leading).offset(5)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-5)
             make.bottom.equalTo(contentView.snp.bottom).offset(-5)
         }
     }
