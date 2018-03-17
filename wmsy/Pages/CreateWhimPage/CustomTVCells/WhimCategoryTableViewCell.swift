@@ -11,8 +11,14 @@ import SnapKit
 
 class WhimCategoryTableViewCell: UITableViewCell {
 
-    // item for index path
-    
+    // Category Label
+    lazy var categoryLabel: UILabel = {
+       let lb = UILabel()
+        lb.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
+        lb.text = "Choose a Category: "
+        return lb
+    }()
+
     
     // Category Collection View
     lazy var categoriesCV: UICollectionView = {
@@ -21,10 +27,10 @@ class WhimCategoryTableViewCell: UITableViewCell {
         layout.scrollDirection = .horizontal
         let screenHeight: CGFloat = UIScreen.main.bounds.height
         let screenWidth: CGFloat = UIScreen.main.bounds.width
-        let cellSpacing = UIScreen.main.bounds.width * 0.02
+        let cellSpacing = UIScreen.main.bounds.width * 0.01
         let numberOfCells: CGFloat = 1
         let numberOfSpaces: CGFloat = numberOfCells + 1
-        layout.itemSize = CGSize(width: (screenWidth - (cellSpacing * numberOfSpaces)) * 0.2 / numberOfCells, height: screenHeight * 0.10)
+        layout.itemSize = CGSize(width: (screenWidth - (cellSpacing * numberOfSpaces)) * 0.1 / numberOfCells, height: screenHeight * 0.10)
         layout.sectionInset = UIEdgeInsetsMake(cellSpacing, cellSpacing, cellSpacing, cellSpacing)
         layout.minimumLineSpacing = cellSpacing
         layout.minimumInteritemSpacing = cellSpacing
@@ -32,6 +38,7 @@ class WhimCategoryTableViewCell: UITableViewCell {
         categoriesCV.backgroundColor = .white
         categoriesCV.register(WhimCategoryCollectionViewCell.self, forCellWithReuseIdentifier: "CategoryCell")
         categoriesCV.showsHorizontalScrollIndicator = false
+        categoriesCV.backgroundColor = Stylesheet.Colors.WMSYAshGrey
         return categoriesCV
     }()
     
@@ -49,9 +56,22 @@ class WhimCategoryTableViewCell: UITableViewCell {
     }
     
     func setUpConstraints() {
-        addSubview(categoriesCV)
+        
+        contentView.addSubview(categoryLabel)
+        categoryLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.snp.top).offset(5)
+            make.leading.equalTo(self.snp.leading).offset(5)
+            make.trailing.equalTo(self.snp.trailing).offset(-5)
+//            make.height.equalTo(self.snp.height).multipliedBy(0.5)
+        }
+        
+        contentView.addSubview(categoriesCV)
         categoriesCV.snp.makeConstraints { (make) in
-            make.edges.equalTo(safeAreaLayoutGuide)
+            make.top.equalTo(categoryLabel.snp.bottom).offset(5)
+            make.leading.equalTo(self.snp.leading)
+            make.trailing.equalTo(self.snp.trailing)
+            make.bottom.equalTo(self.snp.bottom).offset(-5)
+//            make.height.equalTo(categoryLabel.snp.height).multipliedBy(2.0)
         }
     }
 

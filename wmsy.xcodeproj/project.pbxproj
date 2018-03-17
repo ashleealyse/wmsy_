@@ -25,6 +25,7 @@
 		81AB7AC4205C80FC009845EA /* HostAWhimButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AB7AC3205C80FC009845EA /* HostAWhimButtonTableViewCell.swift */; };
 		81AB7AC6205C94DD009845EA /* WhimCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AB7AC5205C94DD009845EA /* WhimCategoryCollectionViewCell.swift */; };
 		81AB7AC8205C9548009845EA /* Stylesheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AB7AC7205C9548009845EA /* Stylesheet.swift */; };
+		81AB7ACB205CA256009845EA /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AB7ACA205CA256009845EA /* Categories.swift */; };
 		81BAD676205AED5D00C7F039 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BAD675205AED5D00C7F039 /* LoginVC.swift */; };
 		81BAD678205AED7100C7F039 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BAD677205AED7100C7F039 /* LoginView.swift */; };
 		81BAD67B205AEDAA00C7F039 /* FeedMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BAD67A205AEDAA00C7F039 /* FeedMapVC.swift */; };
@@ -86,6 +87,7 @@
 		81AB7AC3205C80FC009845EA /* HostAWhimButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostAWhimButtonTableViewCell.swift; sourceTree = "<group>"; };
 		81AB7AC5205C94DD009845EA /* WhimCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhimCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		81AB7AC7205C9548009845EA /* Stylesheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stylesheet.swift; sourceTree = "<group>"; };
+		81AB7ACA205CA256009845EA /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		81BAD675205AED5D00C7F039 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		81BAD677205AED7100C7F039 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		81BAD67A205AEDAA00C7F039 /* FeedMapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedMapVC.swift; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 				81BAD68E205AEEE200C7F039 /* Message.swift */,
 				8139A99E205C309F006C7058 /* Whim.swift */,
 				81AB7AC7205C9548009845EA /* Stylesheet.swift */,
+				81AB7ACA205CA256009845EA /* Categories.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -562,6 +565,7 @@
 				81BAD69F205AF05500C7F039 /* GuestChatView.swift in Sources */,
 				81AB7AC2205C80B4009845EA /* WhimCategoryTableViewCell.swift in Sources */,
 				81BAD6A7205AF09400C7F039 /* LocationDetailsMsgCell.swift in Sources */,
+				81AB7ACB205CA256009845EA /* Categories.swift in Sources */,
 				81BAD695205AEF8900C7F039 /* ProfileView.swift in Sources */,
 				81BAD676205AED5D00C7F039 /* LoginVC.swift in Sources */,
 				8139A99F205C309F006C7058 /* Whim.swift in Sources */,

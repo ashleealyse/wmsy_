@@ -9,11 +9,17 @@
 import UIKit
 
 class CreateWhimTVC: UITableViewController {
-
+    
+    let categoryList = categoryTuples
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 100
+        self.tableView.allowsSelection = false
+        self.tableView.separatorColor = Stylesheet.Colors.WMSYOuterSpace
         self.tableView.register(WhimCategoryTableViewCell.self, forCellReuseIdentifier: "CategoryCell")
         self.tableView.register(WhimTitleTableViewCell.self, forCellReuseIdentifier: "TitleCell")
         self.tableView.register(WhimDescriptionTableViewCell.self, forCellReuseIdentifier: "DescriptionCell")
@@ -30,6 +36,12 @@ class CreateWhimTVC: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.setNeedsLayout()
+        tableView.layoutIfNeeded()
+        tableView.reloadData()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -41,6 +53,10 @@ class CreateWhimTVC: UITableViewController {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80.0
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -51,8 +67,9 @@ class CreateWhimTVC: UITableViewController {
         switch indexPath.row {
         case 0:
             let categoryCell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! WhimCategoryTableViewCell
-            categoryCell.categoriesCV.delegate = self as? UICollectionViewDelegate
-            categoryCell.categoriesCV.dataSource = self as? UICollectionViewDataSource
+            
+            categoryCell.categoriesCV.delegate = self
+            categoryCell.categoriesCV.dataSource = self
             return categoryCell
         case 1:
             let titleCell = tableView.dequeueReusableCell(withIdentifier: "TitleCell", for: indexPath) as! WhimTitleTableViewCell
@@ -74,7 +91,6 @@ class CreateWhimTVC: UITableViewController {
             return cell
         }
     }
-
 
     /*
     // Override to support conditional editing of the table view.
@@ -122,3 +138,45 @@ class CreateWhimTVC: UITableViewController {
     */
 
 }
+
+extension CreateWhimTVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! WhimCategoryCollectionViewCell
+        let category = cell.categoryImage.image!
+        cell.toggleColor()
+        
+    }
+    
+    
+}
+
+extension CreateWhimTVC: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! WhimCategoryCollectionViewCell
+        let categoryImage = categoryList[indexPath.row].1
+        cell.categoryImage.image = categoryImage
+        return cell
+    }
+    
+}
+
+
+//
+//extension SearchViewController: UICollectionViewDataSource {
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return filterModel.categories.count
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! CategoryCollectionViewCell
+//        let category = filterModel.categories[indexPath.row]
+//        cell.categoryLabel.text = category
+//        return cell
+//    }
+//
+//}
+
