@@ -20,6 +20,7 @@ class CreateWhimTVC: UITableViewController {
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 100
         self.tableView.allowsSelection = false
+        self.tableView.bounces = false
         self.tableView.separatorColor = Stylesheet.Colors.WMSYOuterSpace
         self.tableView.register(WhimCategoryTableViewCell.self, forCellReuseIdentifier: "CategoryCell")
         self.tableView.register(WhimTitleTableViewCell.self, forCellReuseIdentifier: "TitleCell")
