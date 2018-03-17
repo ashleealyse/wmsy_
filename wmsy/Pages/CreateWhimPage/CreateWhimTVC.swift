@@ -11,6 +11,7 @@ import UIKit
 class CreateWhimTVC: UITableViewController {
     
     let categoryList = categoryTuples
+    let hoursList = hoursOfTwentyFour
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,8 +39,8 @@ class CreateWhimTVC: UITableViewController {
 
     
     override func viewWillAppear(_ animated: Bool) {
-        tableView.setNeedsLayout()
-        tableView.layoutIfNeeded()
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
         tableView.reloadData()
     }
     override func didReceiveMemoryWarning() {
@@ -54,9 +55,9 @@ class CreateWhimTVC: UITableViewController {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80.0
-    }
+//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 80.0
+//    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -79,6 +80,9 @@ class CreateWhimTVC: UITableViewController {
             return descriptionCell
         case 3:
             let expirationCell = tableView.dequeueReusableCell(withIdentifier: "ExpirationCell", for: indexPath) as! WhimExpirationTableViewCell
+            
+            expirationCell.hourPickerView.dataSource = self
+            expirationCell.hourPickerView.delegate = self
             return expirationCell
         case 4:
             let locationCell = tableView.dequeueReusableCell(withIdentifier: "LocationCell", for: indexPath) as! WhimLocationTableViewCell
@@ -165,18 +169,31 @@ extension CreateWhimTVC: UICollectionViewDataSource {
 }
 
 
-//
-//extension SearchViewController: UICollectionViewDataSource {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return filterModel.categories.count
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! CategoryCollectionViewCell
-//        let category = filterModel.categories[indexPath.row]
-//        cell.categoryLabel.text = category
-//        return cell
-//    }
-//
-//}
+extension CreateWhimTVC: UIPickerViewDataSource, UIPickerViewDelegate {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return hoursList.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return hoursList[row]
+    }
+    
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let hour = hoursList[row]
+        let hourIndex = row
+        switch hourIndex {
+        case 0:
+            print("1 hour until Whim expires")
+        default:
+            print("\(hourIndex - 1) hours until Whim expires")
+        }
+    }
+    
+}
 

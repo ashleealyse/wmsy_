@@ -59,19 +59,19 @@ class WhimCategoryTableViewCell: UITableViewCell {
         
         contentView.addSubview(categoryLabel)
         categoryLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.snp.top).offset(5)
-            make.leading.equalTo(self.snp.leading).offset(5)
-            make.trailing.equalTo(self.snp.trailing).offset(-5)
+            make.top.equalTo(contentView.snp.top).offset(5)
+            make.leading.equalTo(contentView.snp.leading).offset(5)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-5)
 //            make.height.equalTo(self.snp.height).multipliedBy(0.5)
         }
         
         contentView.addSubview(categoriesCV)
         categoriesCV.snp.makeConstraints { (make) in
             make.top.equalTo(categoryLabel.snp.bottom).offset(5)
-            make.leading.equalTo(self.snp.leading)
-            make.trailing.equalTo(self.snp.trailing)
-            make.bottom.equalTo(self.snp.bottom).offset(-5)
-//            make.height.equalTo(categoryLabel.snp.height).multipliedBy(2.0)
+            make.leading.equalTo(contentView.snp.leading)
+            make.trailing.equalTo(contentView.snp.trailing)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-5)
+            make.height.equalTo(categoryLabel.snp.height).multipliedBy(2.0)
         }
     }
 

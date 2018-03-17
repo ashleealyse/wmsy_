@@ -44,10 +44,10 @@ class WhimTitleTableViewCell: UITableViewCell {
     func setUpConstraints() {
         addSubview(titleTextfield)
         titleTextfield.snp.makeConstraints { (make) in
-            make.top.equalTo(self.snp.top).offset(5)
-            make.leading.equalTo(self.snp.leading).offset(5)
-            make.trailing.equalTo(self.snp.trailing).offset(-5)
-            make.height.equalTo(self.snp.height).multipliedBy(0.5)
+            make.top.equalTo(contentView.snp.top).offset(5)
+            make.leading.equalTo(contentView.snp.leading).offset(5)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-5)
+//            make.height.equalTo(contentView.snp.height).multipliedBy(0.5)
         }
         
         addSubview(charactersRemainingLabel)
@@ -55,7 +55,7 @@ class WhimTitleTableViewCell: UITableViewCell {
             make.top.equalTo(titleTextfield.snp.bottom)
             make.leading.equalTo(safeAreaLayoutGuide).offset(5)
             make.trailing.equalTo(safeAreaLayoutGuide).offset(-5)
-            make.bottom.equalTo(self.snp.bottom).offset(-5)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-5)
         }
     }
     
