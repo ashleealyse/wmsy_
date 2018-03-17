@@ -26,6 +26,28 @@ class CreateWhimView: UIView {
     
     // "Host a Whim" button
     
+    
+    // setup custom view
+    
+    override init(frame: CGRect) {
+        super.init(frame: UIScreen.main.bounds)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    private func commonInit() {
+        backgroundColor = .white
+        setupViews()
+    }
+    
+    private func setupViews() {
+        
+    }
+    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
