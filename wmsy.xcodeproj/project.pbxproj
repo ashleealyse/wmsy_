@@ -144,13 +144,7 @@
 			children = (
 				8139A9A1205C30D7006C7058 /* CreateWhimTVC.swift */,
 				8139A9A5205C3130006C7058 /* CreateWhimView.swift */,
-				81AB7AC1205C80B4009845EA /* WhimCategoryTableViewCell.swift */,
-				81AB7AC5205C94DD009845EA /* WhimCategoryCollectionViewCell.swift */,
-				81AB7AB9205C800E009845EA /* WhimTitleTableViewCell.swift */,
-				81AB7ABB205C8024009845EA /* WhimDescriptionTableViewCell.swift */,
-				81AB7ABD205C805A009845EA /* WhimExpirationTableViewCell.swift */,
-				81AB7ABF205C806C009845EA /* WhimLocationTableViewCell.swift */,
-				81AB7AC3205C80FC009845EA /* HostAWhimButtonTableViewCell.swift */,
+				81AB7AC9205C9A53009845EA /* CustomTVCells */,
 			);
 			path = CreateWhimPage;
 			sourceTree = "<group>";
@@ -199,6 +193,20 @@
 				8190311B205ADCF200932A55 /* Info.plist */,
 			);
 			path = wmsyTests;
+			sourceTree = "<group>";
+		};
+		81AB7AC9205C9A53009845EA /* CustomTVCells */ = {
+			isa = PBXGroup;
+			children = (
+				81AB7AC1205C80B4009845EA /* WhimCategoryTableViewCell.swift */,
+				81AB7AC5205C94DD009845EA /* WhimCategoryCollectionViewCell.swift */,
+				81AB7AB9205C800E009845EA /* WhimTitleTableViewCell.swift */,
+				81AB7ABB205C8024009845EA /* WhimDescriptionTableViewCell.swift */,
+				81AB7ABD205C805A009845EA /* WhimExpirationTableViewCell.swift */,
+				81AB7ABF205C806C009845EA /* WhimLocationTableViewCell.swift */,
+				81AB7AC3205C80FC009845EA /* HostAWhimButtonTableViewCell.swift */,
+			);
+			path = CustomTVCells;
 			sourceTree = "<group>";
 		};
 		81BAD673205AED2600C7F039 /* Pages */ = {
