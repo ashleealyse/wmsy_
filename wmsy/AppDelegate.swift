@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import FacebookCore
+import FacebookLogin
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,12 +17,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
+    
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+        if AccessToken.current != nil{
+            let vc = FeedMapVC()
+            let nav = UINavigationController(rootViewController: vc)
+            window = UIWindow(frame: UIScreen.main.bounds)
+            window?.rootViewController = nav
+            window?.makeKeyAndVisible()
+        }else{
         let vc = LoginVC()
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
+        }
         return true
     }
 
