@@ -16,14 +16,14 @@ class WhimLocationTableViewCell: UITableViewCell {
         let lb = UILabel()
         lb.text = "Meeting Location: "
         lb.numberOfLines = 0
-        lb.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
+        lb.backgroundColor = Stylesheet.Colors.WMSYAshGrey
         return lb
     }()
     
     // Button to select address: "Open Map to Select Meeting Location"
     lazy var selectLocationButton: UIButton = {
        let bt = UIButton()
-        bt.backgroundColor = Stylesheet.Colors.WMSYAshGrey
+        bt.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
         bt.setTitle("Select Meeting Location on Map", for: .normal)
         return bt
     }()

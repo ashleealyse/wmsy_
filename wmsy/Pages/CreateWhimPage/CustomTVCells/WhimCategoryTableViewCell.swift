@@ -14,7 +14,7 @@ class WhimCategoryTableViewCell: UITableViewCell {
     // Category Label
     lazy var categoryLabel: UILabel = {
        let lb = UILabel()
-        lb.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
+        lb.backgroundColor = Stylesheet.Colors.WMSYAshGrey
         lb.text = "Choose a Category: "
         return lb
     }()
@@ -38,7 +38,7 @@ class WhimCategoryTableViewCell: UITableViewCell {
         categoriesCV.backgroundColor = .white
         categoriesCV.register(WhimCategoryCollectionViewCell.self, forCellWithReuseIdentifier: "CategoryCell")
         categoriesCV.showsHorizontalScrollIndicator = false
-        categoriesCV.backgroundColor = Stylesheet.Colors.WMSYAshGrey
+        categoriesCV.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
         return categoriesCV
     }()
     

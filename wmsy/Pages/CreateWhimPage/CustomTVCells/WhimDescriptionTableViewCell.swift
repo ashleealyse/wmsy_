@@ -53,7 +53,7 @@ class WhimDescriptionTableViewCell: UITableViewCell {
         
         contentView.addSubview(charactersRemainingLabel)
         charactersRemainingLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(descriptionTextfield.snp.bottom)
+            make.top.equalTo(descriptionTextfield.snp.bottom).offset(5)
             make.leading.equalTo(contentView.snp.leading).offset(5)
             make.trailing.equalTo(contentView.snp.trailing).offset(-5)
             make.bottom.equalTo(contentView.snp.bottom).offset(-5)
