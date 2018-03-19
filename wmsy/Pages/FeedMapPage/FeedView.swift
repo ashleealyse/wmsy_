@@ -7,15 +7,33 @@
 //
 
 import UIKit
+import SnapKit
 
 class FeedView: UIView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    
+    lazy var tableView: UITableView = {
+        let tv = UITableView()
+        return tv
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: UIScreen.main.bounds)
+        commonInit()
     }
-    */
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    private func commonInit() {
+        backgroundColor = .white
+        setUpTableView()
+    }
+    private func setUpTableView() {
+        addSubview(tableView)
+        tableView.snp.makeConstraints { (make) in
+            make.edges.equalTo(safeAreaLayoutGuide)
+        }
+    }
 
 }

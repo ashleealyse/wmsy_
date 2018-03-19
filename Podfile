@@ -15,6 +15,10 @@ pod 'FacebookLogin'
 pod 'FacebookShare'
 pod 'SnapKit', '~> 4.0'
 pod 'GoogleMaps'
+pod 'SVProgressHUD'
+pod 'Kingfisher', '~> 4.0'
+pod 'Toucan'
+
 
   target 'wmsyTests' do
     inherit! :search_paths
