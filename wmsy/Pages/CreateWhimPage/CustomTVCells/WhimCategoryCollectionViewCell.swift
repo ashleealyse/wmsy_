@@ -58,7 +58,8 @@ class WhimCategoryCollectionViewCell: UICollectionViewCell {
             make.centerX.equalTo(self)
             make.centerY.equalTo(self)
             make.width.equalTo(snp.width)
-            make.height.equalTo(snp.height).multipliedBy(0.5)
+            make.height.equalTo(snp.height)
+//            make.height.equalTo(snp.height).multipliedBy(0.5)
         }
     }
     

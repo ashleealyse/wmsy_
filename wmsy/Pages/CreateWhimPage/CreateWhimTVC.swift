@@ -30,7 +30,6 @@ class CreateWhimTVC: UITableViewController {
         self.tableView.register(HostAWhimButtonTableViewCell.self, forCellReuseIdentifier: "ButtonCell")
         
         
-        
         // Uncomment the followinwg line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -69,15 +68,22 @@ class CreateWhimTVC: UITableViewController {
         switch indexPath.row {
         case 0:
             let categoryCell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! WhimCategoryTableViewCell
-            
             categoryCell.categoriesCV.delegate = self
             categoryCell.categoriesCV.dataSource = self
+            
             return categoryCell
         case 1:
             let titleCell = tableView.dequeueReusableCell(withIdentifier: "TitleCell", for: indexPath) as! WhimTitleTableViewCell
+            titleCell.titleTextfield.tag = 0
+            titleCell.titleTextfield.delegate = self
+            titleCell.charactersRemainingLabel.tag = 0
+            
             return titleCell
         case 2:
             let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "DescriptionCell", for: indexPath) as! WhimDescriptionTableViewCell
+            descriptionCell.descriptionTextfield.tag = 1
+            descriptionCell.descriptionTextfield.delegate = self
+            descriptionCell.charactersRemainingLabel.tag = 1
             return descriptionCell
         case 3:
             let expirationCell = tableView.dequeueReusableCell(withIdentifier: "ExpirationCell", for: indexPath) as! WhimExpirationTableViewCell
@@ -96,58 +102,67 @@ class CreateWhimTVC: UITableViewController {
             return cell
         }
     }
+    
+}
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+extension CreateWhimTVC: UITextFieldDelegate {
+    func textField(_ textFieldToChange: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        switch textFieldToChange.tag {
+        case 0:
+            // Title TextField
+            
+            // limit characters
+            let characterCountLimit = 100
+            
+            // We need to figure out how many characters would be in the string after the change happens
+            let startingLength = textFieldToChange.text?.count ?? 0
+            let lengthToAdd = string.count
+            let lengthToReplace = range.length
+            
+            let newLength = startingLength + lengthToAdd - lengthToReplace
+            
+//            charactersRemainingLabel.text = "\(newLength) characters remaining"
+            return newLength <= characterCountLimit
+            
+        case 1:
+            // Description TextField
+            
+            // limit characters
+            let characterCountLimit = 200
+            
+            // We need to figure out how many characters would be in the string after the change happens
+            let startingLength = textFieldToChange.text?.count ?? 0
+            let lengthToAdd = string.count
+            let lengthToReplace = range.length
+            
+            let newLength = startingLength + lengthToAdd - lengthToReplace
+            
+//            charactersRemainingLabel.text = "\(newLength) characters remaining"
+            return newLength <= characterCountLimit
+        default:
+            // Description TextField
+            
+            // limit characters
+            let characterCountLimit = 200
+            
+            // We need to figure out how many characters would be in the string after the change happens
+            let startingLength = textFieldToChange.text?.count ?? 0
+            let lengthToAdd = string.count
+            let lengthToReplace = range.length
+            
+            let newLength = startingLength + lengthToAdd - lengthToReplace
+            
+//            charactersRemainingLabel.text = "\(newLength) characters remaining"
+            return newLength <= characterCountLimit
+            
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension CreateWhimTVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! WhimCategoryCollectionViewCell
-        let category = cell.categoryImage.image!
         cell.toggleColor()
         
     }
@@ -186,14 +201,14 @@ extension CreateWhimTVC: UIPickerViewDataSource, UIPickerViewDelegate {
     
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let hour = hoursList[row]
+//        let hour = hoursList[row]
         let hourIndex = row
-        switch hourIndex {
-        case 0:
-            print("1 hour until Whim expires")
-        default:
-            print("\(hourIndex + 1) hours until Whim expires")
-        }
+//        switch hourIndex {
+//        case 0:
+//            print("1 hour until Whim expires")
+//        default:
+//            print("\(hourIndex + 1) hours until Whim expires")
+//        }
     }
     
 }

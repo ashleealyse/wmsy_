@@ -25,7 +25,7 @@ class WhimDescriptionTableViewCell: UITableViewCell {
     lazy var charactersRemainingLabel: UILabel = {
         let lb = UILabel()
         lb.backgroundColor = Stylesheet.Colors.WMSYAshGrey
-        lb.text = "200 Characters Remaining"
+        lb.text = "Max 200 Characters"
         return lb
     }()
     
@@ -60,15 +60,6 @@ class WhimDescriptionTableViewCell: UITableViewCell {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
 
 }

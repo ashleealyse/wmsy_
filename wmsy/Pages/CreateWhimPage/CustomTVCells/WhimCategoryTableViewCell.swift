@@ -30,7 +30,7 @@ class WhimCategoryTableViewCell: UITableViewCell {
         let cellSpacing = UIScreen.main.bounds.width * 0.01
         let numberOfCells: CGFloat = 1
         let numberOfSpaces: CGFloat = numberOfCells + 1
-        layout.itemSize = CGSize(width: (screenWidth - (cellSpacing * numberOfSpaces)) * 0.1 / numberOfCells, height: screenHeight * 0.10)
+        layout.itemSize = CGSize(width: (screenWidth - (cellSpacing * numberOfSpaces)) * 0.09 / numberOfCells, height: (screenWidth - (cellSpacing * numberOfSpaces)) * 0.09)
         layout.sectionInset = UIEdgeInsetsMake(cellSpacing, cellSpacing, cellSpacing, cellSpacing)
         layout.minimumLineSpacing = cellSpacing
         layout.minimumInteritemSpacing = cellSpacing
@@ -77,10 +77,5 @@ class WhimCategoryTableViewCell: UITableViewCell {
 
     
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
 
 }
