@@ -25,7 +25,8 @@ class WhimDescriptionTableViewCell: UITableViewCell {
     lazy var charactersRemainingLabel: UILabel = {
         let lb = UILabel()
         lb.backgroundColor = Stylesheet.Colors.WMSYAshGrey
-        lb.text = "Max 200 Characters"
+        lb.textAlignment = .right
+        lb.text = "0/100"
         return lb
     }()
     

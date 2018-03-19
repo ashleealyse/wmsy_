@@ -24,7 +24,8 @@ class WhimTitleTableViewCell: UITableViewCell {
     lazy var charactersRemainingLabel: UILabel = {
         let lb = UILabel()
         lb.backgroundColor = Stylesheet.Colors.WMSYAshGrey
-        lb.text = "Max 100 Characters"
+        lb.textAlignment = .right
+        lb.text = "0/50"
         return lb
     }()
     
