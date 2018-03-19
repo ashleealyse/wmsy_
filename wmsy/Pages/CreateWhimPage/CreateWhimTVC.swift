@@ -13,9 +13,6 @@ class CreateWhimTVC: UITableViewController {
     let categoryList = categoryTuples
     let hoursList = hoursOfTwentyFour
 
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self
@@ -24,7 +21,8 @@ class CreateWhimTVC: UITableViewController {
         self.tableView.estimatedRowHeight = 100
         self.tableView.allowsSelection = false
         self.tableView.bounces = false
-        self.tableView.separatorColor = Stylesheet.Colors.WMSYOuterSpace
+        self.tableView.separatorStyle = .none
+//        self.tableView.separatorColor = Stylesheet.Colors.WMSYOuterSpace
         self.tableView.register(WhimCategoryTableViewCell.self, forCellReuseIdentifier: "CategoryCell")
         self.tableView.register(WhimTitleTableViewCell.self, forCellReuseIdentifier: "TitleCell")
         self.tableView.register(WhimDescriptionTableViewCell.self, forCellReuseIdentifier: "DescriptionCell")
@@ -77,8 +75,9 @@ class CreateWhimTVC: UITableViewController {
             return titleCell
         case 2:
             let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "DescriptionCell", for: indexPath) as! WhimDescriptionTableViewCell
-            descriptionCell.descriptionTextfield.tag = 1
-            descriptionCell.descriptionTextfield.delegate = self
+//            descriptionCell.descriptionTextfield.tag = 1
+//            descriptionCell.descriptionTextfield.delegate = self
+            descriptionCell.descriptionTextView.delegate = self
             descriptionCell.charactersRemainingLabel.tag = 1
             return descriptionCell
         case 3:
@@ -144,6 +143,39 @@ extension CreateWhimTVC: UITextFieldDelegate {
             
             return newLength <= characterCountLimit
         }
+    }
+}
+
+
+extension CreateWhimTVC: UITextViewDelegate {
+    func textViewDidBeginEditing (_ textView: UITextView) {
+        if textView.isFirstResponder {
+            textView.text = nil
+            textView.textColor = .black
+        }
+    }
+    
+    func textViewDidEndEditing (_ textView: UITextView) {
+        if textView.text.isEmpty || textView.text == "" {
+            textView.textColor = .gray
+            textView.text = "Describe your Whim"
+        }
+        textView.isScrollEnabled = false
+        textView.resignFirstResponder()
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let characterCountLimit = 99
+        let startingLength = textView.text?.count ?? 0
+        let lengthToAdd = text.count
+        let lengthToReplace = range.length
+        let newLength = startingLength + lengthToAdd - lengthToReplace
+        
+        let indexPath = IndexPath.init(row: 2, section: 0)
+        let cell = tableView.cellForRow(at: indexPath) as! WhimDescriptionTableViewCell
+        cell.charactersRemainingLabel.text = "\(newLength)/100"
+        
+        return newLength <= characterCountLimit
     }
 }
 

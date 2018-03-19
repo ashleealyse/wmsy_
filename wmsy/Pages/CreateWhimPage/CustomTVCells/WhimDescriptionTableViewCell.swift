@@ -13,12 +13,26 @@ class WhimDescriptionTableViewCell: UITableViewCell {
 
     
     // Description TextField with Max 200 Characters
-    lazy var descriptionTextfield: UITextField = {
-        let tf = UITextField()
-        tf.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
-        tf.borderStyle = .roundedRect
-        tf.placeholder = "Describe your Whim"
-        return tf
+//    lazy var descriptionTextfield: UITextField = {
+//        let tf = UITextField()
+//        tf.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
+//        tf.borderStyle = .roundedRect
+//        tf.placeholder = "Describe your Whim"
+//        return tf
+//    }()
+    
+    lazy var descriptionTextView: UITextView = {
+       let tv = UITextView()
+        tv.isEditable = true
+        tv.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
+        tv.layer.borderWidth = 0.5
+        tv.layer.borderColor = UIColor.lightGray.cgColor
+        tv.font = UIFont.systemFont(ofSize: 15)
+        tv.text = "Describe your Whim"
+        tv.textColor = .gray
+        tv.clipsToBounds = true
+        tv.layer.cornerRadius = 5.0
+        return tv
     }()
     
     // Dynamic label with remaining characters out of 200
@@ -26,6 +40,7 @@ class WhimDescriptionTableViewCell: UITableViewCell {
         let lb = UILabel()
         lb.backgroundColor = Stylesheet.Colors.WMSYAshGrey
         lb.textAlignment = .right
+        lb.font = UIFont.systemFont(ofSize: 15)
         lb.text = "0/100"
         return lb
     }()
@@ -44,21 +59,41 @@ class WhimDescriptionTableViewCell: UITableViewCell {
     }
     
     func setUpConstraints() {
-        contentView.addSubview(descriptionTextfield)
-        descriptionTextfield.snp.makeConstraints { (make) in
+//        contentView.addSubview(descriptionTextfield)
+//        descriptionTextfield.snp.makeConstraints { (make) in
+//            make.top.equalTo(contentView.snp.top).offset(5)
+//            make.leading.equalTo(contentView.snp.leading).offset(5)
+//            make.trailing.equalTo(contentView.snp.trailing).offset(-5)
+////            make.height.equalTo(contentView.snp.height).multipliedBy(0.5)
+//        }
+//
+//        contentView.addSubview(charactersRemainingLabel)
+//        charactersRemainingLabel.snp.makeConstraints { (make) in
+//            make.top.equalTo(descriptionTextfield.snp.bottom).offset(5)
+//            make.leading.equalTo(contentView.snp.leading).offset(5)
+//            make.trailing.equalTo(contentView.snp.trailing).offset(-5)
+//            make.bottom.equalTo(contentView.snp.bottom).offset(-5)
+//        }
+        
+        
+        contentView.addSubview(descriptionTextView)
+        descriptionTextView.snp.makeConstraints { (make) in
             make.top.equalTo(contentView.snp.top).offset(5)
             make.leading.equalTo(contentView.snp.leading).offset(5)
             make.trailing.equalTo(contentView.snp.trailing).offset(-5)
-//            make.height.equalTo(contentView.snp.height).multipliedBy(0.5)
+            let screenHeight: CGFloat = UIScreen.main.bounds.height
+            make.height.equalTo(screenHeight / 10)
         }
         
         contentView.addSubview(charactersRemainingLabel)
         charactersRemainingLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(descriptionTextfield.snp.bottom).offset(5)
+            make.top.equalTo(descriptionTextView.snp.bottom).offset(5)
             make.leading.equalTo(contentView.snp.leading).offset(5)
             make.trailing.equalTo(contentView.snp.trailing).offset(-5)
             make.bottom.equalTo(contentView.snp.bottom).offset(-5)
         }
+        
+        
     }
     
 

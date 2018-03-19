@@ -15,7 +15,9 @@ class WhimExpirationTableViewCell: UITableViewCell {
     lazy var expirationLabel: UILabel = {
         let lb = UILabel()
         lb.backgroundColor = Stylesheet.Colors.WMSYAshGrey
-        lb.text = "hours until Whim expires"
+        lb.textAlignment = .center
+        lb.text = "hour(s) until Whim expires"
+        lb.font = UIFont.systemFont(ofSize: 15)
         return lb
     }()
     

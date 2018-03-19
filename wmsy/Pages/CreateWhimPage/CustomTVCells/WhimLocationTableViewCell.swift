@@ -15,6 +15,7 @@ class WhimLocationTableViewCell: UITableViewCell {
     lazy var addressLabel: UILabel = {
         let lb = UILabel()
         lb.text = "Meeting Location: "
+        lb.font = UIFont.systemFont(ofSize: 15)
         lb.numberOfLines = 0
         lb.backgroundColor = Stylesheet.Colors.WMSYAshGrey
         return lb

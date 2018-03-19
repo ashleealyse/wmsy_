@@ -16,6 +16,7 @@ class WhimCategoryTableViewCell: UITableViewCell {
        let lb = UILabel()
         lb.backgroundColor = Stylesheet.Colors.WMSYAshGrey
         lb.text = "Category: "
+        lb.font = UIFont.systemFont(ofSize: 15)
         return lb
     }()
 
@@ -35,7 +36,7 @@ class WhimCategoryTableViewCell: UITableViewCell {
         layout.minimumLineSpacing = cellSpacing
         layout.minimumInteritemSpacing = cellSpacing
         let categoriesCV = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
-        categoriesCV.backgroundColor = .white
+//        categoriesCV.backgroundColor = .white
         categoriesCV.register(WhimCategoryCollectionViewCell.self, forCellWithReuseIdentifier: "CategoryCell")
         categoriesCV.showsHorizontalScrollIndicator = false
         categoriesCV.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
@@ -71,7 +72,7 @@ class WhimCategoryTableViewCell: UITableViewCell {
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
             make.bottom.equalTo(contentView.snp.bottom).offset(-5)
-            make.height.equalTo(categoryLabel.snp.height).multipliedBy(2.0)
+            make.height.equalTo(categoryLabel.snp.height).multipliedBy(2.1)
         }
     }
 
