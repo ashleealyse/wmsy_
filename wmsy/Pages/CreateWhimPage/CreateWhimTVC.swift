@@ -12,6 +12,11 @@ class CreateWhimTVC: UITableViewController {
     
     let categoryList = categoryTuples
     let hoursList = hoursOfTwentyFour
+    var whimCategory = ""
+    var whimTitle = ""
+    var whimDescription = ""
+    var whimExpirationHours = 0
+    var whimLocation = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,6 +95,8 @@ class CreateWhimTVC: UITableViewController {
             return locationCell
         case 5:
             let buttonCell = tableView.dequeueReusableCell(withIdentifier: "ButtonCell", for: indexPath) as! HostAWhimButtonTableViewCell
+            buttonCell.hostButton.addTarget(self, action: #selector(collectInputs), for: .touchUpInside)
+            
             return buttonCell
         default:
             let cell = UITableViewCell()
@@ -97,6 +104,12 @@ class CreateWhimTVC: UITableViewController {
         }
     }
     
+    @objc func collectInputs() {
+//        let whimEvent = Whim.init(id: "idksomeidnum", title: whimTitle, description: whimDescription, hostID: "hostid", location: whimLocation, postedTimestamp: 1234567890, visibilityDuration: whimExpirationHours, finalized: false, whimChats: <#T##[Message]#>)
+        
+        let whimEvent = Whim.firstWhim
+        print(whimEvent)
+    }
 }
 
 extension CreateWhimTVC: UITextFieldDelegate {
@@ -142,6 +155,15 @@ extension CreateWhimTVC: UITextFieldDelegate {
             cell.charactersRemainingLabel.text = "\(newLength)/200"
             
             return newLength <= characterCountLimit
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField.tag {
+        case 0:
+            whimTitle = textField.text!
+        default:
+            break
         }
     }
 }
