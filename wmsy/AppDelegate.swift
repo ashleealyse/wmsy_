@@ -22,18 +22,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
-        if Auth.auth().currentUser != nil{
-            let vc = FeedMapVC()
-            let nav = UINavigationController(rootViewController: vc)
-            window = UIWindow(frame: UIScreen.main.bounds)
-            window?.rootViewController = nav
-            window?.makeKeyAndVisible()
-        }else{
-        let vc = LoginVC()
+//<<<<<<< HEAD
+////        if AccessToken.current != nil{
+////            let vc = FeedMapVC()
+////            let nav = UINavigationController(rootViewController: vc)
+////            window = UIWindow(frame: UIScreen.main.bounds)
+////            window?.rootViewController = nav
+////            window?.makeKeyAndVisible()
+////        }else{
+////        let vc = LoginVC()
+//        let vc = MainTabBarVC()
+//=======
+//        if Auth.auth().currentUser != nil{
+//            let vc = FeedMapVC()
+//            let nav = UINavigationController(rootViewController: vc)
+//            window = UIWindow(frame: UIScreen.main.bounds)
+//            window?.rootViewController = nav
+//            window?.makeKeyAndVisible()
+//        }else{
+//        let vc = LoginVC()
+//>>>>>>> qa
+        let vc = MainTabBarVC()
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
-        }
+//        }
         return true
     }
 
