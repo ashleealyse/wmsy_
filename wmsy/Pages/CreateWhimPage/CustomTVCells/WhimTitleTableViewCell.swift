@@ -17,6 +17,8 @@ class WhimTitleTableViewCell: UITableViewCell {
         tf.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
         tf.borderStyle = .roundedRect
         tf.placeholder = "Enter a title for your Whim"
+        tf.font = UIFont.boldSystemFont(ofSize: 20)
+        tf.clearButtonMode = .always
         return tf
     }()
     
@@ -24,7 +26,9 @@ class WhimTitleTableViewCell: UITableViewCell {
     lazy var charactersRemainingLabel: UILabel = {
         let lb = UILabel()
         lb.backgroundColor = Stylesheet.Colors.WMSYAshGrey
-        lb.text = "100 Characters Remaining"
+        lb.textAlignment = .right
+        lb.text = "0/50"
+        lb.font = UIFont.systemFont(ofSize: 15)
         return lb
     }()
     
@@ -47,6 +51,8 @@ class WhimTitleTableViewCell: UITableViewCell {
             make.top.equalTo(contentView.snp.top).offset(5)
             make.leading.equalTo(contentView.snp.leading).offset(5)
             make.trailing.equalTo(contentView.snp.trailing).offset(-5)
+            let screenHeight: CGFloat = UIScreen.main.bounds.height
+            make.height.equalTo(screenHeight / 15)
 //            make.height.equalTo(contentView.snp.height).multipliedBy(0.5)
         }
         
@@ -59,15 +65,6 @@ class WhimTitleTableViewCell: UITableViewCell {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
 
 }

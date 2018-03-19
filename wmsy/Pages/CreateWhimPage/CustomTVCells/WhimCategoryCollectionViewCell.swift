@@ -33,15 +33,25 @@ class WhimCategoryCollectionViewCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+//    
+//    public func toggleColor() {
+//        switch categoryImage.backgroundColor! {
+//        case Stylesheet.Colors.WMSYIsabelline:
+//            categoryImage.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
+//        case Stylesheet.Colors.WMSYSeaFoamGreen:
+//            categoryImage.backgroundColor = Stylesheet.Colors.WMSYIsabelline
+//        default:
+//            categoryImage.backgroundColor = Stylesheet.Colors.WMSYIsabelline
+//        }
+//    }
     
-    public func toggleColor() {
-        switch categoryImage.backgroundColor! {
-        case Stylesheet.Colors.WMSYIsabelline:
-            categoryImage.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
-        case Stylesheet.Colors.WMSYSeaFoamGreen:
-            categoryImage.backgroundColor = Stylesheet.Colors.WMSYIsabelline
-        default:
-            categoryImage.backgroundColor = Stylesheet.Colors.WMSYIsabelline
+    override var isSelected: Bool {
+        didSet {
+            if self.isSelected {
+                categoryImage.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
+            } else {
+                categoryImage.backgroundColor = Stylesheet.Colors.WMSYIsabelline
+            }
         }
     }
     
@@ -58,7 +68,8 @@ class WhimCategoryCollectionViewCell: UICollectionViewCell {
             make.centerX.equalTo(self)
             make.centerY.equalTo(self)
             make.width.equalTo(snp.width)
-            make.height.equalTo(snp.height).multipliedBy(0.5)
+            make.height.equalTo(snp.height)
+//            make.height.equalTo(snp.height).multipliedBy(0.5)
         }
     }
     
