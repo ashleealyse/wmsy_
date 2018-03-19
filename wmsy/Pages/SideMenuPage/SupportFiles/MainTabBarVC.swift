@@ -35,7 +35,7 @@ class MainTabBarVC: UITabBarController {
         self.tabBar.isHidden = true
         self.setViewControllers(controllers, animated: false)
         
-        // what screen to show if you're already signed in
+        // ### what screen to show if you're already signed in
 //        if UserService.manager.userIsSignedIn() {
 //            self.selectedIndex = 3
 //        }
