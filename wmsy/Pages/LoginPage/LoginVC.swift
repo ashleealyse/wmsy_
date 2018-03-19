@@ -41,7 +41,7 @@ struct MyProfileRequest: GraphRequestProtocol {
         }
     }
     var graphPath = "/me"
-    var parameters: [String : Any]? = ["fields": "id, name, picture"]
+    var parameters: [String : Any]? = ["fields": "id, name, picture.type(large)"]
     var accessToken = AccessToken.current
     var httpMethod: GraphRequestHTTPMethod = .GET
     var apiVersion: GraphAPIVersion = .defaultVersion
