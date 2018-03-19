@@ -9,12 +9,13 @@
 import UIKit
 import FacebookLogin
 import FacebookCore
+import Kingfisher
+import FirebaseAuth
 
 struct MyProfileRequest: GraphRequestProtocol {
     struct Response: GraphResponseProtocol {
         var name: String?
         var id: String?
-        var birthday: String?
         var profilePictureUrl: String?
         init(rawResponse: Any?) {
             guard let response = rawResponse as? Dictionary<String, Any> else {
@@ -29,12 +30,8 @@ struct MyProfileRequest: GraphRequestProtocol {
                 self.id = id
             }
             
-            if let birthday = response["birthday"] as? String {
-                self.birthday = birthday
-            }
             
             if let picture = response["picture"] as? Dictionary<String, Any> {
-                
                 if let data = picture["data"] as? Dictionary<String, Any> {
                     if let url = data["url"] as? String {
                         self.profilePictureUrl = url
@@ -44,7 +41,7 @@ struct MyProfileRequest: GraphRequestProtocol {
         }
     }
     var graphPath = "/me"
-    var parameters: [String : Any]? = ["fields": "id, name, birthday, picture"]
+    var parameters: [String : Any]? = ["fields": "id, name, picture"]
     var accessToken = AccessToken.current
     var httpMethod: GraphRequestHTTPMethod = .GET
     var apiVersion: GraphAPIVersion = .defaultVersion
@@ -79,14 +76,20 @@ extension LoginVC: loginViewDelegate {
                 self.connection.add(MyProfileRequest()) { response, result in
                     switch result {
                     case .success(let response):
-                        print("Custom Graph Request Succeeded: \(response)")
-                        print("My facebook id is \(response.id!)")
-                        print("My name is \(response.name!)")
-                        print("My birthday is \(response.birthday!)")
-                        print("My picture URL is \(response.profilePictureUrl ?? "none")")
-                        let vc = FeedMapVC()
-                        let nav = UINavigationController(rootViewController: vc)
-                        self.present(nav, animated: true, completion: nil)
+                        let cred = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
+                        Auth.auth().signIn(with: cred, completion: { (user, error) in
+                            let userName = response.name
+                            let userID = response.id
+                            let profilePictureUrl = URL(string: response.profilePictureUrl!)
+                            let testImageView = UIImageView()
+                            testImageView.kf.setImage(with: profilePictureUrl, placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+                                let newUser = AppUser(name: userName!, photoID: "", age: "", userID: userID!, bio: "", badge: false, flags: 0)
+                                DBService.manager.addAppUser(newUser, image: image!)
+                            })
+                            let vc = FeedMapVC()
+                            let nav = UINavigationController(rootViewController: vc)
+                            self.present(nav, animated: true, completion: nil)
+                        })
                     case .failed(let error):
                         print("Custom Graph Request Failed: \(error)")
                     }
@@ -96,3 +99,4 @@ extension LoginVC: loginViewDelegate {
         }
     }
 }
+
