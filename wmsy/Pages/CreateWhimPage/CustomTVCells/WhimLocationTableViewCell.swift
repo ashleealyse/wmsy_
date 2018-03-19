@@ -15,6 +15,7 @@ class WhimLocationTableViewCell: UITableViewCell {
     lazy var addressLabel: UILabel = {
         let lb = UILabel()
         lb.text = "Meeting Location: "
+        lb.font = UIFont.systemFont(ofSize: 15)
         lb.numberOfLines = 0
         lb.backgroundColor = Stylesheet.Colors.WMSYAshGrey
         return lb
@@ -64,15 +65,6 @@ class WhimLocationTableViewCell: UITableViewCell {
         
 
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
 
 }
