@@ -12,6 +12,9 @@ class CreateWhimTVC: UITableViewController {
     
     let categoryList = categoryTuples
     let hoursList = hoursOfTwentyFour
+
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -165,16 +168,21 @@ extension CreateWhimTVC: UICollectionViewDelegate {
         let cell = collectionView.cellForItem(at: indexPath) as! WhimCategoryCollectionViewCell
         
         // toggle only one at a time.
-        cell.toggleColor()
+//        cell.toggleColor()
         
         let tuple = categoryList[indexPath.row]
         
         let indexPath = IndexPath.init(row: 0, section: 0)
         
         let categoryTableViewCell = tableView.cellForRow(at: indexPath) as! WhimCategoryTableViewCell
-        categoryTableViewCell.categoryLabel.text = "Choose a Category: \(tuple.0)"
+        
+        var selectedCategory = tuple
+        
+        categoryTableViewCell.categoryLabel.text = "Category: \(selectedCategory.0)"
     }
     
+    
+
     
 }
 

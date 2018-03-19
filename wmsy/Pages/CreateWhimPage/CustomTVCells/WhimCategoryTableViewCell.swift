@@ -15,7 +15,7 @@ class WhimCategoryTableViewCell: UITableViewCell {
     lazy var categoryLabel: UILabel = {
        let lb = UILabel()
         lb.backgroundColor = Stylesheet.Colors.WMSYAshGrey
-        lb.text = "Choose a Category: "
+        lb.text = "Category: "
         return lb
     }()
 
