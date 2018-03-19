@@ -163,8 +163,16 @@ extension CreateWhimTVC: UITextFieldDelegate {
 extension CreateWhimTVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! WhimCategoryCollectionViewCell
+        
+        // toggle only one at a time.
         cell.toggleColor()
         
+        let tuple = categoryList[indexPath.row]
+        
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        
+        let categoryTableViewCell = tableView.cellForRow(at: indexPath) as! WhimCategoryTableViewCell
+        categoryTableViewCell.categoryLabel.text = "Choose a Category: \(tuple.0)"
     }
     
     
