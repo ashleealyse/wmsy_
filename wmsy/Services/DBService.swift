@@ -17,6 +17,7 @@ class DBService: NSObject {
         
         rootRef = Database.database().reference()
         usersRef = rootRef.child("users")
+        whimsRef = rootRef.child("whims")
         super.init()
         
     }
@@ -26,6 +27,7 @@ class DBService: NSObject {
     
     var rootRef: DatabaseReference!
     var usersRef: DatabaseReference!
+    var whimsRef: DatabaseReference!
  
     
     
@@ -35,4 +37,49 @@ class DBService: NSObject {
     }
     
     
+    /// Create a Whim by current user
+    
+    public func addWhim(with category: String, title: String, description: String, location: String, duration: Int) {
+        
+        guard let currentUser = AuthUserService.manager.getCurrentUser() else {
+            print("Error: could not get current user id, please exit the app and log back in.")
+            return
+        }
+        
+        let ref = whimsRef.childByAutoId()
+        let whim = Whim(id: ref.key, category: category, title: title, description: description, hostID: currentUser.uid, location: location, duration: duration)
+        
+        ref.setValue(["id": whim.id,
+                      "category": whim.category,
+                      "title": whim.title,
+                      "description": whim.description,
+                      "hostID": whim.hostID,
+                      "location": whim.location,
+                      "duration": whim.duration,
+                      "finalized": whim.finalized,
+                      "timestamp": whim.timestamp,
+                      "whimChats": whim.whimChats
+            ]) { (error, _) in
+            if let error = error {
+                print("error saving Whim: \(error.localizedDescription)")
+            } else {
+                print("new Whim added to database!")
+            }
+        }
+    
+    }
+    
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
