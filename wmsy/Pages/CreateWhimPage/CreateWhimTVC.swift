@@ -15,7 +15,7 @@ class CreateWhimTVC: UITableViewController {
     var whimCategory = ""
     var whimTitle = ""
     var whimDescription = ""
-    var whimExpirationHours = 0
+    var whimDuration = 0
     var whimLocation = "testlocation"
 
     override func viewDidLoad() {
@@ -42,7 +42,11 @@ class CreateWhimTVC: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
+    
+    private func configureNavBar() {
+        navigationItem.title = "Host a Whim"
+        
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         view.setNeedsLayout()
@@ -74,7 +78,7 @@ class CreateWhimTVC: UITableViewController {
             return categoryCell
         case 1:
             let titleCell = tableView.dequeueReusableCell(withIdentifier: "TitleCell", for: indexPath) as! WhimTitleTableViewCell
-            titleCell.titleTextfield.tag = 0
+//            titleCell.titleTextfield.tag = 0
             titleCell.titleTextfield.delegate = self
             titleCell.charactersRemainingLabel.tag = 0
             return titleCell
@@ -107,10 +111,16 @@ class CreateWhimTVC: UITableViewController {
     @objc func collectInputs() {
 //        let whimEvent = Whim.init(id: "idksomeidnum", title: whimTitle, description: whimDescription, hostID: "hostid", location: whimLocation, postedTimestamp: 1234567890, visibilityDuration: whimExpirationHours, finalized: false, whimChats: <#T##[Message]#>)
         
-        let whimEvent = Whim.firstWhim
+//        let whimEvent = Whim.firstWhim
         
-        DBService.manager.addWhim(withCategory: whimEvent.category, title: whimEvent.title, description: whimEvent.description, location: whimEvent.location, duration: whimEvent.duration)
-        print(whimEvent)
+//        DBService.manager.addWhim(withCategory: whimEvent.category, title: whimEvent.title, description: whimEvent.description, location: whimEvent.location, duration: whimEvent.duration)
+//        print(whimEvent)
+        
+        guard whimCategory != "", whimTitle != "", whimDescription != "", whimLocation != "", whimDuration != 0 else { print("Missing item -  Title: \(whimTitle), Description: \(whimDescription), Category: \(whimCategory), Location: \(whimLocation), Duration: \(whimDuration)"); return }
+        
+        DBService.manager.addWhim(withCategory: whimCategory, title: whimTitle, description: whimDescription, location: whimLocation, duration: whimDuration)
+        
+        print("New Whim - Title: \(whimTitle), Description: \(whimDescription), Category: \(whimCategory), Location: \(whimLocation), Duration: \(whimDuration)")
     }
 }
 
@@ -118,8 +128,8 @@ extension CreateWhimTVC: UITextFieldDelegate {
     
     func textField(_ textFieldToChange: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        switch textFieldToChange.tag {
-        case 0:
+//        switch textFieldToChange.tag {
+//        case 0:
             // Title TextField
             let characterCountLimit = 49
             let startingLength = textFieldToChange.text?.count ?? 0
@@ -132,41 +142,28 @@ extension CreateWhimTVC: UITextFieldDelegate {
             cell.charactersRemainingLabel.text = "\(newLength)/50"
             
             return newLength <= characterCountLimit
-        case 1:
-            // Description TextField
-            let characterCountLimit = 99
-            let startingLength = textFieldToChange.text?.count ?? 0
-            let lengthToAdd = string.count
-            let lengthToReplace = range.length
-            let newLength = startingLength + lengthToAdd - lengthToReplace
-            
-            let indexPath = IndexPath.init(row: 2, section: 0)
-            let cell = tableView.cellForRow(at: indexPath) as! WhimDescriptionTableViewCell
-            cell.charactersRemainingLabel.text = "\(newLength)/100"
-            
-            return newLength <= characterCountLimit
-        default:
-            let characterCountLimit = 199
-            let startingLength = textFieldToChange.text?.count ?? 0
-            let lengthToAdd = string.count
-            let lengthToReplace = range.length
-            let newLength = startingLength + lengthToAdd - lengthToReplace
-            
-            let indexPath = IndexPath.init(row: 1, section: 0)
-            let cell = tableView.cellForRow(at: indexPath) as! WhimDescriptionTableViewCell
-            cell.charactersRemainingLabel.text = "\(newLength)/200"
-            
-            return newLength <= characterCountLimit
-        }
+//        default:
+//            let characterCountLimit = 199
+//            let startingLength = textFieldToChange.text?.count ?? 0
+//            let lengthToAdd = string.count
+//            let lengthToReplace = range.length
+//            let newLength = startingLength + lengthToAdd - lengthToReplace
+//
+//            let indexPath = IndexPath.init(row: 1, section: 0)
+//            let cell = tableView.cellForRow(at: indexPath) as! WhimDescriptionTableViewCell
+//            cell.charactersRemainingLabel.text = "\(newLength)/200"
+//
+//            return newLength <= characterCountLimit
+//        }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        switch textField.tag {
-        case 0:
+//        switch textField.tag {
+//        case 0:
             whimTitle = textField.text!
-        default:
-            break
-        }
+//        default:
+//            break
+//        }
     }
 }
 
@@ -179,12 +176,21 @@ extension CreateWhimTVC: UITextViewDelegate {
         }
     }
     
+    func textViewDidChange(_ textView: UITextView) {
+        whimDescription = textView.text
+    }
+
+    
     func textViewDidEndEditing (_ textView: UITextView) {
         if textView.text.isEmpty || textView.text == "" {
             textView.textColor = .gray
             textView.text = "Describe your Whim"
+//            print("Description empty")
         }
-        whimDescription = textView.text
+//        } else {
+//            whimDescription = textView.text
+//            print("Description: \(whimDescription)")
+//        }
         textView.isScrollEnabled = false
         textView.resignFirstResponder()
     }
@@ -250,7 +256,7 @@ extension CreateWhimTVC: UIPickerViewDataSource, UIPickerViewDelegate {
 //        let hour = hoursList[row]
         let hourIndex = row
         
-        whimExpirationHours = hourIndex
+        whimDuration = hourIndex
 //        switch hourIndex {
 //        case 0:
 //            print("1 hour until Whim expires")

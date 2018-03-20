@@ -45,6 +45,12 @@ struct Whim: Codable {
         self.init(id: id, category: category, title: title, description: description, hostID: hostID, location: location, duration: duration, finalized: false, timestamp: "\(Date().timeIntervalSince1970)", whimChats: [])
         print("\(Date().timeIntervalSince1970)")
     }
-    
+}
+
+
+extension Array where Element == Whim {
+    func sortedByTimestamp() -> [Whim] {
+        return self.sorted {$0.timestamp > $1.timestamp}
+    }
     
 }
