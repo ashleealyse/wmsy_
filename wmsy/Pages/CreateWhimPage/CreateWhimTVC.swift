@@ -108,6 +108,8 @@ class CreateWhimTVC: UITableViewController {
 //        let whimEvent = Whim.init(id: "idksomeidnum", title: whimTitle, description: whimDescription, hostID: "hostid", location: whimLocation, postedTimestamp: 1234567890, visibilityDuration: whimExpirationHours, finalized: false, whimChats: <#T##[Message]#>)
         
         let whimEvent = Whim.firstWhim
+        
+        DBService.manager.addWhim(withCategory: whimEvent.category, title: whimEvent.title, description: whimEvent.description, location: whimEvent.location, duration: whimEvent.duration)
         print(whimEvent)
     }
 }

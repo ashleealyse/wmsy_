@@ -27,16 +27,16 @@ struct Whim: Codable {
     
     
     init(id: String, category: String, title: String, description: String, hostID: String, location: String, duration: Int, finalized: Bool, timestamp: String, whimChats: [Message]) {
-        self.init(id: id,
-                  category: category,
-                  title: title,
-                  description: description,
-                  hostID: hostID,
-                  location: location,
-                  duration: duration,
-                  finalized: finalized,
-                  timestamp: timestamp,
-                  whimChats: whimChats)
+        self.id = id
+        self.category =  category
+        self.title =  title
+        self.description =  description
+        self.hostID =  hostID
+        self.location =  location
+        self.duration =  duration
+        self.finalized =  finalized
+        self.timestamp =  timestamp
+        self.whimChats =  whimChats
     }
     
     

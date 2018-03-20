@@ -37,9 +37,9 @@ class DBService: NSObject {
     }
     
     
-    /// Create a Whim by current user
+    // Create a Whim by current user
     
-    public func addWhim(with category: String, title: String, description: String, location: String, duration: Int) {
+    public func addWhim(withCategory category: String, title: String, description: String, location: String, duration: Int) {
         
         guard let currentUser = AuthUserService.manager.getCurrentUser() else {
             print("Error: could not get current user id, please exit the app and log back in.")
@@ -48,6 +48,22 @@ class DBService: NSObject {
         
         let ref = whimsRef.childByAutoId()
         let whim = Whim(id: ref.key, category: category, title: title, description: description, hostID: currentUser.uid, location: location, duration: duration)
+        
+        
+        
+        
+        
+        
+        
+        
+        /// REPLACE CURRENT USER UID WITH FACEBOOK ID WHEN AVAILABLE
+        
+        
+        
+        
+        
+        
+        
         
         ref.setValue(["id": whim.id,
                       "category": whim.category,
