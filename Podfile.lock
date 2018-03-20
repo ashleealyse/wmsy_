@@ -118,11 +118,7 @@ SPEC CHECKSUMS:
   GoogleMaps: 42f91c68b7fa2f84d5c86597b18ceb99f5414c7f
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   GTMSessionFetcher: 5bb1eae636127de695590f50e7d248483eb891e6
-<<<<<<< HEAD
-  Kingfisher: 98e6d5b5e807645743e8ed5ececd25d688d38452
-=======
   Kingfisher: 55b9c395bf8d3949676ad3861111923990ab68cf
->>>>>>> qa
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
