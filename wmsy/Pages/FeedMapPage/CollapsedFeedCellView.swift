@@ -70,3 +70,4 @@ class CollapsedFeedCellView: UIView {
     }
     
 }
+
