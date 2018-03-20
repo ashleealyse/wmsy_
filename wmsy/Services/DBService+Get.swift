@@ -26,12 +26,12 @@ extension DBService {
                 let category = whimDict["category"] as? String,
                 let title = whimDict["title"] as? String,
                 let description = whimDict["description"] as? String,
-                let hostID = whimDict["title"] as? String,
-                let location = whimDict["title"] as? String,
-                let duration = whimDict["title"] as? Int,
-                let finalized = whimDict["title"] as? Bool,
-                let timestamp = whimDict["title"] as? String,
-                let whimChats = whimDict["title"] as? [Message]
+                let hostID = whimDict["hostID"] as? String,
+                let location = whimDict["location"] as? String,
+                let duration = whimDict["duration"] as? Int,
+                let finalized = whimDict["finalized"] as? Bool,
+                let timestamp = whimDict["timestamp"] as? String,
+                let whimChats = whimDict["whimChats"] as? [Message]
                     else {
                         print("Couldn't get post")
                         return
