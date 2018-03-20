@@ -41,15 +41,14 @@ class DBService: NSObject {
     
     public func addWhim(withCategory category: String, title: String, description: String, location: String, duration: Int) {
         
-//        guard let currentUser = AuthUserService.manager.getCurrentUser() else {
-//            print("Error: could not get current user id, please exit the app and log back in.")
-//            return
-//        }
+        guard let currentUser = AuthUserService.manager.getCurrentUser() else {
+            print("Error: could not get current user id, please exit the app and log back in.")
+            return
+        }
         
         let ref = whimsRef.childByAutoId()
-//        let whim = Whim(id: ref.key, category: category, title: title, description: description, hostID: currentUser.uid, location: location, duration: duration)
-//let whim = Whim(id: ref.key, category: category, title: title, description: description, hostID: "testhostid", location: location, duration: duration)
-        let whim = Whim(id: ref.key, category: category, title: title, description: description, hostID: "hostiddummy", location: location, duration: duration, finalized: false, timestamp: "\(Date().timeIntervalSince1970)", whimChats: [])
+
+        let whim = Whim(id: ref.key, category: category, title: title, description: description, hostID: currentUser.uid, location: location, duration: duration, finalized: false, timestamp: "\(Date().timeIntervalSince1970)", whimChats: [])
         
         
         

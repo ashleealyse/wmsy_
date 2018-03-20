@@ -15,7 +15,7 @@ class CreateWhimTVC: UITableViewController {
     var whimCategory = ""
     var whimTitle = ""
     var whimDescription = ""
-    var whimExpirationHours = 0
+    var whimDuration = 0
     var whimLocation = "testlocation"
 
     override func viewDidLoad() {
@@ -42,7 +42,11 @@ class CreateWhimTVC: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
+    
+    private func configureNavBar() {
+        navigationItem.title = "Host a Whim"
+        
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         view.setNeedsLayout()
@@ -112,9 +116,11 @@ class CreateWhimTVC: UITableViewController {
 //        DBService.manager.addWhim(withCategory: whimEvent.category, title: whimEvent.title, description: whimEvent.description, location: whimEvent.location, duration: whimEvent.duration)
 //        print(whimEvent)
         
-        DBService.manager.addWhim(withCategory: whimCategory, title: whimTitle, description: whimDescription, location: whimLocation, duration: whimExpirationHours)
+        guard whimCategory != "", whimTitle != "", whimDescription != "", whimLocation != "", whimDuration != 0 else { print("Missing item -  Title: \(whimTitle), Description: \(whimDescription), Category: \(whimCategory), Location: \(whimLocation), Duration: \(whimDuration)"); return }
         
-        print("New Whim - Title: \(whimTitle), Description: \(whimDescription), Category: \(whimCategory), Location: \(whimLocation), Duration: \(whimExpirationHours)")
+        DBService.manager.addWhim(withCategory: whimCategory, title: whimTitle, description: whimDescription, location: whimLocation, duration: whimDuration)
+        
+        print("New Whim - Title: \(whimTitle), Description: \(whimDescription), Category: \(whimCategory), Location: \(whimLocation), Duration: \(whimDuration)")
     }
 }
 
@@ -250,7 +256,7 @@ extension CreateWhimTVC: UIPickerViewDataSource, UIPickerViewDelegate {
 //        let hour = hoursList[row]
         let hourIndex = row
         
-        whimExpirationHours = hourIndex
+        whimDuration = hourIndex
 //        switch hourIndex {
 //        case 0:
 //            print("1 hour until Whim expires")

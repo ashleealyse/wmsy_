@@ -41,8 +41,7 @@ class FeedMapVC: MenuedViewController {
     }
     
     
-    
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         feedView.tableView.reloadData()
     }
     
