@@ -30,13 +30,14 @@ extension DBService {
                 let location = whimDict["location"] as? String,
                 let duration = whimDict["duration"] as? Int,
                 let finalized = whimDict["finalized"] as? Bool,
-                let timestamp = whimDict["timestamp"] as? String,
-                let whimChats = whimDict["whimChats"] as? [Message]
+                let timestamp = whimDict["timestamp"] as? String
                     else {
                         print("Couldn't get post")
                         return
                 }
+                let whimChats = [Message]()
                 let whim = Whim(id: id, category: category, title: title, description: description, hostID: hostID, location: location, duration: duration, finalized: finalized, timestamp: timestamp, whimChats: whimChats)
+                whims.append(whim)
             }
             completion(whims.sortedByTimestamp())
         }

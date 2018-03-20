@@ -48,7 +48,8 @@ class DBService: NSObject {
         
         let ref = whimsRef.childByAutoId()
 //        let whim = Whim(id: ref.key, category: category, title: title, description: description, hostID: currentUser.uid, location: location, duration: duration)
-let whim = Whim(id: ref.key, category: category, title: title, description: description, hostID: "testhostid", location: location, duration: duration)
+//let whim = Whim(id: ref.key, category: category, title: title, description: description, hostID: "testhostid", location: location, duration: duration)
+        let whim = Whim(id: ref.key, category: category, title: title, description: description, hostID: "hostiddummy", location: location, duration: duration, finalized: false, timestamp: "\(Date().timeIntervalSince1970)", whimChats: [])
         
         
         
@@ -73,7 +74,8 @@ let whim = Whim(id: ref.key, category: category, title: title, description: desc
                       "location": whim.location,
                       "duration": whim.duration,
                       "finalized": whim.finalized,
-                      "timestamp": whim.timestamp
+                      "timestamp": whim.timestamp,
+                      "whimChat": whim.whimChats
             ]) { (error, _) in
             if let error = error {
                 print("error saving Whim: \(error.localizedDescription)")

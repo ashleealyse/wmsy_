@@ -14,8 +14,20 @@ class FeedMapVC: MenuedViewController {
     var feedView = FeedView()
     var expandedRows = Set<Int>()
     
+    var feedWhims: [Whim] = [] {
+        didSet {
+            feedWhims = feedWhims.sortedByTimestamp()
+            feedView.tableView.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        DBService.manager.getAllWhims { (onlineWhims) in
+            self.feedWhims = onlineWhims
+        }
+        
         view.addSubview(feedView)
         feedView.snp.makeConstraints { (make) in
             make.edges.equalTo(view.safeAreaLayoutGuide)
@@ -28,6 +40,11 @@ class FeedMapVC: MenuedViewController {
         configureNavBar()
     }
     
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        feedView.tableView.reloadData()
+    }
     
     // setup UIBarButtonItem
     private func configureNavBar() {
@@ -86,12 +103,18 @@ extension FeedMapVC: UITableViewDelegate {
 extension FeedMapVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return feedWhims.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WhimFeedCell", for: indexPath) as! FeedCell
+        
         cell.isExpanded = self.expandedRows.contains(indexPath.row)
+        let whim = feedWhims[indexPath.row]
+        cell.collapsedView.wmsyTitle.text = whim.title
+        cell.expandedView.wmsyTitle.text = whim.title
+        cell.expandedView.wmsyDescription.text = whim.description
+        
         
         return cell
     }

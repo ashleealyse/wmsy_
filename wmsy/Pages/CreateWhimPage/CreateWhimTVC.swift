@@ -74,7 +74,7 @@ class CreateWhimTVC: UITableViewController {
             return categoryCell
         case 1:
             let titleCell = tableView.dequeueReusableCell(withIdentifier: "TitleCell", for: indexPath) as! WhimTitleTableViewCell
-            titleCell.titleTextfield.tag = 0
+//            titleCell.titleTextfield.tag = 0
             titleCell.titleTextfield.delegate = self
             titleCell.charactersRemainingLabel.tag = 0
             return titleCell
@@ -107,10 +107,14 @@ class CreateWhimTVC: UITableViewController {
     @objc func collectInputs() {
 //        let whimEvent = Whim.init(id: "idksomeidnum", title: whimTitle, description: whimDescription, hostID: "hostid", location: whimLocation, postedTimestamp: 1234567890, visibilityDuration: whimExpirationHours, finalized: false, whimChats: <#T##[Message]#>)
         
-        let whimEvent = Whim.firstWhim
+//        let whimEvent = Whim.firstWhim
         
-        DBService.manager.addWhim(withCategory: whimEvent.category, title: whimEvent.title, description: whimEvent.description, location: whimEvent.location, duration: whimEvent.duration)
-        print(whimEvent)
+//        DBService.manager.addWhim(withCategory: whimEvent.category, title: whimEvent.title, description: whimEvent.description, location: whimEvent.location, duration: whimEvent.duration)
+//        print(whimEvent)
+        
+        DBService.manager.addWhim(withCategory: whimCategory, title: whimTitle, description: whimDescription, location: whimLocation, duration: whimExpirationHours)
+        
+        print("New Whim - Title: \(whimTitle), Description: \(whimDescription), Category: \(whimCategory), Location: \(whimLocation), Duration: \(whimExpirationHours)")
     }
 }
 
@@ -118,8 +122,8 @@ extension CreateWhimTVC: UITextFieldDelegate {
     
     func textField(_ textFieldToChange: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        switch textFieldToChange.tag {
-        case 0:
+//        switch textFieldToChange.tag {
+//        case 0:
             // Title TextField
             let characterCountLimit = 49
             let startingLength = textFieldToChange.text?.count ?? 0
@@ -132,41 +136,28 @@ extension CreateWhimTVC: UITextFieldDelegate {
             cell.charactersRemainingLabel.text = "\(newLength)/50"
             
             return newLength <= characterCountLimit
-        case 1:
-            // Description TextField
-            let characterCountLimit = 99
-            let startingLength = textFieldToChange.text?.count ?? 0
-            let lengthToAdd = string.count
-            let lengthToReplace = range.length
-            let newLength = startingLength + lengthToAdd - lengthToReplace
-            
-            let indexPath = IndexPath.init(row: 2, section: 0)
-            let cell = tableView.cellForRow(at: indexPath) as! WhimDescriptionTableViewCell
-            cell.charactersRemainingLabel.text = "\(newLength)/100"
-            
-            return newLength <= characterCountLimit
-        default:
-            let characterCountLimit = 199
-            let startingLength = textFieldToChange.text?.count ?? 0
-            let lengthToAdd = string.count
-            let lengthToReplace = range.length
-            let newLength = startingLength + lengthToAdd - lengthToReplace
-            
-            let indexPath = IndexPath.init(row: 1, section: 0)
-            let cell = tableView.cellForRow(at: indexPath) as! WhimDescriptionTableViewCell
-            cell.charactersRemainingLabel.text = "\(newLength)/200"
-            
-            return newLength <= characterCountLimit
-        }
+//        default:
+//            let characterCountLimit = 199
+//            let startingLength = textFieldToChange.text?.count ?? 0
+//            let lengthToAdd = string.count
+//            let lengthToReplace = range.length
+//            let newLength = startingLength + lengthToAdd - lengthToReplace
+//
+//            let indexPath = IndexPath.init(row: 1, section: 0)
+//            let cell = tableView.cellForRow(at: indexPath) as! WhimDescriptionTableViewCell
+//            cell.charactersRemainingLabel.text = "\(newLength)/200"
+//
+//            return newLength <= characterCountLimit
+//        }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        switch textField.tag {
-        case 0:
+//        switch textField.tag {
+//        case 0:
             whimTitle = textField.text!
-        default:
-            break
-        }
+//        default:
+//            break
+//        }
     }
 }
 
@@ -179,12 +170,21 @@ extension CreateWhimTVC: UITextViewDelegate {
         }
     }
     
+    func textViewDidChange(_ textView: UITextView) {
+        whimDescription = textView.text
+    }
+
+    
     func textViewDidEndEditing (_ textView: UITextView) {
         if textView.text.isEmpty || textView.text == "" {
             textView.textColor = .gray
             textView.text = "Describe your Whim"
+//            print("Description empty")
         }
-        whimDescription = textView.text
+//        } else {
+//            whimDescription = textView.text
+//            print("Description: \(whimDescription)")
+//        }
         textView.isScrollEnabled = false
         textView.resignFirstResponder()
     }
