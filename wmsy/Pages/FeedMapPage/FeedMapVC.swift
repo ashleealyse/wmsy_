@@ -25,7 +25,7 @@ class FeedMapVC: MenuedViewController {
         feedView.tableView.delegate = self
         feedView.tableView.rowHeight = UITableViewAutomaticDimension
         feedView.tableView.estimatedRowHeight = 90
-//        configureNavBar()
+        configureNavBar()
     }
     
     

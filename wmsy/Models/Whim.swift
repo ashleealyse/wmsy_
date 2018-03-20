@@ -42,7 +42,8 @@ struct Whim: Codable {
     
     // convenience init
     init(id: String, category: String, title: String, description: String, hostID: String, location: String, duration: Int) {
-        self.init(id: id, category: category, title: title, description: description, hostID: hostID, location: location, duration: duration)
+        self.init(id: id, category: category, title: title, description: description, hostID: hostID, location: location, duration: duration, finalized: false, timestamp: "\(Date().timeIntervalSince1970)", whimChats: [])
+        print("\(Date().timeIntervalSince1970)")
     }
     
     
