@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		812112E120609D3F002D80C2 /* AuthUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812112E020609D3F002D80C2 /* AuthUserService.swift */; };
 		811FFB5720606B5500F3312B /* CollapsedFeedCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811FFB5620606B5500F3312B /* CollapsedFeedCellView.swift */; };
 		8139A99D205C2E9F006C7058 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8139A99C205C2E9F006C7058 /* GoogleService-Info.plist */; };
 		8139A99F205C309F006C7058 /* Whim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8139A99E205C309F006C7058 /* Whim.swift */; };
@@ -83,6 +84,7 @@
 		12481557B949A7967EAD55F0 /* Pods-wmsyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wmsyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-wmsyTests/Pods-wmsyTests.release.xcconfig"; sourceTree = "<group>"; };
 		7ABB5CDA9ED0EA6DABA10A94 /* Pods_wmsyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wmsyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CEEC5ACCA9E78DD3C3881CA /* Pods_wmsy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wmsy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		812112E020609D3F002D80C2 /* AuthUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUserService.swift; sourceTree = "<group>"; };
 		811FFB5620606B5500F3312B /* CollapsedFeedCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsedFeedCellView.swift; sourceTree = "<group>"; };
 		8139A99C205C2E9F006C7058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8139A99E205C309F006C7058 /* Whim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Whim.swift; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 				81EBB58A20601939008A6CE7 /* StorageService+Image.swift */,
 				81EBB58C20601C7E008A6CE7 /* DBService+AppUser.swift */,
 				81EBB58E20601C86008A6CE7 /* DBService.swift */,
+				812112E020609D3F002D80C2 /* AuthUserService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -622,6 +625,7 @@
 			files = (
 				81EBB58D20601C7E008A6CE7 /* DBService+AppUser.swift in Sources */,
 				81BAD6A3205AF07300C7F039 /* GuestMessageCell.swift in Sources */,
+				812112E120609D3F002D80C2 /* AuthUserService.swift in Sources */,
 				81DECD2A205C93A300214866 /* MenuCollectionViewWrapper.swift in Sources */,
 				81BAD67F205AEDC800C7F039 /* MapView.swift in Sources */,
 				81DECD2E205E229E00214866 /* MenuWhimsCell.swift in Sources */,

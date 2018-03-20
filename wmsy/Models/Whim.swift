@@ -10,14 +10,41 @@ import Foundation
 
 struct Whim: Codable {
     let id: String
+    let category: String
     let title: String
     let description: String
     let hostID: String
     let location: String
-    let postedTimestamp: Int
-    let visibilityDuration: Int
+    let duration: Int
     let finalized: Bool
+    let timestamp: String
     let whimChats: [Message]
     
-    static let firstWhim = Whim(id: "nbjaeksd345", title: "First Whim", description: "Join me on my first whim", hostID: "gaefnsdk345", location: "2 Rivington Street, New York, NY", postedTimestamp: 4567898765, visibilityDuration: 56788765, finalized: false, whimChats: [Message.singleMessage])
+//    static let firstWhim = Whim(id: "nbjaeksd345", category: "Arts", title: "First Whim", description: "Join me on my first whim", hostID: "gaefnsdk345", location: "2 Rivington Street, New York, NY", duration: 56788765, finalized: false, timestamp: "456789965")
+    
+    static let firstWhim = Whim(id: "ghjkg", category: "Arts", title: "my first whime", description: "do stuff, good stuff", hostID: "huibjdw", location: "the park or something", duration: 3, finalized: false, timestamp: "456789", whimChats: [])
+    
+    
+    
+    init(id: String, category: String, title: String, description: String, hostID: String, location: String, duration: Int, finalized: Bool, timestamp: String, whimChats: [Message]) {
+        self.id = id
+        self.category =  category
+        self.title =  title
+        self.description =  description
+        self.hostID =  hostID
+        self.location =  location
+        self.duration =  duration
+        self.finalized =  finalized
+        self.timestamp =  timestamp
+        self.whimChats =  whimChats
+    }
+    
+    
+    // convenience init
+    init(id: String, category: String, title: String, description: String, hostID: String, location: String, duration: Int) {
+        self.init(id: id, category: category, title: title, description: description, hostID: hostID, location: location, duration: duration, finalized: false, timestamp: "\(Date().timeIntervalSince1970)", whimChats: [])
+        print("\(Date().timeIntervalSince1970)")
+    }
+    
+    
 }
