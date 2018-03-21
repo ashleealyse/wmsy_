@@ -8,10 +8,12 @@
 
 import UIKit
 import SnapKit
+import GoogleMaps
 
 class FeedMapVC: MenuedViewController {
     
     var feedView = FeedView()
+    var mapView = MapView()
     var expandedRows = Set<Int>()
     
     var feedWhims: [Whim] = [] {
@@ -21,6 +23,12 @@ class FeedMapVC: MenuedViewController {
         }
     }
     
+ 
+    
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,15 +36,33 @@ class FeedMapVC: MenuedViewController {
             self.feedWhims = onlineWhims
         }
         
-        view.addSubview(feedView)
-        feedView.snp.makeConstraints { (make) in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
-        }
-        feedView.tableView.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
-        feedView.tableView.dataSource = self
-        feedView.tableView.delegate = self
-        feedView.tableView.rowHeight = UITableViewAutomaticDimension
-        feedView.tableView.estimatedRowHeight = 90
+//        view.addSubview(feedView)
+        view.addSubview(mapView)
+        mapView.locationManager.delegate = self
+        mapView.mapView.delegate = self
+        let mylocation = mapView.mapView.myLocation
+        mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
+                                                          longitude: (mylocation?.coordinate.longitude)!,
+                                                          zoom: mapView.zoomLevel)
+        mapView.mapView.settings.myLocationButton = true
+        mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//        feedView.snp.makeConstraints { (make) in
+//            make.edges.equalTo(view.safeAreaLayoutGuide)
+//        }
+//        feedView.tableView.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
+//        feedView.tableView.dataSource = self
+//        feedView.tableView.delegate = self
+//        feedView.tableView.rowHeight = UITableViewAutomaticDimension
+//        feedView.tableView.estimatedRowHeight = 90
         configureNavBar()
     }
     
@@ -122,4 +148,63 @@ extension FeedMapVC: UITableViewDataSource {
         // path for the category image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
         return cell
     }
+}
+
+extension FeedMapVC: CLLocationManagerDelegate{
+    
+    
+    // Handle incoming location events.
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location: CLLocation = locations.last!
+        print("Location: \(location)")
+        
+//        let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
+//                                              longitude: location.coordinate.longitude,
+//                                              zoom: mapView.zoomLevel)
+//
+//        if mapView.isHidden {
+//            mapView.isHidden = false
+//            self.mapView.mapView.camera = camera
+//        } else {
+//            self.mapView.mapView.animate(to: camera)
+//        }
+        
+    }
+    
+    // Handle authorization for the location manager.
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .restricted:
+            print("Location access was restricted.")
+        case .denied:
+            print("User denied access to location.")
+            // Display the map using the default location.
+            mapView.isHidden = false
+        case .notDetermined:
+            print("Location status not determined.")
+        case .authorizedAlways: fallthrough
+        case .authorizedWhenInUse:
+            print("Location status is OK.")
+        }
+    }
+    
+    // Handle location manager errors.
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        mapView.locationManager.stopUpdatingLocation()
+        print("Error: \(error)")
+    }
+    
+}
+
+extension FeedMapVC: GMSMapViewDelegate{
+    
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D){
+        print("You tapped at \(coordinate.latitude), \(coordinate.longitude)")
+        self.mapView.mapView.clear() // clearing Pin before adding new
+        let marker = GMSMarker(position: coordinate)
+        marker.map = self.mapView.mapView
+    }
+    
+    
+    
 }
