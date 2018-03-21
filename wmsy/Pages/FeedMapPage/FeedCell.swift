@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class FeedCell: UITableViewCell {
 
     var isExpanded = false {
