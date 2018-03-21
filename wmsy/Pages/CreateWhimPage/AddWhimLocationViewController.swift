@@ -9,8 +9,14 @@
 import UIKit
 import SnapKit
 
+protocol setAddressDelegate: class {
+    func setAddress(atAddress: String)
+}
+
 class AddWhimLocationViewController: UIViewController {
 
+    weak var delegate: setAddressDelegate?
+    
     var addWhimLocationView = AddWhimLocationView()
     var selectedLocation: String = "" {
         didSet {
@@ -36,9 +42,13 @@ class AddWhimLocationViewController: UIViewController {
     }
     
     @objc func selectLocation() {
-        selectedLocation = "test location"
+        // replace this with the pin point location from map
+        selectedLocation = "123 Qwerty St"
+        
+        
         print("Location Selected: \(selectedLocation)")
         
+        delegate?.setAddress(atAddress: selectedLocation)
         // take the selectedLocation and bring it to the CreateWhimTVC
         navigationController?.popViewController(animated: true)
     }
