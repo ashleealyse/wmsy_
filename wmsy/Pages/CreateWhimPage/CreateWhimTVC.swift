@@ -8,7 +8,11 @@
 
 import UIKit
 
-class CreateWhimTVC: UITableViewController {
+class CreateWhimTVC: UITableViewController, setAddressDelegate {
+    func setAddress(atAddress: String) {
+        self.whimLocation = atAddress
+    }
+    
     
     let categoryList = categoryTuples
     let hoursList = hoursOfTwentyFour
@@ -17,7 +21,7 @@ class CreateWhimTVC: UITableViewController {
     var whimDescription = ""
     var whimDuration = 0
     var whimApproxLocation = "textApproxLocation"
-    var whimLocation = "testLocation"
+    var whimLocation = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,6 +122,7 @@ class CreateWhimTVC: UITableViewController {
     @objc func selectLocation() {
         let addWhimVC = AddWhimLocationViewController()
         navigationController?.pushViewController(addWhimVC, animated: true)
+        addWhimVC.delegate = self
         print("open modal map to select a pin location for private address")
     }
     
