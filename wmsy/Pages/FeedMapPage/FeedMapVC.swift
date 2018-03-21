@@ -110,11 +110,16 @@ extension FeedMapVC: UITableViewDataSource {
         
         cell.isExpanded = self.expandedRows.contains(indexPath.row)
         let whim = feedWhims[indexPath.row]
+        
         cell.collapsedView.wmsyTitle.text = whim.title
+//        cell.collapsedView.userImage.image =
+        // path for the category image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
+        
+        
         cell.expandedView.wmsyTitle.text = whim.title
         cell.expandedView.wmsyDescription.text = whim.description
-        
-        
+//        cell.expandedView.userImage.image =
+        // path for the category image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
         return cell
     }
 }

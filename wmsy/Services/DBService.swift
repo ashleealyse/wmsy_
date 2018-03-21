@@ -39,7 +39,7 @@ class DBService: NSObject {
     
     // Create a Whim by current user
     
-    public func addWhim(withCategory category: String, title: String, description: String, location: String, duration: Int) {
+    public func addWhim(withCategory category: String, title: String, description: String, approxLocation: String, location: String, duration: Int) {
         
         guard let currentUser = AuthUserService.manager.getCurrentUser() else {
             print("Error: could not get current user id, please exit the app and log back in.")
@@ -47,21 +47,19 @@ class DBService: NSObject {
         }
         
         let ref = whimsRef.childByAutoId()
+        
+        let now = Date()
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone.current
+        formatter.timeStyle = .long
+        formatter.dateStyle = .long
+        let dateString = formatter.string(from: now)
 
-        let whim = Whim(id: ref.key, category: category, title: title, description: description, hostID: currentUser.uid, location: location, duration: duration, finalized: false, timestamp: "\(Date().timeIntervalSince1970)", whimChats: [])
+        let expiration = now.addingTimeInterval(TimeInterval(duration * 3600))
+        let expirationString = formatter.string(from: expiration)
         
         
-        
-        
-        
-        
-        
-        /// REPLACE CURRENT USER UID WITH FACEBOOK ID WHEN AVAILABLE
-        /// create a whim button crashes.
-        
-        
-        
-        
+        let whim = Whim(id: ref.key, category: category, title: title, description: description, hostID: currentUser.uid, approxLocation: approxLocation, location: location, duration: duration, expiration: expirationString, finalized: false, timestamp: dateString, whimChats: [])
         
         
         
@@ -70,8 +68,10 @@ class DBService: NSObject {
                       "title": whim.title,
                       "description": whim.description,
                       "hostID": whim.hostID,
+                      "approxLocation": whim.approxLocation,
                       "location": whim.location,
                       "duration": whim.duration,
+                      "expiration": whim.expiration,
                       "finalized": whim.finalized,
                       "timestamp": whim.timestamp,
                       "whimChat": whim.whimChats
@@ -82,11 +82,9 @@ class DBService: NSObject {
                 print("new Whim added to database!")
             }
         }
-    
     }
-    
-    
 }
+
 
 
 
