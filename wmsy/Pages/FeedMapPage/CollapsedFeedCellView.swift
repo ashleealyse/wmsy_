@@ -21,6 +21,7 @@ class CollapsedFeedCellView: UIView {
     lazy var wmsyTitle: UILabel = {
         let wl = UILabel()
         wl.text = "WMSY Post Title"
+        wl.numberOfLines = 0
         return wl
     }()
     

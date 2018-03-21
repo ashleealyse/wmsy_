@@ -21,6 +21,7 @@ class ExpandedFeedCellView: UIView {
     lazy var wmsyTitle: UILabel = {
         let wl = UILabel()
         wl.text = "WMSY Post Title"
+        wl.numberOfLines = 0
         return wl
     }()
     
@@ -98,7 +99,7 @@ class ExpandedFeedCellView: UIView {
             make.leading.equalTo(safeAreaLayoutGuide).offset(5)
             make.trailing.equalTo(safeAreaLayoutGuide).offset(-5)
             make.bottom.equalTo(showOnMapButton.snp.top).offset(-5)
-            make.height.equalTo(self).multipliedBy(0.2)
+            make.height.equalTo(self).multipliedBy(0.3)
         }
     }
     
