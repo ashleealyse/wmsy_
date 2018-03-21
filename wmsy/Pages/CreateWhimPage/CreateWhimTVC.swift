@@ -98,8 +98,10 @@ class CreateWhimTVC: UITableViewController {
             return expirationCell
         case 4:
             let locationCell = tableView.dequeueReusableCell(withIdentifier: "LocationCell", for: indexPath) as! WhimLocationTableViewCell
+
             locationCell.selectLocationButton.addTarget(self, action: #selector(selectLocation), for: .touchUpInside)
 //            whimLocation = locationCell.addressLabel.text!
+//            whimLocation = // label.text of AddWhimeLocationVC
             
             
             return locationCell
@@ -114,6 +116,8 @@ class CreateWhimTVC: UITableViewController {
         }
     }
     @objc func selectLocation() {
+        let addWhimVC = AddWhimLocationViewController()
+        navigationController?.pushViewController(addWhimVC, animated: true)
         print("open modal map to select a pin location for private address")
     }
     
