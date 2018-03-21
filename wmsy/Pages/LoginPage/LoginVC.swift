@@ -79,7 +79,8 @@ extension LoginVC: loginViewDelegate {
                         let cred = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
                         Auth.auth().signIn(with: cred, completion: { (user, error) in
                             let userName = response.name
-                            let userID = response.id
+//                            let userID = response.id
+                            let userID = user?.uid  
                             let profilePictureUrl = URL(string: response.profilePictureUrl!)
                             let testImageView = UIImageView()
                             testImageView.kf.setImage(with: profilePictureUrl, placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
