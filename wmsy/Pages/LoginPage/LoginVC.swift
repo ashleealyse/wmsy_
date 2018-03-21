@@ -41,7 +41,7 @@ struct MyProfileRequest: GraphRequestProtocol {
         }
     }
     var graphPath = "/me"
-    var parameters: [String : Any]? = ["fields": "id, name, picture"]
+    var parameters: [String : Any]? = ["fields": "id, name, picture.type(large)"]
     var accessToken = AccessToken.current
     var httpMethod: GraphRequestHTTPMethod = .GET
     var apiVersion: GraphAPIVersion = .defaultVersion
@@ -86,9 +86,10 @@ extension LoginVC: loginViewDelegate {
                                 let newUser = AppUser(name: userName!, photoID: "", age: "", userID: userID!, bio: "", badge: false, flags: 0)
                                 DBService.manager.addAppUser(newUser, image: image!)
                             })
-                            let vc = FeedMapVC()
-                            let nav = UINavigationController(rootViewController: vc)
-                            self.present(nav, animated: true, completion: nil)
+                            (self.tabBarController as? MainTabBarVC)?.animateTo(page: .feedAndMap, fromViewController: self)
+//                            let vc = FeedMapVC()
+//                            let nav = UINavigationController(rootViewController: vc)
+//                            self.present(nav, animated: true, completion: nil)
                         })
                     case .failed(let error):
                         print("Custom Graph Request Failed: \(error)")

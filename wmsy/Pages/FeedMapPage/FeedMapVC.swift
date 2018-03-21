@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SnapKit
 
-class FeedMapVC: UIViewController {
+class FeedMapVC: MenuedViewController {
     
     var feedView = FeedView()
     var expandedRows = Set<Int>()
@@ -16,6 +17,9 @@ class FeedMapVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(feedView)
+        feedView.snp.makeConstraints { (make) in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
         feedView.tableView.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
         feedView.tableView.dataSource = self
         feedView.tableView.delegate = self
