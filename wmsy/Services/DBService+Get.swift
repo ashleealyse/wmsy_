@@ -30,6 +30,7 @@ extension DBService {
                 let approxLocation = whimDict["approxLocation"] as? String,
                 let location = whimDict["location"] as? String,
                 let duration = whimDict["duration"] as? Int,
+                let expiration = whimDict["expiration"] as? String,
                 let finalized = whimDict["finalized"] as? Bool,
                 let timestamp = whimDict["timestamp"] as? String
                     else {
@@ -37,7 +38,7 @@ extension DBService {
                         return
                 }
                 let whimChats = [Message]()
-                let whim = Whim(id: id, category: category, title: title, description: description, hostID: hostID, approxLocation: approxLocation, location: location, duration: duration, finalized: finalized, timestamp: timestamp, whimChats: whimChats)
+                let whim = Whim(id: id, category: category, title: title, description: description, hostID: hostID, approxLocation: approxLocation, location: location, duration: duration, expiration: expiration, finalized: finalized, timestamp: timestamp, whimChats: whimChats)
                 whims.append(whim)
             }
             completion(whims.sortedByTimestamp())

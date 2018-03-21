@@ -47,8 +47,21 @@ class DBService: NSObject {
         }
         
         let ref = whimsRef.childByAutoId()
+        
+        let now = Date()
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone.current
+        formatter.timeStyle = .long
+        formatter.dateStyle = .long
+        let dateString = formatter.string(from: now)
 
-        let whim = Whim(id: ref.key, category: category, title: title, description: description, hostID: currentUser.uid, approxLocation: approxLocation, location: location, duration: duration, finalized: false, timestamp: "\(Date().timeIntervalSince1970)", whimChats: [])
+        let expiration = now.addingTimeInterval(TimeInterval(duration * 3600))
+        let expirationString = formatter.string(from: expiration)
+        
+        
+        let whim = Whim(id: ref.key, category: category, title: title, description: description, hostID: currentUser.uid, approxLocation: approxLocation, location: location, duration: duration, expiration: expirationString, finalized: false, timestamp: dateString, whimChats: [])
+        
+        
         
         ref.setValue(["id": whim.id,
                       "category": whim.category,
@@ -58,6 +71,7 @@ class DBService: NSObject {
                       "approxLocation": whim.approxLocation,
                       "location": whim.location,
                       "duration": whim.duration,
+                      "expiration": whim.expiration,
                       "finalized": whim.finalized,
                       "timestamp": whim.timestamp,
                       "whimChat": whim.whimChats
@@ -70,6 +84,7 @@ class DBService: NSObject {
         }
     }
 }
+
 
 
 
