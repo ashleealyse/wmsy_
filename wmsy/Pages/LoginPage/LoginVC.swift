@@ -11,6 +11,7 @@ import FacebookLogin
 import FacebookCore
 import Kingfisher
 import FirebaseAuth
+import SVProgressHUD
 
 struct MyProfileRequest: GraphRequestProtocol {
     struct Response: GraphResponseProtocol {
@@ -73,6 +74,7 @@ extension LoginVC: loginViewDelegate {
             case .cancelled:
                 print("User cancelled login.")
             case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+                SVProgressHUD.show()
                 self.connection.add(MyProfileRequest()) { response, result in
                     switch result {
                     case .success(let response):

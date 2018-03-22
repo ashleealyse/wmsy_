@@ -11,6 +11,7 @@ import UIKit
 class CreateWhimTVC: UITableViewController, setAddressDelegate {
     func setAddress(atAddress: String) {
         self.whimLocation = atAddress
+        
     }
     
     
@@ -104,6 +105,7 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
             let locationCell = tableView.dequeueReusableCell(withIdentifier: "LocationCell", for: indexPath) as! WhimLocationTableViewCell
 
             locationCell.selectLocationButton.addTarget(self, action: #selector(selectLocation), for: .touchUpInside)
+            locationCell.addressLabel.text = "Meeting Location: " + whimLocation
 //            whimLocation = locationCell.addressLabel.text!
 //            whimLocation = // label.text of AddWhimeLocationVC
             

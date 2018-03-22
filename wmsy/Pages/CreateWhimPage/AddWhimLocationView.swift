@@ -10,15 +10,19 @@ import UIKit
 import SnapKit
 import GoogleMaps
 
-class AddWhimLocationView: UIView {
 
+
+class AddWhimLocationView: UIView {
+    var locationManager = CLLocationManager()
+    var addWhimMap: GMSMapView!
+
+    
     // map object
-    lazy var addWhimMap: GMSMapView = {
-        
-       let map = GMSMapView.map(withFrame: <#T##CGRect#>, camera: <#T##GMSCameraPosition#>)
-        imageview.backgroundColor = .yellow
-        return imageview
-    }()
+//    lazy var addWhimMap: GMSMapView = {
+//        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
+//        var map = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+//        return map
+//    }()
     
     // current pin location label
     lazy var locationLabel: UILabel = {
@@ -55,6 +59,13 @@ class AddWhimLocationView: UIView {
     
     private func commonInit() {
         backgroundColor = .white
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.distanceFilter = 50
+        locationManager.startUpdatingLocation()
+        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
+        addWhimMap = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+        addWhimMap.isMyLocationEnabled = true
         setupViews()
         setupConstraints()
     }
