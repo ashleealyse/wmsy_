@@ -12,6 +12,7 @@ import GoogleMaps
 
 protocol setAddressDelegate: class {
     func setAddress(atAddress: String)
+    func setCoordinates(long: String,lat: String)
 }
 
 class AddWhimLocationViewController: UIViewController {
@@ -23,6 +24,8 @@ class AddWhimLocationViewController: UIViewController {
             addWhimLocationView.locationLabel.text = "Selected Address: \(selectedLocation)"
         }
     }
+    var lat = ""
+    var long = ""
     
     override func viewDidAppear(_ animated: Bool) {
         print("test")
@@ -59,6 +62,7 @@ class AddWhimLocationViewController: UIViewController {
         print("Location Selected: \(selectedLocation)")
         
         delegate?.setAddress(atAddress: selectedLocation)
+        delegate?.setCoordinates(long: long, lat: lat)
         // take the selectedLocation and bring it to the CreateWhimTVC
         navigationController?.popViewController(animated: true)
     }
@@ -93,6 +97,8 @@ extension AddWhimLocationViewController: GMSMapViewDelegate{
 
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D){
         print("You tapped at \(coordinate.latitude), \(coordinate.longitude)")
+        self.long = coordinate.longitude.description
+        self.lat = coordinate.latitude.description
         let geo = GMSGeocoder()
         geo.reverseGeocodeCoordinate(coordinate) { (response, error) in
             print(response?.firstResult()?.description)

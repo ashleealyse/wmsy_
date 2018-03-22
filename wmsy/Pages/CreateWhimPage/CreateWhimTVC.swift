@@ -13,6 +13,10 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
         self.whimLocation = atAddress
         
     }
+    func setCoordinates(long: String, lat: String) {
+        self.whimLong = long
+        self.whimLat = lat
+    }
     
     
     let categoryList = categoryTuples
@@ -21,8 +25,9 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
     var whimTitle = ""
     var whimDescription = ""
     var whimDuration = 0
-    var whimApproxLocation = "textApproxLocation"
     var whimLocation = ""
+    var whimLong = ""
+    var whimLat = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,16 +142,16 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
 //        DBService.manager.addWhim(withCategory: whimEvent.category, title: whimEvent.title, description: whimEvent.description, location: whimEvent.location, duration: whimEvent.duration)
 //        print(whimEvent)
         
-        if whimCategory != "", whimTitle != "", whimDescription != "", whimLocation != "", whimDuration != 0 {
-            DBService.manager.addWhim(withCategory: whimCategory, title: whimTitle, description: whimDescription, approxLocation: whimApproxLocation, location: whimLocation, duration: whimDuration)
+        if whimCategory != "", whimTitle != "", whimDescription != "", whimLocation != "", whimLong != "", whimLat != "", whimDuration != 0 {
+            DBService.manager.addWhim(withCategory: whimCategory, title: whimTitle, description: whimDescription, location: whimLocation, long: whimLong, lat: whimLat, duration: whimDuration)
             
-            print("New Whim - Title: \(whimTitle), Description: \(whimDescription), Category: \(whimCategory), ApproxLocation: \(whimApproxLocation), Location: \(whimLocation), Duration: \(whimDuration)")
+            print("New Whim - Title: \(whimTitle), Description: \(whimDescription), Category: \(whimCategory), Location: \(whimLocation), Long: \(whimLong), Lat: \(whimLat) Duration: \(whimDuration)")
             
           
             self.navigationController?.popViewController(animated: true)
             
         } else {
-            print("Missing item -  Title: \(whimTitle), Description: \(whimDescription), Category: \(whimCategory), ApproxLocation: \(whimApproxLocation), Location: \(whimLocation), Duration: \(whimDuration)")
+            print("Missing item -  Title: \(whimTitle), Description: \(whimDescription), Category: \(whimCategory), Location: \(whimLocation), Duration: \(whimDuration)")
             
             let missingFieldAlert = Alert.create(withTitle: "Missing a Field", andMessage: "OK", withPreferredStyle: .alert)
             Alert.addAction(withTitle: "Cancel", style: .cancel, andHandler: nil, to: missingFieldAlert)
