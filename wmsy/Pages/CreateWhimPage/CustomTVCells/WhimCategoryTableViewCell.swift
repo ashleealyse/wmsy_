@@ -72,7 +72,7 @@ class WhimCategoryTableViewCell: UITableViewCell {
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
             make.bottom.equalTo(contentView.snp.bottom).offset(-5)
-            make.height.equalTo(categoryLabel.snp.height).multipliedBy(2.1)
+            make.height.equalTo(categoryLabel.snp.height).multipliedBy(3)
         }
     }
 

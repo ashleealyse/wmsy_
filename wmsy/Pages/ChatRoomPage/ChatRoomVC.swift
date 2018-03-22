@@ -35,17 +35,32 @@ class ChatRoomVC: MenuedViewController {
         hostChatView.interestedGuestsCV.dataSource = self
         hostChatView.interestedGuestsCV.delegate = self
         
+        hostChatView.sendChatButton.addTarget(self, action: #selector(sendChatMessage), for: .touchUpInside)
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        hostChatView.goOnAWhimButton.addTarget(self, action: #selector(goOnAWhim), for: .touchUpInside)
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     private func configureNavBar() {
-                navigationItem.title = "Chat Room"
+        navigationItem.title = "Chat Room"
+        
+        let topRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "leaveChatIcon"), style: .plain, target: self, action: #selector(leaveChat))
+        navigationItem.rightBarButtonItem = topRightBarItem
     }
+    
+    @objc func leaveChat() {
+        print("current user leaves chat. If Host, delete Chat. If Guest, remove from Whim")
+    }
+    
+    @objc func sendChatMessage() {
+        print("send chat message button pressed")
+    }
+    
+    
+    @objc func goOnAWhim() {
+        print("Go on a whim: Lock guest list, remove from Feed, expose location")
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
