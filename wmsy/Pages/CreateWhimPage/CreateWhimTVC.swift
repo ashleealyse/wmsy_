@@ -8,7 +8,11 @@
 
 import UIKit
 
-class CreateWhimTVC: UITableViewController {
+class CreateWhimTVC: UITableViewController, setAddressDelegate {
+    func setAddress(atAddress: String) {
+        self.whimLocation = atAddress
+    }
+    
     
     let categoryList = categoryTuples
     let hoursList = hoursOfTwentyFour
@@ -17,7 +21,7 @@ class CreateWhimTVC: UITableViewController {
     var whimDescription = ""
     var whimDuration = 0
     var whimApproxLocation = "textApproxLocation"
-    var whimLocation = "testLocation"
+    var whimLocation = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,8 +102,10 @@ class CreateWhimTVC: UITableViewController {
             return expirationCell
         case 4:
             let locationCell = tableView.dequeueReusableCell(withIdentifier: "LocationCell", for: indexPath) as! WhimLocationTableViewCell
+
             locationCell.selectLocationButton.addTarget(self, action: #selector(selectLocation), for: .touchUpInside)
 //            whimLocation = locationCell.addressLabel.text!
+//            whimLocation = // label.text of AddWhimeLocationVC
             
             
             return locationCell
@@ -114,6 +120,9 @@ class CreateWhimTVC: UITableViewController {
         }
     }
     @objc func selectLocation() {
+        let addWhimVC = AddWhimLocationViewController()
+        navigationController?.pushViewController(addWhimVC, animated: true)
+        addWhimVC.delegate = self
         print("open modal map to select a pin location for private address")
     }
     
@@ -244,7 +253,7 @@ extension CreateWhimTVC: UICollectionViewDelegate {
 
 extension CreateWhimTVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return categoryList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

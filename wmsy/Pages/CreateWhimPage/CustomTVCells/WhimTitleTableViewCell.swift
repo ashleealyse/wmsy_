@@ -25,7 +25,7 @@ class WhimTitleTableViewCell: UITableViewCell {
     // Dynamic label with remaining characters out of 100
     lazy var charactersRemainingLabel: UILabel = {
         let lb = UILabel()
-        lb.backgroundColor = Stylesheet.Colors.WMSYAshGrey
+        lb.backgroundColor = Stylesheet.Colors.WMSYShadowBlue
         lb.textAlignment = .right
         lb.text = "0/50"
         lb.font = UIFont.systemFont(ofSize: 15)
