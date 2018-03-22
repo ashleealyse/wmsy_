@@ -10,19 +10,26 @@ import UIKit
 
 class CollapsedFeedCellView: UIView {
 
-    lazy var userImage: UIImageView = {
-        let image = UIImageView()
-        image.image = #imageLiteral(resourceName: "wmsyCategoryIcon")
-        image.layer.borderWidth = 1.0
-        image.clipsToBounds = true
-        return image
+    lazy var userImage: UIButton = {
+       let imageButton = UIButton()
+        imageButton.imageView?.contentMode = .scaleToFill
+        imageButton.setImage(#imageLiteral(resourceName: "Jane"), for: .normal)
+        imageButton.layer.borderWidth = 1.0
+        imageButton.clipsToBounds = true
+        return imageButton
     }()
+    
     
     lazy var wmsyTitle: UILabel = {
         let wl = UILabel()
-        wl.text = "WMSY Post Title"
+        wl.font = UIFont(name: "HelveticaNeue-Light", size: 15)
         wl.numberOfLines = 0
         return wl
+    }()
+    
+    lazy var categoryImage: UIImageView = {
+       let catImg = UIImageView()
+        return catImg
     }()
     
     override init(frame: CGRect) {
@@ -36,12 +43,12 @@ class CollapsedFeedCellView: UIView {
     }
 
     private func commonInit() {
-        backgroundColor = .white
         setUpViews()
     }
     
     private func setUpViews() {
         setUpUserImage()
+        setUpCategoryImage()
         setUpWmsyTitle()
     }
     
@@ -52,15 +59,26 @@ class CollapsedFeedCellView: UIView {
             make.leading.equalTo(self).offset(5)
             make.bottom.equalTo(self).offset(-5)
             make.height.equalTo(userImage.snp.width)
+            make.width.equalTo(self).multipliedBy(0.1)
         }
     }
     
     func setUpWmsyTitle() {
       addSubview(wmsyTitle)
         wmsyTitle.snp.makeConstraints { (make) in
-            make.top.equalTo(self).offset(25)
             make.leading.equalTo(userImage.snp.trailing).offset(5)
+            make.trailing.equalTo(categoryImage.snp.leading).offset(-5)
+            make.centerY.equalTo(userImage.snp.centerY)
+        }
+    }
+    
+    func setUpCategoryImage() {
+        addSubview(categoryImage)
+        categoryImage.snp.makeConstraints { (make) in
+            make.top.equalTo(self).offset(5)
             make.trailing.equalTo(self).offset(-5)
+            make.height.equalTo(self).multipliedBy(0.5)
+            make.width.equalTo(self.snp.height).multipliedBy(0.5)
         }
     }
     

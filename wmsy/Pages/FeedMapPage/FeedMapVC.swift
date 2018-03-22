@@ -37,7 +37,10 @@ class FeedMapVC: MenuedViewController {
         feedView.tableView.delegate = self
         feedView.tableView.rowHeight = UITableViewAutomaticDimension
         feedView.tableView.estimatedRowHeight = 90
+        feedView.tableView.separatorStyle = .none
+
         configureNavBar()
+        
     }
     
     
@@ -49,15 +52,14 @@ class FeedMapVC: MenuedViewController {
     private func configureNavBar() {
         //        navigationItem.title = "wmsy"
         // top left bar button item to Host a Whim (popsicles with a + symbol?)
-        let topLeftBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "wmsyCategoryIcon"), style: .plain, target: self, action: #selector(hostAWhim))
+        let topLeftBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addIcon"), style: .plain, target: self, action: #selector(hostAWhim))
         navigationItem.leftBarButtonItem = topLeftBarItem
-        
+        navigationItem.title = "wmsy"
     }
+    
     @objc func hostAWhim() {
         navigationController?.pushViewController(CreateWhimTVC(), animated: true)
     }
-    
-    
     
     
     override func didReceiveMemoryWarning() {
@@ -110,14 +112,16 @@ extension FeedMapVC: UITableViewDataSource {
         
         cell.isExpanded = self.expandedRows.contains(indexPath.row)
         let whim = feedWhims[indexPath.row]
-        
         cell.collapsedView.wmsyTitle.text = whim.title
+        cell.collapsedView.categoryImage.image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
 //        cell.collapsedView.userImage.image =
         // path for the category image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
         
         
         cell.expandedView.wmsyTitle.text = whim.title
-        cell.expandedView.wmsyDescription.text = whim.description
+        cell.expandedView.categoryImage.image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
+//        cell.expandedView.wmsyDescription.text = whim.description
+        
 //        cell.expandedView.userImage.image =
         // path for the category image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
         return cell
