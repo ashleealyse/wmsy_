@@ -13,6 +13,7 @@
 		812112E52062C856002D80C2 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812112E42062C856002D80C2 /* Alert.swift */; };
 		812112E72062F660002D80C2 /* AddWhimLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812112E62062F660002D80C2 /* AddWhimLocationViewController.swift */; };
 		812112E92062F7D3002D80C2 /* AddWhimLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812112E82062F7D3002D80C2 /* AddWhimLocationView.swift */; };
+		812112EB20632889002D80C2 /* ChatGuestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812112EA20632889002D80C2 /* ChatGuestCollectionViewCell.swift */; };
 		8139A99D205C2E9F006C7058 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8139A99C205C2E9F006C7058 /* GoogleService-Info.plist */; };
 		8139A99F205C309F006C7058 /* Whim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8139A99E205C309F006C7058 /* Whim.swift */; };
 		8139A9A2205C30D7006C7058 /* CreateWhimTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8139A9A1205C30D7006C7058 /* CreateWhimTVC.swift */; };
@@ -94,6 +95,7 @@
 		812112E42062C856002D80C2 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		812112E62062F660002D80C2 /* AddWhimLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWhimLocationViewController.swift; sourceTree = "<group>"; };
 		812112E82062F7D3002D80C2 /* AddWhimLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWhimLocationView.swift; sourceTree = "<group>"; };
+		812112EA20632889002D80C2 /* ChatGuestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGuestCollectionViewCell.swift; sourceTree = "<group>"; };
 		8139A99C205C2E9F006C7058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8139A99E205C309F006C7058 /* Whim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Whim.swift; sourceTree = "<group>"; };
 		8139A9A1205C30D7006C7058 /* CreateWhimTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWhimTVC.swift; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 			children = (
 				81BAD69A205AF03600C7F039 /* ChatRoomVC.swift */,
 				81BAD69C205AF04600C7F039 /* HostChatView.swift */,
+				812112EA20632889002D80C2 /* ChatGuestCollectionViewCell.swift */,
 				81BAD69E205AF05500C7F039 /* GuestChatView.swift */,
 				81BAD6A0205AF06900C7F039 /* HostMessageCell.swift */,
 				81BAD6A2205AF07300C7F039 /* GuestMessageCell.swift */,
@@ -692,6 +695,7 @@
 				81BAD6A9205AF0AA00C7F039 /* GuestProfileVC.swift in Sources */,
 				812112E92062F7D3002D80C2 /* AddWhimLocationView.swift in Sources */,
 				81BAD68B205AEEC900C7F039 /* Interest.swift in Sources */,
+				812112EB20632889002D80C2 /* ChatGuestCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -51,13 +51,18 @@ class FeedMapVC: MenuedViewController {
         // top left bar button item to Host a Whim (popsicles with a + symbol?)
         let topLeftBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "wmsyCategoryIcon"), style: .plain, target: self, action: #selector(hostAWhim))
         navigationItem.leftBarButtonItem = topLeftBarItem
+
+        let topRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "wmsyCategoryIcon"), style: .plain, target: self, action: #selector(hostAChat))
+        navigationItem.rightBarButtonItem = topRightBarItem
         
     }
     @objc func hostAWhim() {
         navigationController?.pushViewController(CreateWhimTVC(), animated: true)
     }
     
-    
+    @objc func hostAChat() {
+        navigationController?.pushViewController(ChatRoomVC(), animated: true)
+    }
     
     
     override func didReceiveMemoryWarning() {
