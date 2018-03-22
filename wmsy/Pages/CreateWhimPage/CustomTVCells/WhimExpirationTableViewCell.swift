@@ -14,7 +14,7 @@ class WhimExpirationTableViewCell: UITableViewCell {
     // Label instructions for Pickerview: "Whim will expire in __ hours"
     lazy var expirationLabel: UILabel = {
         let lb = UILabel()
-        lb.backgroundColor = Stylesheet.Colors.WMSYAshGrey
+        lb.backgroundColor = Stylesheet.Colors.WMSYShadowBlue
         lb.textAlignment = .center
         lb.text = "hour(s) until Whim expires"
         lb.font = UIFont.systemFont(ofSize: 15)

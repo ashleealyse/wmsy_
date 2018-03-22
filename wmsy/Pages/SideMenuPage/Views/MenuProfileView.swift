@@ -90,8 +90,8 @@ class MenuProfileView: UICollectionViewCell {
         }
     }
     private func placeholderTesting() {
-        let bgColor = Stylesheet.Colors.WMSYOuterSpace
-        let fontColor = Stylesheet.Colors.WMSYIsabelline
+        let bgColor = Stylesheet.Colors.WMSYDeepViolet
+        let fontColor = Stylesheet.Colors.WMSYPastelBlue
         badgeView.backgroundColor = bgColor
         profileImageView.backgroundColor = bgColor
         ageLabel.backgroundColor = bgColor
