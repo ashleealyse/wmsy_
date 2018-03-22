@@ -26,7 +26,7 @@ class FeedView: UIView {
         commonInit()
     }
     private func commonInit() {
-        backgroundColor = .white
+        backgroundColor = UIColor(displayP3Red: 165, green: 138, blue: 189, alpha: 0.50)
         setUpTableView()
     }
     private func setUpTableView() {
