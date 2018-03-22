@@ -42,7 +42,7 @@ class HostChatView: UIView {
     // Hidden Profile/Invite Cell that exposes when you Select an Interested Guest
     lazy var hiddenBio: UIView = {
        let view = UIView()
-        view.backgroundColor = Stylesheet.Colors.WMSYIsabelline
+        view.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
         return view
     }()
     
@@ -56,7 +56,7 @@ class HostChatView: UIView {
     // Chat Message TextField
     lazy var chatTextField: UITextField = {
        let tf = UITextField()
-        tf.backgroundColor = Stylesheet.Colors.WMSYIsabelline
+        tf.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
         tf.placeholder = "Send a message"
         return tf
     }()
@@ -64,7 +64,7 @@ class HostChatView: UIView {
     // Send Chat Message Button
     lazy var sendChatButton: UIButton = {
        let bt = UIButton()
-        bt.layer.backgroundColor = Stylesheet.Colors.WMSYIsabelline.cgColor
+        bt.layer.backgroundColor = Stylesheet.Colors.WMSYPastelBlue.cgColor
         bt.setTitle("Send", for: .normal)
         return bt
     }()

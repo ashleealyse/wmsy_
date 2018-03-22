@@ -12,10 +12,10 @@ class ChatGuestCollectionViewCell: UICollectionViewCell {
     
     lazy var guestImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = Stylesheet.Colors.WMSYIsabelline
+        imageView.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-        imageView.layer.borderColor = Stylesheet.Colors.WMSYMummysTomb.cgColor
+        imageView.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
         imageView.layer.borderWidth = 0.5
         imageView.layer.cornerRadius = imageView.bounds.width / 5.0
         
@@ -37,7 +37,7 @@ class ChatGuestCollectionViewCell: UICollectionViewCell {
             if self.isSelected {
                 guestImageView.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
             } else {
-                guestImageView.backgroundColor = Stylesheet.Colors.WMSYIsabelline
+                guestImageView.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
             }
         }
     }

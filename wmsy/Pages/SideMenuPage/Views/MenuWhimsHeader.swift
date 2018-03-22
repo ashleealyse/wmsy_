@@ -22,7 +22,7 @@ class MenuWhimsHeader: UITableViewHeaderFooterView {
     }
     
     private func commonInit() {
-        contentView.backgroundColor = Stylesheet.Colors.WMSYOuterSpace
+        contentView.backgroundColor = Stylesheet.Colors.WMSYDeepViolet
         setupViews()
         placeholderTesting()
     }

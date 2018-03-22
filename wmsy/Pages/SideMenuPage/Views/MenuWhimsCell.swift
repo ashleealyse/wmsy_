@@ -38,7 +38,7 @@ class MenuWhimsCell: UITableViewCell {
     }
     
     private func setupWhimTitle() {
-        whimTitle.textColor = Stylesheet.Colors.WMSYMummysTomb
+        whimTitle.textColor = Stylesheet.Colors.WMSYKSUPurple
         contentView.addSubview(whimTitle)
         whimTitle.numberOfLines = 2
         whimTitle.snp.makeConstraints { (make) in
@@ -67,7 +67,7 @@ class MenuWhimsCell: UITableViewCell {
         // Configure the view for the selected state
         UIView.animate(withDuration: 0.4, animations: {
             if selected {
-                self.backgroundColor = Stylesheet.Colors.WMSYMummysTomb
+                self.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
             } else {
                 self.backgroundColor = .clear
             }
