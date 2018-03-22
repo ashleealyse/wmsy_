@@ -13,6 +13,7 @@ import SnapKit
 class MenuCollectionViewWrapper: UIView {
     static let pageOneIdentifier = "ProfileView"
     static let pageTwoIdentifier = "WhimsView"
+    static let pageThreeIdentifier = "ChatView"
     
     public lazy var menuPagesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -22,11 +23,13 @@ class MenuCollectionViewWrapper: UIView {
         cv.isPagingEnabled = true
         cv.register(MenuProfileView.self, forCellWithReuseIdentifier: MenuCollectionViewWrapper.pageOneIdentifier)
         cv.register(MenuWhimsView.self, forCellWithReuseIdentifier: MenuCollectionViewWrapper.pageTwoIdentifier)
+        cv.register(MenuChatView.self, forCellWithReuseIdentifier: MenuCollectionViewWrapper.pageThreeIdentifier)
         return cv
     }()
-    private var persistentMenuFooter = UIView()
-    private var leftDot = UIView()
-    private var rightDot = UIView()
+    public var dotsView = FooterTabDotsView()
+//    private var persistentMenuFooter = UIView()
+//    private var leftDot = UIView()
+//    private var rightDot = UIView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,9 +53,7 @@ class MenuCollectionViewWrapper: UIView {
     
     private func setupViews() {
         setupMenuPagesCollectionView()
-        setupPersistentMenuFooter()
-        setupLeftDot()
-        setupRightDot()
+        setupDotsView()
     }
     private func setupMenuPagesCollectionView() {
         addSubview(menuPagesCollectionView)
@@ -61,40 +62,68 @@ class MenuCollectionViewWrapper: UIView {
             make.edges.equalTo(self)
         }
     }
-    
-    private let bottomViewHeight: CGFloat = 100
-    private func setupPersistentMenuFooter() {
-        persistentMenuFooter.isUserInteractionEnabled = false
-        addSubview(persistentMenuFooter)
-        persistentMenuFooter.snp.makeConstraints { (make) in
-            make.leading.trailing.bottom.equalTo(self)
-            make.height.equalTo(bottomViewHeight)
+    private func setupDotsView() {
+        addSubview(dotsView)
+        dotsView.translatesAutoresizingMaskIntoConstraints = false
+        dotsView.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self)
+            make.bottom.equalTo(self).inset(30)
         }
     }
-    private func setupLeftDot() {
-        leftDot.clipsToBounds = true
-        leftDot.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
-        leftDot.layer.cornerRadius = (bottomViewHeight * 0.10) / 2
-        persistentMenuFooter.addSubview(leftDot)
-        leftDot.snp.makeConstraints { (make) in
-            make.centerY.equalTo(persistentMenuFooter)
-            make.height.width.equalTo(bottomViewHeight * 0.10)
-            make.centerX.equalTo(persistentMenuFooter).offset(-10)
-        }
-    }
-    private func setupRightDot() {
-        rightDot.clipsToBounds = true
-        rightDot.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
-        rightDot.layer.cornerRadius = (bottomViewHeight * 0.10) / 2
-        persistentMenuFooter.addSubview(rightDot)
-        rightDot.snp.makeConstraints { (make) in
-            make.centerY.equalTo(persistentMenuFooter)
-            make.height.width.equalTo(bottomViewHeight * 0.10)
-            make.centerX.equalTo(persistentMenuFooter).offset(10)
-        }
-    }
+//
+//
+//    private let bottomViewHeight: CGFloat = 100
+//    private func setupPersistentMenuFooter() {
+//        persistentMenuFooter.isUserInteractionEnabled = false
+//        addSubview(persistentMenuFooter)
+//        persistentMenuFooter.snp.makeConstraints { (make) in
+//            make.leading.trailing.bottom.equalTo(self)
+//            make.height.equalTo(bottomViewHeight)
+//        }
+//    }
+//    private func setupLeftDot() {
+//        leftDot.clipsToBounds = true
+//        leftDot.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
+//        leftDot.layer.cornerRadius = (bottomViewHeight * 0.10) / 2
+//        persistentMenuFooter.addSubview(leftDot)
+//        leftDot.snp.makeConstraints { (make) in
+//            make.centerY.equalTo(persistentMenuFooter)
+//            make.height.width.equalTo(bottomViewHeight * 0.10)
+//            make.centerX.equalTo(persistentMenuFooter).offset(-10)
+//        }
+//    }
+//    private func setupRightDot() {
+//        rightDot.clipsToBounds = true
+//        rightDot.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
+//        rightDot.layer.cornerRadius = (bottomViewHeight * 0.10) / 2
+//        persistentMenuFooter.addSubview(rightDot)
+//        rightDot.snp.makeConstraints { (make) in
+//            make.centerY.equalTo(persistentMenuFooter)
+//            make.height.width.equalTo(bottomViewHeight * 0.10)
+//            make.centerX.equalTo(persistentMenuFooter).offset(10)
+//        }
+//    }
     // MARK: - helper functions
-
+    
     public func layoutStuff() {
+    }
+    
+    public func currentlyOn(page: Int) {
+        switch page {
+        case 0:
+            dotsView.dotOne.backgroundColor = Stylesheet.Colors.WMSYOuterSpace
+            dotsView.dotTwo.backgroundColor = Stylesheet.Colors.WMSYAshGrey
+            dotsView.dotThree.backgroundColor = Stylesheet.Colors.WMSYAshGrey
+        case 1:
+            dotsView.dotOne.backgroundColor = Stylesheet.Colors.WMSYAshGrey
+            dotsView.dotTwo.backgroundColor = Stylesheet.Colors.WMSYOuterSpace
+            dotsView.dotThree.backgroundColor = Stylesheet.Colors.WMSYAshGrey
+        case 2:
+            dotsView.dotOne.backgroundColor = Stylesheet.Colors.WMSYAshGrey
+            dotsView.dotTwo.backgroundColor = Stylesheet.Colors.WMSYAshGrey
+            dotsView.dotThree.backgroundColor = Stylesheet.Colors.WMSYOuterSpace
+        default:
+            return
+        }
     }
 }

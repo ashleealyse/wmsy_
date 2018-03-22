@@ -111,7 +111,7 @@ class MainTabBarVC: UITabBarController {
         
         view.isUserInteractionEnabled = false
         
-        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 5, delay: 0.0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
             
             toView.center = CGPoint(x: toView.center.x - offset, y: toView.center.y)
         }) { (finished) in

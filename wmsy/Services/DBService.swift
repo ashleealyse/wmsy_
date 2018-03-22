@@ -6,8 +6,7 @@
 //  Copyright © 2018 C4Q. All rights reserved.
 //
 
-import Foundation
-import Foundation
+import UIKit
 import FirebaseDatabase
 
 
@@ -28,7 +27,7 @@ class DBService: NSObject {
     var rootRef: DatabaseReference!
     var usersRef: DatabaseReference!
     var whimsRef: DatabaseReference!
- 
+    var messagesRef: DatabaseReference!
     
     
     public func addImage(url: String, ref: DatabaseReference, id: String) {
@@ -54,7 +53,7 @@ class DBService: NSObject {
         formatter.timeStyle = .long
         formatter.dateStyle = .long
         let dateString = formatter.string(from: now)
-
+        
         let expiration = now.addingTimeInterval(TimeInterval(duration * 3600))
         let expirationString = formatter.string(from: expiration)
         

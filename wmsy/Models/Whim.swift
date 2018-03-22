@@ -8,6 +8,18 @@
 
 import Foundation
 
+extension DateFormatter {
+//    "March 21, 2018 at 3:11:50 PM EDT"
+    static let wmsyDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone.current
+        formatter.timeStyle = .long
+        formatter.dateStyle = .long
+        return formatter
+    }()
+}
+
+
 struct Whim: Codable {
     let id: String
     let category: String
@@ -20,7 +32,7 @@ struct Whim: Codable {
     let expiration: String
     let finalized: Bool
     let timestamp: String
-    let whimChats: [Message]
+    var whimChats: [Message]
     
 //    static let firstWhim = Whim(id: "nbjaeksd345", category: "Arts", title: "First Whim", description: "Join me on my first whim", hostID: "gaefnsdk345", location: "2 Rivington Street, New York, NY", duration: 56788765, finalized: false, timestamp: "456789965")
     
@@ -28,7 +40,20 @@ struct Whim: Codable {
     
     
     
-    init(id: String, category: String, title: String, description: String, hostID: String, approxLocation: String, location: String, duration: Int, expiration: String, finalized: Bool, timestamp: String, whimChats: [Message]) {
+    init(id: String,
+         category: String,
+         title: String,
+         description: String,
+         hostID: String,
+         approxLocation: String,
+         location: String,
+         duration: Int,
+         expiration: String?,
+         finalized: Bool?,
+         timestamp: String = "\(Date().timeIntervalSince1970)",
+         whimChats: [Message] = []) {
+        let now = Date()
+        let oneDayFromNow = Calendar.current.date(byAdding: .day, value: 1, to: now)
         self.id = id
         self.category =  category
         self.title =  title
@@ -37,10 +62,12 @@ struct Whim: Codable {
         self.approxLocation = approxLocation
         self.location =  location
         self.duration =  duration
-        self.expiration = expiration
-        self.finalized =  finalized
+        self.expiration = expiration ?? "\(oneDayFromNow?.timeIntervalSince1970)"
+        self.finalized =  finalized ?? false
         self.timestamp =  timestamp
         self.whimChats =  whimChats
+        let today = Date.init()
+        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today)
     }
     
     

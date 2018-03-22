@@ -18,9 +18,18 @@ struct Message: Codable {
     let whimID: String
     let messageID: String
     let senderID: String?
-    let timestamp: Int
+    let timestamp: String
     let messageType: MessageType
     let messageBody: String
     
-static let singleMessage = Message.init(whimID: "GPL13D5", messageID: "H923BB4", senderID: "TT09SC43", timestamp: 45378542, messageType: .chat, messageBody: "Yay Ice Cream")
+    init(whimID: String, messageID: String, senderID: String?, timestamp: String = "\(Date().timeIntervalSince1970)", messageType: MessageType, messageBody: String) {
+        self.whimID = whimID
+        self.messageID = messageID
+        self.senderID = senderID
+        self.timestamp = timestamp
+        self.messageType = messageType
+        self.messageBody = messageBody
+    }
+    
+static let singleMessage = Message.init(whimID: "GPL13D5", messageID: "H923BB4", senderID: "TT09SC43", timestamp: "45378542", messageType: .chat, messageBody: "Yay Ice Cream")
 }

@@ -7,24 +7,49 @@
 //
 
 import UIKit
+import SnapKit
 
 class ChatRoomVC: MenuedViewController {
-
+    
+    let chatView = ChatView()
+    var whim: Whim?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        // TODO: Populate with whim chat info
+        view.addSubview(chatView)
+        chatView.snp.makeConstraints { (make) in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        whim = Whim.init(id: "12341234", category: "12341234", title: "12341234", description: "12341234", hostID: "12341234", approxLocation: "12341234", location: "12341234", duration: 12341234)
+//        whim = Whim.init(id: "13241234", category: "12341234", title: "12341234", description: "12341234", hostID: "12341234", location: "13241234", duration: 1234134, finalized: false, timestamp: "13241234", whimChats: [])
+        setupTableView()
+        loadInitialData()
     }
-
+    private func setupTableView() {
+        chatView.chatTableView.dataSource = self
+        chatView.chatTableView.delegate = self
+    }
+    private func loadInitialData() {
+        // TODO: get this triggered by listener instead
+        loadDummyData()
+        chatView.chatTableView.reloadData()
+    }
+    private func loadDummyData() {
+        for _ in 0..<200 {
+            let types: [MessageType] = [.chat, .button, .notification]
+            let randIndex = Int(arc4random_uniform(3))
+            let message = Message.init(whimID: "12341324", messageID: "12341234", senderID: "12341234", timestamp: "12341234", messageType: types[randIndex], messageBody: "aidfnaoidsufoiudh")
+            whim?.whimChats.append(message)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: - Table view data source
 
 //    override func numberOfSections(in tableView: UITableView) -> Int {
@@ -92,4 +117,31 @@ class ChatRoomVC: MenuedViewController {
     }
     */
 
+}
+
+extension ChatRoomVC: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return whim?.whimChats.count ?? 0
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let message = whim?.whimChats[indexPath.row] ?? Message.singleMessage
+        switch message.messageType {
+        case .chat:
+            // TODO: check if whim userid is the current userid,
+            // not if the indexpath.row is even or not
+            if indexPath.row % 2 == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: ChatView.hostCell, for: indexPath) as? HostMessageTableViewCell
+                return cell ?? UITableViewCell()
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: ChatView.guestCell, for: indexPath) as? GuestMessageTableViewCell
+                return cell ?? UITableViewCell()
+            }
+        case .notification:
+            let cell = tableView.dequeueReusableCell(withIdentifier: ChatView.notifCell, for: indexPath) as? NotificationTableViewCell
+            return cell ?? UITableViewCell()
+        case .button:
+            let cell = tableView.dequeueReusableCell(withIdentifier: ChatView.locCell, for: indexPath) as? LocationDetailsTableViewCell
+            return cell ?? UITableViewCell()
+        }
+    }
 }
