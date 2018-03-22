@@ -40,7 +40,6 @@ class FeedCell: UITableViewCell {
     }
     
     private func commonInit() {
-        backgroundColor = .white
         setUpCollapsedView()
         setUpExpandedView()
         collapsedConstraints.forEach{$0.isActive = true}

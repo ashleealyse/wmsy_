@@ -14,7 +14,7 @@ class WhimCategoryTableViewCell: UITableViewCell {
     // Category Label
     lazy var categoryLabel: UILabel = {
        let lb = UILabel()
-        lb.backgroundColor = Stylesheet.Colors.WMSYAshGrey
+        lb.backgroundColor = Stylesheet.Colors.WMSYShadowBlue
         lb.text = "Category: "
         lb.font = UIFont.systemFont(ofSize: 15)
         return lb
@@ -72,7 +72,7 @@ class WhimCategoryTableViewCell: UITableViewCell {
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
             make.bottom.equalTo(contentView.snp.bottom).offset(-5)
-            make.height.equalTo(categoryLabel.snp.height).multipliedBy(2.1)
+            make.height.equalTo(categoryLabel.snp.height).multipliedBy(3)
         }
     }
 

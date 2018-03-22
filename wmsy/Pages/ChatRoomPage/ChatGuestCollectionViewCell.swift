@@ -1,17 +1,16 @@
 //
-//  WhimCategoryCollectionViewCell.swift
+//  ChatGuestCollectionViewCell.swift
 //  wmsy
 //
-//  Created by C4Q on 3/16/18.
+//  Created by C4Q on 3/21/18.
 //  Copyright © 2018 C4Q. All rights reserved.
 //
 
 import UIKit
-import SnapKit
 
-class WhimCategoryCollectionViewCell: UICollectionViewCell {
+class ChatGuestCollectionViewCell: UICollectionViewCell {
     
-    lazy var categoryImage: UIImageView = {
+    lazy var guestImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
         imageView.contentMode = .scaleAspectFit
@@ -23,7 +22,6 @@ class WhimCategoryCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubViews()
@@ -33,45 +31,31 @@ class WhimCategoryCollectionViewCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-//    
-//    public func toggleColor() {
-//        switch categoryImage.backgroundColor! {
-//        case Stylesheet.Colors.WMSYIsabelline:
-//            categoryImage.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
-//        case Stylesheet.Colors.WMSYSeaFoamGreen:
-//            categoryImage.backgroundColor = Stylesheet.Colors.WMSYIsabelline
-//        default:
-//            categoryImage.backgroundColor = Stylesheet.Colors.WMSYIsabelline
-//        }
-//    }
     
     override var isSelected: Bool {
         didSet {
             if self.isSelected {
-                categoryImage.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
+                guestImageView.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
             } else {
-                categoryImage.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
+                guestImageView.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
             }
         }
     }
     
     private func setupViews(){
-        setupCategoryImage()
+        setupGuestImage()
     }
     
     private func addSubViews() {
-        addSubview(categoryImage)
+        addSubview(guestImageView)
     }
     
-    private func setupCategoryImage(){
-        categoryImage.snp.makeConstraints { (make) in
+    private func setupGuestImage(){
+        guestImageView.snp.makeConstraints { (make) in
             make.centerX.equalTo(self)
             make.centerY.equalTo(self)
             make.width.equalTo(snp.width)
             make.height.equalTo(snp.height)
-//            make.height.equalTo(snp.height).multipliedBy(0.5)
         }
     }
-    
-    
 }

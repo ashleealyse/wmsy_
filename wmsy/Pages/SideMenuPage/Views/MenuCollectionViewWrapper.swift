@@ -40,7 +40,7 @@ class MenuCollectionViewWrapper: UIView {
         commonInit()
     }
     private func commonInit() {
-        backgroundColor = Stylesheet.Colors.WMSYAshGrey
+        backgroundColor = Stylesheet.Colors.WMSYShadowBlue
         setupViews()
         layoutStuff()
     }

@@ -17,7 +17,7 @@ class WhimLocationTableViewCell: UITableViewCell {
         lb.text = "Meeting Location: "
         lb.font = UIFont.systemFont(ofSize: 15)
         lb.numberOfLines = 0
-        lb.backgroundColor = Stylesheet.Colors.WMSYAshGrey
+        lb.backgroundColor = Stylesheet.Colors.WMSYShadowBlue
         return lb
     }()
     
