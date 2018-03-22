@@ -8,12 +8,14 @@
 
 import UIKit
 import SnapKit
+import GoogleMaps
 
 class AddWhimLocationView: UIView {
 
     // map object
-    lazy var placeholdermap: UIImageView = {
-       let imageview = UIImageView()
+    lazy var addWhimMap: GMSMapView = {
+        
+       let map = GMSMapView.map(withFrame: <#T##CGRect#>, camera: <#T##GMSCameraPosition#>)
         imageview.backgroundColor = .yellow
         return imageview
     }()
@@ -59,14 +61,14 @@ class AddWhimLocationView: UIView {
     
     private func setupViews() {
         
-        addSubview(placeholdermap)
+        addSubview(addWhimMap)
         addSubview(locationLabel)
         addSubview(selectButton)
     }
     
     private func setupConstraints() {
         
-        placeholdermap.snp.makeConstraints { (make) in
+        addWhimMap.snp.makeConstraints { (make) in
             make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(10)
             make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-10)
             make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(10)
@@ -74,8 +76,8 @@ class AddWhimLocationView: UIView {
         }
         
         locationLabel.snp.makeConstraints { (make) in
-            make.leading.trailing.equalTo(placeholdermap)
-            make.top.equalTo(placeholdermap.snp.bottom).offset(10)
+            make.leading.trailing.equalTo(addWhimMap)
+            make.top.equalTo(addWhimMap.snp.bottom).offset(10)
         }
         
         selectButton.snp.makeConstraints { (make) in
