@@ -10,19 +10,19 @@ import UIKit
 
 
 class FeedCell: UITableViewCell {
-
-    var isExpanded = false {
-        didSet {
-            expandedConstraints.forEach{$0.isActive = isExpanded}
-            collapsedConstraints.forEach{$0.isActive = !isExpanded}
-            expandedView.isHidden = !isExpanded
-            collapsedView.isHidden = isExpanded
-        }
-    }
+    
     var collapsedView = CollapsedFeedCellView()
     var expandedView = ExpandedFeedCellView()
-    var collapsedConstraints = [NSLayoutConstraint]()
-    var expandedConstraints = [NSLayoutConstraint]()
+    var collapsedConstraint: NSLayoutConstraint!
+    var expandedConstraint: NSLayoutConstraint!
+    
+    var isExpanded: Bool = false {
+        didSet {
+            collapsedConstraint.constant = isExpanded ? 170 : 70
+            //            collapsedConstraint.isActive = !isExpanded
+            //            expandedConstraint.isActive = isExpanded
+        }
+    }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -37,36 +37,47 @@ class FeedCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         commonInit()
+        backgroundColor = .yellow
     }
     
     private func commonInit() {
+        selectionStyle = .none
         setUpCollapsedView()
         setUpExpandedView()
-        collapsedConstraints.forEach{$0.isActive = true}
-        expandedView.isHidden = true
-        selectionStyle = .none
+        //        collapsedConstraint.isActive = !isExpanded
+        collapsedConstraint.constant = isExpanded ? 170 : 70
+        //        expandedConstraint.isActive = isExpanded
+        self.clipsToBounds = true
     }
     
     private func setUpCollapsedView() {
         contentView.addSubview(collapsedView)
+        //        collapsedView.snp.makeConstraints { (make) in
+        //            make.top.equalTo(safeAreaLayoutGuide)
+        //            make.trailing.leading.equalTo(safeAreaLayoutGuide)
+        //            make.height.equalTo(safeAreaLayoutGuide).multipliedBy(0.5)
+        //        }
         collapsedView.translatesAutoresizingMaskIntoConstraints = false
-        collapsedConstraints = [collapsedView.topAnchor.constraint(equalTo: contentView.topAnchor),
-                                collapsedView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                                collapsedView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-                                collapsedView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-         ]
+        [collapsedView.topAnchor.constraint(equalTo: contentView.topAnchor),
+         collapsedView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+         collapsedView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+         collapsedView.heightAnchor.constraint(equalToConstant: 70)]
+            .forEach{$0.isActive = true}
+        collapsedConstraint = contentView.bottomAnchor.constraint(equalTo: collapsedView.topAnchor, constant: 0)//collapsedView.bottomAnchor.constraint(equalTo: contentView.topAnchor, constant: 0)
+        collapsedConstraint.isActive = true
         
     }
     
     private func setUpExpandedView() {
         contentView.addSubview(expandedView)
         expandedView.translatesAutoresizingMaskIntoConstraints = false
-        expandedConstraints = [expandedView.topAnchor.constraint(equalTo: contentView.topAnchor),
-                               expandedView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                               expandedView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-                               expandedView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        ]
-        
+        [expandedView.topAnchor.constraint(equalTo: collapsedView.bottomAnchor),
+         expandedView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+         expandedView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+         expandedView.heightAnchor.constraint(equalToConstant: 100)]
+            .forEach{$0.isActive = true}
+        expandedConstraint = expandedView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
     }
     
 }
+

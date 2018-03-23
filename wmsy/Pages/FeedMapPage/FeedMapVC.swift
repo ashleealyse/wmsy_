@@ -57,30 +57,30 @@ class FeedMapVC: MenuedViewController {
         locationManager.startUpdatingLocation()
         self.locationManager.delegate = self
         
-        view.addSubview(mapView)
-        let mylocation = mapView.mapView.myLocation
-        mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
-                                                          longitude: (mylocation?.coordinate.longitude)!,
-                                                          zoom: mapView.zoomLevel)
-        mapView.mapView.settings.myLocationButton = true
-        mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        view.addSubview(mapView)
+//        let mylocation = mapView.mapView.myLocation
+//        mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
+//                                                          longitude: (mylocation?.coordinate.longitude)!,
+//                                                          zoom: mapView.zoomLevel)
+//        mapView.mapView.settings.myLocationButton = true
+//        mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
         
         
         
-//
-//        view.addSubview(feedView)
-//
-////
-////        feedView.snp.makeConstraints { (make) in
-////            make.edges.equalTo(view.safeAreaLayoutGuide)
-////        }
-////        feedView.tableView.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
-////        feedView.tableView.dataSource = self
-////        feedView.tableView.delegate = self
-////        feedView.tableView.rowHeight = UITableViewAutomaticDimension
-////        feedView.tableView.estimatedRowHeight = 90
-////        feedView.tableView.separatorStyle = .none
+
+        view.addSubview(feedView)
+
+
+        feedView.snp.makeConstraints { (make) in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        feedView.tableView.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
+        feedView.tableView.dataSource = self
+        feedView.tableView.delegate = self
+        feedView.tableView.rowHeight = UITableViewAutomaticDimension
+        feedView.tableView.estimatedRowHeight = 90
+        feedView.tableView.separatorStyle = .none
 
         configureNavBar()
         
@@ -177,18 +177,12 @@ extension FeedMapVC: UITableViewDataSource {
         
         cell.isExpanded = self.expandedRows.contains(indexPath.row)
         let whim = feedWhims[indexPath.row]
-        cell.collapsedView.wmsyTitle.text = whim.title
-        cell.collapsedView.categoryImage.image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
-//        cell.collapsedView.userImage.image =
-        // path for the category image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
+        cell.collapsedView.postTitleLabel.text = whim.title
+        cell.collapsedView.categoryIcon.image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
+//        cell.collapsedView.userImageButton.imageView?.kf.setImage(with: whim.)
+
         
-        
-        cell.expandedView.wmsyTitle.text = whim.title
-        cell.expandedView.categoryImage.image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
-//        cell.expandedView.wmsyDescription.text = whim.description
-        
-//        cell.expandedView.userImage.image =
-        // path for the category image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
+        cell.expandedView.postDescriptionTF.text = whim.description
         return cell
     }
 }
