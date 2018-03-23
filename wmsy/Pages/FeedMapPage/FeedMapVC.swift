@@ -11,36 +11,42 @@ import SnapKit
 import GoogleMaps
 import SVProgressHUD
 
+protocol ParentDelegate: class {
+    func updateChildren(whims: [Whim]) -> Void
+}
+
 class FeedMapVC: MenuedViewController {
     
-    var feedView = FeedView()
-    var mapView = MapView()
+    var feedVC = FeedVC()
+    var mapVC = MapVC()
+    var filtersVC = FiltersVC()
+    
     var expandedRows = Set<Int>()
     
     var feedWhims: [Whim] = [] {
         didSet {
             feedWhims = feedWhims.sortedByTimestamp()
-            feedView.tableView.reloadData()
-            mapView.mapView.clear()
+            feedVC.feedView.tableView.reloadData()
+            mapVC.mapView.mapView.clear()
             for whim in feedWhims{
                 let position = CLLocationCoordinate2D(latitude: Double(whim.lat)!, longitude: Double(whim.long)!)
                 let marker = GMSMarker(position: position)
                 marker.title = whim.title
                 marker.snippet = whim.description
-                marker.map = mapView.mapView
+                marker.map = mapVC.mapView.mapView
             }
         }
     }
     
  
-    var locationManager = CLLocationManager()
-    var userLocation = CLLocation (){
-        didSet{
-            DBService.manager.getClosestWhims(location: userLocation) { (whims) in
-                self.feedWhims = whims
-            }
-        }
-    }
+//    var locationManager = CLLocationManager()
+//    var userLocation = CLLocation (){
+//        didSet{
+//            DBService.manager.getClosestWhims(location: userLocation) { (whims) in
+//                self.feedWhims = whims
+//            }
+//        }
+//    }
 //
 //    override func viewWillDisappear(_ animated: Bool) {
 //        self.locationManager.stopUpdatingLocation()
@@ -50,43 +56,44 @@ class FeedMapVC: MenuedViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         SVProgressHUD.dismiss()
-        locationManager = CLLocationManager()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
-        locationManager.distanceFilter = 50
-        locationManager.startUpdatingLocation()
-        self.locationManager.delegate = self
+        mapVC.delegate = self
+        feedVC.delegate = self
+//        locationManager = CLLocationManager()
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        locationManager.requestAlwaysAuthorization()
+//        locationManager.distanceFilter = 50
+//        locationManager.startUpdatingLocation()
+//        self.locationManager.delegate = self
         
         
-        view.addSubview(feedView)
+//        view.addSubview(feedView)
+//
+//        feedView.snp.makeConstraints { (make) in
+//            make.edges.equalTo(view.safeAreaLayoutGuide)
+//        }
+//        feedView.tableView.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
+//        feedView.tableView.dataSource = self
+//        feedView.tableView.delegate = self
+//        feedView.tableView.rowHeight = UITableViewAutomaticDimension
+//        feedView.tableView.estimatedRowHeight = 90
+//        feedView.tableView.separatorStyle = .none
         
         
-        feedView.snp.makeConstraints { (make) in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
-        }
-        feedView.tableView.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
-        feedView.tableView.dataSource = self
-        feedView.tableView.delegate = self
-        feedView.tableView.rowHeight = UITableViewAutomaticDimension
-        feedView.tableView.estimatedRowHeight = 90
-        feedView.tableView.separatorStyle = .none
-        
-        
-        view.addSubview(mapView)
-        
-        mapView.snp.makeConstraints { (make) in
-            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
-            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-200)
-            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.75)
-        }
-        
-        let mylocation = mapView.mapView.myLocation
-        mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
-                                                          longitude: (mylocation?.coordinate.longitude)!,
-                                                          zoom: mapView.zoomLevel)
-        mapView.mapView.settings.myLocationButton = true
-        mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        view.addSubview(mapView)
+//
+//        mapView.snp.makeConstraints { (make) in
+//            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+//            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+//            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-200)
+//            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.75)
+//        }
+//
+//        let mylocation = mapView.mapView.myLocation
+//        mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
+//                                                          longitude: (mylocation?.coordinate.longitude)!,
+//                                                          zoom: mapView.zoomLevel)
+//        mapView.mapView.settings.myLocationButton = true
+//        mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
         
         configureNavBar()
@@ -95,7 +102,7 @@ class FeedMapVC: MenuedViewController {
     
     
     override func viewWillAppear(_ animated: Bool) {
-        feedView.tableView.reloadData()
+        feedVC.feedView.tableView.reloadData()
     }
     
     // setup UIBarButtonItem
@@ -152,26 +159,27 @@ class FeedMapVC: MenuedViewController {
     
 }
 
-extension FeedMapVC: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? FeedCell else {
-                return
-        }
-        
-        switch cell.isExpanded {
-        case true:
-            self.expandedRows.remove(indexPath.row)
-        default:
-            self.expandedRows.insert(indexPath.row)
-        }
-        
-        cell.isExpanded = !cell.isExpanded
-        
-        tableView.beginUpdates()
-        tableView.endUpdates()
-    }
-}
+//extension FeedMapVC: UITableViewDelegate {
+//
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        guard let cell = tableView.cellForRow(at: indexPath) as? FeedCell else {
+//                return
+//        }
+//
+//        switch cell.isExpanded {
+//        case true:
+//            self.expandedRows.remove(indexPath.row)
+//        default:
+//            self.expandedRows.insert(indexPath.row)
+//        }
+//
+//        cell.isExpanded = !cell.isExpanded
+//
+//        tableView.beginUpdates()
+//        tableView.endUpdates()
+//    }
+//}
+
 
 extension FeedMapVC: UITableViewDataSource {
     
@@ -194,15 +202,7 @@ extension FeedMapVC: UITableViewDataSource {
     }
 }
 
-extension FeedMapVC: CLLocationManagerDelegate{
-    
-    
-    // Handle incoming location events.
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location: CLLocation = locations.last!
-        print("Location: \(location)")
-        self.userLocation = location
-        
+
         
         
         
@@ -218,28 +218,37 @@ extension FeedMapVC: CLLocationManagerDelegate{
 //            self.mapView.mapView.animate(to: camera)
 //        }
         
+//    }
+//
+//    // Handle authorization for the location manager.
+//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+//        switch status {
+//        case .restricted:
+//            print("Location access was restricted.")
+//        case .denied:
+//            print("User denied access to location.")
+//        case .notDetermined:
+//            print("Location status not determined.")
+//        case .authorizedAlways: fallthrough
+//        case .authorizedWhenInUse:
+//            print("Location status is OK.")
+//        }
+//    }
+//
+//    // Handle location manager errors.
+//    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+//        self.locationManager.stopUpdatingLocation()
+//        print("Error: \(error)")
+//    }
+//
+//}
+
+
+extension FeedMapVC: ParentDelegate {
+    func updateChildren(whims: [Whim]) {
+        self.feedWhims = whims
     }
     
-    // Handle authorization for the location manager.
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .restricted:
-            print("Location access was restricted.")
-        case .denied:
-            print("User denied access to location.")
-        case .notDetermined:
-            print("Location status not determined.")
-        case .authorizedAlways: fallthrough
-        case .authorizedWhenInUse:
-            print("Location status is OK.")
-        }
-    }
     
-    // Handle location manager errors.
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        self.locationManager.stopUpdatingLocation()
-        print("Error: \(error)")
-    }
     
 }
-
