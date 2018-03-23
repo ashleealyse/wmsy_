@@ -181,7 +181,6 @@ extension FeedMapVC: UITableViewDataSource {
         let whim = feedWhims[indexPath.row]
         cell.collapsedView.postTitleLabel.text = whim.title
         cell.collapsedView.categoryIcon.image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
-        print(whim.hostImageURL)
         cell.collapsedView.userImageButton.imageView?.kf.setImage(with: URL(string: whim.hostImageURL), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
             cell.collapsedView.userImageButton.setImage(image, for: .normal)
         })
