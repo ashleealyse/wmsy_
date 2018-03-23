@@ -57,7 +57,30 @@ class FeedMapVC: MenuedViewController {
         locationManager.startUpdatingLocation()
         self.locationManager.delegate = self
         
+        
+        view.addSubview(feedView)
+        
+        
+        feedView.snp.makeConstraints { (make) in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        feedView.tableView.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
+        feedView.tableView.dataSource = self
+        feedView.tableView.delegate = self
+        feedView.tableView.rowHeight = UITableViewAutomaticDimension
+        feedView.tableView.estimatedRowHeight = 90
+        feedView.tableView.separatorStyle = .none
+        
+        
         view.addSubview(mapView)
+        
+        mapView.snp.makeConstraints { (make) in
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-200)
+            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.75)
+        }
+        
         let mylocation = mapView.mapView.myLocation
         mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
                                                           longitude: (mylocation?.coordinate.longitude)!,
@@ -66,22 +89,6 @@ class FeedMapVC: MenuedViewController {
         mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
         
-        
-        
-//
-//        view.addSubview(feedView)
-//
-////
-////        feedView.snp.makeConstraints { (make) in
-////            make.edges.equalTo(view.safeAreaLayoutGuide)
-////        }
-////        feedView.tableView.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
-////        feedView.tableView.dataSource = self
-////        feedView.tableView.delegate = self
-////        feedView.tableView.rowHeight = UITableViewAutomaticDimension
-////        feedView.tableView.estimatedRowHeight = 90
-////        feedView.tableView.separatorStyle = .none
-
         configureNavBar()
         
     }
