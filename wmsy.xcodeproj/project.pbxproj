@@ -74,6 +74,7 @@
 		81F9F06C20656B1100D288E8 /* FiltersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F9F06B20656B1100D288E8 /* FiltersVC.swift */; };
 		81F9F06E20656B2200D288E8 /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F9F06D20656B2200D288E8 /* FiltersView.swift */; };
 		8449A2DA7A870D7DFE6E2428 /* Pods_wmsy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CEEC5ACCA9E78DD3C3881CA /* Pods_wmsy.framework */; };
+		932F180D2065A3F300950104 /* FloatingPopsicleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932F180C2065A3F300950104 /* FloatingPopsicleView.swift */; };
 		93495B0620603F9A0080BDBA /* ExpandedFeedCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93495B0520603F9A0080BDBA /* ExpandedFeedCellView.swift */; };
 		93495B08206041080080BDBA /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93495B07206041080080BDBA /* FeedCell.swift */; };
 		E5E0CC0CB13ED0D202D6CA35 /* Pods_wmsyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ABB5CDA9ED0EA6DABA10A94 /* Pods_wmsyTests.framework */; };
@@ -165,6 +166,7 @@
 		81F9F06B20656B1100D288E8 /* FiltersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersVC.swift; sourceTree = "<group>"; };
 		81F9F06D20656B2200D288E8 /* FiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
 		876DF1E5D004E38FACE607E8 /* Pods-wmsy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wmsy.release.xcconfig"; path = "Pods/Target Support Files/Pods-wmsy/Pods-wmsy.release.xcconfig"; sourceTree = "<group>"; };
+		932F180C2065A3F300950104 /* FloatingPopsicleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPopsicleView.swift; sourceTree = "<group>"; };
 		93495B0520603F9A0080BDBA /* ExpandedFeedCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedFeedCellView.swift; sourceTree = "<group>"; };
 		93495B07206041080080BDBA /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		A3CBD7D0321B7C36EB143EB4 /* Pods-wmsy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wmsy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-wmsy/Pods-wmsy.debug.xcconfig"; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 			children = (
 				81BAD675205AED5D00C7F039 /* LoginVC.swift */,
 				81BAD677205AED7100C7F039 /* LoginView.swift */,
+				932F180C2065A3F300950104 /* FloatingPopsicleView.swift */,
 			);
 			path = LoginPage;
 			sourceTree = "<group>";
@@ -683,6 +686,7 @@
 				81903105205ADCF200932A55 /* AppDelegate.swift in Sources */,
 				81BAD678205AED7100C7F039 /* LoginView.swift in Sources */,
 				93495B0620603F9A0080BDBA /* ExpandedFeedCellView.swift in Sources */,
+				932F180D2065A3F300950104 /* FloatingPopsicleView.swift in Sources */,
 				81AB7AC8205C9548009845EA /* Stylesheet.swift in Sources */,
 				81F9F06E20656B2200D288E8 /* FiltersView.swift in Sources */,
 				81DECD1B205C87FA00214866 /* Interactor.swift in Sources */,

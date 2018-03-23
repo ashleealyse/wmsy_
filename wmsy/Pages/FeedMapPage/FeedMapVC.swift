@@ -39,10 +39,12 @@ class FeedMapVC: MenuedViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         SVProgressHUD.dismiss()
+
         mapVC.delegate = self
         feedVC.delegate = self
         view.addSubview(feedVC.feedView)
         feedVC.feedView.snp.makeConstraints { (make) in
+
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
         

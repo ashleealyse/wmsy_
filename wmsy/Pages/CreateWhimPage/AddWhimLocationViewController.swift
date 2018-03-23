@@ -109,12 +109,7 @@ extension AddWhimLocationViewController: GMSMapViewDelegate{
         self.addWhimLocationView.addWhimMap.clear() // clearing Pin before adding new
         let marker = GMSMarker(position: coordinate)
         marker.map = self.addWhimLocationView.addWhimMap
-        let circ = GMSCircle(position: coordinate, radius: 804)
-        circ.fillColor = UIColor(red: 0, green: 0.35, blue: 0, alpha: 0.1)
-        circ.strokeColor = .green
-        circ.strokeWidth = 5
         
-        circ.map = self.addWhimLocationView.addWhimMap
     }
     
 }

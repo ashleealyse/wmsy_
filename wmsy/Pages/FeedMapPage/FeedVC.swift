@@ -71,11 +71,12 @@ extension FeedVC: UITableViewDataSource {
         let whim = feedWhims[indexPath.row]
         cell.collapsedView.postTitleLabel.text = whim.title
         cell.collapsedView.categoryIcon.image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
-        //        cell.collapsedView.userImageButton.imageView?.kf.setImage(with: whim.)
-        
-        
+        cell.collapsedView.userImageButton.imageView?.kf.setImage(with: URL(string: whim.hostImageURL), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+            cell.collapsedView.userImageButton.setImage(image, for: .normal)
+        })
         cell.expandedView.postDescriptionTF.text = whim.description
         return cell
+        
     }
 }
 
