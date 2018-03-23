@@ -18,6 +18,13 @@ class LoginView: UIView {
     
     weak var delegate: loginViewDelegate?
     
+    let floatingPopsicleView = FloatingPopsicleView()
+    
+    lazy var floatingView: UIView = {
+        let fV = UIView()
+       return fV
+    }()
+    
     lazy var facebookButton : UIButton = {
         // Add a custom login button to your app
         let myLoginButton = UIButton(type: .custom)
@@ -34,14 +41,17 @@ class LoginView: UIView {
     
     lazy var colorView: UIView = {
         let cv = UIView()
-        cv.backgroundColor = Stylesheet.Colors.WMSYPastelBlue.withAlphaComponent(0.8)
+        cv.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)
         return cv
     }()
-    
-    lazy var wmsyLogo: UIImageView = {
-       let logo = UIImageView()
-        logo.image = #imageLiteral(resourceName: "wmsyLogo")
-        return logo
+
+    lazy var wmsyLabel: UILabel = {
+       let wl = UILabel()
+        wl.text = "wmsy"
+        wl.font = UIFont(name: "Noteworthy-Light", size: 50)
+        wl.textColor = Stylesheet.Colors.WMSYDeepViolet
+        wl.textAlignment = .center
+        return wl
     }()
     
     @objc func loginButtonClicked(){
@@ -61,7 +71,9 @@ class LoginView: UIView {
         backgroundColor = .white
         setButton()
         setUpColorView()
-        setUpWmsyLogo()
+        setUpFloatingView()
+        setUpFV()
+        setUpWmsyLabel()
     }
     
     private func setButton(){
@@ -70,28 +82,49 @@ class LoginView: UIView {
             make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
             make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
-            make.height.equalTo(self.snp.height).multipliedBy(0.10)
+            make.height.equalTo(self.snp.height).multipliedBy(0.08)
         }
     }
     
     func setUpColorView() {
         self.addSubview(colorView)
         colorView.snp.makeConstraints { (make) in
-            make.bottom.equalTo(facebookButton.snp.top)
-            make.top.equalTo(safeAreaLayoutGuide.snp.top)
+//            make.top.equalTo(safeAreaLayoutGuide.snp.top)
             make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
+            make.bottom.equalTo(facebookButton.snp.top)
+            make.height.equalTo(self.snp.height).multipliedBy(0.7)
+
         }
     }
     
-    func setUpWmsyLogo() {
-        self.addSubview(wmsyLogo)
-        wmsyLogo.snp.makeConstraints { (make) in
-            make.centerY.equalTo(colorView.snp.centerY)
-            make.centerX.equalTo(colorView.snp.centerX)
-            make.width.equalTo(self.snp.width).multipliedBy(0.30)
-            make.height.equalTo(self.snp.width).multipliedBy(0.30)
+    func setUpWmsyLabel() {
+        self.addSubview(wmsyLabel)
+        wmsyLabel.snp.makeConstraints { (make) in
+//            make.centerY.equalTo(colorView.snp.centerY)
+//            make.centerX.equalTo(colorView.snp.centerX)
+            make.centerX.equalTo(floatingView.snp.centerX)
+            make.centerY.equalTo(floatingView.snp.centerY)
         }
     }
+    
+    func setUpFloatingView() {
+        self.addSubview(floatingView)
+        floatingView.snp.makeConstraints { (make) in
+            make.top.equalTo(safeAreaLayoutGuide.snp.top)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
+            make.bottom.equalTo(colorView.snp.top)
+        }
+    }
+    
+    func setUpFV() {
+        addSubview(floatingPopsicleView)
+        floatingPopsicleView.snp.makeConstraints { (make) in
+            make.edges.equalTo(floatingView.snp.edges)
+        }
+    }
+    
+
     
 }
