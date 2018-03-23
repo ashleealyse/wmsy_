@@ -11,6 +11,11 @@ import UIKit
 class CreateWhimTVC: UITableViewController, setAddressDelegate {
     func setAddress(atAddress: String) {
         self.whimLocation = atAddress
+        
+    }
+    func setCoordinates(long: String, lat: String) {
+        self.whimLong = long
+        self.whimLat = lat
     }
     
     
@@ -20,8 +25,9 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
     var whimTitle = ""
     var whimDescription = ""
     var whimDuration = 0
-    var whimApproxLocation = "textApproxLocation"
     var whimLocation = ""
+    var whimLong = ""
+    var whimLat = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,11 +103,12 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
             return descriptionCell
         case 3:
             let locationCell = tableView.dequeueReusableCell(withIdentifier: "LocationCell", for: indexPath) as! WhimLocationTableViewCell
-            
+
             locationCell.selectLocationButton.addTarget(self, action: #selector(selectLocation), for: .touchUpInside)
-            //            whimLocation = locationCell.addressLabel.text!
-            //            whimLocation = // label.text of AddWhimeLocationVC
-            return locationCell
+            locationCell.addressLabel.text = "Meeting Location: " + whimLocation
+//            whimLocation = locationCell.addressLabel.text!
+//            whimLocation = // label.text of AddWhimeLocationVC
+          return locationCell
         case 4:
             let expirationCell = tableView.dequeueReusableCell(withIdentifier: "ExpirationCell", for: indexPath) as! WhimExpirationTableViewCell
             expirationCell.hourPickerView.dataSource = self
@@ -133,16 +140,16 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
 //        DBService.manager.addWhim(withCategory: whimEvent.category, title: whimEvent.title, description: whimEvent.description, location: whimEvent.location, duration: whimEvent.duration)
 //        print(whimEvent)
         
-        if whimCategory != "", whimTitle != "", whimDescription != "", whimLocation != "", whimDuration != 0 {
-            DBService.manager.addWhim(withCategory: whimCategory, title: whimTitle, description: whimDescription, approxLocation: whimApproxLocation, location: whimLocation, duration: whimDuration)
+        if whimCategory != "", whimTitle != "", whimDescription != "", whimLocation != "", whimLong != "", whimLat != "", whimDuration != 0 {
+            DBService.manager.addWhim(withCategory: whimCategory, title: whimTitle, description: whimDescription, location: whimLocation, long: whimLong, lat: whimLat, duration: whimDuration)
             
-            print("New Whim - Title: \(whimTitle), Description: \(whimDescription), Category: \(whimCategory), ApproxLocation: \(whimApproxLocation), Location: \(whimLocation), Duration: \(whimDuration)")
+            print("New Whim - Title: \(whimTitle), Description: \(whimDescription), Category: \(whimCategory), Location: \(whimLocation), Long: \(whimLong), Lat: \(whimLat) Duration: \(whimDuration)")
             
           
             self.navigationController?.popViewController(animated: true)
             
         } else {
-            print("Missing item -  Title: \(whimTitle), Description: \(whimDescription), Category: \(whimCategory), ApproxLocation: \(whimApproxLocation), Location: \(whimLocation), Duration: \(whimDuration)")
+            print("Missing item -  Title: \(whimTitle), Description: \(whimDescription), Category: \(whimCategory), Location: \(whimLocation), Duration: \(whimDuration)")
             
             let missingFieldAlert = Alert.create(withTitle: "Missing a Field", andMessage: "OK", withPreferredStyle: .alert)
             Alert.addAction(withTitle: "Cancel", style: .cancel, andHandler: nil, to: missingFieldAlert)

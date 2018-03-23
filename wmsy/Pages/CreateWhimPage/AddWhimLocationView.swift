@@ -8,15 +8,21 @@
 
 import UIKit
 import SnapKit
+import GoogleMaps
+
+
 
 class AddWhimLocationView: UIView {
+    var locationManager = CLLocationManager()
+    var addWhimMap: GMSMapView!
 
+    
     // map object
-    lazy var placeholdermap: UIImageView = {
-       let imageview = UIImageView()
-        imageview.backgroundColor = .yellow
-        return imageview
-    }()
+//    lazy var addWhimMap: GMSMapView = {
+//        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
+//        var map = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+//        return map
+//    }()
     
     // current pin location label
     lazy var locationLabel: UILabel = {
@@ -53,20 +59,27 @@ class AddWhimLocationView: UIView {
     
     private func commonInit() {
         backgroundColor = .white
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.distanceFilter = 50
+        locationManager.startUpdatingLocation()
+        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
+        addWhimMap = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+        addWhimMap.isMyLocationEnabled = true
         setupViews()
         setupConstraints()
     }
     
     private func setupViews() {
         
-        addSubview(placeholdermap)
+        addSubview(addWhimMap)
         addSubview(locationLabel)
         addSubview(selectButton)
     }
     
     private func setupConstraints() {
         
-        placeholdermap.snp.makeConstraints { (make) in
+        addWhimMap.snp.makeConstraints { (make) in
             make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(10)
             make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-10)
             make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(10)
@@ -74,8 +87,8 @@ class AddWhimLocationView: UIView {
         }
         
         locationLabel.snp.makeConstraints { (make) in
-            make.leading.trailing.equalTo(placeholdermap)
-            make.top.equalTo(placeholdermap.snp.bottom).offset(10)
+            make.leading.trailing.equalTo(addWhimMap)
+            make.top.equalTo(addWhimMap.snp.bottom).offset(10)
         }
         
         selectButton.snp.makeConstraints { (make) in
