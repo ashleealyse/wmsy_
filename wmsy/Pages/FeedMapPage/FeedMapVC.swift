@@ -43,6 +43,7 @@ class FeedMapVC: MenuedViewController {
         mapVC.delegate = self
         feedVC.delegate = self
         view.addSubview(feedVC.feedView)
+        
         feedVC.feedView.snp.makeConstraints { (make) in
 
             make.edges.equalTo(view.safeAreaLayoutGuide)
@@ -55,6 +56,11 @@ class FeedMapVC: MenuedViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-200)
             make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.75)
         }
+        
+        view.addSubview(filtersVC.filtersView)
+        
+        
+        
         configureNavBar()
     }
     

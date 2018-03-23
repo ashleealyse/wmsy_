@@ -52,11 +52,11 @@ class WhimCategoryTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
-    func setUpView() {
+    private func setUpView() {
         setUpConstraints()
     }
     
-    func setUpConstraints() {
+    private func setUpConstraints() {
         
         contentView.addSubview(categoryLabel)
         categoryLabel.snp.makeConstraints { (make) in
