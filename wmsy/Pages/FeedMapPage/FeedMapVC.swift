@@ -21,8 +21,6 @@ class FeedMapVC: MenuedViewController {
     var mapVC = MapVC()
     var filtersVC = FiltersVC()
     
-//    var expandedRows = Set<Int>()
-    
     var feedWhims: [Whim] = [] {
         didSet {
             feedWhims = feedWhims.sortedByTimestamp()
@@ -38,66 +36,24 @@ class FeedMapVC: MenuedViewController {
         }
     }
     
- 
-//    var locationManager = CLLocationManager()
-//    var userLocation = CLLocation (){
-//        didSet{
-//            DBService.manager.getClosestWhims(location: userLocation) { (whims) in
-//                self.feedWhims = whims
-//            }
-//        }
-//    }
-//
-//    override func viewWillDisappear(_ animated: Bool) {
-//        self.locationManager.stopUpdatingLocation()
-//        self.mapView.mapView.isMyLocationEnabled = false
-//    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         SVProgressHUD.dismiss()
         mapVC.delegate = self
         feedVC.delegate = self
-//        locationManager = CLLocationManager()
-//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//        locationManager.requestAlwaysAuthorization()
-//        locationManager.distanceFilter = 50
-//        locationManager.startUpdatingLocation()
-//        self.locationManager.delegate = self
-        
-        
         view.addSubview(feedVC.feedView)
-//
         feedVC.feedView.snp.makeConstraints { (make) in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
-//        feedView.tableView.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
-//        feedView.tableView.dataSource = self
-//        feedView.tableView.delegate = self
-//        feedView.tableView.rowHeight = UITableViewAutomaticDimension
-//        feedView.tableView.estimatedRowHeight = 90
-//        feedView.tableView.separatorStyle = .none
-        
         
         view.addSubview(mapVC.mapView)
-
         mapVC.mapView.snp.makeConstraints { (make) in
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-200)
             make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.75)
         }
-//
-//        let mylocation = mapView.mapView.myLocation
-//        mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
-//                                                          longitude: (mylocation?.coordinate.longitude)!,
-//                                                          zoom: mapView.zoomLevel)
-//        mapView.mapView.settings.myLocationButton = true
-//        mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
-        
         configureNavBar()
-        
     }
     
     
@@ -107,148 +63,30 @@ class FeedMapVC: MenuedViewController {
     
     // setup UIBarButtonItem
     private func configureNavBar() {
-        //        navigationItem.title = "wmsy"
-        // top left bar button item to Host a Whim (popsicles with a + symbol?)
+        navigationItem.title = "wmsy"
+        
         let topLeftBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addIcon"), style: .plain, target: self, action: #selector(hostAWhim))
         navigationItem.leftBarButtonItem = topLeftBarItem
 
-        navigationItem.title = "wmsy"
-
-
         let topRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "wmsyCategoryIcon"), style: .plain, target: self, action: #selector(hostAChat))
         navigationItem.rightBarButtonItem = topRightBarItem
-        
-
     }
     
     @objc func hostAWhim() {
-        
-//        let createWhimTVC = CreateWhimTVC()
-//        createWhimTVC.modalTransitionStyle = .coverVertical
-//        createWhimTVC.modalPresentationStyle = .currentContext
-//        navigationController?.present(createWhimTVC, animated: true, completion: nil)
-        
         navigationController?.pushViewController(CreateWhimTVC(), animated: true)
     }
     
-
-
     @objc func hostAChat() {
         navigationController?.pushViewController(ChatRoomVC(), animated: true)
-        
         print("temporary testing link for WhimChat")
     }
-    
-
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
 
-//extension FeedMapVC: UITableViewDelegate {
-//
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        guard let cell = tableView.cellForRow(at: indexPath) as? FeedCell else {
-//                return
-//        }
-//
-//        switch cell.isExpanded {
-//        case true:
-//            self.expandedRows.remove(indexPath.row)
-//        default:
-//            self.expandedRows.insert(indexPath.row)
-//        }
-//
-//        cell.isExpanded = !cell.isExpanded
-//
-//        tableView.beginUpdates()
-//        tableView.endUpdates()
-//    }
-//}
 
-
-//extension FeedMapVC: UITableViewDataSource {
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return feedWhims.count
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "WhimFeedCell", for: indexPath) as! FeedCell
-//
-//        cell.isExpanded = self.expandedRows.contains(indexPath.row)
-//        let whim = feedWhims[indexPath.row]
-//        cell.collapsedView.postTitleLabel.text = whim.title
-//        cell.collapsedView.categoryIcon.image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
-////        cell.collapsedView.userImageButton.imageView?.kf.setImage(with: whim.)
-//
-//
-//        cell.expandedView.postDescriptionTF.text = whim.description
-//        return cell
-//    }
-//}
-
-
-        
-        
-        
-        
-//        let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
-//                                              longitude: location.coordinate.longitude,
-//                                              zoom: mapView.zoomLevel)
-//
-//        if mapView.isHidden {
-//            mapView.isHidden = false
-//            self.mapView.mapView.camera = camera
-//        } else {
-//            self.mapView.mapView.animate(to: camera)
-//        }
-        
-//    }
-//
-//    // Handle authorization for the location manager.
-//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-//        switch status {
-//        case .restricted:
-//            print("Location access was restricted.")
-//        case .denied:
-//            print("User denied access to location.")
-//        case .notDetermined:
-//            print("Location status not determined.")
-//        case .authorizedAlways: fallthrough
-//        case .authorizedWhenInUse:
-//            print("Location status is OK.")
-//        }
-//    }
-//
-//    // Handle location manager errors.
-//    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-//        self.locationManager.stopUpdatingLocation()
-//        print("Error: \(error)")
-//    }
-//
-//}
 
 
 extension FeedMapVC: ParentDelegate {
     func updateChildren(whims: [Whim]) {
         self.feedWhims = whims
     }
-    
-    
-    
 }

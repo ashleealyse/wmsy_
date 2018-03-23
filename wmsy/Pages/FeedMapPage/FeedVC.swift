@@ -10,10 +10,6 @@ import UIKit
 import SnapKit
 import SVProgressHUD
 
-//protocol ParentDelegate: class {
-//    public func updateChildren(whims: [Whim]) -> Void
-//}
-
 class FeedVC: UIViewController {
 
     var feedView = FeedView()
@@ -24,35 +20,20 @@ class FeedVC: UIViewController {
     
     weak var delegate: ParentDelegate?
     
-//    // takes in Whims, updates local whim array
-//    public func update(withWhims: [Whim]) {
-//        DBService.manager.getClosestWhims(location: userLocation) { (whims) in
-//            self.feedWhims = whims
-//        }
-//    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         SVProgressHUD.dismiss()
         view.addSubview(feedView)
-        
-//        feedView.snp.makeConstraints { (make) in
-//            make.edges.equalTo(view.safeAreaLayoutGuide)
-//        }
-
         feedView.tableView.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
         feedView.tableView.dataSource = self
         feedView.tableView.delegate = self
         feedView.tableView.rowHeight = UITableViewAutomaticDimension
         feedView.tableView.estimatedRowHeight = 90
         feedView.tableView.separatorStyle = .none
-        
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }
 

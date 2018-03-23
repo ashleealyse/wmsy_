@@ -11,10 +11,6 @@ import SnapKit
 import GoogleMaps
 import SVProgressHUD
 
-//protocol ParentDelegate: class {
-//    public func updateChildren(whims: [Whim]) -> Void
-//}
-
 class MapVC: UIViewController {
 
     var mapView = MapView()
@@ -55,47 +51,17 @@ class MapVC: UIViewController {
         locationManager.startUpdatingLocation()
         self.locationManager.delegate = self
         
-        
-//        mapView.snp.makeConstraints { (make) in
-//            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
-//            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
-//            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-200)
-//            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.75)
-//        }
-        
         let mylocation = mapView.mapView.myLocation
         mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
                                                           longitude: (mylocation?.coordinate.longitude)!,
                                                           zoom: mapView.zoomLevel)
         mapView.mapView.settings.myLocationButton = true
         mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
-        
-        
-        // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 
 extension MapVC: CLLocationManagerDelegate{
-    
     
     // Handle incoming location events.
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -124,6 +90,5 @@ extension MapVC: CLLocationManagerDelegate{
         self.locationManager.stopUpdatingLocation()
         print("Error: \(error)")
     }
-    
 }
 
