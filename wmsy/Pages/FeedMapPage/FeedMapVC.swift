@@ -21,7 +21,7 @@ class FeedMapVC: MenuedViewController {
     var mapVC = MapVC()
     var filtersVC = FiltersVC()
     
-    var expandedRows = Set<Int>()
+//    var expandedRows = Set<Int>()
     
     var feedWhims: [Whim] = [] {
         didSet {
@@ -66,11 +66,11 @@ class FeedMapVC: MenuedViewController {
 //        self.locationManager.delegate = self
         
         
-//        view.addSubview(feedView)
+        view.addSubview(feedVC.feedView)
 //
-//        feedView.snp.makeConstraints { (make) in
-//            make.edges.equalTo(view.safeAreaLayoutGuide)
-//        }
+        feedVC.feedView.snp.makeConstraints { (make) in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
 //        feedView.tableView.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
 //        feedView.tableView.dataSource = self
 //        feedView.tableView.delegate = self
@@ -79,14 +79,14 @@ class FeedMapVC: MenuedViewController {
 //        feedView.tableView.separatorStyle = .none
         
         
-//        view.addSubview(mapView)
-//
-//        mapView.snp.makeConstraints { (make) in
-//            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
-//            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
-//            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-200)
-//            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.75)
-//        }
+        view.addSubview(mapVC.mapView)
+
+        mapVC.mapView.snp.makeConstraints { (make) in
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-200)
+            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.75)
+        }
 //
 //        let mylocation = mapView.mapView.myLocation
 //        mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
@@ -181,26 +181,26 @@ class FeedMapVC: MenuedViewController {
 //}
 
 
-extension FeedMapVC: UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return feedWhims.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "WhimFeedCell", for: indexPath) as! FeedCell
-        
-        cell.isExpanded = self.expandedRows.contains(indexPath.row)
-        let whim = feedWhims[indexPath.row]
-        cell.collapsedView.postTitleLabel.text = whim.title
-        cell.collapsedView.categoryIcon.image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
-//        cell.collapsedView.userImageButton.imageView?.kf.setImage(with: whim.)
-
-        
-        cell.expandedView.postDescriptionTF.text = whim.description
-        return cell
-    }
-}
+//extension FeedMapVC: UITableViewDataSource {
+//
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return feedWhims.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "WhimFeedCell", for: indexPath) as! FeedCell
+//
+//        cell.isExpanded = self.expandedRows.contains(indexPath.row)
+//        let whim = feedWhims[indexPath.row]
+//        cell.collapsedView.postTitleLabel.text = whim.title
+//        cell.collapsedView.categoryIcon.image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
+////        cell.collapsedView.userImageButton.imageView?.kf.setImage(with: whim.)
+//
+//
+//        cell.expandedView.postDescriptionTF.text = whim.description
+//        return cell
+//    }
+//}
 
 
         
