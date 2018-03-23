@@ -28,6 +28,7 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
     var whimLocation = ""
     var whimLong = ""
     var whimLat = ""
+    var whimHostImageURL = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +47,12 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
         self.tableView.register(WhimLocationTableViewCell.self, forCellReuseIdentifier: "LocationCell")
         self.tableView.register(HostAWhimButtonTableViewCell.self, forCellReuseIdentifier: "ButtonCell")
 
+        DBService.manager.getAppUser(with: (AuthUserService.manager.getCurrentUser()?.uid)!) { (user) in
+          self.whimHostImageURL = user.photoID
+        }
+        
+        
+        
         
         // Uncomment the followinwg line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -141,7 +148,7 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
 //        print(whimEvent)
         
         if whimCategory != "", whimTitle != "", whimDescription != "", whimLocation != "", whimLong != "", whimLat != "", whimDuration != 0 {
-            DBService.manager.addWhim(withCategory: whimCategory, title: whimTitle, description: whimDescription, location: whimLocation, long: whimLong, lat: whimLat, duration: whimDuration)
+            DBService.manager.addWhim(withCategory: whimCategory, title: whimTitle, description: whimDescription, hostImageURL: whimHostImageURL, location: whimLocation, long: whimLong, lat: whimLat, duration: whimDuration)
             
             print("New Whim - Title: \(whimTitle), Description: \(whimDescription), Category: \(whimCategory), Location: \(whimLocation), Long: \(whimLong), Lat: \(whimLat) Duration: \(whimDuration)")
             

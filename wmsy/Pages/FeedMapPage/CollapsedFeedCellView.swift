@@ -14,6 +14,7 @@ class CollapsedFeedCellView: UIView {
     lazy var userImageButton: UIButton = {
         let button = UIButton()
         button.imageView?.contentMode = .scaleToFill
+        button.setImage(#imageLiteral(resourceName: "wmsyLogo"), for: .normal)
         button.layer.borderWidth = 1.0
         button.clipsToBounds = true
         return button

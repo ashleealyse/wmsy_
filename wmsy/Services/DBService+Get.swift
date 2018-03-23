@@ -28,6 +28,7 @@ extension DBService {
                 let title = whimDict["title"] as? String,
                 let description = whimDict["description"] as? String,
                 let hostID = whimDict["hostID"] as? String,
+                let hostImageURL = whimDict["hostImageURL"] as? String,
                 let location = whimDict["location"] as? String,
                 let long = whimDict["long"] as? String,
                 let lat = whimDict["lat"] as? String,
@@ -40,7 +41,7 @@ extension DBService {
                         return
                 }
                 let whimChats = [Message]()
-                let whim = Whim(id: id, category: category, title: title, description: description, hostID: hostID, location: location, long: long, lat: lat, duration: duration, expiration: expiration, finalized: finalized, timestamp: timestamp, whimChats: whimChats)
+                let whim = Whim(id: id, category: category, title: title, description: description, hostID: hostID, hostImageURL: hostImageURL, location: location, long: long, lat: lat, duration: duration, expiration: expiration, finalized: finalized, timestamp: timestamp, whimChats: whimChats)
                 whims.append(whim)
             }
             completion(whims.sortedByTimestamp())
