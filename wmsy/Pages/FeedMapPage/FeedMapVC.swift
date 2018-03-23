@@ -56,31 +56,31 @@ class FeedMapVC: MenuedViewController {
         locationManager.distanceFilter = 50
         locationManager.startUpdatingLocation()
         self.locationManager.delegate = self
-        
-        view.addSubview(mapView)
-        let mylocation = mapView.mapView.myLocation
-        mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
-                                                          longitude: (mylocation?.coordinate.longitude)!,
-                                                          zoom: mapView.zoomLevel)
-        mapView.mapView.settings.myLocationButton = true
-        mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//
+//        view.addSubview(mapView)
+//        let mylocation = mapView.mapView.myLocation
+//        mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
+//                                                          longitude: (mylocation?.coordinate.longitude)!,
+//                                                          zoom: mapView.zoomLevel)
+//        mapView.mapView.settings.myLocationButton = true
+//        mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
         
         
         
-//
-//        view.addSubview(feedView)
-//
-////
-////        feedView.snp.makeConstraints { (make) in
-////            make.edges.equalTo(view.safeAreaLayoutGuide)
-////        }
-////        feedView.tableView.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
-////        feedView.tableView.dataSource = self
-////        feedView.tableView.delegate = self
-////        feedView.tableView.rowHeight = UITableViewAutomaticDimension
-////        feedView.tableView.estimatedRowHeight = 90
-////        feedView.tableView.separatorStyle = .none
+
+        view.addSubview(feedView)
+
+
+        feedView.snp.makeConstraints { (make) in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        feedView.tableView.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
+        feedView.tableView.dataSource = self
+        feedView.tableView.delegate = self
+        feedView.tableView.rowHeight = UITableViewAutomaticDimension
+        feedView.tableView.estimatedRowHeight = 90
+        feedView.tableView.separatorStyle = .none
 
         configureNavBar()
         
