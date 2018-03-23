@@ -51,7 +51,7 @@ class FooterTabDotsView: UIView {
         setupDotThree()
     }
     private func setupRoundishContainerView() {
-        roundishContainerView.backgroundColor = Stylesheet.Colors.WMSYIsabelline
+        roundishContainerView.backgroundColor = Stylesheet.Colors.WMSYShadowBlue
         addSubview(roundishContainerView)
         roundishContainerView.translatesAutoresizingMaskIntoConstraints = false
         [roundishContainerView.topAnchor.constraint(equalTo: self.topAnchor),
@@ -63,7 +63,7 @@ class FooterTabDotsView: UIView {
         roundishContainerView.layer.cornerRadius = 10
     }
     private func setupDotOne() {
-        dotOne.backgroundColor = Stylesheet.Colors.WMSYAshGrey
+        dotOne.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
         addSubview(dotOne)
         dotOne.translatesAutoresizingMaskIntoConstraints = false
         [dotOne.widthAnchor.constraint(equalToConstant: 9),
@@ -77,7 +77,7 @@ class FooterTabDotsView: UIView {
         dotOne.layer.cornerRadius = 5
     }
     private func setupDotTwo() {
-        dotTwo.backgroundColor = Stylesheet.Colors.WMSYAshGrey
+        dotTwo.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
         addSubview(dotTwo)
         dotTwo.translatesAutoresizingMaskIntoConstraints = false
         [dotTwo.widthAnchor.constraint(equalToConstant: 9),
@@ -91,7 +91,7 @@ class FooterTabDotsView: UIView {
         dotTwo.layer.cornerRadius = 5
     }
     private func setupDotThree() {
-        dotThree.backgroundColor = Stylesheet.Colors.WMSYAshGrey
+        dotThree.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
         addSubview(dotThree)
         dotThree.translatesAutoresizingMaskIntoConstraints = false
         [dotThree.widthAnchor.constraint(equalToConstant: 9),

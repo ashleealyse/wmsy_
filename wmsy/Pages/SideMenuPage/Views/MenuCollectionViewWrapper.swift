@@ -43,7 +43,7 @@ class MenuCollectionViewWrapper: UIView {
         commonInit()
     }
     private func commonInit() {
-        backgroundColor = Stylesheet.Colors.WMSYAshGrey
+        backgroundColor = Stylesheet.Colors.WMSYShadowBlue
         setupViews()
         layoutStuff()
     }
@@ -111,17 +111,17 @@ class MenuCollectionViewWrapper: UIView {
     public func currentlyOn(page: Int) {
         switch page {
         case 0:
-            dotsView.dotOne.backgroundColor = Stylesheet.Colors.WMSYOuterSpace
-            dotsView.dotTwo.backgroundColor = Stylesheet.Colors.WMSYAshGrey
-            dotsView.dotThree.backgroundColor = Stylesheet.Colors.WMSYAshGrey
+            dotsView.dotOne.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
+            dotsView.dotTwo.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
+            dotsView.dotThree.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
         case 1:
-            dotsView.dotOne.backgroundColor = Stylesheet.Colors.WMSYAshGrey
-            dotsView.dotTwo.backgroundColor = Stylesheet.Colors.WMSYOuterSpace
-            dotsView.dotThree.backgroundColor = Stylesheet.Colors.WMSYAshGrey
+            dotsView.dotOne.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
+            dotsView.dotTwo.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
+            dotsView.dotThree.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
         case 2:
-            dotsView.dotOne.backgroundColor = Stylesheet.Colors.WMSYAshGrey
-            dotsView.dotTwo.backgroundColor = Stylesheet.Colors.WMSYAshGrey
-            dotsView.dotThree.backgroundColor = Stylesheet.Colors.WMSYOuterSpace
+            dotsView.dotOne.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
+            dotsView.dotTwo.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
+            dotsView.dotThree.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
         default:
             return
         }

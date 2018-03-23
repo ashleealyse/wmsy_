@@ -53,7 +53,7 @@ class NotificationTableViewCell: UITableViewCell {
     }
     private func setupNotificationLabel() {
         notificationLabel.textAlignment = .center
-        notificationLabel.textColor = Stylesheet.Colors.WMSYIsabelline
+        notificationLabel.textColor = Stylesheet.Colors.WMSYPastelBlue
         contentView.addSubview(notificationLabel)
         notificationLabel.snp.makeConstraints { (make) in
             make.leading.trailing.equalTo(contentView).inset(100)

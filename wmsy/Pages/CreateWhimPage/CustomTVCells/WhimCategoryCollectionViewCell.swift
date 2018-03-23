@@ -13,10 +13,10 @@ class WhimCategoryCollectionViewCell: UICollectionViewCell {
     
     lazy var categoryImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = Stylesheet.Colors.WMSYIsabelline
+        imageView.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-        imageView.layer.borderColor = Stylesheet.Colors.WMSYMummysTomb.cgColor
+        imageView.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
         imageView.layer.borderWidth = 0.5
         imageView.layer.cornerRadius = imageView.bounds.width / 5.0
         
@@ -50,7 +50,7 @@ class WhimCategoryCollectionViewCell: UICollectionViewCell {
             if self.isSelected {
                 categoryImage.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
             } else {
-                categoryImage.backgroundColor = Stylesheet.Colors.WMSYIsabelline
+                categoryImage.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
             }
         }
     }

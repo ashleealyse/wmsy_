@@ -46,7 +46,7 @@ class LocationDetailsTableViewCell: UITableViewCell {
         selectionStyle = .none
         locationDetailsButton.titleLabel?.numberOfLines = 0
         locationDetailsButton.setTitle("This is where the location stuff would be at for you to press", for: .normal)
-        locationDetailsButton.setTitleColor(Stylesheet.Colors.WMSYOuterSpace, for: .normal)
+        locationDetailsButton.setTitleColor(Stylesheet.Colors.WMSYPastelBlue, for: .normal)
         locationDetailsButton.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
     }
     
