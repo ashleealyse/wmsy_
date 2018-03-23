@@ -56,7 +56,7 @@ class FeedMapVC: MenuedViewController {
         locationManager.distanceFilter = 50
         locationManager.startUpdatingLocation()
         self.locationManager.delegate = self
-//
+
 //        view.addSubview(mapView)
 //        let mylocation = mapView.mapView.myLocation
 //        mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
@@ -189,7 +189,20 @@ extension FeedMapVC: UITableViewDataSource {
         
 //        cell.expandedView.userImage.image =
         // path for the category image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
-        return cell
+//        
+//        var user: AppUser?
+//        
+//        DBService.manager.getAppUser(with: whim.hostID) { (dbUser) in
+//            user = dbUser
+//            cell.collapsedView.userImage.imageView?.kf.indicatorType = .activity
+//            cell.collapsedView.userImage.imageView?.kf.setImage(with: URL(string: (user?.photoID)!))
+//        }
+//        
+//        
+//        
+//        
+//        
+//        return cell
     }
 }
 

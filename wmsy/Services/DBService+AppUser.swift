@@ -22,7 +22,7 @@ extension DBService {
             "badge" : appUser.badge,
             "flags" : appUser.flags
             ])
-     let _ = StorageService.manager.storeImage(image, imageID: ref.key)
+        StorageService.manager.storeUserImage(image: image, userID: appUser.userID)
     }
     
     
@@ -32,14 +32,22 @@ extension DBService {
     
     
     
-//    func getAppUser(with uID: String, completion: @escaping (_ user: AppUser) -> Void) {
-//        let userRef = usersRef.child(uID)
-//
-//        userRef.observeSingleEvent(of: .value) { (snapshot) in
-//            guard let email = snapshot.childSnapshot(forPath: "email").value as? String else {return}
-//            let currentAppUser = AppUser(email: email, uID: uID)
-//            completion(currentAppUser)
-//        }
-//    }
+    func getAppUser(with uID: String, completion: @escaping (_ user: AppUser) -> Void) {
+        let userRef = usersRef.child(uID)
+
+        userRef.observeSingleEvent(of: .value) { (snapshot) in
+            guard let name = snapshot.childSnapshot(forPath: "name").value as? String else {return}
+            guard let photoID = snapshot.childSnapshot(forPath: "photoID").value as? String else {return}
+            guard let age = snapshot.childSnapshot(forPath: "age").value as? String else {return}
+            guard let userID = snapshot.childSnapshot(forPath: "userID").value as? String else {return}
+            guard let bio = snapshot.childSnapshot(forPath: "bio").value as? String else {return}
+            guard let badge = snapshot.childSnapshot(forPath: "badge").value as? Bool else {return}
+            guard let flags = snapshot.childSnapshot(forPath: "flags").value as? Int else {return}
+
+
+            let currentAppUser = AppUser(name: name, photoID: photoID, age: age, userID: userID, bio: bio, badge: badge, flags: flags)
+            completion(currentAppUser)
+        }
+    }
 }
 
