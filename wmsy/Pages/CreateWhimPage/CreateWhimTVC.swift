@@ -102,20 +102,18 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
             descriptionCell.charactersRemainingLabel.tag = 1
             return descriptionCell
         case 3:
-            let expirationCell = tableView.dequeueReusableCell(withIdentifier: "ExpirationCell", for: indexPath) as! WhimExpirationTableViewCell
-            expirationCell.hourPickerView.dataSource = self
-            expirationCell.hourPickerView.delegate = self
-            return expirationCell
-        case 4:
             let locationCell = tableView.dequeueReusableCell(withIdentifier: "LocationCell", for: indexPath) as! WhimLocationTableViewCell
 
             locationCell.selectLocationButton.addTarget(self, action: #selector(selectLocation), for: .touchUpInside)
             locationCell.addressLabel.text = "Meeting Location: " + whimLocation
 //            whimLocation = locationCell.addressLabel.text!
 //            whimLocation = // label.text of AddWhimeLocationVC
-            
-            
-            return locationCell
+          return locationCell
+        case 4:
+            let expirationCell = tableView.dequeueReusableCell(withIdentifier: "ExpirationCell", for: indexPath) as! WhimExpirationTableViewCell
+            expirationCell.hourPickerView.dataSource = self
+            expirationCell.hourPickerView.delegate = self
+            return expirationCell
         case 5:
             let buttonCell = tableView.dequeueReusableCell(withIdentifier: "ButtonCell", for: indexPath) as! HostAWhimButtonTableViewCell
             buttonCell.hostButton.addTarget(self, action: #selector(collectInputs), for: .touchUpInside)

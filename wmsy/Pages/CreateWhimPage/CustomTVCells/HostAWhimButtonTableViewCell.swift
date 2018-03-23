@@ -38,6 +38,7 @@ class HostAWhimButtonTableViewCell: UITableViewCell {
             make.top.equalTo(contentView.snp.top).offset(5)
             make.leading.equalTo(contentView.snp.leading).offset(5)
             make.trailing.equalTo(contentView.snp.trailing).offset(-5)
+            make.height.equalTo(contentView.snp.height).multipliedBy(2.0)
             make.bottom.equalTo(contentView.snp.bottom).offset(-5)
             
         }
