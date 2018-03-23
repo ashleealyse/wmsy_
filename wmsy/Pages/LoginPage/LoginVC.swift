@@ -82,14 +82,13 @@ extension LoginVC: loginViewDelegate {
                         Auth.auth().signIn(with: cred, completion: { (user, error) in
                             let userName = response.name
 //                            let userID = response.id
-                            let userID = user?.uid  
-                            let profilePictureUrl = URL(string: response.profilePictureUrl!)
-                            let testImageView = UIImageView()
-                            testImageView.kf.setImage(with: profilePictureUrl, placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
-                                let newUser = AppUser(name: userName!, photoID: "", age: "", userID: userID!, bio: "", badge: false, flags: 0)
-                                DBService.manager.addAppUser(newUser, image: image!)
-                            })
+                            let userID = user?.uid
+                            if let photoID = response.profilePictureUrl{
+                            let newUser = AppUser(name: userName!, photoID: response.profilePictureUrl! , age: "", userID: userID!, bio: "", badge: false, flags: 0)
+                                DBService.manager.addAppUser(newUser)
+                            }
                             (self.tabBarController as? MainTabBarVC)?.animateTo(page: .feedAndMap, fromViewController: self)
+                          
 //                            let vc = FeedMapVC()
 //                            let nav = UINavigationController(rootViewController: vc)
 //                            self.present(nav, animated: true, completion: nil)

@@ -11,7 +11,7 @@ import FirebaseDatabase
 import UIKit
 
 extension DBService {
-    public func addAppUser(_ appUser: AppUser, image: UIImage) {
+    public func addAppUser(_ appUser: AppUser) {
         let ref = usersRef.child(appUser.userID)
         ref.setValue([
             "name" : appUser.name,
@@ -22,7 +22,6 @@ extension DBService {
             "badge" : appUser.badge,
             "flags" : appUser.flags
             ])
-        StorageService.manager.storeUserImage(image: image, userID: appUser.userID)
     }
     
     

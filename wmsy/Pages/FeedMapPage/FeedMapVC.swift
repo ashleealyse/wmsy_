@@ -56,11 +56,9 @@ class FeedMapVC: MenuedViewController {
         locationManager.distanceFilter = 50
         locationManager.startUpdatingLocation()
         self.locationManager.delegate = self
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> qa
+
+
 //        view.addSubview(mapView)
 //        let mylocation = mapView.mapView.myLocation
 //        mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
@@ -183,26 +181,10 @@ extension FeedMapVC: UITableViewDataSource {
         let whim = feedWhims[indexPath.row]
         cell.collapsedView.postTitleLabel.text = whim.title
         cell.collapsedView.categoryIcon.image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
-//        cell.collapsedView.userImageButton.imageView?.kf.setImage(with: whim.)
-
-        
-//        cell.expandedView.userImage.image =
-        // path for the category image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
-//        
-//        var user: AppUser?
-//        
-//        DBService.manager.getAppUser(with: whim.hostID) { (dbUser) in
-//            user = dbUser
-//            cell.collapsedView.userImage.imageView?.kf.indicatorType = .activity
-//            cell.collapsedView.userImage.imageView?.kf.setImage(with: URL(string: (user?.photoID)!))
-//        }
-//        
-//        
-//        
-//        
-//        
-//        return cell
-
+        print(whim.hostImageURL)
+        cell.collapsedView.userImageButton.imageView?.kf.setImage(with: URL(string: whim.hostImageURL), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+            cell.collapsedView.userImageButton.setImage(image, for: .normal)
+        })
         cell.expandedView.postDescriptionTF.text = whim.description
         return cell
 

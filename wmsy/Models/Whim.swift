@@ -14,6 +14,7 @@ struct Whim: Codable {
     let title: String
     let description: String
     let hostID: String
+    let hostImageURL: String
     let location: String
     let long: String
     let lat: String
@@ -29,12 +30,13 @@ struct Whim: Codable {
     
     
     
-    init(id: String, category: String, title: String, description: String, hostID: String, location: String, long: String, lat: String, duration: Int, expiration: String, finalized: Bool, timestamp: String, whimChats: [Message]) {
+    init(id: String, category: String, title: String, description: String, hostID: String, hostImageURL: String, location: String, long: String, lat: String, duration: Int, expiration: String, finalized: Bool, timestamp: String, whimChats: [Message]) {
         self.id = id
         self.category =  category
         self.title =  title
         self.description =  description
         self.hostID =  hostID
+        self.hostImageURL = hostImageURL
         self.location =  location
         self.long = long
         self.lat = lat
