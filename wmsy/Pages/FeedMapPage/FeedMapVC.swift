@@ -38,27 +38,41 @@ class FeedMapVC: MenuedViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        add(feedVC)
+        add(filtersVC)
+        add(mapVC)
+        
+        
         SVProgressHUD.dismiss()
 
         mapVC.delegate = self
         feedVC.delegate = self
-        view.addSubview(feedVC.feedView)
         
+        view.addSubview(feedVC.feedView)
         feedVC.feedView.snp.makeConstraints { (make) in
-
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
         
-        view.addSubview(mapVC.mapView)
-        mapVC.mapView.snp.makeConstraints { (make) in
-            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
-            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-200)
-            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.75)
-        }
         
         view.addSubview(filtersVC.filtersView)
+        filtersVC.filtersView.snp.makeConstraints { (make) in
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            //            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-200)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
+            //            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.25)
+            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.15)
+        }
         
+        //        view.addSubview(mapVC.mapView)
+        //        mapVC.mapView.snp.makeConstraints { (make) in
+//            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+//            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+//            make.top.equalTo(filtersVC.filtersView.snp.bottom)
+//            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.75)
+//        }
+        
+
         
         
         configureNavBar()

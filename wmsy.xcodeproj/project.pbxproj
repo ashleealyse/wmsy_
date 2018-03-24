@@ -73,6 +73,7 @@
 		81F9F06A206566FD00D288E8 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F9F069206566FD00D288E8 /* MapVC.swift */; };
 		81F9F06C20656B1100D288E8 /* FiltersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F9F06B20656B1100D288E8 /* FiltersVC.swift */; };
 		81F9F06E20656B2200D288E8 /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F9F06D20656B2200D288E8 /* FiltersView.swift */; };
+		81F9F0702065D27700D288E8 /* AddChildVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F9F06F2065D27700D288E8 /* AddChildVC.swift */; };
 		8449A2DA7A870D7DFE6E2428 /* Pods_wmsy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CEEC5ACCA9E78DD3C3881CA /* Pods_wmsy.framework */; };
 		932F180D2065A3F300950104 /* FloatingPopsicleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932F180C2065A3F300950104 /* FloatingPopsicleView.swift */; };
 		93495B0620603F9A0080BDBA /* ExpandedFeedCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93495B0520603F9A0080BDBA /* ExpandedFeedCellView.swift */; };
@@ -165,6 +166,7 @@
 		81F9F069206566FD00D288E8 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		81F9F06B20656B1100D288E8 /* FiltersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersVC.swift; sourceTree = "<group>"; };
 		81F9F06D20656B2200D288E8 /* FiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
+		81F9F06F2065D27700D288E8 /* AddChildVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChildVC.swift; sourceTree = "<group>"; };
 		876DF1E5D004E38FACE607E8 /* Pods-wmsy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wmsy.release.xcconfig"; path = "Pods/Target Support Files/Pods-wmsy/Pods-wmsy.release.xcconfig"; sourceTree = "<group>"; };
 		932F180C2065A3F300950104 /* FloatingPopsicleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPopsicleView.swift; sourceTree = "<group>"; };
 		93495B0520603F9A0080BDBA /* ExpandedFeedCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedFeedCellView.swift; sourceTree = "<group>"; };
@@ -371,6 +373,7 @@
 				81EBB58E20601C86008A6CE7 /* DBService.swift */,
 				812112E020609D3F002D80C2 /* AuthUserService.swift */,
 				812112E220615BF7002D80C2 /* DBService+Get.swift */,
+				81F9F06F2065D27700D288E8 /* AddChildVC.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -671,6 +674,7 @@
 				81BAD689205AEEC300C7F039 /* AppUser.swift in Sources */,
 				81F9F0682065668100D288E8 /* FeedVC.swift in Sources */,
 				81BAD6A1205AF06900C7F039 /* HostMessageCell.swift in Sources */,
+				81F9F0702065D27700D288E8 /* AddChildVC.swift in Sources */,
 				81BAD693205AEF7B00C7F039 /* MyChatsView.swift in Sources */,
 				81AB7AC4205C80FC009845EA /* HostAWhimButtonTableViewCell.swift in Sources */,
 				81AB7AC6205C94DD009845EA /* WhimCategoryCollectionViewCell.swift in Sources */,

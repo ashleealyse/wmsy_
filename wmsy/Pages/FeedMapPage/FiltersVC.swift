@@ -21,20 +21,24 @@ class FiltersVC: UIViewController {
         
         self.filtersView.categoriesCV.delegate = self
         self.filtersView.categoriesCV.dataSource = self
-        
-        
+        filtersView.categoriesCV.reloadData()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        print("View will appear")
+    }
 }
 
-extension FiltersVC: UICollectionViewDelegate {
+
+
+extension FiltersVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! WhimCategoryCollectionViewCell
         let tuple = categoryList[indexPath.row]
-        let indexPath = IndexPath.init(row: 0, section: 0)
-//        let categoryTableViewCell = tableView.cellForRow(at: indexPath) as! WhimCategoryTableViewCell
+//        let indexPath = IndexPath.init(row: 0, section: 0)
         var selectedCategory = tuple
-        self.filtersView.categoryLabel.text = "Category: \(selectedCategory.0)"
+//        cell.categoryImage.image = selectedCategory.1
+        self.filtersView.categoryLabel.text = "Filter Whims by: \(selectedCategory.0)"
     }
 }
 
@@ -44,11 +48,12 @@ extension FiltersVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! WhimCategoryCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCategoryCell", for: indexPath) as! WhimCategoryCollectionViewCell
         let categoryImage = categoryList[indexPath.row].1
         cell.categoryImage.image = categoryImage
         return cell
     }
-    
-    
 }
+
+
+
