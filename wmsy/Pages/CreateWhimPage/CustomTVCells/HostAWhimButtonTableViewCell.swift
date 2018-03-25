@@ -14,7 +14,7 @@ class HostAWhimButtonTableViewCell: UITableViewCell {
     // "Host a Whim" button
     lazy var hostButton: UIButton = {
         let bt = UIButton()
-        bt.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
+        bt.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
         bt.setTitle("Host a Whim", for: .normal)
         return bt
     }()
@@ -38,7 +38,8 @@ class HostAWhimButtonTableViewCell: UITableViewCell {
             make.top.equalTo(contentView.snp.top).offset(5)
             make.leading.equalTo(contentView.snp.leading).offset(5)
             make.trailing.equalTo(contentView.snp.trailing).offset(-5)
-            make.height.equalTo(contentView.snp.height).multipliedBy(2.0)
+            let screenHeight = UIScreen.main.bounds.height
+            make.height.equalTo(screenHeight * 0.1)
             make.bottom.equalTo(contentView.snp.bottom).offset(-5)
             
         }

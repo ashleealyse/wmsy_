@@ -43,9 +43,9 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
         self.tableView.register(WhimCategoryTableViewCell.self, forCellReuseIdentifier: "CategoryCell")
         self.tableView.register(WhimTitleTableViewCell.self, forCellReuseIdentifier: "TitleCell")
         self.tableView.register(WhimDescriptionTableViewCell.self, forCellReuseIdentifier: "DescriptionCell")
+        self.tableView.register(HostAWhimButtonTableViewCell.self, forCellReuseIdentifier: "ButtonCell")
         self.tableView.register(WhimExpirationTableViewCell.self, forCellReuseIdentifier: "ExpirationCell")
         self.tableView.register(WhimLocationTableViewCell.self, forCellReuseIdentifier: "LocationCell")
-        self.tableView.register(HostAWhimButtonTableViewCell.self, forCellReuseIdentifier: "ButtonCell")
 
 
         DBService.manager.getAppUser(with: (AuthUserService.manager.getCurrentUser()?.uid)!) { (user) in
