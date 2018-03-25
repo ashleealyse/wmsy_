@@ -13,12 +13,13 @@ class WhimCategoryCollectionViewCell: UICollectionViewCell {
     
     lazy var categoryImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
+        imageView.backgroundColor = .clear
         imageView.contentMode = .scaleAspectFit
-        imageView.clipsToBounds = true
-        imageView.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
-        imageView.layer.borderWidth = 0.5
-        imageView.layer.cornerRadius = imageView.bounds.width / 5.0
+        imageView.alpha = 0.5
+//        imageView.clipsToBounds = true
+//        imageView.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
+//        imageView.layer.borderWidth = 0.5
+//        imageView.layer.cornerRadius = imageView.bounds.width / 5.0
         
         return imageView
     }()
@@ -48,12 +49,19 @@ class WhimCategoryCollectionViewCell: UICollectionViewCell {
     override var isSelected: Bool {
         didSet {
             if self.isSelected {
-                categoryImage.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
+//                categoryImage.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
+                categoryImage.alpha = 1.0
             } else {
-                categoryImage.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
+//                categoryImage.backgroundColor = .clear
+                categoryImage.alpha = 0.5
             }
         }
     }
+    
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        categoryImage.layer.cornerRadius = categoryImage.frame.size.width / 2.0
+//    }
     
     private func setupViews(){
         setupCategoryImage()

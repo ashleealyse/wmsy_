@@ -17,6 +17,7 @@
 		812112E72062F660002D80C2 /* AddWhimLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812112E62062F660002D80C2 /* AddWhimLocationViewController.swift */; };
 		812112E92062F7D3002D80C2 /* AddWhimLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812112E82062F7D3002D80C2 /* AddWhimLocationView.swift */; };
 		812112EB20632889002D80C2 /* ChatGuestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812112EA20632889002D80C2 /* ChatGuestCollectionViewCell.swift */; };
+		812112ED20641B1D002D80C2 /* CombinationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812112EC20641B1D002D80C2 /* CombinationView.swift */; };
 		8139A99D205C2E9F006C7058 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8139A99C205C2E9F006C7058 /* GoogleService-Info.plist */; };
 		8139A99F205C309F006C7058 /* Whim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8139A99E205C309F006C7058 /* Whim.swift */; };
 		8139A9A2205C30D7006C7058 /* CreateWhimTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8139A9A1205C30D7006C7058 /* CreateWhimTVC.swift */; };
@@ -61,6 +62,7 @@
 		81BAD6A9205AF0AA00C7F039 /* GuestProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BAD6A8205AF0AA00C7F039 /* GuestProfileVC.swift */; };
 		81D12DCF20641B210056920C /* FooterTabDotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D12DCE20641B210056920C /* FooterTabDotsView.swift */; };
 		81D12DD120643A920056920C /* MenuChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D12DD020643A920056920C /* MenuChatView.swift */; };
+		81D12DD42065AA470056920C /* DataQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D12DD32065AA470056920C /* DataQueue.swift */; };
 		81DECD19205C87ED00214866 /* MenuedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DECD18205C87ED00214866 /* MenuedViewController.swift */; };
 		81DECD1B205C87FA00214866 /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DECD1A205C87FA00214866 /* Interactor.swift */; };
 		81DECD1D205C881200214866 /* MenuHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DECD1C205C881200214866 /* MenuHelper.swift */; };
@@ -109,6 +111,7 @@
 		812112E62062F660002D80C2 /* AddWhimLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWhimLocationViewController.swift; sourceTree = "<group>"; };
 		812112E82062F7D3002D80C2 /* AddWhimLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWhimLocationView.swift; sourceTree = "<group>"; };
 		812112EA20632889002D80C2 /* ChatGuestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGuestCollectionViewCell.swift; sourceTree = "<group>"; };
+		812112EC20641B1D002D80C2 /* CombinationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinationView.swift; sourceTree = "<group>"; };
 		8139A99C205C2E9F006C7058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8139A99E205C309F006C7058 /* Whim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Whim.swift; sourceTree = "<group>"; };
 		8139A9A1205C30D7006C7058 /* CreateWhimTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWhimTVC.swift; sourceTree = "<group>"; };
@@ -157,6 +160,7 @@
 		81BAD6A8205AF0AA00C7F039 /* GuestProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestProfileVC.swift; sourceTree = "<group>"; };
 		81D12DCE20641B210056920C /* FooterTabDotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterTabDotsView.swift; sourceTree = "<group>"; };
 		81D12DD020643A920056920C /* MenuChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuChatView.swift; sourceTree = "<group>"; };
+		81D12DD32065AA470056920C /* DataQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataQueue.swift; sourceTree = "<group>"; };
 		81DECD18205C87ED00214866 /* MenuedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuedViewController.swift; sourceTree = "<group>"; };
 		81DECD1A205C87FA00214866 /* Interactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
 		81DECD1C205C881200214866 /* MenuHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHelper.swift; sourceTree = "<group>"; };
@@ -320,6 +324,7 @@
 				81BAD67A205AEDAA00C7F039 /* FeedMapVC.swift */,
 				81BAD67C205AEDBF00C7F039 /* FeedView.swift */,
 				81BAD67E205AEDC800C7F039 /* MapView.swift */,
+				812112EC20641B1D002D80C2 /* CombinationView.swift */,
 				811FFB5620606B5500F3312B /* CollapsedFeedCellView.swift */,
 				93495B0520603F9A0080BDBA /* ExpandedFeedCellView.swift */,
 				93495B07206041080080BDBA /* FeedCell.swift */,
@@ -342,6 +347,7 @@
 		81BAD684205AEE1500C7F039 /* ChatRoomPage */ = {
 			isa = PBXGroup;
 			children = (
+				81D12DD22065AA200056920C /* SupportFiles */,
 				81B928DF20617CFB002CD355 /* Views */,
 				81BAD69A205AF03600C7F039 /* ChatRoomVC.swift */,
 				81BAD69C205AF04600C7F039 /* HostChatView.swift */,
@@ -391,6 +397,14 @@
 				811FFB9820615B6900F3312B /* NotificationManager.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		81D12DD22065AA200056920C /* SupportFiles */ = {
+			isa = PBXGroup;
+			children = (
+				81D12DD32065AA470056920C /* DataQueue.swift */,
+			);
+			path = SupportFiles;
 			sourceTree = "<group>";
 		};
 		81DECD17205C878E00214866 /* SupportFiles */ = {
@@ -679,6 +693,7 @@
 				81EBB58D20601C7E008A6CE7 /* DBService+AppUser.swift in Sources */,
 				81BAD6A3205AF07300C7F039 /* GuestMessageCell.swift in Sources */,
 				812112E120609D3F002D80C2 /* AuthUserService.swift in Sources */,
+				812112ED20641B1D002D80C2 /* CombinationView.swift in Sources */,
 				81DECD2A205C93A300214866 /* MenuCollectionViewWrapper.swift in Sources */,
 				81BAD67F205AEDC800C7F039 /* MapView.swift in Sources */,
 				81DECD2E205E229E00214866 /* MenuWhimsCell.swift in Sources */,
@@ -700,6 +715,7 @@
 				81B928E120617D07002CD355 /* ChatView.swift in Sources */,
 				81BAD6A5205AF08100C7F039 /* NotificationMsgCell.swift in Sources */,
 				8139A9A2205C30D7006C7058 /* CreateWhimTVC.swift in Sources */,
+				81D12DD42065AA470056920C /* DataQueue.swift in Sources */,
 				81DECD2C205DECF900214866 /* MenuWhimsHeader.swift in Sources */,
 				81B928E520618D54002CD355 /* GuestMessageTableViewCell.swift in Sources */,
 				81903105205ADCF200932A55 /* AppDelegate.swift in Sources */,

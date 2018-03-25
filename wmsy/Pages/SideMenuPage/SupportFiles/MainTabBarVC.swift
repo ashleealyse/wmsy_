@@ -14,15 +14,6 @@ class MainTabBarVC: UITabBarController {
     let feedMapVC   = UINavigationController.init(rootViewController: FeedMapVC())
     let chatRoomVC  = ChatRoomVC()
     
-    
-//    let createVC    = CreateAccountViewController()
-//    let homeVC      = UINavigationController(rootViewController: HomeViewController())
-//    let decksVC     = UINavigationController(rootViewController: DecksViewController())
-//    let progressVC  = ProgressViewController()
-//    let browseVC    = BrowseViewController()
-//    let profileVC   = ProfileViewController()
-//    let inboxVC     = InboxViewController()
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         loginVC.tabBarItem  = UITabBarItem(title: "login", image: nil, tag: 0)
@@ -50,35 +41,6 @@ class MainTabBarVC: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
-//        UserService.manager.userListener = self
-        
-        //        let loginVC     = LoginViewController()
-        //        let createVC    = CreateAccountViewController()
-        //        let homeVC      = HomeViewController()
-        //        let studyVC     = StudyViewController()
-        ////        let decksVC     = MyDecksCollectionViewController()
-        //        let decksVC = TestCollection()
-        
-        //        loginVC.tabBarItem  = UITabBarItem(title: "login", image: nil, tag: 0)
-        //        createVC.tabBarItem = UITabBarItem(title: "create", image: nil, tag: 1)
-        //        homeVC.tabBarItem   = UITabBarItem(title: "home", image: nil, tag: 2)
-        //        decksVC.tabBarItem  = UITabBarItem(title: "decks", image: nil, tag: 3)
-        //        //        studyVC.tabBarItem  = UITabBarItem(title: "study", image: nil, tag: 3)
-        //
-        //        let homeNavVC = HiddenNavController(rootViewController: homeVC)
-        //        let studyNavVC = HiddenNavController(rootViewController: studyVC)
-        //
-        ////        let loginNavVC = UINavigationController(rootViewController: loginVC)
-        //
-        //
-        //        let controllers = [loginVC, createVC, homeVC, studyVC, decksVC]
-        //        self.tabBar.isHidden = true
-        //        self.setViewControllers(controllers, animated: false)
-        // Do any additional setup after loading the view.
-        
-//        if UserService.manager.userIsSignedIn() {
-//            selectedIndex = Page.home.rawValue
-//        }
         
     }
     
@@ -103,7 +65,13 @@ class MainTabBarVC: UITabBarController {
             else {
                 return
         }
-        fromView.superview?.addSubview(toView)
+        var supremeView = toView
+        while supremeView.superview != nil {
+            supremeView = supremeView.superview!
+        }
+        
+        
+        fromView.superview?.addSubview(supremeView)
         
         let screenWidth = UIScreen.main.bounds.size.width
         let offset = (page == .login) ? -screenWidth : screenWidth
@@ -111,7 +79,7 @@ class MainTabBarVC: UITabBarController {
         
         view.isUserInteractionEnabled = false
         
-        UIView.animate(withDuration: 5, delay: 0.0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
             
             toView.center = CGPoint(x: toView.center.x - offset, y: toView.center.y)
         }) { (finished) in

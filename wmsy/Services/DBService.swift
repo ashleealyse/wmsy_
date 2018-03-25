@@ -38,7 +38,7 @@ class DBService: NSObject {
     
     // Create a Whim by current user
     
-    public func addWhim(withCategory category: String, title: String, description: String, approxLocation: String, location: String, duration: Int) {
+    public func addWhim(withCategory category: String, title: String, description: String, location: String, long: String, lat: String, duration: Int) {
         
         guard let currentUser = AuthUserService.manager.getCurrentUser() else {
             print("Error: could not get current user id, please exit the app and log back in.")
@@ -58,7 +58,7 @@ class DBService: NSObject {
         let expirationString = formatter.string(from: expiration)
         
         
-        let whim = Whim(id: ref.key, category: category, title: title, description: description, hostID: currentUser.uid, approxLocation: approxLocation, location: location, duration: duration, expiration: expirationString, finalized: false, timestamp: dateString, whimChats: [])
+        let whim = Whim(id: ref.key, category: category, title: title, description: description, hostID: currentUser.uid, location: location,long: long,lat: lat, duration: duration, expiration: expirationString, finalized: false, timestamp: dateString, whimChats: [])
         
         
         
@@ -67,8 +67,9 @@ class DBService: NSObject {
                       "title": whim.title,
                       "description": whim.description,
                       "hostID": whim.hostID,
-                      "approxLocation": whim.approxLocation,
                       "location": whim.location,
+                      "long": whim.long,
+                      "lat": whim.lat,
                       "duration": whim.duration,
                       "expiration": whim.expiration,
                       "finalized": whim.finalized,
