@@ -35,10 +35,10 @@ class FiltersView: UIView {
         let numberOfSpaces: CGFloat = numberOfCells + 1
         layout.itemSize = CGSize(width: (screenWidth - (cellSpacing * numberOfSpaces)) * 0.07 / numberOfCells, height: (screenWidth - (cellSpacing * numberOfSpaces)) * 0.07)
         layout.sectionInset = UIEdgeInsetsMake(cellSpacing, cellSpacing, cellSpacing, cellSpacing)
-        layout.minimumLineSpacing = cellSpacing * 4
+        layout.minimumLineSpacing = cellSpacing * 8
         layout.minimumInteritemSpacing = cellSpacing
         let categoriesCV = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
-        //        categoriesCV.backgroundColor = .white
+//                categoriesCV.backgroundColor = .white
         categoriesCV.register(WhimCategoryCollectionViewCell.self, forCellWithReuseIdentifier: "FilterCategoryCell")
         categoriesCV.showsHorizontalScrollIndicator = false
         categoriesCV.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
@@ -113,8 +113,8 @@ class FiltersView: UIView {
             make.leading.equalTo(self.snp.leading).offset(5)
             make.trailing.equalTo(self.snp.trailing).offset(-5)
             make.top.equalTo(categoriesCV.snp.bottom).offset(5)
-//            make.height.equalTo(self.snp.height).multipliedBy(0.3)
-            make.bottom.equalTo(self.snp.bottom).offset(-5)
+            make.height.equalTo(self.snp.height).multipliedBy(0.3)
+//            make.bottom.equalTo(self.snp.bottom).offset(-5)
         }
         
     }

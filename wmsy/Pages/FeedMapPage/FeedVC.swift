@@ -14,28 +14,34 @@ class FeedVC: UIViewController {
 
     var feedView = FeedView()
     
-    var feedWhims: [Whim] = []
+    var feedWhims: [Whim] = [] {
+        didSet {
+            print("FeedVC feedWhims: \(feedWhims)")
+        }
+    }
     
     var expandedRows = Set<Int>()
     
     weak var delegate: ParentDelegate?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         SVProgressHUD.dismiss()
+        
+//        feedWhims = feedWhims.sortedByTimestamp()
+        
         view.addSubview(feedView)
-        feedView.tableView.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
+        view.backgroundColor = .green
+//        feedView.tableView.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
         feedView.tableView.dataSource = self
         feedView.tableView.delegate = self
         feedView.tableView.rowHeight = UITableViewAutomaticDimension
         feedView.tableView.estimatedRowHeight = 90
         feedView.tableView.separatorStyle = .none
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
 }
+
 
 extension FeedVC: UITableViewDelegate {
     

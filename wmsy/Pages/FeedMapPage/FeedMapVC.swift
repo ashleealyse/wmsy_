@@ -23,6 +23,7 @@ class FeedMapVC: MenuedViewController {
     
     var feedWhims: [Whim] = [] {
         didSet {
+            print("number of whims to load: \(feedWhims.count)")
             feedWhims = feedWhims.sortedByTimestamp()
             feedVC.feedView.tableView.reloadData()
             mapVC.mapView.mapView.clear()
@@ -45,32 +46,35 @@ class FeedMapVC: MenuedViewController {
         
         SVProgressHUD.dismiss()
 
-        mapVC.delegate = self
         feedVC.delegate = self
+        mapVC.delegate = self
+
         
         view.addSubview(feedVC.feedView)
         feedVC.feedView.snp.makeConstraints { (make) in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
+
         
         
         view.addSubview(filtersVC.filtersView)
         filtersVC.filtersView.snp.makeConstraints { (make) in
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
-            //            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-200)
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-50)
+//            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-200)
+            //            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
             //            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.25)
-            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.15)
+            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.16)
         }
         
-        //        view.addSubview(mapVC.mapView)
-        //        mapVC.mapView.snp.makeConstraints { (make) in
-//            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
-//            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
-//            make.top.equalTo(filtersVC.filtersView.snp.bottom)
-//            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.75)
-//        }
+        view.addSubview(mapVC.mapView)
+        mapVC.mapView.snp.makeConstraints { (make) in
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            make.top.equalTo(filtersVC.filtersView.snp.bottom)
+            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.84)
+        }
         
 
         
@@ -79,9 +83,9 @@ class FeedMapVC: MenuedViewController {
     }
     
     
-    override func viewWillAppear(_ animated: Bool) {
-        feedVC.feedView.tableView.reloadData()
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        feedVC.feedView.tableView.reloadData()
+//    }
     
     // setup UIBarButtonItem
     private func configureNavBar() {

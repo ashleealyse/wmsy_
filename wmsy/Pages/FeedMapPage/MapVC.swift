@@ -25,6 +25,7 @@ class MapVC: UIViewController {
     // sends map updates to the parent vc - FeedMapVC
     var userLocation = CLLocation(){
         didSet{
+            print("MapVC userLocation set")
             DBService.manager.getClosestWhims(location: userLocation) { (whims) in
                 self.feedWhims = whims
                 self.delegate?.updateChildren(whims: whims)
@@ -41,7 +42,7 @@ class MapVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        SVProgressHUD.dismiss()
         view.addSubview(mapView)
 
         locationManager = CLLocationManager()
