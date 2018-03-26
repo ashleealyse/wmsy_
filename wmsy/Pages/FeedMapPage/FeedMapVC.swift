@@ -56,9 +56,13 @@ class FeedMapVC: MenuedViewController {
         locationManager.distanceFilter = 50
         locationManager.startUpdatingLocation()
         self.locationManager.delegate = self
-
-
-
+//<<<<<<< HEAD
+//        
+//=======
+//
+//
+//
+//>>>>>>> qa
 //        view.addSubview(mapView)
 //        let mylocation = mapView.mapView.myLocation
 //        mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
