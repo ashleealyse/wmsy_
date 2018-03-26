@@ -12,20 +12,56 @@ import UIKit
 
 class ProfileView: UIView {
     
-    //    public var header = UIView()
-    public var badgeView = UIView()
-    public var profileImageView = UIImageView(image: #imageLiteral(resourceName: "wmsyCategoryIcon"))
-    public var nameLabel = UILabel()
-    public var ageLabel = UILabel()
-    public var bioLabel = UILabel()
+    lazy var containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 20
+        view.layer.masksToBounds = true
+        return view
+    }()
     
     var dismissButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "cancelIcon"), for: .normal)
         return button
     }()
-
- 
+    
+    var badgeView: UIImageView = {
+        let badge = UIImageView()
+        badge.image = #imageLiteral(resourceName: "badgeIcon")
+        return badge
+    }()
+    
+    var profileImageView: UIImageView = {
+        let img = UIImageView()
+        img.image = #imageLiteral(resourceName: "artsCategoryIcon")
+        img.contentMode = .scaleToFill
+        img.layer.borderWidth = 1.0
+        img.clipsToBounds = true
+        return img
+    }()
+    
+    var nameLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "T-Swift"
+        lbl.textAlignment = .center
+        return lbl
+    }()
+    
+    var ageLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "22"
+        lbl.textAlignment = .center
+        return lbl
+    }()
+    
+    var bioLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.numberOfLines = 0
+        lbl.textAlignment = .center
+        lbl.text = "Hey I am t-Swift. I love writing breakup songs"
+        return lbl
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,7 +69,7 @@ class ProfileView: UIView {
     }
     convenience init() {
         self.init(frame: UIScreen.main.bounds)
-        backgroundColor = .white
+        backgroundColor = UIColor.lightText.withAlphaComponent(0.8)
     }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -41,82 +77,81 @@ class ProfileView: UIView {
     }
     private func commonInit() {
         setupViews()
-        placeholderTesting()
     }
     
     private func setupViews() {
+        setupContainerView()
         setUpDismissButton()
         setupBadgeView()
         setupProfileImageView()
         setupNameLabel()
         setupAgeLabel()
-        setupBioLabel()
+        setupBioTV()
     }
     
     private func setUpDismissButton() {
-        addSubview(dismissButton)
+        containerView.addSubview(dismissButton)
         dismissButton.snp.makeConstraints { (make) in
-            make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(16)
-            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(5)
+            make.top.equalTo(safeAreaLayoutGuide).offset(70)
+            make.leading.equalTo(safeAreaLayoutGuide).offset(30)
+            make.width.equalTo(self).multipliedBy(0.05)
+            make.height.equalTo(self.snp.width).multipliedBy(0.05)
+            
         }
     }
     
     private func setupBadgeView() {
-        addSubview(badgeView)
+        containerView.addSubview(badgeView)
         badgeView.snp.makeConstraints { (make) in
-            make.top.trailing.equalTo(safeAreaLayoutGuide).inset(16)
-            make.height.equalTo(50)
-            make.width.equalTo(150)
+            make.top.equalTo(safeAreaLayoutGuide).offset(70)
+            make.trailing.equalTo(safeAreaLayoutGuide).offset(-30)
+            make.width.equalTo(self).multipliedBy(0.1)
+            make.height.equalTo(self.snp.width).multipliedBy(0.1)
         }
     }
     private func setupProfileImageView() {
-        addSubview(profileImageView)
+        containerView.addSubview(profileImageView)
         profileImageView.snp.makeConstraints { (make) in
-            make.centerX.equalTo(safeAreaLayoutGuide)
-            make.width.height.equalTo(safeAreaLayoutGuide.snp.width).multipliedBy(0.6)
-            make.top.equalTo(badgeView.snp.bottom).offset(40)
+            make.centerX.equalTo(self)
+            make.top.equalTo(containerView).offset(100)
+            make.width.equalTo(self).multipliedBy(0.3)
+            make.height.equalTo(self.snp.width).multipliedBy(0.3)
+            
         }
     }
     private func setupNameLabel() {
-        nameLabel.textAlignment = .center
-        addSubview(nameLabel)
+        containerView.addSubview(nameLabel)
         nameLabel.snp.makeConstraints { (make) in
-            make.centerX.width.equalTo(safeAreaLayoutGuide)
-            make.top.equalTo(profileImageView.snp.bottom).offset(8)
+            make.top.equalTo(profileImageView.snp.bottom).offset(10)
+            make.centerX.equalTo(self)
         }
     }
+    
     private func setupAgeLabel() {
-        ageLabel.textAlignment = .center
-       addSubview(ageLabel)
+        containerView.addSubview(ageLabel)
         ageLabel.snp.makeConstraints { (make) in
-            make.centerX.width.equalTo(safeAreaLayoutGuide)
-            make.top.equalTo(nameLabel.snp.bottom).offset(8)
+            make.top.equalTo(nameLabel.snp.bottom).offset(10)
+            make.centerX.equalTo(self)
         }
     }
-    private func setupBioLabel() {
-        addSubview(bioLabel)
+    
+    private func setupBioTV() {
+        containerView.addSubview(bioLabel)
         bioLabel.snp.makeConstraints { (make) in
-            make.centerX.equalTo(safeAreaLayoutGuide.snp.centerX)
-            make.width.equalTo(safeAreaLayoutGuide).multipliedBy(0.75)
-            make.top.equalTo(ageLabel.snp.bottom).offset(20)
+            make.top.equalTo(ageLabel.snp.bottom).offset(10)
+            make.centerX.equalTo(self)
         }
     }
-
-    private func placeholderTesting() {
-        let bgColor = Stylesheet.Colors.WMSYDeepViolet
-        let fontColor = Stylesheet.Colors.WMSYPastelBlue
-        badgeView.backgroundColor = bgColor
-        profileImageView.backgroundColor = bgColor
-        ageLabel.backgroundColor = bgColor
-        ageLabel.textColor = fontColor
-        nameLabel.backgroundColor = bgColor
-        nameLabel.textColor = fontColor
-        bioLabel.backgroundColor = bgColor
-        bioLabel.textColor = fontColor
-        
-        nameLabel.text = "HotRod"
-        ageLabel.text = "4206969 years old"
-        bioLabel.text = "I'm Rod and I like to party."
+    
+    private func setupContainerView() {
+        addSubview(containerView)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        containerView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        containerView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.90).isActive = true
+        containerView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.80).isActive = true
     }
-
+    
+    
+    
 }

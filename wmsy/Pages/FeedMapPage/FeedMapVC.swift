@@ -16,6 +16,7 @@ class FeedMapVC: MenuedViewController {
     var feedView = FeedView()
     var mapView = MapView()
     var expandedRows = Set<Int>()
+    var guestProfile = GuestProfileVC()
     
     var feedWhims: [Whim] = [] {
         didSet {
@@ -246,7 +247,7 @@ extension FeedMapVC: CLLocationManagerDelegate{
 extension FeedMapVC: CollapsedFeedCellViewDelegate {
     
     func userProfileButtonPressed() {
-        present(GuestProfileVC(), animated: true, completion: nil)
+        present(guestProfile, animated: true, completion: nil)
     }
     
     
