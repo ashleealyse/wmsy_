@@ -16,6 +16,7 @@ class FeedMapVC: MenuedViewController {
     var feedView = FeedView()
     var mapView = MapView()
     var expandedRows = Set<Int>()
+    var currentUser : AppUser?
     
     var feedWhims: [Whim] = [] {
         didSet {
@@ -29,6 +30,7 @@ class FeedMapVC: MenuedViewController {
                                    "description": whim.description,
                                    "hostImageURL": whim.hostImageURL,
                                    "category": whim.category,
+                                   "hostID" : whim.hostID
                 ]
                 marker.map = mapView.mapView
             }
@@ -59,7 +61,7 @@ class FeedMapVC: MenuedViewController {
         locationManager.distanceFilter = 50
         locationManager.startUpdatingLocation()
         self.locationManager.delegate = self
-
+        self.mapView.detailView.delegate = self
         self.mapView.mapView.delegate = self
 
 
@@ -68,13 +70,13 @@ class FeedMapVC: MenuedViewController {
         mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
                                                           longitude: (mylocation?.coordinate.longitude)!,
                                                           zoom: mapView.zoomLevel)
-        mapView.mapView.settings.myLocationButton = true
+        mapView.mapView.settings.myLocationButton = false
         mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.detailView.isHidden = true
 
         
         
-//
+
 //
 //        view.addSubview(feedView)
 //
@@ -197,10 +199,18 @@ extension FeedMapVC: UITableViewDataSource {
 
 extension FeedMapVC: GMSMapViewDelegate{
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude,
+                                             longitude: marker.position.longitude,
+                                             zoom: 15.0)
+        self.mapView.mapView.animate(to: camera)
         let dict = marker.userData as? [String: String]
         self.mapView.detailView.whimTitle.text = dict!["title"]
         self.mapView.detailView.whimDescription.text = dict!["description"]
         let hostURL = URL(string: dict!["hostImageURL"]!)
+        let hostID = dict!["hostID"]
+        DBService.manager.getAppUser(with: hostID!) { (appUser) in
+           self.currentUser = appUser
+        }
         self.mapView.detailView.userPicture.kf.setImage(with: hostURL, for: .normal)
         self.mapView.detailView.isHidden = false
         
@@ -247,3 +257,15 @@ extension FeedMapVC: CLLocationManagerDelegate{
     
 }
 
+
+extension FeedMapVC: mapDetailViewDelegate {
+    func interestPressed() {
+        print("interest is being pressed")
+    }
+    
+    func userPicturePressed() {
+        present(GuestProfileVC(), animated: true, completion: nil)
+    }
+    
+    
+}
