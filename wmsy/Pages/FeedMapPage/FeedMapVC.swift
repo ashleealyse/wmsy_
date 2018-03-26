@@ -17,6 +17,7 @@ class FeedMapVC: MenuedViewController {
     var mapView = MapView()
     var expandedRows = Set<Int>()
     var guestProfile = GuestProfileVC()
+    var interestButtonCounter = 0
     
     var feedWhims: [Whim] = [] {
         didSet {
@@ -182,6 +183,7 @@ extension FeedMapVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WhimFeedCell", for: indexPath) as! FeedCell
         cell.collapsedView.delegate = self
+        cell.expandedView.delegate = self
         cell.isExpanded = self.expandedRows.contains(indexPath.row)
         let whim = feedWhims[indexPath.row]
         cell.collapsedView.postTitleLabel.text = whim.title
@@ -250,7 +252,25 @@ extension FeedMapVC: CollapsedFeedCellViewDelegate {
         present(guestProfile, animated: true, completion: nil)
     }
     
+}
+
+extension FeedMapVC: ExpandedFeedCellViewDelegate {
     
+    func showOnMapButtonPressed() {
+        //Show Map
+        print("MAP")
+    }
+    
+    func interestButtonClicked() {
+        interestButtonCounter += 1
+        if interestButtonCounter % 2 == 0 {
+            //User is interested
+            print("User Is Not Interested")
+        } else {
+            //User is not interested
+            print("User Is Interested")
+        }
+    }
     
     
 }
