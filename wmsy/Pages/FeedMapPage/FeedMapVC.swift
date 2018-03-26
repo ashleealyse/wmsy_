@@ -51,7 +51,8 @@ class FeedMapVC: MenuedViewController {
         add(feedVC)
         add(filtersVC)
         add(mapVC)
-        
+        feedVC.feedView.tableView.dataSource = self
+        feedVC.feedView.tableView.delegate = self
         
         SVProgressHUD.dismiss()
 
@@ -158,7 +159,26 @@ class FeedMapVC: MenuedViewController {
         navigationItem.rightBarButtonItem = topRightBarItem
     }
 }
-
+extension FeedMapVC: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? FeedCell else {
+            return
+        }
+        
+        switch cell.isExpanded {
+        case true:
+            self.expandedRows.remove(indexPath.row)
+        default:
+            self.expandedRows.insert(indexPath.row)
+        }
+        
+        cell.isExpanded = !cell.isExpanded
+        
+        tableView.beginUpdates()
+        tableView.endUpdates()
+    }
+}
 
 extension FeedMapVC: UITableViewDataSource {
     
@@ -180,8 +200,8 @@ extension FeedMapVC: UITableViewDataSource {
         cell.expandedView.postDescriptionTF.text = whim.description
         return cell
 
-
-
+    }
+}
 
 extension FeedMapVC: ParentDelegate {
     func updateChildren(whims: [Whim]) {
