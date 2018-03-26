@@ -16,6 +16,12 @@ class SideMenuVC: MenuViewController {
 //        return !viewIsVisible
 //    }
     var newMenu: MenuCollectionViewWrapper!
+    var isChatRoomVisible: Bool = false {
+        didSet {
+            newMenu.menuPagesCollectionView.reloadData()
+            newMenu.dotsView.isChatRoomVisible = isChatRoomVisible
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 //        self.automaticallyAdjustsScrollViewInsets = false
@@ -44,6 +50,7 @@ class SideMenuVC: MenuViewController {
 //    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print("view is willappearing")
 //        viewIsVisible = true
 //        UIView.animate(withDuration: 0.5) {
 //            self.setNeedsStatusBarAppearanceUpdate()
@@ -74,7 +81,7 @@ extension SideMenuVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLa
         return 0
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return isChatRoomVisible ? 3 : 2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -90,6 +97,9 @@ extension SideMenuVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLa
             cell.whimsTableView.dataSource = self
             cell.whimsTableView.delegate = self
             return cell
+        case 2:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MenuCollectionViewWrapper.pageThreeIdentifier, for: indexPath) as! MenuChatView
+            return cell
         default:
             return UICollectionViewCell()
         }
@@ -97,13 +107,39 @@ extension SideMenuVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return menuScreen.bounds.size
     }
+//    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+//        if scrollView == newMenu.menuPagesCollectionView {
+//            print("scrolling collection view")
+//            if let pageIndex = newMenu.menuPagesCollectionView.indexPathsForVisibleItems.first {
+//                newMenu.currentlyOn(page: pageIndex.item)
+//            }
+//        }
+//        else {
+//            print("scrolling table view")
+//        }
+//    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if (self.lastContentOffset > scrollView.contentOffset.y) {
-            // move up
+        if scrollView == newMenu.menuPagesCollectionView {
+            print("scrolling collection view")
+            let menuWidth = newMenu.bounds.width
+            let offset = newMenu.menuPagesCollectionView.contentOffset.x
+            let page = Int(offset / menuWidth)
+            print(page)
+//            if let pageIndex = newMenu.menuPagesCollectionView.indexPathsForVisibleItems.first {
+//                newMenu.currentlyOn(page: pageIndex.item)
+//            }
+            newMenu.currentlyOn(page: page)
         }
-        else if (self.lastContentOffset < scrollView.contentOffset.y) {
-            // move down
+        else {
+            print("scrolling table view")
         }
+//        if (self.lastContentOffset > scrollView.contentOffset.y) {
+//            // move up
+//        }
+//        else if (self.lastContentOffset < scrollView.contentOffset.y) {
+//            // move down
+//        }
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -152,13 +188,22 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
         default:
             return UITableViewCell()
         }
-        
-        
-        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MenuWhimsView.cellIdentifier, for: indexPath) as? MenuWhimsCell else {
+            return
+        }
+//        isChatRoomVisible = true
+//        newMenu.currentlyOn(page: 2)
+//        let chatRoomIndexPath = IndexPath.init(row: 2, section: 0)
+//        newMenu.menuPagesCollectionView.scrollToItem(at: chatRoomIndexPath, at: .right, animated: true)
+        if let vc = viewController(for: .chatRoom) as? ChatRoomVCTest {
+            let whim = Whim.init(id: "-L8JoE-G-U1uGGYyt4X5", category: "wmsy", title: "Pictures please", description: ":D", hostID: "mdH6CJXxDkYBqhfjjptVnTpMp3g2", hostImageURL: "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/29366139_128316311338085_2672539358371774464_n.jpg?_nc_cat=0&oh=3df47771fb34edb538211510eaa9dff9&oe=5B4431F0", location: "142 West 46th Street New York, NY 10036", long: "-73.9841802790761", lat: "40.7578242106358", duration: 2, expiration: "March 23, 2018 at 7:43:21 PM EDT", finalized: false, timestamp: "March 23, 2018 at 5:43:21 PM EDT", whimChats: [])
+            vc.loadAllInitialData(forWhim: whim)
+        }
+        switchTo(page: .chatRoom)
+//        (tabBarController as? MainTabBarVC)?.animateTo(page: .chatRoom, fromViewController: self)
     }
 }
 
