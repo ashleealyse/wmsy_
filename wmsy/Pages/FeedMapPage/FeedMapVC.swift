@@ -47,12 +47,12 @@ class FeedMapVC: MenuedViewController {
         
         SVProgressHUD.dismiss()
 
-        locationManager = CLLocationManager()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
-        locationManager.distanceFilter = 50
-        locationManager.startUpdatingLocation()
-        self.locationManager.delegate = self
+//        locationManager = CLLocationManager()
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        locationManager.requestAlwaysAuthorization()
+//        locationManager.distanceFilter = 50
+//        locationManager.startUpdatingLocation()
+//        self.locationManager.delegate = self
 
 //        view.addSubview(mapView)
 //        let mylocation = mapView.mapView.myLocation
