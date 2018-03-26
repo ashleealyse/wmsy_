@@ -1,0 +1,81 @@
+//
+//  DataQueue.swift
+//  wmsy
+//
+//  Created by C4Q on 3/23/18.
+//  Copyright © 2018 C4Q. All rights reserved.
+//
+
+import Foundation
+
+class Node<T> {
+    var key: T
+    var next: Node<T>?
+    init(key: T) {
+        self.key = key
+    }
+}
+
+struct Queue<T> {
+    private var head: Node<T>?
+    private var tail: Node<T>?
+    var isEmpty: Bool {
+        return head == nil
+    }
+    mutating func enQueue(_ newElement: T) {
+        let newNode = Node(key: newElement)
+        guard let tail = tail else {
+            self.head = newNode
+            self.tail = newNode
+            return
+        }
+        tail.next = newNode
+        self.tail = newNode
+    }
+    mutating func deQueue() -> T? {
+        guard let oldHead = head else {
+            return nil
+        }
+        self.head = oldHead.next
+        if oldHead.next == nil {
+            self.tail = nil
+        }
+        return oldHead.key
+    }
+    func peek() -> T? {
+        return self.head?.key
+    }
+}
+
+protocol DataReceiver: class {
+    func accept(message: Message?) -> Void
+}
+
+class DataQueue {
+    private init(){
+        for _ in 0..<200 {
+            let types: [MessageType] = [.chat, .button, .notification]
+            let randIndex = Int(arc4random_uniform(3))
+            let message = Message.init(whimID: "12341324", messageID: "12341234", senderID: "12341234", timestamp: "12341234", messageType: types[randIndex], messageBody: "aidfnaoidsufoiudh")
+            messageQueue.enQueue(message)
+//            whim?.whimChats.append(message)
+        }
+    }
+    static let manager = DataQueue()
+    
+    private var messageQueue = Queue<Message>()
+    public weak var delegate: DataReceiver?
+    private var messageTimer: Timer!
+    
+    public func startSendingData() {
+        messageTimer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(sendNextMessage), userInfo: nil, repeats: true)
+    }
+    @objc private func sendNextMessage() {
+        delegate?.accept(message: messageQueue.deQueue())
+        if messageQueue.isEmpty { messageTimer.invalidate() }
+    }
+}
+
+
+
+
