@@ -17,10 +17,18 @@ protocol ParentDelegate: class {
 
 class FeedMapVC: MenuedViewController {
     
+
+    var feedView = FeedView()
+    var mapView = MapView()
+    var expandedRows = Set<Int>()
+    var guestProfile = GuestProfileVC()
+    var interestButtonCounter = 0
+
     var feedVC = FeedVC()
     var mapVC = MapVC()
     var filtersVC = FiltersVC()
     
+
     
     var feedWhims: [Whim] = [] {
         didSet {
@@ -152,6 +160,27 @@ class FeedMapVC: MenuedViewController {
 }
 
 
+extension FeedMapVC: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return feedWhims.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "WhimFeedCell", for: indexPath) as! FeedCell
+        cell.collapsedView.delegate = self
+        cell.expandedView.delegate = self
+        cell.isExpanded = self.expandedRows.contains(indexPath.row)
+        let whim = feedWhims[indexPath.row]
+        cell.collapsedView.postTitleLabel.text = whim.title
+        cell.collapsedView.categoryIcon.image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
+        cell.collapsedView.userImageButton.imageView?.kf.setImage(with: URL(string: whim.hostImageURL), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+            cell.collapsedView.userImageButton.setImage(image, for: .normal)
+        })
+        cell.expandedView.postDescriptionTF.text = whim.description
+        return cell
+
+
 
 
 extension FeedMapVC: ParentDelegate {
@@ -159,3 +188,34 @@ extension FeedMapVC: ParentDelegate {
         self.feedWhims = whims
     }
 }
+
+
+extension FeedMapVC: CollapsedFeedCellViewDelegate {
+    
+    func userProfileButtonPressed() {
+        present(guestProfile, animated: true, completion: nil)
+    }
+    
+}
+
+extension FeedMapVC: ExpandedFeedCellViewDelegate {
+    
+    func showOnMapButtonPressed() {
+        //Show Map
+        print("MAP")
+    }
+    
+    func interestButtonClicked() {
+        interestButtonCounter += 1
+        if interestButtonCounter % 2 == 0 {
+            //User is interested
+            print("User Is Not Interested")
+        } else {
+            //User is not interested
+            print("User Is Interested")
+        }
+    }
+    
+    
+}
+
