@@ -176,7 +176,7 @@ extension FeedMapVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WhimFeedCell", for: indexPath) as! FeedCell
-        
+        cell.collapsedView.delegate = self
         cell.isExpanded = self.expandedRows.contains(indexPath.row)
         let whim = feedWhims[indexPath.row]
         cell.collapsedView.postTitleLabel.text = whim.title
@@ -239,3 +239,13 @@ extension FeedMapVC: CLLocationManagerDelegate{
     
 }
 
+extension FeedMapVC: CollapsedFeedCellViewDelegate {
+    
+    func userProfileButtonPressed() {
+        present(GuestProfileVC(), animated: true, completion: nil)
+    }
+    
+    
+    
+    
+}

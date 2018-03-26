@@ -308,7 +308,6 @@
 				81DECD24205C910100214866 /* Views */,
 				81BAD690205AEF6600C7F039 /* SideMenuVC.swift */,
 				81BAD692205AEF7B00C7F039 /* MyChatsView.swift */,
-				81BAD694205AEF8900C7F039 /* ProfileView.swift */,
 			);
 			path = SideMenuPage;
 			sourceTree = "<group>";
@@ -332,6 +331,7 @@
 			isa = PBXGroup;
 			children = (
 				81BAD6A8205AF0AA00C7F039 /* GuestProfileVC.swift */,
+				81BAD694205AEF8900C7F039 /* ProfileView.swift */,
 			);
 			path = GuestProfilePage;
 			sourceTree = "<group>";
