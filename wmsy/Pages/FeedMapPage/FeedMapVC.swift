@@ -21,6 +21,7 @@ class FeedMapVC: MenuedViewController {
     var mapVC = MapVC()
     var filtersVC = FiltersVC()
     
+    
     var feedWhims: [Whim] = [] {
         didSet {
             print("number of whims to load: \(feedWhims.count)")
@@ -45,30 +46,31 @@ class FeedMapVC: MenuedViewController {
         
         
         SVProgressHUD.dismiss()
-
+        
         feedVC.delegate = self
         mapVC.delegate = self
-
+        
         
         view.addSubview(feedVC.feedView)
         feedVC.feedView.snp.makeConstraints { (make) in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
-
         
         
-        view.addSubview(filtersVC.filtersView)
+        
+                view.addSubview(filtersVC.filtersView)
         filtersVC.filtersView.snp.makeConstraints { (make) in
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-50)
-//            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-200)
-            //            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
+            //            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-50)
+            //            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-200)
+            //                        make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             //            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.25)
             make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.16)
         }
         
-        view.addSubview(mapVC.mapView)
+                view.addSubview(mapVC.mapView)
         mapVC.mapView.snp.makeConstraints { (make) in
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
@@ -76,16 +78,20 @@ class FeedMapVC: MenuedViewController {
             make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.84)
         }
         
-
+        
         
         
         configureNavBar()
+        filtersVC.filtersView.isHidden = true
+        mapVC.mapView.isHidden = true
+        
+        
     }
     
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        feedVC.feedView.tableView.reloadData()
-//    }
+    //    override func viewWillAppear(_ animated: Bool) {
+    //        feedVC.feedView.tableView.reloadData()
+    //    }
     
     // setup UIBarButtonItem
     private func configureNavBar() {
@@ -93,18 +99,39 @@ class FeedMapVC: MenuedViewController {
         
         let topLeftBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addIcon"), style: .plain, target: self, action: #selector(hostAWhim))
         navigationItem.leftBarButtonItem = topLeftBarItem
-
-        let topRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "wmsyCategoryIcon"), style: .plain, target: self, action: #selector(hostAChat))
+        
+        
+        let topRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "mapIcon"), style: .plain, target: self, action: #selector(showMap))
+        
+        let altTopRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "feedIcon"), style: .plain, target: self, action: #selector(hideMap))
+        
         navigationItem.rightBarButtonItem = topRightBarItem
+        
+        
     }
+    
     
     @objc func hostAWhim() {
         navigationController?.pushViewController(CreateWhimTVC(), animated: true)
     }
     
-    @objc func hostAChat() {
-        navigationController?.pushViewController(ChatRoomVC(), animated: true)
-        print("temporary testing link for WhimChat")
+    //    @objc func hostAChat() {
+    //        navigationController?.pushViewController(ChatRoomVC(), animated: true)
+    //        print("temporary testing link for WhimChat")
+    //    }
+    
+    @objc func showMap() {
+        filtersVC.filtersView.isHidden = false
+        mapVC.mapView.isHidden = false
+        let altTopRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "feedIcon"), style: .plain, target: self, action: #selector(hideMap))
+        self.navigationItem.rightBarButtonItem = altTopRightBarItem
+    }
+    
+    @objc func hideMap() {
+        filtersVC.filtersView.isHidden = true
+        mapVC.mapView.isHidden = true
+        let topRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "mapIcon"), style: .plain, target: self, action: #selector(showMap))
+        navigationItem.rightBarButtonItem = topRightBarItem
     }
 }
 
