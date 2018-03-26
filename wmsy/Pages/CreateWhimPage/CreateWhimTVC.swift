@@ -43,9 +43,10 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
         self.tableView.register(WhimCategoryTableViewCell.self, forCellReuseIdentifier: "CategoryCell")
         self.tableView.register(WhimTitleTableViewCell.self, forCellReuseIdentifier: "TitleCell")
         self.tableView.register(WhimDescriptionTableViewCell.self, forCellReuseIdentifier: "DescriptionCell")
+        self.tableView.register(HostAWhimButtonTableViewCell.self, forCellReuseIdentifier: "ButtonCell")
         self.tableView.register(WhimExpirationTableViewCell.self, forCellReuseIdentifier: "ExpirationCell")
         self.tableView.register(WhimLocationTableViewCell.self, forCellReuseIdentifier: "LocationCell")
-        self.tableView.register(HostAWhimButtonTableViewCell.self, forCellReuseIdentifier: "ButtonCell")
+
 
         DBService.manager.getAppUser(with: (AuthUserService.manager.getCurrentUser()?.uid)!) { (user) in
           self.whimHostImageURL = user.photoID
@@ -59,12 +60,12 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+
     }
     
     
     private func configureNavBar() {
         navigationItem.title = "Host a Whim"
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -140,12 +141,6 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
     
     
     @objc func collectInputs() {
-//        let whimEvent = Whim.init(id: "idksomeidnum", title: whimTitle, description: whimDescription, hostID: "hostid", location: whimLocation, postedTimestamp: 1234567890, visibilityDuration: whimExpirationHours, finalized: false, whimChats: <#T##[Message]#>)
-        
-//        let whimEvent = Whim.firstWhim
-        
-//        DBService.manager.addWhim(withCategory: whimEvent.category, title: whimEvent.title, description: whimEvent.description, location: whimEvent.location, duration: whimEvent.duration)
-//        print(whimEvent)
         
         if whimCategory != "", whimTitle != "", whimDescription != "", whimLocation != "", whimLong != "", whimLat != "", whimDuration != 0 {
             DBService.manager.addWhim(withCategory: whimCategory, title: whimTitle, description: whimDescription, hostImageURL: whimHostImageURL, location: whimLocation, long: whimLong, lat: whimLat, duration: whimDuration)
