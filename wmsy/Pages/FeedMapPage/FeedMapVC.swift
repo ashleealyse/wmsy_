@@ -15,12 +15,11 @@ protocol ParentDelegate: class {
     func updateChildren(whims: [Whim]) -> Void
 }
 
-class FeedMapVC: MenuedViewController {
+class FeedMapVC: MenuedViewController, setFiltersVCDelegate {
     
     var feedVC = FeedVC()
     var mapVC = MapVC()
     var filtersVC = FiltersVC()
-    
     
     var feedWhims: [Whim] = [] {
         didSet {
@@ -38,6 +37,11 @@ class FeedMapVC: MenuedViewController {
         }
     }
     
+    func changeListOf(whims: [Whim]) {
+        self.feedWhims = whims
+        print("filtered whims: \(whims)")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         add(feedVC)
@@ -47,25 +51,11 @@ class FeedMapVC: MenuedViewController {
         
         SVProgressHUD.dismiss()
 
-//        locationManager = CLLocationManager()
-//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//        locationManager.requestAlwaysAuthorization()
-//        locationManager.distanceFilter = 50
-//        locationManager.startUpdatingLocation()
-//        self.locationManager.delegate = self
-
-//        view.addSubview(mapView)
-//        let mylocation = mapView.mapView.myLocation
-//        mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
-//                                                          longitude: (mylocation?.coordinate.longitude)!,
-//                                                          zoom: mapView.zoomLevel)
-//        mapView.mapView.settings.myLocationButton = true
-//        mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
         
         feedVC.delegate = self
         mapVC.delegate = self
-        
+        filtersVC.delegate = self
         
         view.addSubview(feedVC.feedView)
         feedVC.feedView.snp.makeConstraints { (make) in

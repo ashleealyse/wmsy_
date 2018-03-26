@@ -8,6 +8,12 @@
 
 import UIKit
 
+
+protocol setFiltersVCDelegate: class {
+    func changeListOf(whims: [Whim])
+}
+
+
 class FiltersVC: UIViewController {
     
     var filtersView = FiltersView()
@@ -17,8 +23,11 @@ class FiltersVC: UIViewController {
     var feedWhims: [Whim] = [] {
         didSet {
             print("FiltersVC feedWhims: \(feedWhims)")
+            delegate?.changeListOf(whims: feedWhims)
         }
     }
+    
+    weak var delegate: setFiltersVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
