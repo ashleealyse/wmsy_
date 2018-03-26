@@ -8,11 +8,13 @@
 
 import UIKit
 
-class HostMessageTableViewCell: UITableViewCell {
+class CurrentUserMessageCell: UITableViewCell {
+    
+    static let reuseIdentifier = "HostMessageTableViewCell"
     
     private var profileImageView = UIImageView()
     private var textContainer = UIView()
-    private var messageText = UILabel()
+    public var messageText = UILabel()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -31,6 +33,7 @@ class HostMessageTableViewCell: UITableViewCell {
     }
     
     private func commonInit() {
+        self.backgroundColor = .clear
         setupViews()
         placeholderTesting()
     }
@@ -38,6 +41,9 @@ class HostMessageTableViewCell: UITableViewCell {
         setupProfileImageView()
         setupTextContainer()
         setupMessageText()
+        contentView.layoutMarginsGuide.snp.makeConstraints { (make) in
+            make.height.lessThanOrEqualTo(profileImageView)
+        }
     }
     private func setupProfileImageView() {
         contentView.addSubview(profileImageView)
@@ -51,7 +57,7 @@ class HostMessageTableViewCell: UITableViewCell {
         textContainer.snp.makeConstraints { (make) in
             make.trailing.equalTo(profileImageView.snp.leading).offset(-16)
 //            make.leading.equalTo(contentView).offset(50)
-            make.leading.greaterThanOrEqualTo(contentView).offset(70)
+            make.leading.equalTo(contentView).offset(70)
             make.top.equalTo(profileImageView)
             make.bottom.equalTo(contentView.layoutMarginsGuide)
         }

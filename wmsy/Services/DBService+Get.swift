@@ -12,8 +12,6 @@ import GoogleMaps
 
 extension DBService {
     
-    
-    
     // GET ALL WHIMS
     public func getAllWhims(completion: @escaping (_ whims: [Whim]) -> Void) {
         whimsRef.observe(.value) { (dataSnapshot) in
@@ -28,6 +26,7 @@ extension DBService {
                 let title = whimDict["title"] as? String,
                 let description = whimDict["description"] as? String,
                 let hostID = whimDict["hostID"] as? String,
+                let hostImageURL = whimDict["hostImageURL"] as? String,
                 let location = whimDict["location"] as? String,
                 let long = whimDict["long"] as? String,
                 let lat = whimDict["lat"] as? String,
@@ -40,7 +39,7 @@ extension DBService {
                         return
                 }
                 let whimChats = [Message]()
-                let whim = Whim(id: id, category: category, title: title, description: description, hostID: hostID, location: location, long: long, lat: lat, duration: duration, expiration: expiration, finalized: finalized, timestamp: timestamp, whimChats: whimChats)
+                let whim = Whim(id: id, category: category, title: title, description: description, hostID: hostID, hostImageURL: hostImageURL, location: location, long: long, lat: lat, duration: duration, expiration: expiration, finalized: finalized, timestamp: timestamp, whimChats: whimChats)
                 whims.append(whim)
             }
             completion(whims.sortedByTimestamp())
@@ -56,6 +55,8 @@ extension DBService {
             completion(categoryWhims.sortedByTimestamp())
         }
     }
+    
+    
     public func getClosestWhims(location: CLLocation,completion: @escaping ([Whim]) -> Void){
         getAllWhims { (whims) in
             let userLocation = location
@@ -71,9 +72,5 @@ extension DBService {
             }
             completion(whimArr.sortedByTimestamp())
         }
-    
-    
     }
-    
-    
 }

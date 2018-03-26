@@ -12,7 +12,7 @@ class MainTabBarVC: UITabBarController {
     
     let loginVC     = LoginVC()
     let feedMapVC   = UINavigationController.init(rootViewController: FeedMapVC())
-    let chatRoomVC  = ChatRoomVC()
+    let chatRoomVC  = ChatRoomVCTest()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -52,7 +52,16 @@ class MainTabBarVC: UITabBarController {
     
     
     // MARK: - Helper functions
-    
+    public func viewController(for page: Page) -> UIViewController {
+        switch page {
+        case .chatRoom:
+            return chatRoomVC
+        case .feedAndMap:
+            return feedMapVC
+        case .login:
+            return loginVC
+        }
+    }
     
     public func animateTo(page: Page, fromViewController: UIViewController) {
         let toIndex = page.rawValue

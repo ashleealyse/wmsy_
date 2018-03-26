@@ -73,7 +73,6 @@ class DataQueue {
     @objc private func sendNextMessage() {
         delegate?.accept(message: messageQueue.deQueue())
         if messageQueue.isEmpty { messageTimer.invalidate() }
-        print("sent a message")
     }
 }
 

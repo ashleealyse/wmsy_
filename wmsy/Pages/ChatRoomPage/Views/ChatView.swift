@@ -39,8 +39,8 @@ class ChatView: UIView {
         setupTextInput()
     }
     private func setupChatTableView() {
-        chatTableView.register(HostMessageTableViewCell.self, forCellReuseIdentifier: ChatView.hostCell)
-        chatTableView.register(GuestMessageTableViewCell.self, forCellReuseIdentifier: ChatView.guestCell)
+        chatTableView.register(CurrentUserMessageCell.self, forCellReuseIdentifier: ChatView.hostCell)
+        chatTableView.register(OtherUserMessageCell.self, forCellReuseIdentifier: ChatView.guestCell)
         chatTableView.register(NotificationTableViewCell.self, forCellReuseIdentifier: ChatView.notifCell)
         chatTableView.register(LocationDetailsTableViewCell.self, forCellReuseIdentifier: ChatView.locCell)
         chatTableView.rowHeight = UITableViewAutomaticDimension

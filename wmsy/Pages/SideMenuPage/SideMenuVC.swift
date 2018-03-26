@@ -194,12 +194,15 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MenuWhimsView.cellIdentifier, for: indexPath) as? MenuWhimsCell else {
             return
         }
-        isChatRoomVisible = true
-        newMenu.currentlyOn(page: 2)
-        let chatRoomIndexPath = IndexPath.init(row: 2, section: 0)
-        newMenu.menuPagesCollectionView.scrollToItem(at: chatRoomIndexPath, at: .right, animated: true)
-        
-//        switchTo(page: .chatRoom)
+//        isChatRoomVisible = true
+//        newMenu.currentlyOn(page: 2)
+//        let chatRoomIndexPath = IndexPath.init(row: 2, section: 0)
+//        newMenu.menuPagesCollectionView.scrollToItem(at: chatRoomIndexPath, at: .right, animated: true)
+        if let vc = viewController(for: .chatRoom) as? ChatRoomVCTest {
+            let whim = Whim.init(id: "-L8JoE-G-U1uGGYyt4X5", category: "wmsy", title: "Pictures please", description: ":D", hostID: "mdH6CJXxDkYBqhfjjptVnTpMp3g2", hostImageURL: "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/29366139_128316311338085_2672539358371774464_n.jpg?_nc_cat=0&oh=3df47771fb34edb538211510eaa9dff9&oe=5B4431F0", location: "142 West 46th Street New York, NY 10036", long: "-73.9841802790761", lat: "40.7578242106358", duration: 2, expiration: "March 23, 2018 at 7:43:21 PM EDT", finalized: false, timestamp: "March 23, 2018 at 5:43:21 PM EDT", whimChats: [])
+            vc.loadAllInitialData(forWhim: whim)
+        }
+        switchTo(page: .chatRoom)
 //        (tabBarController as? MainTabBarVC)?.animateTo(page: .chatRoom, fromViewController: self)
     }
 }

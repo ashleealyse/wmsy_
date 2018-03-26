@@ -8,8 +8,9 @@
 
 import UIKit
 
-class GuestMessageTableViewCell: UITableViewCell {
+class OtherUserMessageCell: UITableViewCell {
     
+    static let reuseIdentifier = "GuestMessageTableViewCell"
     private var profileImageView = UIImageView()
     private var textContainer = UIView()
     private var messageText = UILabel()
@@ -31,6 +32,7 @@ class GuestMessageTableViewCell: UITableViewCell {
     }
     
     private func commonInit() {
+        self.backgroundColor = .clear
         setupViews()
         placeholderTesting()
     }

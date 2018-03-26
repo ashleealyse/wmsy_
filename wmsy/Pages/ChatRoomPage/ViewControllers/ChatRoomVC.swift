@@ -28,8 +28,9 @@ class ChatRoomVC: MenuedViewController {
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
 //        whim = Whim.init(id: "12341234", category: "12341234", title: "12341234", description: "12341234", hostID: "12341234", approxLocation: "12341234", location: "12341234", duration: 12341234)
-        whim = Whim.init(id: "12341234", category: "12341234", title: "12341234", description: "12341234", hostID: "12341234", location: "12341234", long: "12341234", lat: "12341234", duration: 24, expiration: "12341234", finalized: false, timestamp: "12341234", whimChats: [])
+//        whim = Whim.init(id: "12341234", category: "12341234", title: "12341234", description: "12341234", hostID: "12341234", location: "12341234", long: "12341234", lat: "12341234", duration: 24, expiration: "12341234", finalized: false, timestamp: "12341234", whimChats: [])
 //        whim = Whim.init(id: "13241234", category: "12341234", title: "12341234", description: "12341234", hostID: "12341234", location: "13241234", duration: 1234134, finalized: false, timestamp: "13241234", whimChats: [])
+        whim = Whim.init(id: "12341234", category: "12341234", title: "12341234", description: "12341234", hostID: "13241234", hostImageURL: "12341234", location: "12341234", long: "12341234", lat: "12341234", duration: 12341234, expiration: "12342341", finalized: false, timestamp: "12341234", whimChats: [])
         setupTableView()
         DataQueue.manager.delegate = self
 //        loadInitialData()
@@ -120,10 +121,10 @@ extension ChatRoomVC: UITableViewDataSource, UITableViewDelegate {
             // TODO: check if whim userid is the current userid,
             // not if the indexpath.row is even or not
             if indexPath.row % 2 == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: ChatView.hostCell, for: indexPath) as? HostMessageTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: ChatView.hostCell, for: indexPath) as? CurrentUserMessageCell
                 return cell ?? UITableViewCell()
             } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: ChatView.guestCell, for: indexPath) as? GuestMessageTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: ChatView.guestCell, for: indexPath) as? OtherUserMessageCell
                 return cell ?? UITableViewCell()
             }
         case .notification:

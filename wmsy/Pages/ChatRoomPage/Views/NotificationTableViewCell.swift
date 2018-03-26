@@ -25,6 +25,8 @@ class UnderlinedLabel: UILabel {
 
 class NotificationTableViewCell: UITableViewCell {
     
+    static let reuseIdentifier = "NotificationTableViewCell"
+    
     public var notificationLabel = UnderlinedLabel()
     
     
@@ -45,6 +47,7 @@ class NotificationTableViewCell: UITableViewCell {
     }
     
     private func commonInit() {
+        self.backgroundColor = .clear
         setupViews()
         placeholderTesting()
     }

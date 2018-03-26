@@ -10,6 +10,8 @@ import UIKit
 
 class LocationDetailsTableViewCell: UITableViewCell {
     
+    static let reuseIdentifier = "LocationDetailsTableViewCell"
+    
     public var locationDetailsButton = UIButton()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -29,6 +31,7 @@ class LocationDetailsTableViewCell: UITableViewCell {
     }
     
     private func commonInit() {
+        self.backgroundColor = .clear
         setupViews()
         placeholderTesting()
     }
