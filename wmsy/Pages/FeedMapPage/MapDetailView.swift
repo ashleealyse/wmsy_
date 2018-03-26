@@ -90,6 +90,6 @@ class MapDetailView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        userPicture.layer.cornerRadius = userPicture.frame.size.height / 2.0
+       self.userPicture.layer.cornerRadius = userPicture.frame.size.height / 2.0
     }
 }

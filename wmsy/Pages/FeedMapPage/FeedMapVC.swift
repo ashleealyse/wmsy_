@@ -200,6 +200,8 @@ extension FeedMapVC: GMSMapViewDelegate{
         let dict = marker.userData as? [String: String]
         self.mapView.detailView.whimTitle.text = dict!["title"]
         self.mapView.detailView.whimDescription.text = dict!["description"]
+        let hostURL = URL(string: dict!["hostImageURL"]!)
+        self.mapView.detailView.userPicture.kf.setImage(with: hostURL, for: .normal)
         self.mapView.detailView.isHidden = false
         
         return true
