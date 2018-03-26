@@ -46,6 +46,22 @@ class FeedMapVC: MenuedViewController {
         
         
         SVProgressHUD.dismiss()
+
+        locationManager = CLLocationManager()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.distanceFilter = 50
+        locationManager.startUpdatingLocation()
+        self.locationManager.delegate = self
+
+//        view.addSubview(mapView)
+//        let mylocation = mapView.mapView.myLocation
+//        mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
+//                                                          longitude: (mylocation?.coordinate.longitude)!,
+//                                                          zoom: mapView.zoomLevel)
+//        mapView.mapView.settings.myLocationButton = true
+//        mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
         
         feedVC.delegate = self
         mapVC.delegate = self
