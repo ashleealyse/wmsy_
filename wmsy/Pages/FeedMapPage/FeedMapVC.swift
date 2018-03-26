@@ -25,8 +25,11 @@ class FeedMapVC: MenuedViewController {
             for whim in feedWhims{
                 let position = CLLocationCoordinate2D(latitude: Double(whim.lat)!, longitude: Double(whim.long)!)
                 let marker = GMSMarker(position: position)
-                marker.title = whim.title
-                marker.snippet = whim.description
+                marker.userData = ["title": whim.title,
+                                   "description": whim.description,
+                                   "hostImageURL": whim.hostImageURL,
+                                   "category": whim.category,
+                ]
                 marker.map = mapView.mapView
             }
         }
@@ -56,37 +59,35 @@ class FeedMapVC: MenuedViewController {
         locationManager.distanceFilter = 50
         locationManager.startUpdatingLocation()
         self.locationManager.delegate = self
-//<<<<<<< HEAD
-//        
-//=======
-//
-//
-//
-//>>>>>>> qa
-//        view.addSubview(mapView)
-//        let mylocation = mapView.mapView.myLocation
-//        mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
-//                                                          longitude: (mylocation?.coordinate.longitude)!,
-//                                                          zoom: mapView.zoomLevel)
-//        mapView.mapView.settings.myLocationButton = true
-//        mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+        self.mapView.mapView.delegate = self
+
+
+        view.addSubview(mapView)
+        let mylocation = mapView.mapView.myLocation
+        mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
+                                                          longitude: (mylocation?.coordinate.longitude)!,
+                                                          zoom: mapView.zoomLevel)
+        mapView.mapView.settings.myLocationButton = true
+        mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        mapView.detailView.isHidden = true
 
         
         
-        
-
-        view.addSubview(feedView)
-
-
-        feedView.snp.makeConstraints { (make) in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
-        }
-        feedView.tableView.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
-        feedView.tableView.dataSource = self
-        feedView.tableView.delegate = self
-        feedView.tableView.rowHeight = UITableViewAutomaticDimension
-        feedView.tableView.estimatedRowHeight = 90
-        feedView.tableView.separatorStyle = .none
+//
+//
+//        view.addSubview(feedView)
+//
+//
+//        feedView.snp.makeConstraints { (make) in
+//            make.edges.equalTo(view.safeAreaLayoutGuide)
+//        }
+//        feedView.tableView.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
+//        feedView.tableView.dataSource = self
+//        feedView.tableView.delegate = self
+//        feedView.tableView.rowHeight = UITableViewAutomaticDimension
+//        feedView.tableView.estimatedRowHeight = 90
+//        feedView.tableView.separatorStyle = .none
 
         configureNavBar()
         
@@ -194,6 +195,22 @@ extension FeedMapVC: UITableViewDataSource {
     }
 }
 
+extension FeedMapVC: GMSMapViewDelegate{
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        let dict = marker.userData as? [String: String]
+        self.mapView.detailView.whimTitle.text = dict!["title"]
+        self.mapView.detailView.whimDescription.text = dict!["description"]
+        self.mapView.detailView.isHidden = false
+        
+        return true
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        self.mapView.detailView.isHidden = true
+    }
+    
+}
+
 extension FeedMapVC: CLLocationManagerDelegate{
     
     
@@ -202,21 +219,6 @@ extension FeedMapVC: CLLocationManagerDelegate{
         let location: CLLocation = locations.last!
         print("Location: \(location)")
         self.userLocation = location
-        
-        
-        
-        
-        
-//        let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
-//                                              longitude: location.coordinate.longitude,
-//                                              zoom: mapView.zoomLevel)
-//
-//        if mapView.isHidden {
-//            mapView.isHidden = false
-//            self.mapView.mapView.camera = camera
-//        } else {
-//            self.mapView.mapView.animate(to: camera)
-//        }
         
     }
     

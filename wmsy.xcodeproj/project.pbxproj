@@ -68,6 +68,7 @@
 		81D12DD920673AE60056920C /* TextInputVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D12DD820673AE60056920C /* TextInputVC.swift */; };
 		81D12DDB20673B200056920C /* InfoAndMembersCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D12DDA20673B1F0056920C /* InfoAndMembersCollectionVC.swift */; };
 		81D12DDD20674ED70056920C /* ChatRoomVCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D12DDC20674ED70056920C /* ChatRoomVCTest.swift */; };
+		81DD10A82065CCC5002BAB42 /* MapDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DD10A72065CCC5002BAB42 /* MapDetailView.swift */; };
 		81DECD19205C87ED00214866 /* MenuedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DECD18205C87ED00214866 /* MenuedViewController.swift */; };
 		81DECD1B205C87FA00214866 /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DECD1A205C87FA00214866 /* Interactor.swift */; };
 		81DECD1D205C881200214866 /* MenuHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DECD1C205C881200214866 /* MenuHelper.swift */; };
@@ -172,6 +173,7 @@
 		81D12DD820673AE60056920C /* TextInputVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputVC.swift; sourceTree = "<group>"; };
 		81D12DDA20673B1F0056920C /* InfoAndMembersCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoAndMembersCollectionVC.swift; sourceTree = "<group>"; };
 		81D12DDC20674ED70056920C /* ChatRoomVCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomVCTest.swift; sourceTree = "<group>"; };
+		81DD10A72065CCC5002BAB42 /* MapDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDetailView.swift; sourceTree = "<group>"; };
 		81DECD18205C87ED00214866 /* MenuedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuedViewController.swift; sourceTree = "<group>"; };
 		81DECD1A205C87FA00214866 /* Interactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
 		81DECD1C205C881200214866 /* MenuHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHelper.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 			children = (
 				81BAD67A205AEDAA00C7F039 /* FeedMapVC.swift */,
 				81BAD67C205AEDBF00C7F039 /* FeedView.swift */,
+				81DD10A72065CCC5002BAB42 /* MapDetailView.swift */,
 				81BAD67E205AEDC800C7F039 /* MapView.swift */,
 				812112EC20641B1D002D80C2 /* CombinationView.swift */,
 				811FFB5620606B5500F3312B /* CollapsedFeedCellView.swift */,
@@ -749,6 +752,7 @@
 				81903105205ADCF200932A55 /* AppDelegate.swift in Sources */,
 				81BAD678205AED7100C7F039 /* LoginView.swift in Sources */,
 				93495B0620603F9A0080BDBA /* ExpandedFeedCellView.swift in Sources */,
+				81DD10A82065CCC5002BAB42 /* MapDetailView.swift in Sources */,
 				932F180D2065A3F300950104 /* FloatingPopsicleView.swift in Sources */,
 				81AB7AC8205C9548009845EA /* Stylesheet.swift in Sources */,
 				811FFB9720615B6200F3312B /* DBService+Whim.swift in Sources */,

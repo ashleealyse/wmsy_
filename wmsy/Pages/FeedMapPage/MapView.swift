@@ -15,6 +15,8 @@ class MapView: UIView {
     var currentLocation: CLLocation?
     var mapView: GMSMapView!
     var zoomLevel: Float = 15.0
+    var detailView = MapDetailView()
+    
     
     
     
@@ -36,18 +38,20 @@ class MapView: UIView {
         
         
         self.addSubview(mapView)
-        
-        
-//        // Creates a marker in the center of the map.
-//        let marker = GMSMarker()
-//        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
-//        marker.title = "Sydney"
-//        marker.snippet = "Australia"
-//        marker.map = mapView
-        
+
         
         mapView.snp.makeConstraints { (make) in
             make.edges.equalTo(safeAreaLayoutGuide)
+        }
+        
+        mapView.addSubview(detailView)
+        
+        detailView.snp.makeConstraints { (make) in
+            make.trailing.equalTo(self.snp.trailing)
+            make.leading.equalTo(self.snp.leading)
+            make.bottom.equalTo(self.snp.bottom)
+            make.centerX.equalTo(self.snp.centerX)
+            make.height.equalTo(self.snp.height).multipliedBy(0.2)
         }
         
     }

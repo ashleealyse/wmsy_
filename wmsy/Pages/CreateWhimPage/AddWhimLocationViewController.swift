@@ -58,7 +58,7 @@ class AddWhimLocationViewController: UIViewController {
     @objc func selectLocation() {
         // replace this with the pin point location from map
         
-        
+      
         print("Location Selected: \(selectedLocation)")
         
         delegate?.setAddress(atAddress: selectedLocation)
