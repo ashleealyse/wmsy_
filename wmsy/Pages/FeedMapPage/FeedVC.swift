@@ -20,10 +20,13 @@ class FeedVC: UIViewController {
     var feedWhims: [Whim] = [] {
         didSet {
             print("FeedVC feedWhims: \(feedWhims)")
+            delegate?.changeListOf(whims: feedWhims)
         }
     }
     
     var expandedRows = Set<Int>()
+    
+    weak var delegate: setFiltersVCDelegate?
     
 //    weak var delegate: ParentDelegate?
 

@@ -63,8 +63,8 @@ class FeedMapVC: MenuedViewController, setFiltersVCDelegate {
 
 
         
-//        feedVC.delegate = self
-//        mapVC.delegate = self
+        feedVC.delegate = self
+        mapVC.delegate = self
         filtersVC.delegate = self
         
         view.addSubview(feedVC.feedView)

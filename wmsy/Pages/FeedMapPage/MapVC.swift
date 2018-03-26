@@ -20,9 +20,10 @@ class MapVC: UIViewController {
     var feedWhims: [Whim] = [] {
         didSet {
             print("MapVC feedWhims: \(feedWhims)")
+            delegate?.changeListOf(whims: feedWhims)
         }
     }
-    
+    weak var delegate: setFiltersVCDelegate?
 //    weak var delegate: ParentDelegate?
     
     
