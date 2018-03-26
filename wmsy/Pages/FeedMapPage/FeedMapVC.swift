@@ -17,6 +17,12 @@ protocol ParentDelegate: class {
 
 class FeedMapVC: MenuedViewController, setFiltersVCDelegate {
     
+
+//    var feedView = FeedView()
+//    var mapView = MapView()
+    var expandedRows = Set<Int>()
+    var currentUser : AppUser?
+
     var feedVC = FeedVC()
     var mapVC = MapVC()
     var filtersVC = FiltersVC()
@@ -30,8 +36,12 @@ class FeedMapVC: MenuedViewController, setFiltersVCDelegate {
             for whim in feedWhims{
                 let position = CLLocationCoordinate2D(latitude: Double(whim.lat)!, longitude: Double(whim.long)!)
                 let marker = GMSMarker(position: position)
-                marker.title = whim.title
-                marker.snippet = whim.description
+                marker.userData = ["title": whim.title,
+                                   "description": whim.description,
+                                   "hostImageURL": whim.hostImageURL,
+                                   "category": whim.category,
+                                   "hostID" : whim.hostID
+                ]
                 marker.map = mapVC.mapView.mapView
             }
         }
@@ -143,9 +153,81 @@ class FeedMapVC: MenuedViewController, setFiltersVCDelegate {
 
 
 
+//extension FeedMapVC: GMSMapViewDelegate{
+//    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+//        let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude,
+//                                             longitude: marker.position.longitude,
+//                                             zoom: 15.0)
+//        self.mapView.mapView.animate(to: camera)
+//        let dict = marker.userData as? [String: String]
+//        self.mapView.detailView.whimTitle.text = dict!["title"]
+//        self.mapView.detailView.whimDescription.text = dict!["description"]
+//        let hostURL = URL(string: dict!["hostImageURL"]!)
+//        let hostID = dict!["hostID"]
+//        DBService.manager.getAppUser(with: hostID!) { (appUser) in
+//           self.currentUser = appUser
+//        }
+//        self.mapView.detailView.userPicture.kf.setImage(with: hostURL, for: .normal)
+//        self.mapView.detailView.isHidden = false
+//
+//        return true
+//    }
+//
+//    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+//        self.mapView.detailView.isHidden = true
+//    }
+//
+//}
+//
+//extension FeedMapVC: CLLocationManagerDelegate{
+//
+//
+//    // Handle incoming location events.
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        let location: CLLocation = locations.last!
+//        print("Location: \(location)")
+//        self.userLocation = location
+//
+//    }
+//
+//    // Handle authorization for the location manager.
+//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+//        switch status {
+//        case .restricted:
+//            print("Location access was restricted.")
+//        case .denied:
+//            print("User denied access to location.")
+//        case .notDetermined:
+//            print("Location status not determined.")
+//        case .authorizedAlways: fallthrough
+//        case .authorizedWhenInUse:
+//            print("Location status is OK.")
+//        }
+//    }
+//
+//    // Handle location manager errors.
+//    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+//        self.locationManager.stopUpdatingLocation()
+//        print("Error: \(error)")
+//    }
+//}
 
 extension FeedMapVC: ParentDelegate {
     func updateChildren(whims: [Whim]) {
         self.feedWhims = whims
+
     }
 }
+
+//extension FeedMapVC: mapDetailViewDelegate {
+//    func interestPressed() {
+//        print("interest is being pressed")
+//    }
+//
+//    func userPicturePressed() {
+//        present(GuestProfileVC(), animated: true, completion: nil)
+//    }
+//
+//
+//}
+

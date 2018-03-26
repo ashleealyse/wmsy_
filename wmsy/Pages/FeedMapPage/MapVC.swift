@@ -68,11 +68,13 @@ class MapVC: UIViewController {
 
 extension MapVC: CLLocationManagerDelegate{
     
+    
     // Handle incoming location events.
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location: CLLocation = locations.last!
         print("Location: \(location)")
         self.userLocation = location
+        
     }
     
     // Handle authorization for the location manager.
@@ -97,3 +99,14 @@ extension MapVC: CLLocationManagerDelegate{
     }
 }
 
+extension MapVC: mapDetailViewDelegate {
+    func interestPressed() {
+        print("interest is being pressed")
+    }
+    
+    func userPicturePressed() {
+        present(GuestProfileVC(), animated: true, completion: nil)
+    }
+    
+    
+}
