@@ -11,9 +11,9 @@ import SnapKit
 import GoogleMaps
 import SVProgressHUD
 
-protocol ParentDelegate: class {
-    func updateChildren(whims: [Whim]) -> Void
-}
+//protocol ParentDelegate: class {
+//    func updateChildren(whims: [Whim]) -> Void
+//}
 
 class FeedMapVC: MenuedViewController, setFiltersVCDelegate {
     
@@ -63,8 +63,8 @@ class FeedMapVC: MenuedViewController, setFiltersVCDelegate {
 
 
         
-        feedVC.delegate = self
-        mapVC.delegate = self
+//        feedVC.delegate = self
+//        mapVC.delegate = self
         filtersVC.delegate = self
         
         view.addSubview(feedVC.feedView)
@@ -212,12 +212,12 @@ class FeedMapVC: MenuedViewController, setFiltersVCDelegate {
 //    }
 //}
 
-extension FeedMapVC: ParentDelegate {
-    func updateChildren(whims: [Whim]) {
-        self.feedWhims = whims
-
-    }
-}
+//extension FeedMapVC: ParentDelegate {
+//    func updateChildren(whims: [Whim]) {
+//        self.feedWhims = whims
+//
+//    }
+//}
 
 //extension FeedMapVC: mapDetailViewDelegate {
 //    func interestPressed() {

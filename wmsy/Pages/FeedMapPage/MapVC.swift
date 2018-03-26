@@ -23,7 +23,7 @@ class MapVC: UIViewController {
         }
     }
     
-    weak var delegate: ParentDelegate?
+//    weak var delegate: ParentDelegate?
     
     
     // sends map updates to the parent vc - FeedMapVC
@@ -32,7 +32,7 @@ class MapVC: UIViewController {
             print("MapVC userLocation set")
             DBService.manager.getClosestWhims(location: userLocation) { (whims) in
                 self.feedWhims = whims
-                self.delegate?.updateChildren(whims: whims)
+//                self.delegate?.updateChildren(whims: whims)
             }
         }
     }
