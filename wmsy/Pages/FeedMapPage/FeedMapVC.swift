@@ -21,12 +21,15 @@ class FeedMapVC: MenuedViewController {
     var feedView = FeedView()
     var mapView = MapView()
     var expandedRows = Set<Int>()
+
     var currentUser : AppUser?
+
 
     var feedVC = FeedVC()
     var mapVC = MapVC()
     var filtersVC = FiltersVC()
-    
+
+
     var feedWhims: [Whim] = [] {
         didSet {
             print("number of whims to load: \(feedWhims.count)")
@@ -52,7 +55,7 @@ class FeedMapVC: MenuedViewController {
         add(feedVC)
         add(filtersVC)
         add(mapVC)
-        
+    
         
         SVProgressHUD.dismiss()
 
@@ -221,6 +224,7 @@ extension FeedMapVC: CLLocationManagerDelegate{
         print("Error: \(error)")
     }
 }
+
 
 extension FeedMapVC: ParentDelegate {
     func updateChildren(whims: [Whim]) {

@@ -24,6 +24,8 @@ class FeedVC: UIViewController {
     }
     
     var expandedRows = Set<Int>()
+    var guestProfile = GuestProfileVC()
+    var interestButtonCounter = 0
     
     weak var delegate: ParentDelegate?
 
@@ -54,7 +56,7 @@ class FeedVC: UIViewController {
         view.addSubview(feedView)
         view.backgroundColor = .green
 //        feedView.tableView.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
-        feedView.tableView.dataSource = self
+       feedView.tableView.dataSource = self
         feedView.tableView.delegate = self
         feedView.tableView.rowHeight = UITableViewAutomaticDimension
         feedView.tableView.estimatedRowHeight = 90
@@ -104,8 +106,6 @@ extension FeedVC: CLLocationManagerDelegate{
     }
 }
 
-
-
 extension FeedVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -113,13 +113,13 @@ extension FeedVC: UITableViewDelegate {
             return
         }
         
-//        switch cell.isExpanded {
-//        case true:
-//            self.expandedRows.remove(indexPath.row)
-//        default:
-//            self.expandedRows.insert(indexPath.row)
-//        }
-//
+        switch cell.isExpanded {
+        case true:
+            self.expandedRows.remove(indexPath.row)
+        default:
+            self.expandedRows.insert(indexPath.row)
+        }
+        
         cell.isExpanded = !cell.isExpanded
         
         tableView.beginUpdates()
@@ -135,7 +135,8 @@ extension FeedVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WhimFeedCell", for: indexPath) as! FeedCell
-        
+        cell.collapsedView.delegate = self
+        cell.expandedView.delegate = self
         cell.isExpanded = self.expandedRows.contains(indexPath.row)
         let whim = feedWhims[indexPath.row]
         cell.collapsedView.postTitleLabel.text = whim.title
@@ -148,4 +149,37 @@ extension FeedVC: UITableViewDataSource {
         
     }
 }
+
+
+extension FeedVC: CollapsedFeedCellViewDelegate {
+    
+    func userProfileButtonPressed() {
+        guestProfile.modalPresentationStyle = .overCurrentContext
+        guestProfile.modalTransitionStyle = .crossDissolve
+        present(guestProfile, animated: true, completion: nil)
+    }
+    
+}
+
+extension FeedVC: ExpandedFeedCellViewDelegate {
+    
+    func showOnMapButtonPressed() {
+        //Show Map
+        print("MAP")
+    }
+    
+    func interestButtonClicked() {
+        interestButtonCounter += 1
+        if interestButtonCounter % 2 == 0 {
+            //User is interested
+            print("User Is Not Interested")
+        } else {
+            //User is not interested
+            print("User Is Interested")
+        }
+    }
+    
+    
+}
+
 
