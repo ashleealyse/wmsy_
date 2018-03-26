@@ -21,8 +21,7 @@ class FeedMapVC: MenuedViewController {
     var feedView = FeedView()
     var mapView = MapView()
     var expandedRows = Set<Int>()
-    var guestProfile = GuestProfileVC()
-    var interestButtonCounter = 0
+
 
     var feedVC = FeedVC()
     var mapVC = MapVC()
