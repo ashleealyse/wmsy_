@@ -69,7 +69,7 @@ class ProfileView: UIView {
     }
     convenience init() {
         self.init(frame: UIScreen.main.bounds)
-        backgroundColor = UIColor.lightText.withAlphaComponent(0.8)
+        backgroundColor = UIColor.black.withAlphaComponent(0.5)
     }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
