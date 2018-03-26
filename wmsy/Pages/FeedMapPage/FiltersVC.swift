@@ -14,6 +14,12 @@ class FiltersVC: UIViewController {
     
     let categoryList = categoryTuples
     
+    var feedWhims: [Whim] = [] {
+        didSet {
+            print("FiltersVC feedWhims: \(feedWhims)")
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,6 +28,8 @@ class FiltersVC: UIViewController {
         self.filtersView.categoriesCV.delegate = self
         self.filtersView.categoriesCV.dataSource = self
         filtersView.categoriesCV.reloadData()
+        
+        filtersView.clearSearchButton.addTarget(self, action: #selector(clearSearch), for: .touchUpInside)
         
 //        let distances = ["0.5", "1.0", "5.0", "10.0"]
 ////        let customSC = UISegmentedControl(items: distances)
@@ -54,6 +62,13 @@ class FiltersVC: UIViewController {
 //
 //        }
 //    }
+    
+    @objc func clearSearch() {
+        print("need to add functionality to clear the search category")
+        
+    }
+    
+    
 }
 
 
@@ -62,10 +77,11 @@ extension FiltersVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! WhimCategoryCollectionViewCell
         let tuple = categoryList[indexPath.row]
-        //        let indexPath = IndexPath.init(row: 0, section: 0)
         var selectedCategory = tuple
-        //        cell.categoryImage.image = selectedCategory.1
         self.filtersView.categoryLabel.text = "Filter Whims by: \(selectedCategory.0)"
+        DBService.manager.getCategoryWhims(fromCategory: selectedCategory.0) { (whims) in
+            self.feedWhims = whims
+        }
     }
 }
 

@@ -17,7 +17,11 @@ class MapVC: UIViewController {
     
     var locationManager = CLLocationManager()
     
-    var feedWhims: [Whim] = []
+    var feedWhims: [Whim] = [] {
+        didSet {
+            print("MapVC feedWhims: \(feedWhims)")
+        }
+    }
     
     weak var delegate: ParentDelegate?
     

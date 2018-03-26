@@ -46,7 +46,7 @@ class FiltersView: UIView {
     }()
     
     // button to show full map view, to the left of the categories CV
-    lazy var mapOrFeedButton: UIButton = {
+    lazy var clearSearchButton: UIButton = {
         let button = UIButton()
        button.setTitle("View", for: .normal)
         button.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
@@ -100,8 +100,8 @@ class FiltersView: UIView {
             make.height.equalTo(self.snp.height).multipliedBy(0.4)
         }
         
-        addSubview(mapOrFeedButton)
-        mapOrFeedButton.snp.makeConstraints { (make) in
+        addSubview(clearSearchButton)
+        clearSearchButton.snp.makeConstraints { (make) in
             make.leading.equalTo(categoriesCV.snp.trailing).offset(5)
             make.top.equalTo(categoriesCV.snp.top)
             make.bottom.equalTo(categoriesCV.snp.bottom)
