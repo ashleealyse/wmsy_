@@ -229,7 +229,8 @@ extension FeedMapVC: CLLocationManagerDelegate{
 extension FeedMapVC: ParentDelegate {
     func updateChildren(whims: [Whim]) {
         self.feedWhims = whims
-
+    }
+}
 
 extension FeedMapVC: mapDetailViewDelegate {
     func interestPressed() {
