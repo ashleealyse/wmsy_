@@ -19,6 +19,7 @@ extension FeedMapVC: UICollectionViewDelegateFlowLayout {
         self.filtersView.categoryLabel.text = "Filter Whims by: \(selectedCategory.0)"
         DBService.manager.getCategoryWhims(fromCategory: selectedCategory.0) { (whims) in
             self.feedWhims = whims
+            self.expandedRows = Set<Int>()
         }
     }
 }
