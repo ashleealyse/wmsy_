@@ -90,22 +90,10 @@ class FeedMapVC: MenuedViewController {
             currentUsersInterests = Set(currentUser.interests.map{$0.whimID})
         }
         
-        
-        
         SVProgressHUD.dismiss()
         
         // setup container frame
-        let height = view.safeAreaLayoutGuide.layoutFrame.height
-        let width = view.safeAreaLayoutGuide.layoutFrame.width
-        let x = view.frame.origin.x
-        let y = height - (height * toolBarHeightMultiplier)
-        let startingContainerFrame = CGRect(x: x, y: y, width: width, height: height)
-        containerView = UIView.init(frame: startingContainerFrame)
-        
-        filtersView.isHidden = false
-        mapView.isHidden = false
-//        filtersView.isHidden = true
-//        mapView.isHidden = true
+        configureNavBar()
         
         let mylocation = mapView.mapView.myLocation
         mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
@@ -126,29 +114,25 @@ class FeedMapVC: MenuedViewController {
         filtersView.categoriesCV.reloadData()
         filtersView.clearSearchButton.addTarget(self, action: #selector(clearSearch), for: .touchUpInside)
         
-//<<<<<<< HEAD
-//        view.addSubview(filtersVC.filtersView)
-//        filtersVC.filtersView.snp.makeConstraints { (make) in
-//            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
-//            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
-//            //            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-50)
-//            //            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-200)
-//            //                        make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
-//            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-//            //            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.25)
-//            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.16)
-//        }
-//
-//        view.addSubview(mapVC.mapView)
-//        mapVC.mapView.snp.makeConstraints { (make) in
-//=======
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let height = view.safeAreaLayoutGuide.layoutFrame.height
+        let width = view.safeAreaLayoutGuide.layoutFrame.width
+        let x = view.frame.origin.x
+        let y = height - (height * toolBarHeightMultiplier)
+        let startingContainerFrame = CGRect(x: x, y: y, width: width, height: height)
+        containerView = UIView.init(frame: startingContainerFrame)
+        
         view.addSubview(feedView)
         view.addSubview(containerView)
         containerView.addSubview(filtersView)
         containerView.addSubview(mapView)
         feedView.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-//>>>>>>> qa
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(1 - toolBarHeightMultiplier)
@@ -161,16 +145,14 @@ class FeedMapVC: MenuedViewController {
         
         filtersView.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalTo(containerView)
-            make.height.equalTo(view).multipliedBy(toolBarHeightMultiplier)
+            make.height.equalTo(view.safeAreaLayoutGuide).multipliedBy(toolBarHeightMultiplier)
         }
         
         mapView.snp.makeConstraints { (make) in
             make.top.equalTo(filtersView.snp.bottom)
             make.leading.trailing.bottom.equalTo(containerView)
         }
-        configureNavBar()
     }
-    
     
     
     // setup UIBarButtonItems
@@ -180,8 +162,7 @@ class FeedMapVC: MenuedViewController {
         let topLeftBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addIcon"), style: .plain, target: self, action: #selector(hostAWhim))
         navigationItem.leftBarButtonItem = topLeftBarItem
         
-        let topRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "mapIcon"), style: .plain, target: self, action: #selector(showMap))
-        let altTopRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "feedIcon"), style: .plain, target: self, action: #selector(hideMap))
+        let topRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "mapIcon"), style: .plain, target: self, action: #selector(toggleMap))
         navigationItem.rightBarButtonItem = topRightBarItem
         
     }
@@ -191,18 +172,21 @@ class FeedMapVC: MenuedViewController {
         navigationController?.pushViewController(CreateWhimTVC(), animated: true)
     }
     
-    @objc func showMap() {
-        filtersView.isHidden = false
-        mapView.isHidden = false
-        let altTopRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "feedIcon"), style: .plain, target: self, action: #selector(hideMap))
-        self.navigationItem.rightBarButtonItem = altTopRightBarItem
-    }
-    
-    @objc func hideMap() {
-        filtersView.isHidden = true
-        mapView.isHidden = true
-        let topRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "mapIcon"), style: .plain, target: self, action: #selector(showMap))
-        navigationItem.rightBarButtonItem = topRightBarItem
+    @objc func toggleMap() {
+//        filtersView.isHidden = false
+//        mapView.isHidden = false
+        let height = view.safeAreaLayoutGuide.layoutFrame.height
+        let y = height - (height * toolBarHeightMultiplier)
+        containerView.frame.size.height = height
+        if navigationItem.rightBarButtonItem?.image == #imageLiteral(resourceName: "feedIcon") {
+            containerView.frame.origin.y = feedView.frame.origin.y
+            navigationItem.rightBarButtonItem?.image = #imageLiteral(resourceName: "mapIcon")
+        } else {
+            containerView.frame.origin.y = y
+            navigationItem.rightBarButtonItem?.image = #imageLiteral(resourceName: "feedIcon")
+        }
+        print(view.safeAreaLayoutGuide.layoutFrame.height)
+        print(containerView.frame.height)
     }
 
     @objc func clearSearch() {
