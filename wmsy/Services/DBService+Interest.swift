@@ -62,7 +62,6 @@ extension DBService {
         group.notify(queue: .main) {
             completion(interests)
         }
-        
     }
     
     
