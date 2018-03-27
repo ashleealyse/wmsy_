@@ -9,36 +9,36 @@
 import UIKit
 
 
-protocol setFiltersVCDelegate: class {
-    func changeListOf(whims: [Whim])
-}
+//protocol setFiltersVCDelegate: class {
+//    func changeListOf(whims: [Whim])
+//}
 
 
 class FiltersVC: UIViewController {
     
-    var filtersView = FiltersView()
+//    var filtersView = FiltersView()
     
-    let categoryList = categoryTuples
+//    let categoryList = categoryTuples
     
-    var feedWhims: [Whim] = [] {
-        didSet {
-            print("FiltersVC feedWhims: \(feedWhims)")
-            delegate?.changeListOf(whims: feedWhims)
-        }
-    }
+//    var feedWhims: [Whim] = [] {
+//        didSet {
+//            print("FiltersVC feedWhims: \(feedWhims)")
+//            delegate?.changeListOf(whims: feedWhims)
+//        }
+//    }
     
-    weak var delegate: setFiltersVCDelegate?
+//    weak var delegate: setFiltersVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(filtersView)
+//        view.addSubview(filtersView)
         
-        self.filtersView.categoriesCV.delegate = self
-        self.filtersView.categoriesCV.dataSource = self
-        filtersView.categoriesCV.reloadData()
-        
-        filtersView.clearSearchButton.addTarget(self, action: #selector(clearSearch), for: .touchUpInside)
+//        self.filtersView.categoriesCV.delegate = self
+//        self.filtersView.categoriesCV.dataSource = self
+//        filtersView.categoriesCV.reloadData()
+//
+//        filtersView.clearSearchButton.addTarget(self, action: #selector(clearSearch), for: .touchUpInside)
         
 //        let distances = ["0.5", "1.0", "5.0", "10.0"]
 ////        let customSC = UISegmentedControl(items: distances)
@@ -72,40 +72,40 @@ class FiltersVC: UIViewController {
 //        }
 //    }
     
-    @objc func clearSearch() {
-        print("need to add functionality to clear the search category")
-        
-    }
+//    @objc func clearSearch() {
+//        print("need to add functionality to clear the search category")
+//
+//    }
     
     
 }
 
 
 
-extension FiltersVC: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! WhimCategoryCollectionViewCell
-        let tuple = categoryList[indexPath.row]
-        var selectedCategory = tuple
-        self.filtersView.categoryLabel.text = "Filter Whims by: \(selectedCategory.0)"
-        DBService.manager.getCategoryWhims(fromCategory: selectedCategory.0) { (whims) in
-            self.feedWhims = whims
-        }
-    }
-}
-
-extension FiltersVC: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return categoryList.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCategoryCell", for: indexPath) as! WhimCategoryCollectionViewCell
-        let categoryImage = categoryList[indexPath.row].1
-        cell.categoryImage.image = categoryImage
-        return cell
-    }
-}
-
-
-
+//extension FiltersVC: UICollectionViewDelegateFlowLayout {
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let cell = collectionView.cellForItem(at: indexPath) as! WhimCategoryCollectionViewCell
+//        let tuple = categoryList[indexPath.row]
+//        var selectedCategory = tuple
+//        self.filtersView.categoryLabel.text = "Filter Whims by: \(selectedCategory.0)"
+//        DBService.manager.getCategoryWhims(fromCategory: selectedCategory.0) { (whims) in
+//            self.feedWhims = whims
+//        }
+//    }
+//}
+//
+//extension FiltersVC: UICollectionViewDataSource {
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return categoryList.count
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCategoryCell", for: indexPath) as! WhimCategoryCollectionViewCell
+//        let categoryImage = categoryList[indexPath.row].1
+//        cell.categoryImage.image = categoryImage
+//        return cell
+//    }
+//}
+//
+//
+//

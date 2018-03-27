@@ -18,6 +18,7 @@
 		812112E92062F7D3002D80C2 /* AddWhimLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812112E82062F7D3002D80C2 /* AddWhimLocationView.swift */; };
 		812112EB20632889002D80C2 /* ChatGuestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812112EA20632889002D80C2 /* ChatGuestCollectionViewCell.swift */; };
 		812112ED20641B1D002D80C2 /* CombinationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812112EC20641B1D002D80C2 /* CombinationView.swift */; };
+		81337775206A960B00F1F657 /* FeedMapVC+Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81337774206A960B00F1F657 /* FeedMapVC+Feed.swift */; };
 		8139A99D205C2E9F006C7058 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8139A99C205C2E9F006C7058 /* GoogleService-Info.plist */; };
 		8139A99F205C309F006C7058 /* Whim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8139A99E205C309F006C7058 /* Whim.swift */; };
 		8139A9A2205C30D7006C7058 /* CreateWhimTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8139A9A1205C30D7006C7058 /* CreateWhimTVC.swift */; };
@@ -124,6 +125,7 @@
 		812112E82062F7D3002D80C2 /* AddWhimLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWhimLocationView.swift; sourceTree = "<group>"; };
 		812112EA20632889002D80C2 /* ChatGuestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGuestCollectionViewCell.swift; sourceTree = "<group>"; };
 		812112EC20641B1D002D80C2 /* CombinationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinationView.swift; sourceTree = "<group>"; };
+		81337774206A960B00F1F657 /* FeedMapVC+Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedMapVC+Feed.swift"; sourceTree = "<group>"; };
 		8139A99C205C2E9F006C7058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8139A99E205C309F006C7058 /* Whim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Whim.swift; sourceTree = "<group>"; };
 		8139A9A1205C30D7006C7058 /* CreateWhimTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWhimTVC.swift; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 			isa = PBXGroup;
 			children = (
 				81BAD67A205AEDAA00C7F039 /* FeedMapVC.swift */,
+				81337774206A960B00F1F657 /* FeedMapVC+Feed.swift */,
 				81F9F0672065668100D288E8 /* FeedVC.swift */,
 				81F9F069206566FD00D288E8 /* MapVC.swift */,
 				81F9F06B20656B1100D288E8 /* FiltersVC.swift */,
@@ -776,6 +779,7 @@
 				81AB7AC8205C9548009845EA /* Stylesheet.swift in Sources */,
 				81F9F06E20656B2200D288E8 /* FiltersView.swift in Sources */,
 				811FFB9720615B6200F3312B /* DBService+Whim.swift in Sources */,
+				81337775206A960B00F1F657 /* FeedMapVC+Feed.swift in Sources */,
 				81DECD1B205C87FA00214866 /* Interactor.swift in Sources */,
 				812112E72062F660002D80C2 /* AddWhimLocationViewController.swift in Sources */,
 				81DECD26205C91F900214866 /* MenuProfileView.swift in Sources */,
