@@ -20,11 +20,12 @@ class FeedMapVC: MenuedViewController {
     
     var guestProfile = GuestProfileVC()
     var expandedRows = Set<Int>()
+    var interestedButtonCounter = 0
+
     var currentUser : AppUser?
     
     var locationManager = CLLocationManager()
     
-    var interestedButtonCounter = 0
     
     let categoryList = categoryTuples
     var userLocation = CLLocation(){
@@ -37,7 +38,7 @@ class FeedMapVC: MenuedViewController {
     }
     
 
-    
+
     var feedWhims: [Whim] = [] {
         didSet {
             print("number of whims to load: \(feedWhims.count)")
@@ -61,6 +62,7 @@ class FeedMapVC: MenuedViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         SVProgressHUD.dismiss()
         
         filtersView.isHidden = false
@@ -220,6 +222,7 @@ class FeedMapVC: MenuedViewController {
 //        print("Error: \(error)")
 //    }
 //}
+
 
 
 

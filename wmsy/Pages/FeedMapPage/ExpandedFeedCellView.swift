@@ -9,7 +9,17 @@
 import UIKit
 import SnapKit
 
+protocol ExpandedFeedCellViewDelegate: class {
+    
+    func showOnMapButtonPressed()
+    
+    func interestButtonClicked()
+    
+}
+
 class ExpandedFeedCellView: UIView {
+    
+    weak var delegate: ExpandedFeedCellViewDelegate?
     
     lazy var postDescriptionTF: UITextView = {
         let tF = UITextView()
@@ -22,12 +32,14 @@ class ExpandedFeedCellView: UIView {
     lazy var showOnMapButton: UIButton = {
         let mapButton = UIButton()
         mapButton.setImage(#imageLiteral(resourceName: "mapIcon"), for: .normal)
+        mapButton.addTarget(self, action: #selector(showOnMap), for: .touchUpInside)
         return mapButton
     }()
     
     lazy var interestedButton: UIButton = {
         let interestButton = UIButton()
         interestButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
+        interestButton.addTarget(self, action: #selector(showInterest), for: .touchUpInside)
         return interestButton
     }()
     
@@ -36,6 +48,14 @@ class ExpandedFeedCellView: UIView {
         lb.text = "Show Interest"
         return lb
     }()
+    
+    @objc func showOnMap() {
+        self.delegate?.showOnMapButtonPressed()
+    }
+    
+    @objc func showInterest() {
+        self.delegate?.interestButtonClicked()
+    }
     
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
