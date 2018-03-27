@@ -9,17 +9,18 @@
 import UIKit
 import SnapKit
 
-protocol ExpandedFeedCellViewDelegate: class {
-    
-    func showOnMapButtonPressed()
-    
-    func interestButtonClicked()
-    
-}
+//protocol ExpandedFeedCellViewDelegate: class {
+//
+//    func showOnMapButtonPressed()
+//
+//    func interestButtonClicked()
+//
+//}
 
 class ExpandedFeedCellView: UIView {
     
-    weak var delegate: ExpandedFeedCellViewDelegate?
+//    weak var delegate: ExpandedFeedCellViewDelegate?
+//    weak var delegate: FeedCellViewDelegate?
     
     lazy var postDescriptionTF: UITextView = {
         let tF = UITextView()
@@ -32,14 +33,14 @@ class ExpandedFeedCellView: UIView {
     lazy var showOnMapButton: UIButton = {
         let mapButton = UIButton()
         mapButton.setImage(#imageLiteral(resourceName: "mapIcon"), for: .normal)
-        mapButton.addTarget(self, action: #selector(showOnMap), for: .touchUpInside)
+//        mapButton.addTarget(self, action: #selector(showOnMap), for: .touchUpInside)
         return mapButton
     }()
     
     lazy var interestedButton: UIButton = {
         let interestButton = UIButton()
         interestButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
-        interestButton.addTarget(self, action: #selector(showInterest), for: .touchUpInside)
+//        interestButton.addTarget(self, action: #selector(showInterest), for: .touchUpInside)
         return interestButton
     }()
     
@@ -49,13 +50,13 @@ class ExpandedFeedCellView: UIView {
         return lb
     }()
     
-    @objc func showOnMap() {
-        self.delegate?.showOnMapButtonPressed()
-    }
-    
-    @objc func showInterest() {
-        self.delegate?.interestButtonClicked()
-    }
+//    @objc func showOnMap() {
+//        self.delegate?.showOnMapButtonPressed()
+//    }
+//
+//    @objc func showInterest() {
+//        self.delegate?.interestButtonClicked()
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)

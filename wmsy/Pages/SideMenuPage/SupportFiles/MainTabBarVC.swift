@@ -52,7 +52,7 @@ class MainTabBarVC: UITabBarController {
     
     
     // MARK: - Helper functions
-    public func viewController(for page: Page) -> UIViewController {
+    public func viewController(for page: Page) -> UIViewController? {
         switch page {
         case .chatRoom:
             return chatRoomVC

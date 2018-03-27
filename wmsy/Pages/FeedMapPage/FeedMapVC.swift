@@ -14,7 +14,10 @@ import SVProgressHUD
 
 class FeedMapVC: MenuedViewController {
     
+    let toolBarHeightMultiplier: CGFloat = 0.16
+    
     var feedView = FeedView()
+    var containerView = UIView()
     var mapView = MapView()
     var filtersView = FiltersView()
     
@@ -22,9 +25,16 @@ class FeedMapVC: MenuedViewController {
     var expandedRows = Set<Int>()
     var interestButtonCounter = 0
 
-    var currentUser : AppUser?
+    var currentUser = AppUser.currentAppUser
+    
+    var currentUsersInterests = Set<String>() {
+        didSet {
+            print("Current User Interests: \(currentUsersInterests.count)")
+        }
+    }
     
     var locationManager = CLLocationManager()
+    
     
     
     let categoryList = categoryTuples
@@ -62,8 +72,23 @@ class FeedMapVC: MenuedViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        currentUser = AppUser.currentAppUser
+        if let currentUser = currentUser {
+            print("current user: \(currentUser.name)")
+            currentUsersInterests = Set(currentUser.interests.map{$0.whimID})
+        }
+        
+        
+        
         SVProgressHUD.dismiss()
+        
+        // setup container frame
+        let height = view.safeAreaLayoutGuide.layoutFrame.height
+        let width = view.safeAreaLayoutGuide.layoutFrame.width
+        let x = view.frame.origin.x
+        let y = height - (height * toolBarHeightMultiplier)
+        let startingContainerFrame = CGRect(x: x, y: y, width: width, height: height)
+        containerView = UIView.init(frame: startingContainerFrame)
         
         filtersView.isHidden = false
         mapView.isHidden = false
@@ -84,13 +109,20 @@ class FeedMapVC: MenuedViewController {
         locationManager.startUpdatingLocation()
         self.locationManager.delegate = self
         
+        filtersView.categoriesCV.delegate = self
+        filtersView.categoriesCV.dataSource = self
+        filtersView.categoriesCV.reloadData()
+        filtersView.clearSearchButton.addTarget(self, action: #selector(clearSearch), for: .touchUpInside)
+        
         view.addSubview(feedView)
+        view.addSubview(containerView)
+        containerView.addSubview(filtersView)
+        containerView.addSubview(mapView)
         feedView.snp.makeConstraints { (make) in
-//            make.edges.equalTo(view.safeAreaLayoutGuide)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
-            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.84)
+            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(1 - toolBarHeightMultiplier)
         }
         
         feedView.tableView.dataSource = self
@@ -98,29 +130,14 @@ class FeedMapVC: MenuedViewController {
         feedView.tableView.rowHeight = UITableViewAutomaticDimension
         feedView.tableView.separatorStyle = .none
         
-        view.addSubview(filtersView)
         filtersView.snp.makeConstraints { (make) in
-            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
-            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-            //            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-200)
-            //                        make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
-//            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            //            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.25)
-            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.16)
+            make.top.leading.trailing.equalTo(containerView)
+            make.height.equalTo(view).multipliedBy(toolBarHeightMultiplier)
         }
         
-        filtersView.categoriesCV.delegate = self
-        filtersView.categoriesCV.dataSource = self
-        filtersView.categoriesCV.reloadData()
-        filtersView.clearSearchButton.addTarget(self, action: #selector(clearSearch), for: .touchUpInside)
-        
-        view.addSubview(mapView)
         mapView.snp.makeConstraints { (make) in
-            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
-            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             make.top.equalTo(filtersView.snp.bottom)
-            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.84)
+            make.leading.trailing.bottom.equalTo(containerView)
         }
         configureNavBar()
     }
@@ -162,6 +179,9 @@ class FeedMapVC: MenuedViewController {
     @objc func clearSearch() {
         print("need to add functionality to clear the search category")
     }
+    
+
+    
 }
 
 

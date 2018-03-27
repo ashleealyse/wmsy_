@@ -11,31 +11,50 @@ import SnapKit
 
 
 class SideMenuVC: MenuViewController {
-//    var viewIsVisible: Bool = true
-//    override var prefersStatusBarHidden: Bool {
-//        return !viewIsVisible
-//    }
+    
+    var menuHeader = UIView()
     var newMenu: MenuCollectionViewWrapper!
-    var isChatRoomVisible: Bool = false {
-        didSet {
-            newMenu.menuPagesCollectionView.reloadData()
-            newMenu.dotsView.isChatRoomVisible = isChatRoomVisible
-        }
-    }
+//    var isChatRoomVisible: Bool = false {
+//        didSet {
+//            newMenu.menuPagesCollectionView.reloadData()
+//            newMenu.dotsView.isChatRoomVisible = isChatRoomVisible
+//        }
+//    }
     override func viewDidLoad() {
         super.viewDidLoad()
         print("viewisdidloading")
-//        self.automaticallyAdjustsScrollViewInsets = false
         newMenu = MenuCollectionViewWrapper(frame: menuScreen.frame)
         newMenu.menuPagesCollectionView.dataSource = self
         newMenu.menuPagesCollectionView.delegate = self
-//        newMenu.backgroundColor = Stylesheet.Colors.WMSYMummysTomb
+        menuScreen.addSubview(menuHeader)
         menuScreen.addSubview(newMenu)
+        
+        menuHeader.snp.makeConstraints { (make) in
+            if let navBarHeight = fromVC?.navigationController?.navigationBar.frame.height,
+                let navBarOrigin = fromVC?.navigationController?.navigationBar.frame.origin.y {
+                make.height.equalTo(navBarHeight + navBarOrigin)
+            } else {
+                make.height.equalTo(64)
+            }
+            make.top.leading.trailing.equalTo(menuScreen)
+        }
         newMenu.snp.makeConstraints { (make) in
-            make.edges.equalTo(menuScreen)
+            make.top.equalTo(menuHeader.snp.bottom)
+            make.leading.trailing.bottom.equalTo(menuScreen)
+        }
+        
+        // setup Header
+        let touchRecognizer = UITapGestureRecognizer(target: self, action: #selector(goToFeed))
+        menuHeader.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
+        menuHeader.addGestureRecognizer(touchRecognizer)
+    }
+    @objc private func goToFeed() {
+        if let _ = fromVC as? FeedMapVC {
+            closeMenu(sender: self)
+        } else {
+            switchTo(page: .feedAndMap)
         }
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("viewiswillappearing")
@@ -51,7 +70,7 @@ extension SideMenuVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLa
         return 0
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return isChatRoomVisible ? 3 : 2
+        return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -75,7 +94,7 @@ extension SideMenuVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLa
         }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return menuScreen.bounds.size
+        return collectionView.bounds.size
     }
 //    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
 //        if scrollView == newMenu.menuPagesCollectionView {

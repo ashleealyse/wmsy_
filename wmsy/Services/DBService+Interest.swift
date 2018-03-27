@@ -56,9 +56,12 @@ extension DBService {
             }) { (error) in
                 print(error)
                 group.leave()
+                completion([])
             }
         }
-        
+        group.notify(queue: .main) {
+            completion(interests)
+        }
         
     }
     

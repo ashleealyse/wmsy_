@@ -41,11 +41,19 @@ extension FeedMapVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WhimFeedCell", for: indexPath) as! FeedCell
-        cell.collapsedView.delegate = self
-        cell.expandedView.delegate = self
+        
+//        cell.collapsedView.delegate = self
+//        cell.expandedView.delegate = self
+        cell.delegate = self
         cell.isExpanded = self.expandedRows.contains(indexPath.row)
         let whim = feedWhims[indexPath.row]
+        cell.whim = whim
         cell.collapsedView.postTitleLabel.text = whim.title
+        
+        if currentUsersInterests.contains(whim.id) {
+            cell.collapsedView.backgroundColor = .red
+        }
+        
         cell.collapsedView.categoryIcon.image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
         cell.collapsedView.userImageButton.imageView?.kf.setImage(with: URL(string: whim.hostImageURL), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
             cell.collapsedView.userImageButton.setImage(image, for: .normal)
@@ -57,34 +65,41 @@ extension FeedMapVC: UITableViewDataSource {
 }
 
 
-extension FeedMapVC: CollapsedFeedCellViewDelegate {
-    
-    func userProfileButtonPressed() {
-        guestProfile.modalPresentationStyle = .overCurrentContext
-        guestProfile.modalTransitionStyle = .crossDissolve
-        present(guestProfile, animated: true, completion: nil)
-    }
-    
-}
+//extension FeedMapVC: CollapsedFeedCellViewDelegate {
+//
+//    func userProfileButtonPressed() {
+//        guestProfile.modalPresentationStyle = .overCurrentContext
+//        guestProfile.modalTransitionStyle = .crossDissolve
+//        present(guestProfile, animated: true, completion: nil)
+//    }
+//
+//}
 
-extension FeedMapVC: ExpandedFeedCellViewDelegate {
+extension FeedMapVC: FeedCellViewDelegate {
     
-    func showOnMapButtonPressed() {
+    func showOnMapButtonPressed(whim: Whim) {
         //Show Map
-        print("MAP")
+        print("Show on Map Button Pressed")
     }
     
-    func interestButtonClicked() {
+    func interestButtonClicked(whim: Whim) {
         interestButtonCounter += 1
         if interestButtonCounter % 2 == 0 {
             //User is interested
             print("User Is Not Interested")
         } else {
             //User is not interested
-            print("User Is Interested")
+            print("User Is Interested in \(whim.id)")
+            DBService.manager.addInterest(forWhim: whim)
+            
         }
     }
     
-    
+    func userProfileButtonPressed(whim: Whim) {
+        print("Show Whim Host User Profile")
+        guestProfile.modalPresentationStyle = .overCurrentContext
+        guestProfile.modalTransitionStyle = .crossDissolve
+        present(guestProfile, animated: true, completion: nil)
+    }
 }
 
