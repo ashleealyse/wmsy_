@@ -206,7 +206,10 @@ class FeedMapVC: MenuedViewController {
     }
 
     @objc func clearSearch() {
-        print("need to add functionality to clear the search category")
+        DBService.manager.getClosestWhims(location: userLocation) { (whims) in
+            self.feedWhims = whims
+        }
+        self.expandedRows = Set<Int>()
     }
     
 
@@ -272,9 +275,6 @@ class FeedMapVC: MenuedViewController {
 //        print("Error: \(error)")
 //    }
 //}
-
-
-
 
 //extension FeedMapVC: UITableViewDelegate {
 //    
