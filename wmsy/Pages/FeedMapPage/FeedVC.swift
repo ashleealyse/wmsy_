@@ -73,8 +73,8 @@
         
         
         
-    }
-}
+//    }
+//}
 
 //extension FeedVC: CLLocationManagerDelegate{
 //

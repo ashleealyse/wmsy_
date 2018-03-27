@@ -54,8 +54,8 @@
 //        filtersView.distanceSegmentedControl.setTitle("1.0", forSegmentAt: 1)
 //        filtersView.distanceSegmentedControl.setTitle("5.0", forSegmentAt: 2)
 //        filtersView.distanceSegmentedControl.setTitle("10.0", forSegmentAt: 3)
-    }
-    
+//    }
+
 //    @objc func indexChanged(_ sender: AnyObject) {
 //        switch filtersView.distanceSegmentedControl.selectedSegmentIndex {
 //        case 0:
@@ -78,7 +78,7 @@
 //    }
     
     
-}
+//}
 
 
 

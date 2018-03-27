@@ -63,8 +63,8 @@
 //                                                          zoom: mapView.zoomLevel)
 //        mapView.mapView.settings.myLocationButton = true
 //        mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    }
-}
+//    }
+//}
 
 
 //extension MapVC: CLLocationManagerDelegate{

@@ -18,10 +18,13 @@ class FeedMapVC: MenuedViewController {
     var mapView = MapView()
     var filtersView = FiltersView()
     
+    var guestProfile = GuestProfileVC()
     var expandedRows = Set<Int>()
     var currentUser : AppUser?
     
     var locationManager = CLLocationManager()
+    
+    var interestedButtonCounter = 0
     
     let categoryList = categoryTuples
     var userLocation = CLLocation(){
@@ -91,7 +94,6 @@ class FeedMapVC: MenuedViewController {
         feedView.tableView.dataSource = self
         feedView.tableView.delegate = self
         feedView.tableView.rowHeight = UITableViewAutomaticDimension
-        feedView.tableView.estimatedRowHeight = 90
         feedView.tableView.separatorStyle = .none
         
         view.addSubview(filtersView)
