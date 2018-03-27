@@ -6,7 +6,7 @@
 //  Copyright © 2018 C4Q. All rights reserved.
 //
 
-import UIKit
+//import UIKit
 
 
 //protocol setFiltersVCDelegate: class {
@@ -14,8 +14,8 @@ import UIKit
 //}
 
 
-class FiltersVC: UIViewController {
-    
+//class FiltersVC: UIViewController {
+
 //    var filtersView = FiltersView()
     
 //    let categoryList = categoryTuples
@@ -28,10 +28,10 @@ class FiltersVC: UIViewController {
 //    }
     
 //    weak var delegate: setFiltersVCDelegate?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+//    
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        
 //        view.addSubview(filtersView)
         
 //        self.filtersView.categoriesCV.delegate = self

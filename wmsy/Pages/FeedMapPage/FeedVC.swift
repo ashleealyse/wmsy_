@@ -6,12 +6,12 @@
 //  Copyright © 2018 C4Q. All rights reserved.
 //
 
-import UIKit
-import SnapKit
-import GoogleMaps
-import SVProgressHUD
-
-class FeedVC: UIViewController {
+//import UIKit
+//import SnapKit
+//import GoogleMaps
+//import SVProgressHUD
+//
+//class FeedVC: UIViewController {
 
 //    var feedView = FeedView()
 //
@@ -47,11 +47,11 @@ class FeedVC: UIViewController {
 //            self.feedWhims = whims
 //        }
 //    }
+//
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        SVProgressHUD.dismiss()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        SVProgressHUD.dismiss()
-        
 //        feedWhims = feedWhims.sortedByTimestamp()
         
 //        view.addSubview(feedView)

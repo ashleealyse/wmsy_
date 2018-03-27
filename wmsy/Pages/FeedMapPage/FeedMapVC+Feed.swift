@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import SnapKit
+import GoogleMaps
+import SVProgressHUD
 
 extension FeedMapVC: UITableViewDelegate {
     

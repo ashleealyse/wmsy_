@@ -6,12 +6,12 @@
 //  Copyright © 2018 C4Q. All rights reserved.
 //
 
-import UIKit
-import SnapKit
-import GoogleMaps
-import SVProgressHUD
-
-class MapVC: UIViewController {
+//import UIKit
+//import SnapKit
+//import GoogleMaps
+//import SVProgressHUD
+//
+//class MapVC: UIViewController {
 
 //    var mapView = MapView()
 //
@@ -45,8 +45,8 @@ class MapVC: UIViewController {
 //        }
 //    }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
 //        SVProgressHUD.dismiss()
 //        view.addSubview(mapView)
 //
