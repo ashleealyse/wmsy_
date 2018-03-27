@@ -11,68 +11,57 @@ import SnapKit
 
 
 class SideMenuVC: MenuViewController {
-//    var viewIsVisible: Bool = true
-//    override var prefersStatusBarHidden: Bool {
-//        return !viewIsVisible
-//    }
+    
+    var menuHeader = UIView()
     var newMenu: MenuCollectionViewWrapper!
-    var isChatRoomVisible: Bool = false {
-        didSet {
-            newMenu.menuPagesCollectionView.reloadData()
-            newMenu.dotsView.isChatRoomVisible = isChatRoomVisible
-        }
-    }
+//    var isChatRoomVisible: Bool = false {
+//        didSet {
+//            newMenu.menuPagesCollectionView.reloadData()
+//            newMenu.dotsView.isChatRoomVisible = isChatRoomVisible
+//        }
+//    }
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.automaticallyAdjustsScrollViewInsets = false
+        print("viewisdidloading")
         newMenu = MenuCollectionViewWrapper(frame: menuScreen.frame)
         newMenu.menuPagesCollectionView.dataSource = self
         newMenu.menuPagesCollectionView.delegate = self
-//        newMenu.backgroundColor = Stylesheet.Colors.WMSYMummysTomb
+        menuScreen.addSubview(menuHeader)
         menuScreen.addSubview(newMenu)
-        newMenu.snp.makeConstraints { (make) in
-            make.edges.equalTo(menuScreen)
+        
+        menuHeader.snp.makeConstraints { (make) in
+            if let navBarHeight = fromVC?.navigationController?.navigationBar.frame.height,
+                let navBarOrigin = fromVC?.navigationController?.navigationBar.frame.origin.y {
+                make.height.equalTo(navBarHeight + navBarOrigin)
+            } else {
+                make.height.equalTo(64)
+            }
+            make.top.leading.trailing.equalTo(menuScreen)
         }
-//        newMenu = MenuCollectionViewWrapper(frame: view.frame)
-//        view.insertSubview(newMenu, belowSubview: snapShotOfMenuedViewController)
-//        view.bringSubview(toFront: snapShotOfMenuedViewController)
-        // Do any additional setup after loading the view.
+        newMenu.snp.makeConstraints { (make) in
+            make.top.equalTo(menuHeader.snp.bottom)
+            make.leading.trailing.bottom.equalTo(menuScreen)
+        }
+        
+        // setup Header
+        let touchRecognizer = UITapGestureRecognizer(target: self, action: #selector(goToFeed))
+        menuHeader.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
+        menuHeader.addGestureRecognizer(touchRecognizer)
     }
-    
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//        print(newMenu.bounds.height)
-//        newMenu.layoutStuff()
-//    }
-//    override func viewWillLayoutSubviews() {
-//        super.viewWillLayoutSubviews()
-//        print(newMenu.bounds.height)
-//    }
+    @objc private func goToFeed() {
+        if let _ = fromVC as? FeedMapVC {
+            closeMenu(sender: self)
+        } else {
+            switchTo(page: .feedAndMap)
+        }
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("view is willappearing")
-//        viewIsVisible = true
-//        UIView.animate(withDuration: 0.5) {
-//            self.setNeedsStatusBarAppearanceUpdate()
-//        }
+        print("viewiswillappearing")
+        // TODO: load data from MenuData
+        
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-//        self.viewIsVisible = true
-//        UIView.animate(withDuration: 0.1) {
-//            self.setNeedsStatusBarAppearanceUpdate()
-//        }
-//        navigationController.set
-//        super.viewDidAppear(animated)
-//        print(newMenu.bounds.height)
-//        newMenu.layoutStuff()
-    }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-//        viewIsVisible = false
-//        prefersStatusBarHidden = false
-    }
     private var lastContentOffset: CGFloat = 0
 }
 
@@ -81,7 +70,7 @@ extension SideMenuVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLa
         return 0
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return isChatRoomVisible ? 3 : 2
+        return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -105,7 +94,7 @@ extension SideMenuVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLa
         }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return menuScreen.bounds.size
+        return collectionView.bounds.size
     }
 //    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
 //        if scrollView == newMenu.menuPagesCollectionView {
