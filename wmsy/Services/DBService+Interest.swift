@@ -12,8 +12,8 @@ import FirebaseDatabase
 extension DBService {
     
     public func addInterest(forWhim whim: Whim) {
-        let interestsRef = DBService.manager.interestsRef.child(whim.id).child(AuthUserService.manager.getCurrentUser()!.uid)
-        interestsRef.setValue(false)
+        let interestRef = interestsRef.child(whim.id).child(AuthUserService.manager.getCurrentUser()!.uid)
+        interestRef.setValue(false)
         let userRef = DBService.manager.usersRef.child(AuthUserService.manager.getCurrentUser()!.uid).child("interests").child(whim.id)
         userRef.setValue(false)
     }
@@ -38,8 +38,14 @@ extension DBService {
         
     }
     public func getAllInterests(forUser user: AppUser, completion: @escaping ([Interest]) -> Void) {
-        let whimIDs = user.interests.map{$0.whimID}
+        var whimIDs = [String]()
         let group = DispatchGroup()
+        
+        let userRef = usersRef.child(user.userID).child("interests")
+        userRef.observeSingleEvent(of: .value) { (snapshot) in
+             let userDict = snapshot.value as? [String: Bool]
+            userDict?.forEach{whimIDs.append($0.key)}
+        }
         
         var interests = [Interest]()
         for whimID in whimIDs {
@@ -64,6 +70,13 @@ extension DBService {
         }
     }
     
+    
+    public func removeInterest(forWhim whim: Whim){
+        let interestRef = interestsRef.child(whim.id).child(AuthUserService.manager.getCurrentUser()!.uid)
+        interestRef.removeValue()
+        let userRef = DBService.manager.usersRef.child(AuthUserService.manager.getCurrentUser()!.uid).child("interests").child(whim.id)
+        userRef.removeValue()
+    }
     
     
 }
