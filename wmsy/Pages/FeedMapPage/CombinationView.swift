@@ -6,9 +6,9 @@
 //  Copyright © 2018 C4Q. All rights reserved.
 //
 
-import UIKit
-
-class CombinationView: UIView {
+//import UIKit
+//
+//class CombinationView: UIView {
 
     // embed Feed View as base
     
@@ -16,4 +16,5 @@ class CombinationView: UIView {
     
     // map view has a view with controls and a view with map
 
-}
+//}
+
