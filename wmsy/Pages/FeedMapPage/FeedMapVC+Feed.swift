@@ -80,16 +80,17 @@ extension FeedMapVC: FeedCellViewDelegate {
     func showOnMapButtonPressed(whim: Whim) {
         //Show Map
         print("Show on Map Button Pressed")
+        
     }
     
     func interestButtonClicked(whim: Whim) {
         interestButtonCounter += 1
         if interestButtonCounter % 2 == 0 {
             //User is interested
-            print("User Is Not Interested")
+            print("Current User: \(currentUser?.name) Is NOT Interested in \(whim.id)")
         } else {
             //User is not interested
-            print("User Is Interested in \(whim.id)")
+            print("Current User: \(currentUser?.name) Is Interested in \(whim.id)")
             DBService.manager.addInterest(forWhim: whim)
             
         }
