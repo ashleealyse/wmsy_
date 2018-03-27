@@ -18,6 +18,7 @@ pod 'GoogleMaps'
 pod 'SVProgressHUD'
 pod 'Kingfisher', '~> 4.0'
 pod 'Toucan'
+pod 'TextFieldEffects'
 
 
   target 'wmsyTests' do

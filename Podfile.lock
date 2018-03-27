@@ -84,6 +84,7 @@ PODS:
   - nanopb/encode (0.3.8)
   - SnapKit (4.0.0)
   - SVProgressHUD (2.2.5)
+  - TextFieldEffects (1.4.0)
   - Toucan (1.0.0)
 
 DEPENDENCIES:
@@ -98,6 +99,7 @@ DEPENDENCIES:
   - Kingfisher (~> 4.0)
   - SnapKit (~> 4.0)
   - SVProgressHUD
+  - TextFieldEffects
   - Toucan
 
 SPEC CHECKSUMS:
@@ -123,8 +125,9 @@ SPEC CHECKSUMS:
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  TextFieldEffects: 4ee41b5216e674d55fb6ac25107bf1af7629176f
   Toucan: 61867fb10948c02e9804280a95eb183e98eac97a
 
-PODFILE CHECKSUM: af76d837c171c9227082c7af539a5c2aa18c3a11
+PODFILE CHECKSUM: 714ee37d58bb5327ae08c1fd7a96146159129bdd
 
 COCOAPODS: 1.4.0
