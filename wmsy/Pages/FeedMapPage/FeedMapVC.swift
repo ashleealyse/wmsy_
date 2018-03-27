@@ -13,7 +13,7 @@ import SVProgressHUD
 
 
 class FeedMapVC: MenuedViewController {
-    
+
     let toolBarHeightMultiplier: CGFloat = 0.16
     
     var feedView = FeedView()
@@ -23,6 +23,17 @@ class FeedMapVC: MenuedViewController {
     
     var guestProfile = GuestProfileVC()
     var expandedRows = Set<Int>()
+//<<<<<<< HEAD
+//
+//    var currentUser : AppUser?
+//
+//
+//    var feedVC = FeedVC()
+//    var mapVC = MapVC()
+//    var filtersVC = FiltersVC()
+    
+    
+//=======
     var interestButtonCounter = 0
 
     var currentUser = AppUser.currentAppUser
@@ -49,6 +60,7 @@ class FeedMapVC: MenuedViewController {
     
 
 
+//>>>>>>> qa
     var feedWhims: [Whim] = [] {
         didSet {
             print("number of whims to load: \(feedWhims.count)")
@@ -114,12 +126,29 @@ class FeedMapVC: MenuedViewController {
         filtersView.categoriesCV.reloadData()
         filtersView.clearSearchButton.addTarget(self, action: #selector(clearSearch), for: .touchUpInside)
         
+//<<<<<<< HEAD
+//        view.addSubview(filtersVC.filtersView)
+//        filtersVC.filtersView.snp.makeConstraints { (make) in
+//            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+//            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+//            //            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-50)
+//            //            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-200)
+//            //                        make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
+//            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+//            //            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.25)
+//            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.16)
+//        }
+//
+//        view.addSubview(mapVC.mapView)
+//        mapVC.mapView.snp.makeConstraints { (make) in
+//=======
         view.addSubview(feedView)
         view.addSubview(containerView)
         containerView.addSubview(filtersView)
         containerView.addSubview(mapView)
         feedView.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+//>>>>>>> qa
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(1 - toolBarHeightMultiplier)
@@ -183,6 +212,7 @@ class FeedMapVC: MenuedViewController {
 
     
 }
+
 
 
 
