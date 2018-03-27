@@ -24,9 +24,9 @@ class WhimDescriptionTableViewCell: UITableViewCell {
     lazy var descriptionTextView: UITextView = {
        let tv = UITextView()
         tv.isEditable = true
-        tv.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
+        tv.backgroundColor = .white
         tv.layer.borderWidth = 0.5
-        tv.layer.borderColor = UIColor.lightGray.cgColor
+        tv.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
         tv.font = UIFont.systemFont(ofSize: 15)
         tv.text = "Describe your Whim"
         tv.textColor = .gray

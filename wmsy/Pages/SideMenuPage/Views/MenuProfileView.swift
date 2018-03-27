@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 
 class MenuProfileView: UICollectionViewCell {
+    
 //    public var header = UIView()
     public var badgeView = UIView()
     public var profileImageView = UIImageView(image: #imageLiteral(resourceName: "wmsyCategoryIcon"))
@@ -17,7 +18,7 @@ class MenuProfileView: UICollectionViewCell {
     public var ageLabel = UILabel()
     public var bioLabel = UILabel()
     public var signOutButton = UIButton()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -33,7 +34,7 @@ class MenuProfileView: UICollectionViewCell {
         setupViews()
         placeholderTesting()
     }
-    
+
     private func setupViews() {
         setupBadgeView()
         setupProfileImageView()
@@ -42,7 +43,7 @@ class MenuProfileView: UICollectionViewCell {
         setupBioLabel()
         setupSignOutButton()
     }
-    
+
     private func setupBadgeView() {
         contentView.addSubview(badgeView)
         badgeView.snp.makeConstraints { (make) in
@@ -102,10 +103,138 @@ class MenuProfileView: UICollectionViewCell {
         bioLabel.textColor = fontColor
         signOutButton.backgroundColor = bgColor
         signOutButton.setTitleColor(fontColor, for: .normal)
-        
+
         nameLabel.text = "HotRod"
         ageLabel.text = "4206969 years old"
         bioLabel.text = "I'm Rod and I like to party."
         signOutButton.setTitle("Signout", for: .normal)
     }
+    
+ 
+    
+//
+//    var badgeView: UIImageView = {
+//        let badge = UIImageView()
+//        badge.image = #imageLiteral(resourceName: "badgeIcon")
+//        return badge
+//    }()
+//
+//    var profileImageView: UIImageView = {
+//        let img = UIImageView()
+//        img.image = #imageLiteral(resourceName: "artsCategoryIcon")
+//        img.contentMode = .scaleToFill
+//        img.layer.borderWidth = 1.0
+//        img.clipsToBounds = true
+//        return img
+//    }()
+//
+//    var nameLabel: UILabel = {
+//        let lbl = UILabel()
+//        lbl.text = "T-Swift"
+//        lbl.textAlignment = .center
+//        return lbl
+//    }()
+//
+//    var ageLabel: UILabel = {
+//        let lbl = UILabel()
+//        lbl.text = "22"
+//        lbl.textAlignment = .center
+//        return lbl
+//    }()
+//
+//    var bioLabel: UILabel = {
+//        let lbl = UILabel()
+//        lbl.numberOfLines = 0
+//        lbl.textAlignment = .center
+//        lbl.text = "Hey I am t-Swift. I love writing breakup songs"
+//        return lbl
+//    }()
+//
+//
+//    var signOutButton: UIButton = {
+//       let button = UIButton()
+//        button.setTitle("Sign Out", for: .normal)
+//        return button
+//    }()
+//
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//        commonInit()
+//    }
+//    convenience init() {
+//        self.init(frame: UIScreen.main.bounds)
+//        backgroundColor = UIColor.black.withAlphaComponent(0.5)
+//    }
+//    required init?(coder aDecoder: NSCoder) {
+//        super.init(coder: aDecoder)
+//        commonInit()
+//    }
+//    private func commonInit() {
+//        setupViews()
+//    }
+//
+//    private func setupViews() {
+//        setupBadgeView()
+//        setupProfileImageView()
+//        setupNameLabel()
+//        setupAgeLabel()
+//        setupBioTV()
+//        setUpSignOutButton()
+//    }
+//
+//
+//
+//    private func setupBadgeView() {
+//        addSubview(badgeView)
+//        badgeView.snp.makeConstraints { (make) in
+//            make.top.equalTo(safeAreaLayoutGuide).offset(70)
+//            make.trailing.equalTo(safeAreaLayoutGuide).offset(-30)
+//            make.width.equalTo(self).multipliedBy(0.1)
+//            make.height.equalTo(self.snp.width).multipliedBy(0.1)
+//        }
+//    }
+//    private func setupProfileImageView() {
+//        addSubview(profileImageView)
+//        profileImageView.snp.makeConstraints { (make) in
+//            make.centerX.equalTo(self)
+//            make.top.equalTo(safeAreaLayoutGuide).offset(100)
+//            make.width.equalTo(self).multipliedBy(0.3)
+//            make.height.equalTo(self.snp.width).multipliedBy(0.3)
+//
+//        }
+//    }
+//    private func setupNameLabel() {
+//       addSubview(nameLabel)
+//        nameLabel.snp.makeConstraints { (make) in
+//            make.top.equalTo(profileImageView.snp.bottom).offset(10)
+//            make.centerX.equalTo(self)
+//        }
+//    }
+//
+//    private func setupAgeLabel() {
+//        addSubview(ageLabel)
+//        ageLabel.snp.makeConstraints { (make) in
+//            make.top.equalTo(nameLabel.snp.bottom).offset(10)
+//            make.centerX.equalTo(self)
+//        }
+//    }
+//
+//    private func setupBioTV() {
+//       addSubview(bioLabel)
+//        bioLabel.snp.makeConstraints { (make) in
+//            make.top.equalTo(ageLabel.snp.bottom).offset(10)
+//            make.centerX.equalTo(self)
+//        }
+//    }
+//
+//    func setUpSignOutButton() {
+//        addSubview(signOutButton)
+//        signOutButton.snp.makeConstraints { (make) in
+//            make.leading.equalTo(safeAreaLayoutGuide).offset(5)
+//            make.bottom.equalTo(safeAreaLayoutGuide).offset(-5)
+//        }
+//    }
+    
+
+    
 }
