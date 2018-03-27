@@ -39,7 +39,7 @@ class WhimCategoryTableViewCell: UITableViewCell {
 //        categoriesCV.backgroundColor = .white
         categoriesCV.register(WhimCategoryCollectionViewCell.self, forCellWithReuseIdentifier: "CategoryCell")
         categoriesCV.showsHorizontalScrollIndicator = false
-        categoriesCV.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
+        categoriesCV.backgroundColor = .white
         return categoriesCV
     }()
     

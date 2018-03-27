@@ -17,9 +17,10 @@ class FiltersView: UIView {
     // Category Label
     lazy var categoryLabel: UILabel = {
         let lb = UILabel()
-                lb.backgroundColor = Stylesheet.Colors.WMSYShadowBlue
+                lb.backgroundColor = .white
         lb.text = "Filter Whims"
         lb.font = UIFont.systemFont(ofSize: 15)
+        lb.textColor = Stylesheet.Colors.WMSYKSUPurple
         return lb
     }()
     
@@ -41,15 +42,15 @@ class FiltersView: UIView {
 //                categoriesCV.backgroundColor = .white
         categoriesCV.register(WhimCategoryCollectionViewCell.self, forCellWithReuseIdentifier: "FilterCategoryCell")
         categoriesCV.showsHorizontalScrollIndicator = false
-        categoriesCV.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
+        categoriesCV.backgroundColor = .white
         return categoriesCV
     }()
     
     // button to show full map view, to the left of the categories CV
     lazy var clearSearchButton: UIButton = {
         let button = UIButton()
-       button.setTitle("View", for: .normal)
-        button.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
+       button.setTitle("Clear", for: .normal)
+        button.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.5)
         return button
     }()
     
@@ -73,7 +74,7 @@ class FiltersView: UIView {
     }
     
     private func commonInit() {
-        backgroundColor = .yellow
+        backgroundColor = Stylesheet.Colors.WMSYKSUPurple
         setUpViews()
     }
     
