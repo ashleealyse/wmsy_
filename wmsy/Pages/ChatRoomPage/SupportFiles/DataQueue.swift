@@ -53,13 +53,13 @@ protocol DataReceiver: class {
 
 class DataQueue {
     private init(){
-        for _ in 0..<200 {
-            let types: [MessageType] = [.chat, .button, .notification]
-            let randIndex = Int(arc4random_uniform(3))
-            let message = Message.init(whimID: "12341324", messageID: "12341234", senderID: "12341234", timestamp: "12341234", messageType: types[randIndex], messageBody: "aidfnaoidsufoiudh")
-            messageQueue.enQueue(message)
-//            whim?.whimChats.append(message)
-        }
+//        for _ in 0..<200 {
+//            let types: [MessageType] = [.chat, .button, .notification]
+//            let randIndex = Int(arc4random_uniform(3))
+//            let message = Message.init(whimID: "12341324", messageID: "12341234", senderID: "12341234", timestamp: "12341234", messageType: types[randIndex], messageBody: "aidfnaoidsufoiudh")
+//            messageQueue.enQueue(message)
+////            whim?.whimChats.append(message)
+//        }
     }
     static let manager = DataQueue()
     
@@ -74,7 +74,56 @@ class DataQueue {
         delegate?.accept(message: messageQueue.deQueue())
         if messageQueue.isEmpty { messageTimer.invalidate() }
     }
+    
+    public func configure() {
+        setupObservers()
+        
+        
+    }
+    private func setupObservers() {
+        // get current user as local struct AppUser instance
+        
+        // get all interests from current user
+        // attach listeners to changes in interests
+        
+        // get all whims hosted by current user
+        
+        
+        let gettingInterestsComplete: () -> () = {
+        }
+        let gettingUserComplete: () -> () = {
+            var interests = [Interest]()
+            DBService.manager.getAllInterests(forUser: AppUser.currentAppUser!) { (dbInterests) in
+                interests = dbInterests
+                gettingInterestsComplete()
+            }
+        }
+        
+        // setup currentAppUser
+        DBService.manager.getAppUser(fromID: AuthUserService.manager.getCurrentUser()!.uid) { (appUser) in
+            AppUser.currentAppUser = appUser
+            gettingUserComplete()
+        }
+        
+        
+        // TODO: listen for interests change
+        
+        // TODO: listen for messages change
+        
+        
+//        let query = DBService.manager.messagesRef.que
+//        let currentUser =
+    }
+    
 }
+
+// MARK: - messages queue (for notifications)
+extension DataQueue {
+    
+    
+    
+}
+
 
 
 

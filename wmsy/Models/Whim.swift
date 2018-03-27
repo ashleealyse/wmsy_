@@ -36,36 +36,7 @@ struct Whim: Codable {
     let timestamp: String
     var whimChats: [Message]
     
-//    static let randomWhim = Whim(id: "12341234", category: "12341234", title: "12341234", description: "12341234", hostID: AuthUserService.manager.getCurrentUser(), hostImageURL: <#T##String#>, location: <#T##String#>, long: <#T##String#>, lat: <#T##String#>, duration: <#T##Int#>, expiration: <#T##String#>, finalized: <#T##Bool#>, timestamp: <#T##String#>, whimChats: <#T##[Message]#>)
-    
-//    static let firstWhim = Whim(id: "nbjaeksd345", category: "Arts", title: "First Whim", description: "Join me on my first whim", hostID: "gaefnsdk345", location: "2 Rivington Street, New York, NY", duration: 56788765, finalized: false, timestamp: "456789965")
-    
-//    static let firstWhim = Whim(id: "ghjkg", category: "Arts", title: "my first whime", description: "do stuff, good stuff", hostID: "huibjdw", approxLocation: "near the park", location: "southwest corner of the park", duration: 3, expiration: "45678", finalized: false, timestamp: "456789", whimChats: [])
-    
-    
-    
-//<<<<<<< HEAD
-////<<<<<<< HEAD
-////    init(id: String,
-////         category: String,
-////         title: String,
-////         description: String,
-////         hostID: String,
-////         approxLocation: String,
-////         location: String,
-////         duration: Int,
-////         expiration: String?,
-////         finalized: Bool?,
-////         timestamp: String = "\(Date().timeIntervalSince1970)",
-////         whimChats: [Message] = []) {
-////        let now = Date()
-////        let oneDayFromNow = Calendar.current.date(byAdding: .day, value: 1, to: now)
-////=======
-//    init(id: String, category: String, title: String, description: String, hostID: String, location: String, long: String, lat: String, duration: Int, expiration: String, finalized: Bool, timestamp: String, whimChats: [Message]) {
-////>>>>>>> qa
-//=======
     init(id: String, category: String, title: String, description: String, hostID: String, hostImageURL: String, location: String, long: String, lat: String, duration: Int, expiration: String, finalized: Bool, timestamp: String, whimChats: [Message]) {
-//>>>>>>> qa
         self.id = id
         self.category =  category
         self.title =  title
@@ -77,20 +48,46 @@ struct Whim: Codable {
         self.lat = lat
         self.duration =  duration
         self.expiration = expiration
-//        self.expiration = expiration ?? "\(oneDayFromNow?.timeIntervalSince1970)"
-        self.finalized =  finalized ?? false
+        self.finalized =  finalized
         self.timestamp =  timestamp
         self.whimChats =  whimChats
         let today = Date.init()
         let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today)
     }
     
-    
-//    // convenience init
-//    init(id: String, category: String, title: String, description: String, hostID: String, approxLocation: String, location: String, duration: Int) {
-//        self.init(id: id, category: category, title: title, description: description, hostID: hostID, approxLocation: approxLocation, location: location, duration: duration, expiration:  "expiration", finalized: false, timestamp: "\(Date().timeIntervalSince1970)", whimChats: [])
-//        print("\(Date().timeIntervalSince1970)")
-//    }
+    init?(fromDictionary whimDict: [String: Any]) {
+        guard
+            let id = whimDict["id"] as? String,
+            let category = whimDict["category"] as? String,
+            let title = whimDict["title"] as? String,
+            let description = whimDict["description"] as? String,
+            let hostID = whimDict["hostID"] as? String,
+            let hostImageURL = whimDict["hostImageURL"] as? String,
+            let location = whimDict["location"] as? String,
+            let long = whimDict["long"] as? String,
+            let lat = whimDict["lat"] as? String,
+            let duration = whimDict["duration"] as? Int,
+            let expiration = whimDict["expiration"] as? String,
+            let finalized = whimDict["finalized"] as? Bool,
+            let timestamp = whimDict["timestamp"] as? String
+            else {
+                return nil
+        }
+        self.id = id
+        self.category =  category
+        self.title =  title
+        self.description =  description
+        self.hostID =  hostID
+        self.hostImageURL = hostImageURL
+        self.location =  location
+        self.long = long
+        self.lat = lat
+        self.duration =  duration
+        self.expiration = expiration
+        self.finalized =  finalized
+        self.timestamp =  timestamp // TODO: turn this into a TimeInterval for app?
+        self.whimChats =  []
+    }
     
 }
 
