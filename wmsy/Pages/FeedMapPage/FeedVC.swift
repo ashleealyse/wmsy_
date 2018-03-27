@@ -136,6 +136,18 @@
 
 
 
+//<<<<<<< HEAD
+//extension FeedVC: CollapsedFeedCellViewDelegate {
+//    
+//    func userProfileButtonPressed() {
+//        guestProfile.modalPresentationStyle = .overCurrentContext
+//        guestProfile.modalTransitionStyle = .crossDissolve
+//        present(guestProfile, animated: false, completion: nil)
+//    }
+//    
+//}
+//=======
+//>>>>>>> qa
 
 //extension FeedVC: UITableViewDelegate {
 //    

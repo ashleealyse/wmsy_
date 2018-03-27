@@ -99,6 +99,8 @@
 		932F180D2065A3F300950104 /* FloatingPopsicleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932F180C2065A3F300950104 /* FloatingPopsicleView.swift */; };
 		93495B0620603F9A0080BDBA /* ExpandedFeedCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93495B0520603F9A0080BDBA /* ExpandedFeedCellView.swift */; };
 		93495B08206041080080BDBA /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93495B07206041080080BDBA /* FeedCell.swift */; };
+		93D5CDB0206AB1FC00ABB3E1 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D5CDAF206AB1FC00ABB3E1 /* SplashView.swift */; };
+		93D5CDB2206AB20A00ABB3E1 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D5CDB1206AB20A00ABB3E1 /* SplashViewController.swift */; };
 		E5E0CC0CB13ED0D202D6CA35 /* Pods_wmsyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ABB5CDA9ED0EA6DABA10A94 /* Pods_wmsyTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -213,6 +215,8 @@
 		932F180C2065A3F300950104 /* FloatingPopsicleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPopsicleView.swift; sourceTree = "<group>"; };
 		93495B0520603F9A0080BDBA /* ExpandedFeedCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedFeedCellView.swift; sourceTree = "<group>"; };
 		93495B07206041080080BDBA /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
+		93D5CDAF206AB1FC00ABB3E1 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		93D5CDB1206AB20A00ABB3E1 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		A3CBD7D0321B7C36EB143EB4 /* Pods-wmsy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wmsy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-wmsy/Pods-wmsy.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -331,6 +335,7 @@
 		81BAD673205AED2600C7F039 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
+				93D5CDAE206AB14A00ABB3E1 /* SplashPage */,
 				81BAD674205AED3700C7F039 /* LoginPage */,
 				81BAD679205AED7900C7F039 /* FeedMapPage */,
 				81BAD682205AEDE800C7F039 /* SideMenuPage */,
@@ -491,6 +496,15 @@
 				81D12DCE20641B210056920C /* FooterTabDotsView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		93D5CDAE206AB14A00ABB3E1 /* SplashPage */ = {
+			isa = PBXGroup;
+			children = (
+				93D5CDAF206AB1FC00ABB3E1 /* SplashView.swift */,
+				93D5CDB1206AB20A00ABB3E1 /* SplashViewController.swift */,
+			);
+			path = SplashPage;
 			sourceTree = "<group>";
 		};
 		B2F8ADA7007772FA5D9A5CEF /* Pods */ = {
@@ -749,6 +763,7 @@
 			files = (
 				81EBB58D20601C7E008A6CE7 /* DBService+AppUser.swift in Sources */,
 				81BAD6A3205AF07300C7F039 /* GuestMessageCell.swift in Sources */,
+				93D5CDB0206AB1FC00ABB3E1 /* SplashView.swift in Sources */,
 				81337777206A978900F1F657 /* FeedMapVC+Map.swift in Sources */,
 				812112E120609D3F002D80C2 /* AuthUserService.swift in Sources */,
 				812112ED20641B1D002D80C2 /* CombinationView.swift in Sources */,
@@ -825,6 +840,7 @@
 				81B928E320618D41002CD355 /* CurrentUserMessageCell.swift in Sources */,
 				81EBB58B20601939008A6CE7 /* StorageService+Image.swift in Sources */,
 				81BAD68F205AEEE200C7F039 /* Message.swift in Sources */,
+				93D5CDB2206AB20A00ABB3E1 /* SplashViewController.swift in Sources */,
 				81BAD67B205AEDAA00C7F039 /* FeedMapVC.swift in Sources */,
 				81DECD3220600FB000214866 /* Page.swift in Sources */,
 				811FFB5720606B5500F3312B /* CollapsedFeedCellView.swift in Sources */,
