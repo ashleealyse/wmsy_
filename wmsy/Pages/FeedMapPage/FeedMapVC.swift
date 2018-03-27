@@ -36,9 +36,16 @@ class FeedMapVC: MenuedViewController {
 //=======
     var interestButtonCounter = 0
 
-    var currentUser : AppUser?
+    var currentUser = AppUser.currentAppUser
+    
+    var currentUsersInterests = Set<String>() {
+        didSet {
+            print("Current User Interests: \(currentUsersInterests.count)")
+        }
+    }
     
     var locationManager = CLLocationManager()
+    
     
     
     let categoryList = categoryTuples
@@ -77,7 +84,14 @@ class FeedMapVC: MenuedViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        currentUser = AppUser.currentAppUser
+        if let currentUser = currentUser {
+            print("current user: \(currentUser.name)")
+            currentUsersInterests = Set(currentUser.interests.map{$0.whimID})
+        }
+        
+        
+        
         SVProgressHUD.dismiss()
         
         // setup container frame
@@ -194,6 +208,9 @@ class FeedMapVC: MenuedViewController {
     @objc func clearSearch() {
         print("need to add functionality to clear the search category")
     }
+    
+
+    
 }
 
 
