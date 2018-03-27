@@ -442,7 +442,6 @@
 				812112E020609D3F002D80C2 /* AuthUserService.swift */,
 				812112E220615BF7002D80C2 /* DBService+Get.swift */,
 				81F9F06F2065D27700D288E8 /* AddChildVC.swift */,
-				81A57A502068952D00E4BE0B /* DBService+Interest.swift */,
 				811FFB9820615B6900F3312B /* NotificationManager.swift */,
 			);
 			path = Services;
