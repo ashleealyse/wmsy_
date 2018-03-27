@@ -90,31 +90,6 @@ extension DBService {
                 }
                 group.leave()
             })
-            
-            
-//            let ref = userRef.child(singleUser)
-//
-//            ref.observeSingleEvent(of: .value, with: { (snapshot) in
-//                guard
-//                    let userDict = snapshot.value as? [String: Any],
-//                    let name = userDict["name"] as? String ,
-//                    let photoID = userDict["photoID"] as? String,
-//                    let age = userDict["age"] as? String,
-//                    let userID = userDict["userID"] as? String,
-//                    let bio = userDict["bio"] as? String,
-//                    let badge = userDict["badge"] as? Bool,
-//                    let flags = userDict["flags"] as? Int
-//                    else {
-//                        group.leave()
-//                        continue
-//                }
-//                let user = AppUser(name: name, photoID: photoID, age: age, userID: userID, bio: bio, badge: badge, flags: flags)
-//                users.append(user)
-//                group.leave()
-//            }) { (error) in
-//                print(error)
-//                group.leave()
-//            }
         }
         
         group.notify(queue: .main) {
