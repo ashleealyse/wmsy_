@@ -17,19 +17,19 @@ protocol ParentDelegate: class {
 
 class FeedMapVC: MenuedViewController {
     
-
+    
     var feedView = FeedView()
     var mapView = MapView()
     var expandedRows = Set<Int>()
-
+    
     var currentUser : AppUser?
-
-
+    
+    
     var feedVC = FeedVC()
     var mapVC = MapVC()
     var filtersVC = FiltersVC()
-
-
+    
+    
     var feedWhims: [Whim] = [] {
         didSet {
             print("number of whims to load: \(feedWhims.count)")
@@ -55,26 +55,26 @@ class FeedMapVC: MenuedViewController {
         add(feedVC)
         add(filtersVC)
         add(mapVC)
-    
+        
         
         SVProgressHUD.dismiss()
-
-
-//        locationManager = CLLocationManager()
-//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//        locationManager.requestAlwaysAuthorization()
-//        locationManager.distanceFilter = 50
-//        locationManager.startUpdatingLocation()
-//        self.locationManager.delegate = self
-
-//        view.addSubview(mapView)
-//        let mylocation = mapView.mapView.myLocation
-//        mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
-//                                                          longitude: (mylocation?.coordinate.longitude)!,
-//                                                          zoom: mapView.zoomLevel)
-//        mapView.mapView.settings.myLocationButton = true
-//        mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
+        
+        
+        //        locationManager = CLLocationManager()
+        //        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        //        locationManager.requestAlwaysAuthorization()
+        //        locationManager.distanceFilter = 50
+        //        locationManager.startUpdatingLocation()
+        //        self.locationManager.delegate = self
+        
+        //        view.addSubview(mapView)
+        //        let mylocation = mapView.mapView.myLocation
+        //        mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
+        //                                                          longitude: (mylocation?.coordinate.longitude)!,
+        //                                                          zoom: mapView.zoomLevel)
+        //        mapView.mapView.settings.myLocationButton = true
+        //        mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
         
         feedVC.delegate = self
         mapVC.delegate = self
@@ -87,7 +87,7 @@ class FeedMapVC: MenuedViewController {
         
         
         
-                view.addSubview(filtersVC.filtersView)
+        view.addSubview(filtersVC.filtersView)
         filtersVC.filtersView.snp.makeConstraints { (make) in
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
@@ -99,7 +99,7 @@ class FeedMapVC: MenuedViewController {
             make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.16)
         }
         
-                view.addSubview(mapVC.mapView)
+        view.addSubview(mapVC.mapView)
         mapVC.mapView.snp.makeConstraints { (make) in
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
@@ -169,8 +169,8 @@ class FeedMapVC: MenuedViewController {
 extension FeedMapVC: GMSMapViewDelegate{
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude,
-                                             longitude: marker.position.longitude,
-                                             zoom: 15.0)
+                                              longitude: marker.position.longitude,
+                                              zoom: 15.0)
         self.mapView.mapView.animate(to: camera)
         let dict = marker.userData as? [String: String]
         self.mapView.detailView.whimTitle.text = dict!["title"]
@@ -178,7 +178,7 @@ extension FeedMapVC: GMSMapViewDelegate{
         let hostURL = URL(string: dict!["hostImageURL"]!)
         let hostID = dict!["hostID"]
         DBService.manager.getAppUser(with: hostID!) { (appUser) in
-           self.currentUser = appUser
+            self.currentUser = appUser
         }
         self.mapView.detailView.userPicture.kf.setImage(with: hostURL, for: .normal)
         self.mapView.detailView.isHidden = false
@@ -199,7 +199,7 @@ extension FeedMapVC: CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location: CLLocation = locations.last!
         print("Location: \(location)")
-        self.userLocation = location
+//        self.userLocation = location
         
     }
     
@@ -220,7 +220,7 @@ extension FeedMapVC: CLLocationManagerDelegate{
     
     // Handle location manager errors.
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        self.locationManager.stopUpdatingLocation()
+        //        self.locationManager.stopUpdatingLocation()
         print("Error: \(error)")
     }
 }
@@ -229,7 +229,9 @@ extension FeedMapVC: CLLocationManagerDelegate{
 extension FeedMapVC: ParentDelegate {
     func updateChildren(whims: [Whim]) {
         self.feedWhims = whims
-
+    }
+    
+}
 
 extension FeedMapVC: mapDetailViewDelegate {
     func interestPressed() {

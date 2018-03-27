@@ -156,7 +156,7 @@ extension FeedVC: CollapsedFeedCellViewDelegate {
     func userProfileButtonPressed() {
         guestProfile.modalPresentationStyle = .overCurrentContext
         guestProfile.modalTransitionStyle = .crossDissolve
-        present(guestProfile, animated: true, completion: nil)
+        present(guestProfile, animated: false, completion: nil)
     }
     
 }
