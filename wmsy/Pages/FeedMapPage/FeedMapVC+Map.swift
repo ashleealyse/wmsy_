@@ -22,7 +22,7 @@ extension FeedMapVC: GMSMapViewDelegate{
         self.mapView.detailView.whimDescription.text = dict!["description"]
         let hostURL = URL(string: dict!["hostImageURL"]!)
         let hostID = dict!["hostID"]
-        DBService.manager.getAppUser(with: hostID!) { (appUser) in
+        DBService.manager.getAppUser(fromID: hostID!) { (appUser) in
             self.currentUser = appUser
         }
         self.mapView.detailView.userPicture.kf.setImage(with: hostURL, for: .normal)

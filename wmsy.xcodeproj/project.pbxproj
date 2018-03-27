@@ -31,6 +31,7 @@
 		8190310F205ADCF200932A55 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8190310D205ADCF200932A55 /* LaunchScreen.storyboard */; };
 		8190311A205ADCF200932A55 /* wmsyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81903119205ADCF200932A55 /* wmsyTests.swift */; };
 		81A57A512068952D00E4BE0B /* DBService+Interest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A57A502068952D00E4BE0B /* DBService+Interest.swift */; };
+		81A57A5320697D7000E4BE0B /* MenuData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A57A5220697D7000E4BE0B /* MenuData.swift */; };
 		81AB7ABA205C800E009845EA /* WhimTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AB7AB9205C800E009845EA /* WhimTitleTableViewCell.swift */; };
 		81AB7ABC205C8024009845EA /* WhimDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AB7ABB205C8024009845EA /* WhimDescriptionTableViewCell.swift */; };
 		81AB7ABE205C805A009845EA /* WhimExpirationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AB7ABD205C805A009845EA /* WhimExpirationTableViewCell.swift */; };
@@ -144,6 +145,7 @@
 		81903119205ADCF200932A55 /* wmsyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wmsyTests.swift; sourceTree = "<group>"; };
 		8190311B205ADCF200932A55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81A57A502068952D00E4BE0B /* DBService+Interest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DBService+Interest.swift"; sourceTree = "<group>"; };
+		81A57A5220697D7000E4BE0B /* MenuData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuData.swift; sourceTree = "<group>"; };
 		81AB7AB9205C800E009845EA /* WhimTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhimTitleTableViewCell.swift; sourceTree = "<group>"; };
 		81AB7ABB205C8024009845EA /* WhimDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhimDescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		81AB7ABD205C805A009845EA /* WhimExpirationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhimExpirationTableViewCell.swift; sourceTree = "<group>"; };
@@ -431,6 +433,7 @@
 				81EBB58C20601C7E008A6CE7 /* DBService+AppUser.swift */,
 				811FFB9620615B6100F3312B /* DBService+Whim.swift */,
 				811FFB9A20616B1E00F3312B /* DBService+Message.swift */,
+				81A57A502068952D00E4BE0B /* DBService+Interest.swift */,
 				812112E020609D3F002D80C2 /* AuthUserService.swift */,
 				812112E220615BF7002D80C2 /* DBService+Get.swift */,
 				81F9F06F2065D27700D288E8 /* AddChildVC.swift */,
@@ -469,6 +472,7 @@
 				81DECD3120600FB000214866 /* Page.swift */,
 				81DECD1A205C87FA00214866 /* Interactor.swift */,
 				81DECD1C205C881200214866 /* MenuHelper.swift */,
+				81A57A5220697D7000E4BE0B /* MenuData.swift */,
 				81DECD1E205C882100214866 /* PresentMenuAnimator.swift */,
 				81DECD20205C882900214866 /* DismissMenuAnimator.swift */,
 			);
@@ -813,6 +817,7 @@
 				81BAD691205AEF6600C7F039 /* SideMenuVC.swift in Sources */,
 				81DECD1D205C881200214866 /* MenuHelper.swift in Sources */,
 				81B928E920618D76002CD355 /* LocationDetailsTableViewCell.swift in Sources */,
+				81A57A5320697D7000E4BE0B /* MenuData.swift in Sources */,
 				81BAD67D205AEDBF00C7F039 /* FeedView.swift in Sources */,
 				8139A9A6205C3130006C7058 /* CreateWhimView.swift in Sources */,
 				81A57A512068952D00E4BE0B /* DBService+Interest.swift in Sources */,

@@ -24,6 +24,7 @@ class SideMenuVC: MenuViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("viewisdidloading")
 //        self.automaticallyAdjustsScrollViewInsets = false
         newMenu = MenuCollectionViewWrapper(frame: menuScreen.frame)
         newMenu.menuPagesCollectionView.dataSource = self
@@ -33,46 +34,15 @@ class SideMenuVC: MenuViewController {
         newMenu.snp.makeConstraints { (make) in
             make.edges.equalTo(menuScreen)
         }
-//        newMenu = MenuCollectionViewWrapper(frame: view.frame)
-//        view.insertSubview(newMenu, belowSubview: snapShotOfMenuedViewController)
-//        view.bringSubview(toFront: snapShotOfMenuedViewController)
-        // Do any additional setup after loading the view.
     }
     
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//        print(newMenu.bounds.height)
-//        newMenu.layoutStuff()
-//    }
-//    override func viewWillLayoutSubviews() {
-//        super.viewWillLayoutSubviews()
-//        print(newMenu.bounds.height)
-//    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("view is willappearing")
-//        viewIsVisible = true
-//        UIView.animate(withDuration: 0.5) {
-//            self.setNeedsStatusBarAppearanceUpdate()
-//        }
+        print("viewiswillappearing")
+        // TODO: load data from MenuData
+        
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-//        self.viewIsVisible = true
-//        UIView.animate(withDuration: 0.1) {
-//            self.setNeedsStatusBarAppearanceUpdate()
-//        }
-//        navigationController.set
-//        super.viewDidAppear(animated)
-//        print(newMenu.bounds.height)
-//        newMenu.layoutStuff()
-    }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-//        viewIsVisible = false
-//        prefersStatusBarHidden = false
-    }
     private var lastContentOffset: CGFloat = 0
 }
 
