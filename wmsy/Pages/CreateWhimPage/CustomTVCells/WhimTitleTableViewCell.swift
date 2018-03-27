@@ -27,7 +27,7 @@ class WhimTitleTableViewCell: UITableViewCell {
         let lb = UILabel()
 //        lb.backgroundColor = Stylesheet.Colors.WMSYShadowBlue
         lb.textAlignment = .right
-        lb.text = "0/50"
+        lb.text = "0/35"
         lb.font = UIFont.systemFont(ofSize: 15)
         return lb
     }()

@@ -81,7 +81,6 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
@@ -98,14 +97,11 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
             return categoryCell
         case 1:
             let titleCell = tableView.dequeueReusableCell(withIdentifier: "TitleCell", for: indexPath) as! WhimTitleTableViewCell
-//            titleCell.titleTextfield.tag = 0
             titleCell.titleTextfield.delegate = self
             titleCell.charactersRemainingLabel.tag = 0
             return titleCell
         case 2:
             let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "DescriptionCell", for: indexPath) as! WhimDescriptionTableViewCell
-//            descriptionCell.descriptionTextfield.tag = 1
-//            descriptionCell.descriptionTextfield.delegate = self
             descriptionCell.descriptionTextView.delegate = self
             descriptionCell.charactersRemainingLabel.tag = 1
             return descriptionCell
@@ -114,8 +110,6 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
 
             locationCell.selectLocationButton.addTarget(self, action: #selector(selectLocation), for: .touchUpInside)
             locationCell.addressLabel.text = "Meeting Location: " + whimLocation
-//            whimLocation = locationCell.addressLabel.text!
-//            whimLocation = // label.text of AddWhimeLocationVC
           return locationCell
         case 4:
             let expirationCell = tableView.dequeueReusableCell(withIdentifier: "ExpirationCell", for: indexPath) as! WhimExpirationTableViewCell
@@ -164,10 +158,9 @@ extension CreateWhimTVC: UITextFieldDelegate {
     
     func textField(_ textFieldToChange: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-//        switch textFieldToChange.tag {
-//        case 0:
+
             // Title TextField
-            let characterCountLimit = 49
+            let characterCountLimit = 34
             let startingLength = textFieldToChange.text?.count ?? 0
             let lengthToAdd = string.count
             let lengthToReplace = range.length
@@ -175,22 +168,10 @@ extension CreateWhimTVC: UITextFieldDelegate {
             
             let indexPath = IndexPath.init(row: 1, section: 0)
             let cell = tableView.cellForRow(at: indexPath) as! WhimTitleTableViewCell
-            cell.charactersRemainingLabel.text = "\(newLength)/50"
+            cell.charactersRemainingLabel.text = "\(newLength)/35"
             
             return newLength <= characterCountLimit
-//        default:
-//            let characterCountLimit = 199
-//            let startingLength = textFieldToChange.text?.count ?? 0
-//            let lengthToAdd = string.count
-//            let lengthToReplace = range.length
-//            let newLength = startingLength + lengthToAdd - lengthToReplace
-//
-//            let indexPath = IndexPath.init(row: 1, section: 0)
-//            let cell = tableView.cellForRow(at: indexPath) as! WhimDescriptionTableViewCell
-//            cell.charactersRemainingLabel.text = "\(newLength)/200"
-//
-//            return newLength <= characterCountLimit
-//        }
+
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
