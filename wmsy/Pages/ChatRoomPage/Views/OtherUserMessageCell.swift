@@ -13,7 +13,7 @@ class OtherUserMessageCell: UITableViewCell {
     static let reuseIdentifier = "GuestMessageTableViewCell"
     private var profileImageView = UIImageView()
     private var textContainer = UIView()
-    private var messageText = UILabel()
+    public var messageText = UILabel()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

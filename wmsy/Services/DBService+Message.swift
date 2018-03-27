@@ -29,21 +29,20 @@ extension DBService {
         ref.observeSingleEvent(of: .value) { (snapshot) in
             var messages = [Message]()
             for child in snapshot.children {
-//                guard let snapshot = child as? DataSnapshot else { return }
-//                let messageID = snapshot.key
                 guard
                     let snapshot = child as? DataSnapshot,
-                    let messageDict = snapshot.value as? [String: Any],
-                    let userID = messageDict["userID"] as? String,
-                    let body = messageDict["body"] as? String,
-                    let timestamp = messageDict["timestamp"] as? String,
-                    let type = messageDict["type"] as? String
+                    var messageDict = snapshot.value as? [String: Any]
                     else{
                    print("error hereeeee")
                         return
                 }
-                let message = Message(whimID: whim.id, messageID: snapshot.key, senderID: userID, timestamp: timestamp, messageType: MessageType(rawValue: type)!, messageBody: body)
-                messages.append(message)
+                messageDict["whimID"] = whim.id
+                messageDict["messageID"] = snapshot.key
+                if let message = Message(fromDict: messageDict) {
+                    messages.append(message)
+                } else {
+                    print("error making message in getAllMessages(forWhim:)")
+                }
             }
             completion(messages)
         }

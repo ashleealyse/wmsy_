@@ -87,7 +87,10 @@ extension ChatMessagesTableVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 return cell
             } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: OtherUserMessageCell.reuseIdentifier, for: indexPath)
+                let cell = tableView.dequeueReusableCell(withIdentifier: OtherUserMessageCell.reuseIdentifier, for: indexPath) as! OtherUserMessageCell
+                if message.messageBody != "oqiudfboasiudf" {
+                    cell.messageText.text = message.messageBody
+                }
                 return cell
             }
         case .notification:
