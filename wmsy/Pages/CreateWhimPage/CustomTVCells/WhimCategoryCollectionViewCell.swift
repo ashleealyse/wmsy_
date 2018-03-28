@@ -16,7 +16,7 @@ class WhimCategoryCollectionViewCell: UICollectionViewCell {
         imageView.backgroundColor = .clear
         imageView.contentMode = .scaleAspectFit
         imageView.layer.masksToBounds = true
-        imageView.alpha = 0.5
+        imageView.alpha = 0.3
         return imageView
     }()
     
@@ -36,9 +36,11 @@ class WhimCategoryCollectionViewCell: UICollectionViewCell {
             if self.isSelected {
                 categoryImage.alpha = 1.0
                 categoryImage.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.2)
+                categoryImage.layer.cornerRadius = categoryImage.frame.size.height / 2
             } else {
-                categoryImage.alpha = 0.2
+                categoryImage.alpha = 0.3
                 categoryImage.backgroundColor = .clear
+                categoryImage.layer.cornerRadius = categoryImage.frame.size.height / 2
             }
         }
     }
@@ -60,8 +62,5 @@ class WhimCategoryCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    override func layoutSubviews() {
-        categoryImage.layer.cornerRadius = categoryImage.frame.size.height / 2
-    }
     
 }

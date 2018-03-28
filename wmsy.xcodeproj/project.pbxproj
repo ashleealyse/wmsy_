@@ -99,6 +99,7 @@
 		932F180D2065A3F300950104 /* FloatingPopsicleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932F180C2065A3F300950104 /* FloatingPopsicleView.swift */; };
 		93495B0620603F9A0080BDBA /* ExpandedFeedCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93495B0520603F9A0080BDBA /* ExpandedFeedCellView.swift */; };
 		93495B08206041080080BDBA /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93495B07206041080080BDBA /* FeedCell.swift */; };
+		93632551206C1597002FFAED /* WhimColorViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93632550206C1597002FFAED /* WhimColorViewTableViewCell.swift */; };
 		93D5CDB0206AB1FC00ABB3E1 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D5CDAF206AB1FC00ABB3E1 /* SplashView.swift */; };
 		93D5CDB2206AB20A00ABB3E1 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D5CDB1206AB20A00ABB3E1 /* SplashViewController.swift */; };
 		E5E0CC0CB13ED0D202D6CA35 /* Pods_wmsyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ABB5CDA9ED0EA6DABA10A94 /* Pods_wmsyTests.framework */; };
@@ -215,6 +216,7 @@
 		932F180C2065A3F300950104 /* FloatingPopsicleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPopsicleView.swift; sourceTree = "<group>"; };
 		93495B0520603F9A0080BDBA /* ExpandedFeedCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedFeedCellView.swift; sourceTree = "<group>"; };
 		93495B07206041080080BDBA /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
+		93632550206C1597002FFAED /* WhimColorViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhimColorViewTableViewCell.swift; sourceTree = "<group>"; };
 		93D5CDAF206AB1FC00ABB3E1 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		93D5CDB1206AB20A00ABB3E1 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		A3CBD7D0321B7C36EB143EB4 /* Pods-wmsy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wmsy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-wmsy/Pods-wmsy.debug.xcconfig"; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 		81AB7AC9205C9A53009845EA /* CustomTVCells */ = {
 			isa = PBXGroup;
 			children = (
+				93632550206C1597002FFAED /* WhimColorViewTableViewCell.swift */,
 				81AB7AC1205C80B4009845EA /* WhimCategoryTableViewCell.swift */,
 				81AB7AC5205C94DD009845EA /* WhimCategoryCollectionViewCell.swift */,
 				81AB7AB9205C800E009845EA /* WhimTitleTableViewCell.swift */,
@@ -791,6 +794,7 @@
 				81DECD21205C882900214866 /* DismissMenuAnimator.swift in Sources */,
 				81DECD23205C892B00214866 /* MenuViewController.swift in Sources */,
 				81BAD69D205AF04600C7F039 /* HostChatView.swift in Sources */,
+				93632551206C1597002FFAED /* WhimColorViewTableViewCell.swift in Sources */,
 				81F9F06A206566FD00D288E8 /* MapVC.swift in Sources */,
 				81B928E120617D07002CD355 /* ChatView.swift in Sources */,
 				81BAD6A5205AF08100C7F039 /* NotificationMsgCell.swift in Sources */,

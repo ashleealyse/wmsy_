@@ -40,13 +40,13 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
         self.tableView.bounces = false
         self.tableView.separatorStyle = .none
 //        self.tableView.separatorColor = Stylesheet.Colors.WMSYOuterSpace
+        self.tableView.register(WhimColorViewTableViewCell.self, forCellReuseIdentifier: "ColorViewCell")
         self.tableView.register(WhimCategoryTableViewCell.self, forCellReuseIdentifier: "CategoryCell")
         self.tableView.register(WhimTitleTableViewCell.self, forCellReuseIdentifier: "TitleCell")
         self.tableView.register(WhimDescriptionTableViewCell.self, forCellReuseIdentifier: "DescriptionCell")
         self.tableView.register(HostAWhimButtonTableViewCell.self, forCellReuseIdentifier: "ButtonCell")
         self.tableView.register(WhimExpirationTableViewCell.self, forCellReuseIdentifier: "ExpirationCell")
         self.tableView.register(WhimLocationTableViewCell.self, forCellReuseIdentifier: "LocationCell")
-
         DBService.manager.getAppUser(fromID: (AuthUserService.manager.getCurrentUser()?.uid)!) { (user) in
             self.whimHostImageURL = user!.photoID
         }
@@ -84,38 +84,41 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return 7
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
+            let categoryCell = tableView.dequeueReusableCell(withIdentifier: "ColorViewCell", for: indexPath) as! WhimColorViewTableViewCell
+            return categoryCell
+        case 1:
             let categoryCell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! WhimCategoryTableViewCell
             categoryCell.categoriesCV.delegate = self
             categoryCell.categoriesCV.dataSource = self
             return categoryCell
-        case 1:
+        case 2:
             let titleCell = tableView.dequeueReusableCell(withIdentifier: "TitleCell", for: indexPath) as! WhimTitleTableViewCell
             titleCell.titleTextfield.delegate = self
             titleCell.charactersRemainingLabel.tag = 0
             return titleCell
-        case 2:
+        case 3:
             let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "DescriptionCell", for: indexPath) as! WhimDescriptionTableViewCell
             descriptionCell.descriptionTextView.delegate = self
             descriptionCell.charactersRemainingLabel.tag = 1
             return descriptionCell
-        case 3:
+        case 4:
             let locationCell = tableView.dequeueReusableCell(withIdentifier: "LocationCell", for: indexPath) as! WhimLocationTableViewCell
 
             locationCell.selectLocationButton.addTarget(self, action: #selector(selectLocation), for: .touchUpInside)
             locationCell.addressLabel.text = "Meeting Location: " + whimLocation
           return locationCell
-        case 4:
+        case 5:
             let expirationCell = tableView.dequeueReusableCell(withIdentifier: "ExpirationCell", for: indexPath) as! WhimExpirationTableViewCell
             expirationCell.hourPickerView.dataSource = self
             expirationCell.hourPickerView.delegate = self
             return expirationCell
-        case 5:
+        case 6:
             let buttonCell = tableView.dequeueReusableCell(withIdentifier: "ButtonCell", for: indexPath) as! HostAWhimButtonTableViewCell
             buttonCell.hostButton.addTarget(self, action: #selector(collectInputs), for: .touchUpInside)
             
@@ -165,7 +168,7 @@ extension CreateWhimTVC: UITextFieldDelegate {
             let lengthToReplace = range.length
             let newLength = startingLength + lengthToAdd - lengthToReplace
             
-            let indexPath = IndexPath.init(row: 1, section: 0)
+            let indexPath = IndexPath.init(row: 2, section: 0)
             let cell = tableView.cellForRow(at: indexPath) as! WhimTitleTableViewCell
             cell.charactersRemainingLabel.text = "\(newLength)/35"
             
@@ -218,7 +221,7 @@ extension CreateWhimTVC: UITextViewDelegate {
         let lengthToReplace = range.length
         let newLength = startingLength + lengthToAdd - lengthToReplace
         
-        let indexPath = IndexPath.init(row: 2, section: 0)
+        let indexPath = IndexPath.init(row: 3, section: 0)
         let cell = tableView.cellForRow(at: indexPath) as! WhimDescriptionTableViewCell
         cell.charactersRemainingLabel.text = "\(newLength)/100"
         
