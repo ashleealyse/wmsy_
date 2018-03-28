@@ -42,6 +42,8 @@ extension DBService {
             guard
                 let userDict = snapshot.value as? [String: Any],
                 var appUser = AppUser(fromDict: userDict)
+            
+            
             else {
                 completion(nil)
                 return
