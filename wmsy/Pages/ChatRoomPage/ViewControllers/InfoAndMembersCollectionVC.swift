@@ -16,7 +16,7 @@ protocol InfoAndMembersCollectionVCDelegate: class {
 class InfoAndMembersCollectionVC: UIViewController {
     
     private var membersCollectionView: UICollectionView!
-    private var memberInfoView: UIView!
+    private var memberInfoView: ChatInfoView!
     
     private var members = [AppUser]() {
         didSet {
@@ -56,7 +56,7 @@ class InfoAndMembersCollectionVC: UIViewController {
         membersCollectionView.register(ChatGuestCollectionViewCell.self, forCellWithReuseIdentifier: "ChatGuestCell")
         membersCollectionView.backgroundColor = .yellow
         
-        memberInfoView = UIView()
+        memberInfoView = ChatInfoView()
         memberInfoView.backgroundColor = .cyan
         
         

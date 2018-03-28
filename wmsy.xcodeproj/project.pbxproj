@@ -29,6 +29,7 @@
 		8139A99F205C309F006C7058 /* Whim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8139A99E205C309F006C7058 /* Whim.swift */; };
 		8139A9A2205C30D7006C7058 /* CreateWhimTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8139A9A1205C30D7006C7058 /* CreateWhimTVC.swift */; };
 		8139A9A6205C3130006C7058 /* CreateWhimView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8139A9A5205C3130006C7058 /* CreateWhimView.swift */; };
+		816D11CA206C333F001D199C /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816D11C9206C333F001D199C /* ChatInfoView.swift */; };
 		81903105205ADCF200932A55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81903104205ADCF200932A55 /* AppDelegate.swift */; };
 		8190310A205ADCF200932A55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81903108205ADCF200932A55 /* Main.storyboard */; };
 		8190310C205ADCF200932A55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8190310B205ADCF200932A55 /* Assets.xcassets */; };
@@ -145,6 +146,7 @@
 		8139A99E205C309F006C7058 /* Whim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Whim.swift; sourceTree = "<group>"; };
 		8139A9A1205C30D7006C7058 /* CreateWhimTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWhimTVC.swift; sourceTree = "<group>"; };
 		8139A9A5205C3130006C7058 /* CreateWhimView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWhimView.swift; sourceTree = "<group>"; };
+		816D11C9206C333F001D199C /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
 		81903101205ADCF200932A55 /* wmsy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wmsy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81903104205ADCF200932A55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		81903109205ADCF200932A55 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 				81B928E420618D54002CD355 /* OtherUserMessageCell.swift */,
 				81B928E620618D64002CD355 /* NotificationTableViewCell.swift */,
 				81B928E820618D76002CD355 /* LocationDetailsTableViewCell.swift */,
+				816D11C9206C333F001D199C /* ChatInfoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -836,6 +839,7 @@
 				81DECD26205C91F900214866 /* MenuProfileView.swift in Sources */,
 				81DECD19205C87ED00214866 /* MenuedViewController.swift in Sources */,
 				81BAD69F205AF05500C7F039 /* GuestChatView.swift in Sources */,
+				816D11CA206C333F001D199C /* ChatInfoView.swift in Sources */,
 				81AB7AC2205C80B4009845EA /* WhimCategoryTableViewCell.swift in Sources */,
 				81EBB5892060117D008A6CE7 /* StorageService.swift in Sources */,
 				811FFB9B20616B1E00F3312B /* DBService+Message.swift in Sources */,
