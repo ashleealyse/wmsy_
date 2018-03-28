@@ -12,6 +12,8 @@ import FirebaseDatabase
 extension DBService {
     
     public func addInterest(forWhim whim: Whim) {
+       let newInterest = Interest.init(whimID: whim.id, userID: (AppUser.currentAppUser?.userID)!, inChat: false)
+        AppUser.currentAppUser?.interests.append(newInterest)
         let interestRef = interestsRef.child(whim.id).child(AuthUserService.manager.getCurrentUser()!.uid)
         interestRef.setValue(false)
         let userRef = DBService.manager.usersRef.child(AuthUserService.manager.getCurrentUser()!.uid).child("interests").child(whim.id)
@@ -68,6 +70,9 @@ extension DBService {
     
     
     public func removeInterest(forWhim whim: Whim){
+        let userInterests = AppUser.currentAppUser?.interests
+        let updatedInterests = userInterests!.filter(){$0.whimID != whim.id}
+        AppUser.currentAppUser?.interests = updatedInterests
         let interestRef = interestsRef.child(whim.id).child(AuthUserService.manager.getCurrentUser()!.uid)
         interestRef.removeValue()
         let userRef = DBService.manager.usersRef.child(AuthUserService.manager.getCurrentUser()!.uid).child("interests").child(whim.id)

@@ -154,7 +154,6 @@ class ChatRoomVCTest: MenuedViewController {
 // MARK: - childVCs delegate methods implementation
 extension ChatRoomVCTest: ChatMessagesTableVCDelegate, TextInputVCDelegate, InfoAndMembersCollectionVCDelegate {
     func send(message: String) {
-        // make the message using the message service thing so that we can get a real id for it before passing it off to the tableview
         DBService.manager.addMessage(text: message, ofType: .chat, fromUserID: currentUserID, toWhim: whim!)
     }
 }
