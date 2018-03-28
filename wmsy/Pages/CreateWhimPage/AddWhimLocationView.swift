@@ -15,32 +15,24 @@ import GoogleMaps
 class AddWhimLocationView: UIView {
     var locationManager = CLLocationManager()
     var addWhimMap: GMSMapView!
-
     
-    // map object
-//    lazy var addWhimMap: GMSMapView = {
-//        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
-//        var map = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-//        return map
-//    }()
     
-    // current pin location label
     lazy var locationLabel: UILabel = {
        let lb = UILabel()
-        lb.text = "Selected Address: "
+        lb.text = " Pin Location: "
         lb.numberOfLines = 0
         lb.layer.borderWidth = 0.5
-        lb.backgroundColor = .red
+        lb.layer.borderColor = Stylesheet.Colors.WMSYDeepViolet.cgColor
         return lb
     }()
     
     // select location button
     lazy var selectButton: UIButton = {
        let button = UIButton()
-        button.setTitle("Select Location", for: .normal)
+        button.setTitle("Set Whim Location", for: .normal)
         button.layer.borderWidth = 0.5
-        button.backgroundColor = .green
-        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = Stylesheet.Colors.WMSYDeepViolet.withAlphaComponent(0.8)
+        button.setTitleColor(.white, for: .normal)
         return button
     }()
     
@@ -79,23 +71,24 @@ class AddWhimLocationView: UIView {
     
     private func setupConstraints() {
         
-        addWhimMap.snp.makeConstraints { (make) in
-            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(10)
-            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-10)
+        locationLabel.snp.makeConstraints { (make) in
             make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(10)
-            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.5)
+            make.leading.trailing.equalTo(addWhimMap)
+            make.height.equalTo(safeAreaLayoutGuide).multipliedBy(0.05)
         }
         
-        locationLabel.snp.makeConstraints { (make) in
-            make.leading.trailing.equalTo(addWhimMap)
-            make.top.equalTo(addWhimMap.snp.bottom).offset(10)
+        addWhimMap.snp.makeConstraints { (make) in
+            make.top.equalTo(locationLabel.snp.bottom).offset(10)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(10)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-10)
+            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.8)
         }
         
         selectButton.snp.makeConstraints { (make) in
+            make.top.equalTo(addWhimMap.snp.bottom).offset(5)
             make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(10)
             make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-10)
             make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-10)
-            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.1)
         }
         
         

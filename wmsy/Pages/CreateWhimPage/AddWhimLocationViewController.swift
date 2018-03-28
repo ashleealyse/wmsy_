@@ -21,7 +21,9 @@ class AddWhimLocationViewController: UIViewController {
     var addWhimLocationView = AddWhimLocationView()
     var selectedLocation: String = "" {
         didSet {
-            addWhimLocationView.locationLabel.text = "Selected Address: \(selectedLocation)"
+            addWhimLocationView.locationLabel.text = "\(selectedLocation)"
+            addWhimLocationView.locationLabel.textColor = Stylesheet.Colors.WMSYKSUPurple
+            addWhimLocationView.locationLabel.textAlignment = .center
         }
     }
     var lat = ""

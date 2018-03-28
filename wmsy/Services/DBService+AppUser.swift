@@ -42,6 +42,8 @@ extension DBService {
             guard
                 let userDict = snapshot.value as? [String: Any],
                 var appUser = AppUser(fromDict: userDict)
+            
+            
             else {
                 completion(nil)
                 return
@@ -60,9 +62,14 @@ extension DBService {
                 })
             }
             if userDict["interests"] != nil {
+                let interestDict = userDict["interests"] as? [String:Bool]
+                var whimKeys = [String]()
+                for interests in interestDict!{
+                    whimKeys.append(interests.key)
+                }
                 group.enter()
                 print("getting interests")
-                self.getAllInterests(forUser: appUser, completion: { (interests) in
+                self.getAllInterests(forUser: appUser, interestedWhimKeys: whimKeys, completion: { (interests) in
                     appUser.interests = interests
                     print("got interests")
                     group.leave()

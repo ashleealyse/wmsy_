@@ -27,10 +27,10 @@ extension FeedMapVC: GMSMapViewDelegate{
         }
         self.mapView.detailView.userPicture.kf.setImage(with: hostURL, for: .normal)
         self.mapView.detailView.isHidden = false
-        
+
         return true
     }
-    
+
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         self.mapView.detailView.isHidden = true
     }
