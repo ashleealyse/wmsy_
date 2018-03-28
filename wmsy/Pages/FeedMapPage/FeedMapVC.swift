@@ -57,8 +57,10 @@ class FeedMapVC: MenuedViewController {
                                    "description": whim.description,
                                    "hostImageURL": whim.hostImageURL,
                                    "category": whim.category,
-                                   "hostID" : whim.hostID
+                                   "hostID" : whim.hostID,
+                                   "whimID": whim.id
                 ]
+                marker.icon = GMSMarker.markerImage(with: Stylesheet.Colors.WMSYDeepViolet)
                 marker.map = mapView.mapView
             }
         }
@@ -176,6 +178,7 @@ class FeedMapVC: MenuedViewController {
         
         if mapUp {
             pinFilterViewToBottom()
+            self.mapView.detailView.isHidden = true
         } else {
             pinFilterViewToTop()
         }
