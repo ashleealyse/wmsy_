@@ -50,7 +50,7 @@ class ChatMessagesTableVC: UIViewController {
         chatTableView.estimatedRowHeight = 100
         chatTableView.separatorStyle = .none
         chatTableView.allowsSelection = false
-        chatTableView.backgroundColor = .clear
+        chatTableView.backgroundColor = .gray
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

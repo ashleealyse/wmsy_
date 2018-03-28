@@ -97,6 +97,11 @@ extension InfoAndMembersCollectionVC: UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChatGuestCell", for: indexPath) as! ChatGuestCollectionViewCell
         let user = members[indexPath.row]
+        let userImagePhotoIDString = user.photoID
+        let userImagePhotoIDurl = URL(string: userImagePhotoIDString)
+        cell.guestImageView.kf.setImage(with: userImagePhotoIDurl)
+        cell.guestImageView.kf.indicatorType = .activity
+        cell.isSelected = true
         cell.backgroundColor = (inChat[user.userID] ?? false) ? .blue : .red
         return cell
     }
@@ -109,13 +114,13 @@ extension InfoAndMembersCollectionVC: UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)  as! ChatGuestCollectionViewCell
-        let guest = members[indexPath.row]
-        let guestImagePhotoIDString = guest.photoID
-        let guestImagePhotoIDurl = URL(string: guestImagePhotoIDString)
-        cell.guestImageView.kf.setImage(with: guestImagePhotoIDurl)
-        cell.guestImageView.kf.indicatorType = .activity
-        cell.isSelected = true
-        currentSelectedUser = guest
+        let user = members[indexPath.row]
+//        let guestImagePhotoIDString = guest.photoID
+//        let guestImagePhotoIDurl = URL(string: guestImagePhotoIDString)
+//        cell.guestImageView.kf.setImage(with: guestImagePhotoIDurl)
+//        cell.guestImageView.kf.indicatorType = .activity
+//        cell.isSelected = true
+        currentSelectedUser = user
     }
 }
 
