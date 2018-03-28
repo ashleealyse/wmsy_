@@ -7,26 +7,32 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class MainTabBarVC: UITabBarController {
     
     let loginVC     = LoginVC()
+    let splashScreen = SplashViewController()
     let feedMapVC   = UINavigationController.init(rootViewController: FeedMapVC())
     let chatRoomVC  = ChatRoomVCTest()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         loginVC.tabBarItem  = UITabBarItem(title: "login", image: nil, tag: 0)
-        feedMapVC.tabBarItem = UITabBarItem(title: "feed", image: nil, tag: 1)
-        chatRoomVC.tabBarItem = UITabBarItem(title: "chat room", image: nil, tag: 2)
+        splashScreen.tabBarItem = UITabBarItem(title: "splash", image: nil, tag: 1)
+        feedMapVC.tabBarItem = UITabBarItem(title: "feed", image: nil, tag: 2)
+        chatRoomVC.tabBarItem = UITabBarItem(title: "chat room", image: nil, tag: 3)
         
-        let controllers: [UIViewController] = [loginVC, feedMapVC, chatRoomVC]
+        let controllers: [UIViewController] = [loginVC, splashScreen, feedMapVC, chatRoomVC]
         
         // comment to test with tab bar
         self.tabBar.isHidden = true
         self.setViewControllers(controllers, animated: false)
         
         // ### what screen to show if you're already signed in
+        if Auth.auth().currentUser != nil {
+            self.selectedIndex = 1
+        }
 //        if UserService.manager.userIsSignedIn() {
 //            self.selectedIndex = 3
 //        }
@@ -60,6 +66,8 @@ class MainTabBarVC: UITabBarController {
             return feedMapVC
         case .login:
             return loginVC
+        case .splashScreen:
+            return splashScreen
         }
     }
     
@@ -104,23 +112,6 @@ class MainTabBarVC: UITabBarController {
     }
     
 }
-
-//extension MainTabBarVC: UserServiceListener {
-//    func userSignedOut() {
-//        guard selectedIndex != Page.login.rawValue else { return }
-//        //        for vc in viewControllers {
-//        //            if let vc =
-//        //        }
-//        if let vc = selectedViewController as? MenuedViewController {
-//            if vc.view.window != nil {
-//                print("listener")
-//                animateTo(page: .login, fromViewController: selectedViewController!)
-//            }
-//        }
-//
-//
-//    }
-//}
 
 extension MainTabBarVC: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
