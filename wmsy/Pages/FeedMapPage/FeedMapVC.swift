@@ -118,7 +118,6 @@ class FeedMapVC: MenuedViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
         let height = view.safeAreaLayoutGuide.layoutFrame.height
         let width = view.safeAreaLayoutGuide.layoutFrame.width
@@ -152,6 +151,7 @@ class FeedMapVC: MenuedViewController {
             make.top.equalTo(filtersView.snp.bottom)
             make.leading.trailing.bottom.equalTo(containerView)
         }
+        super.viewDidAppear(animated)
     }
     
     
