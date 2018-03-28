@@ -70,8 +70,8 @@ class ChatInfoView: UIView {
         }
         
         inviteButton.snp.makeConstraints { (make) in
-            make.height.equalTo(50)
-            make.width.equalTo(100)
+            make.height.equalTo(self.snp.height).multipliedBy(0.3)
+            make.width.equalTo(self.snp.width).multipliedBy(0.25)
             make.bottom.equalTo(self.snp.bottom).offset(-5)
             make.trailing.equalTo(self.snp.trailing).offset(-5)
         }
