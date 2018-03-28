@@ -37,18 +37,14 @@ extension DBService {
         }
         
     }
-    public func getAllInterests(forUser user: AppUser, completion: @escaping ([Interest]) -> Void) {
-        var whimIDs = [String]()
+    public func getAllInterests(forUser user: AppUser, interestedWhimKeys: [String], completion: @escaping ([Interest]) -> Void) {
+      
         let group = DispatchGroup()
         
-        let userRef = usersRef.child(user.userID).child("interests")
-        userRef.observeSingleEvent(of: .value) { (snapshot) in
-             let userDict = snapshot.value as? [String: Bool]
-            userDict?.forEach{whimIDs.append($0.key)}
-        }
+
         
         var interests = [Interest]()
-        for whimID in whimIDs {
+        for whimID in interestedWhimKeys {
             group.enter()
             let interestRef = interestsRef.child(whimID).child(user.userID)
             interestRef.observeSingleEvent(of: .value, with: { (snapshot) in

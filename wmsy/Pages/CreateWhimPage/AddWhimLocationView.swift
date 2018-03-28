@@ -15,16 +15,8 @@ import GoogleMaps
 class AddWhimLocationView: UIView {
     var locationManager = CLLocationManager()
     var addWhimMap: GMSMapView!
-
     
-    // map object
-//    lazy var addWhimMap: GMSMapView = {
-//        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
-//        var map = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-//        return map
-//    }()
     
-    // current pin location label
     lazy var locationLabel: UILabel = {
        let lb = UILabel()
         lb.text = " Pin Location: "

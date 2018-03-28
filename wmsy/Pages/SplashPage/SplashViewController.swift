@@ -25,8 +25,10 @@ class SplashViewController: UIViewController {
         DBService.manager.getAppUser(fromID: user.uid, completion: { (appUser) in
             if let appUser = appUser {
                 AppUser.currentAppUser = appUser
-                print("set up everything already")
-                (self.tabBarController as? MainTabBarVC)?.animateTo(page: .feedAndMap, fromViewController: self)
+                MenuData.manager.configureInitialData(forUser: appUser, completion: {
+                    print("set up everything already")
+                    (self.tabBarController as? MainTabBarVC)?.animateTo(page: .feedAndMap, fromViewController: self)
+                })
             } else {
                 print("some other error here")
             }

@@ -93,10 +93,10 @@ class DataQueue {
         }
         let gettingUserComplete: () -> () = {
             var interests = [Interest]()
-            DBService.manager.getAllInterests(forUser: AppUser.currentAppUser!) { (dbInterests) in
-                interests = dbInterests
-                gettingInterestsComplete()
-            }
+//            DBService.manager.getAllInterests(forUser: AppUser.currentAppUser!) { (dbInterests) in
+//                interests = dbInterests
+//                gettingInterestsComplete()
+//            }
         }
         
         // setup currentAppUser

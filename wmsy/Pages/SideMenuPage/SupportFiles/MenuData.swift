@@ -21,10 +21,10 @@ class MenuData {
     
     public weak var delegate: MenuDataDelegate?
     
-    private var currentPage = 1
-    private var hostedWhims = [Whim]()
-    private var guestWhims = [Whim]()
-    private var pendingInterests = [Interest]()
+    public var currentPage = 1
+    public var hostedWhims = [Whim]()
+    public var guestWhims = [Whim]()
+    public var pendingInterests = [Interest]()
     
     public func configureInitialData(forUser user: AppUser,
                                      completion: @escaping () -> Void) {
