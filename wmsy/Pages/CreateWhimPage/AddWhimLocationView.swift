@@ -27,7 +27,8 @@ class AddWhimLocationView: UIView {
     // current pin location label
     lazy var locationLabel: UILabel = {
        let lb = UILabel()
-        lb.text = " Pin Location: "
+        lb.text = "Pin Location"
+        lb.textAlignment = .center
         lb.numberOfLines = 0
         lb.layer.borderWidth = 0.5
         lb.layer.borderColor = Stylesheet.Colors.WMSYDeepViolet.cgColor

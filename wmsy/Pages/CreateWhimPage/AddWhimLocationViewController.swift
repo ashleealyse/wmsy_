@@ -23,7 +23,6 @@ class AddWhimLocationViewController: UIViewController {
         didSet {
             addWhimLocationView.locationLabel.text = "\(selectedLocation)"
             addWhimLocationView.locationLabel.textColor = Stylesheet.Colors.WMSYKSUPurple
-            addWhimLocationView.locationLabel.textAlignment = .center
         }
     }
     var lat = ""
