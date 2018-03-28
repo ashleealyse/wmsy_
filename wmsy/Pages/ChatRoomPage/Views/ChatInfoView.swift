@@ -80,6 +80,7 @@ class ChatInfoView: UIView {
             make.top.equalTo(shortLabel.snp.bottom).offset(5)
             make.leading.equalTo(self.snp.leading).offset(5)
             make.trailing.equalTo(inviteButton.snp.leading).offset(-5)
+            make.bottom.equalTo(self.snp.bottom).offset(-5)
         }
         
         

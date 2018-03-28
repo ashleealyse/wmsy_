@@ -38,7 +38,6 @@ class ChatRoomVCTest: MenuedViewController {
         chatTVC.delegate = self
         textInputVC.delegate = self
         
-        chatTVC.configureWith(whim!)
         
         setupSubviewsConstraints()
         setupKeyboardHandling()
@@ -49,6 +48,8 @@ class ChatRoomVCTest: MenuedViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupObservers()
+        chatTVC.configureWith(whim!)
+        membersCollectionVC.configureWith(whim!)
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -66,7 +67,7 @@ class ChatRoomVCTest: MenuedViewController {
 //        on one screen
         
         membersCollectionVC.view.snp.makeConstraints { (make) in
-            make.top.leading.trailing.equalTo(self.view)
+            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
         chatTVC.view.snp.makeConstraints { (make) in
             make.top.equalTo(membersCollectionVC.view.snp.bottom)
