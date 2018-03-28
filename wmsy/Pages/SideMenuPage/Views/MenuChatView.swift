@@ -11,7 +11,7 @@ import SnapKit
 
 class MenuChatView: UICollectionViewCell {
     
-    let chatViewVC = ChatRoomVC()
+    let chatViewVC = ChatRoomVCTest()
     var chatView = UIView()
     
     override init(frame: CGRect) {

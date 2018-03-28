@@ -85,7 +85,6 @@ class ChatRoomVCTest: MenuedViewController {
     
     @objc private func adjustForKeyboard(_ notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
-        
         let keyboardScreenEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
 //        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
         UIView.animate(withDuration: 0.4) {
@@ -158,7 +157,6 @@ extension ChatRoomVCTest: ChatMessagesTableVCDelegate, TextInputVCDelegate, Info
     }
     
     func send(message: String) {
-        // make the message using the message service thing so that we can get a real id for it before passing it off to the tableview
         DBService.manager.addMessage(text: message, ofType: .chat, fromUserID: currentUserID, toWhim: whim!)
     }
 }

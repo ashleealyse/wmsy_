@@ -49,19 +49,34 @@ extension FeedMapVC: UITableViewDataSource {
         let whim = feedWhims[indexPath.row]
         cell.whim = whim
         cell.collapsedView.postTitleLabel.text = whim.title
-        
-        if currentUsersInterests.contains(whim.id) {
-            cell.collapsedView.backgroundColor = .red
-        }
-        
         cell.collapsedView.categoryIcon.image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
         cell.collapsedView.userImageButton.imageView?.kf.setImage(with: URL(string: whim.hostImageURL), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
             cell.collapsedView.userImageButton.setImage(image, for: .normal)
         })
         cell.expandedView.postDescriptionTF.text = whim.description
+        let interests = getInterestKeys(appUser: AppUser.currentAppUser!)
+        if interests.contains(whim.id){
+            cell.expandedView.interestedButton.setImage(#imageLiteral(resourceName: "interestedCircleIcon"), for: .normal)
+        }else{
+            cell.expandedView.interestedButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
+        }
+            
+     
+
         return cell
-        
     }
+    
+    public func getInterestKeys(appUser: AppUser) -> [String]{
+        var interests = appUser.interests
+        var finalArr = [String]()
+        for interest in interests{
+            finalArr.append(interest.whimID)
+        }
+        return finalArr
+    }
+    
+    
+    
 }
 
 
@@ -84,25 +99,54 @@ extension FeedMapVC: FeedCellViewDelegate {
     }
     
     func interestButtonClicked(whim: Whim) {
-        interestButtonCounter += 1
-        if interestButtonCounter % 2 == 0 {
+        let interests = getInterestKeys(appUser: AppUser.currentAppUser!)
+        if interests.contains(whim.id){
             //User is interested
             print("Current User: \(currentUser?.name ?? "No current user") Is NOT Interested in Whim #: \(whim.id) by Host: \(whim.hostID)")
+            let indexPath = IndexPath.init(row: returnIndex(whim: whim), section: 0)
+            let cell = self.feedView.tableView.cellForRow(at: indexPath) as? FeedCell
             DBService.manager.removeInterest(forWhim: whim)
-            
-
+            self.feedView.tableView.reloadData()
         } else {
             //User is not interested
             print("Current User: \(currentUser?.name ?? "No current user") is Interested in Whim #: \(whim.id) by Host: \(whim.hostID)")
             DBService.manager.addInterest(forWhim: whim)
+            let indexPath = IndexPath.init(row: returnIndex(whim: whim), section: 0)
+            let cell = self.feedView.tableView.cellForRow(at: indexPath) as? FeedCell
+//            cell?.expandedView.interestedButton.setImage(#imageLiteral(resourceName: "interestedCircleIcon"), for: .normal)
+            self.feedView.tableView.reloadData()
+
         }
     }
+    
+    func returnIndex(whim: Whim) -> Int{
+        var index = 0
+        for feedWhim in feedWhims{
+            if feedWhim.id == whim.id{
+                return index
+            }
+            index += 1
+        }
+        return index
+    }
+    
+    
+    
+    
+    
     
     func userProfileButtonPressed(whim: Whim) {
         print("Show Whim Host User Profile")
         guestProfile.modalPresentationStyle = .overCurrentContext
         guestProfile.modalTransitionStyle = .crossDissolve
-        present(guestProfile, animated: true, completion: nil)
+        let url = URL(string: whim.hostImageURL)
+        
+        DBService.manager.getAppUser(fromID: whim.hostID) { (appUser) in
+            if let appUser = appUser {
+                self.guestProfile.configure(with: appUser)
+                self.present(self.guestProfile, animated: true, completion: nil)
+            }
+        }
     }
 }
 
