@@ -87,6 +87,9 @@ class FeedMapVC: MenuedViewController {
         layoutFeedMapView()
         layoutFiltersView()
         layoutMapView()
+        self.mapView.detailView.isHidden = true
+        self.mapView.mapView.delegate = self
+        self.mapView.detailView.delegate = self
     }
     
     func layoutFeedMapView() {

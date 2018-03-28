@@ -15,18 +15,10 @@ import GoogleMaps
 class AddWhimLocationView: UIView {
     var locationManager = CLLocationManager()
     var addWhimMap: GMSMapView!
-
     
-    // map object
-//    lazy var addWhimMap: GMSMapView = {
-//        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
-//        var map = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-//        return map
-//    }()
     
-    // current pin location label
     lazy var locationLabel: UILabel = {
-       let lb = UILabel()
+        let lb = UILabel()
         lb.text = "Selected Address: "
         lb.numberOfLines = 0
         lb.layer.borderWidth = 0.5
@@ -36,7 +28,7 @@ class AddWhimLocationView: UIView {
     
     // select location button
     lazy var selectButton: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
         button.setTitle("Select Location", for: .normal)
         button.layer.borderWidth = 0.5
         button.backgroundColor = .green
