@@ -67,6 +67,7 @@ class ChatMessagesTableVC: UIViewController {
     }
     public func scrollToBottom(animated: Bool) {
         let indexPath = IndexPath(row: messages.count - 1, section: 0)
+        guard indexPath.row >= 0 else {return}
         chatTableView.scrollToRow(at: indexPath, at: .bottom, animated: animated)
     }
 }

@@ -11,7 +11,8 @@ import SnapKit
 
 class MenuWhimsCell: UITableViewCell {
     
-    private var whimTitle = UILabel()
+    static let reuseIdentifier = "MenuWhimsCell"
+    public var whimTitle = UILabel()
     private var notificationBadge = UIView()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
