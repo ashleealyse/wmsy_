@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import FirebaseAuth
 
-class SideMenuVCTest: MenuViewController {
+class SideMenuVC: MenuViewController {
     
     private var hostedWhims = [Whim]()
     private var guestWhims = [Whim]()
@@ -70,7 +70,7 @@ class SideMenuVCTest: MenuViewController {
     }
 }
 
-extension SideMenuVCTest: MenuChatsListVCDelegate {
+extension SideMenuVC: MenuChatsListVCDelegate {
     func didSelect(whim: Whim) {
         if let vc = viewController(for: .chatRoom) as? ChatRoomVCTest {
             if whim.id != vc.whimID {

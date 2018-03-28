@@ -85,7 +85,6 @@ class ChatRoomVCTest: MenuedViewController {
     
     @objc private func adjustForKeyboard(_ notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
-        
         let keyboardScreenEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
 //        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
         UIView.animate(withDuration: 0.4) {
