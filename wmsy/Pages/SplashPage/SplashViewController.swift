@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SplashViewController: UIViewController {
 
@@ -16,6 +17,20 @@ class SplashViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(splashView)
         scaled()
+        
+        guard let user = Auth.auth().currentUser else {
+            print("some fuck up here i guess")
+            return
+        }
+        DBService.manager.getAppUser(fromID: user.uid, completion: { (appUser) in
+            if let appUser = appUser {
+                AppUser.currentAppUser = appUser
+                print("set up everything already")
+                (self.tabBarController as? MainTabBarVC)?.animateTo(page: .feedAndMap, fromViewController: self)
+            } else {
+                print("some other error here")
+            }
+        })
     }
     
     func scaled() {

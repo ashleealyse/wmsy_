@@ -10,6 +10,7 @@ import Foundation
 
 enum Page: Int {
     case login
+    case splashScreen
     case feedAndMap
     case chatRoom
 //    case create

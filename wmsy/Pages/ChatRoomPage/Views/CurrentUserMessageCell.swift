@@ -42,7 +42,7 @@ class CurrentUserMessageCell: UITableViewCell {
         setupTextContainer()
         setupMessageText()
         contentView.layoutMarginsGuide.snp.makeConstraints { (make) in
-            make.height.lessThanOrEqualTo(profileImageView)
+            make.height.greaterThanOrEqualTo(profileImageView)
         }
     }
     private func setupProfileImageView() {
