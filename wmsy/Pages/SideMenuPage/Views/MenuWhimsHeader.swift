@@ -10,6 +10,9 @@ import UIKit
 import SnapKit
 
 class MenuWhimsHeader: UITableViewHeaderFooterView {
+    
+    static let reuseIdentifier = "MenuWhimsHeader"
+    
     public let titleLabel = UILabel()
     
     override init(reuseIdentifier: String?) {
