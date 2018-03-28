@@ -102,7 +102,14 @@ extension FeedMapVC: FeedCellViewDelegate {
         print("Show Whim Host User Profile")
         guestProfile.modalPresentationStyle = .overCurrentContext
         guestProfile.modalTransitionStyle = .crossDissolve
-        present(guestProfile, animated: true, completion: nil)
+        let url = URL(string: whim.hostImageURL)
+        
+        DBService.manager.getAppUser(fromID: whim.hostID) { (appUser) in
+            if let appUser = appUser {
+                self.guestProfile.configure(with: appUser)
+                self.present(self.guestProfile, animated: true, completion: nil)
+            }
+        }
     }
 }
 
