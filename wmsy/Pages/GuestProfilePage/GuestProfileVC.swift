@@ -15,7 +15,7 @@ class GuestProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(profileView)
-        profileView.dismissButton.addTarget(self, action: #selector(dismissButtonClicked), for: .touchUpInside)
+//        profileView.dismissButton.addTarget(self, action: #selector(dismissButtonClicked), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
