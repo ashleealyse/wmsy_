@@ -91,9 +91,10 @@ class FeedMapVC: MenuedViewController {
         self.mapView.mapView.delegate = self
         self.mapView.detailView.delegate = self
     }
-    
+
     func layoutFeedMapView() {
         self.view.addSubview(feedView)
+
         feedView.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
@@ -129,12 +130,14 @@ class FeedMapVC: MenuedViewController {
             make.trailing.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(feedView.snp.height)
         }
+
         let mylocation = mapView.mapView.myLocation
         mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
                                                           longitude: (mylocation?.coordinate.longitude)!,
                                                           zoom: mapView.zoomLevel)
         mapView.mapView.settings.myLocationButton = true
         mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
     }
     
     
