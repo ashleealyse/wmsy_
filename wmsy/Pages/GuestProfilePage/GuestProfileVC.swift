@@ -26,7 +26,12 @@ class GuestProfileVC: UIViewController {
     @objc func dismissButtonClicked() {
         dismiss(animated: true, completion: nil)
     }
-
+    public func configure(with user: AppUser) {
+        let url = URL(string: user.photoID)
+        profileView.profileImageView.kf.setImage(with: url)
+        profileView.bioLabel.text = user.bio
+        profileView.nameLabel.text = user.name
+    }
     
     
 }
