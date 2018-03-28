@@ -90,11 +90,11 @@ extension FeedMapVC: FeedCellViewDelegate {
             print("Current User: \(currentUser?.name) Is NOT Interested in \(whim.id)")
             DBService.manager.removeInterest(forWhim: whim)
             
+
         } else {
             //User is not interested
-            print("Current User: \(currentUser?.name) Is Interested in \(whim.id)")
+            print("Current User: \(currentUser?.name ?? "No current user") is Interested in \(whim.id)")
             DBService.manager.addInterest(forWhim: whim)
-            
         }
     }
     
