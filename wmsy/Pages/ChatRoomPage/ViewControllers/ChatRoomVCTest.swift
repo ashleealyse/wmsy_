@@ -43,7 +43,7 @@ class ChatRoomVCTest: MenuedViewController {
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .black
+        self.view.backgroundColor = .clear
         
         self.add(membersCollectionVC)
         self.add(chatTVC)
@@ -140,12 +140,16 @@ class ChatRoomVCTest: MenuedViewController {
 
 // MARK: - childVCs delegate methods implementation
 extension ChatRoomVCTest: ChatMessagesTableVCDelegate, TextInputVCDelegate, InfoAndMembersCollectionVCDelegate {
+    func toggleUser(user: AppUser) {
+        print("ChatRoomVCTest - user: \(user)")
+    }
+    
     func send(message: String) {
         let message = Message.init(whimID: whim!.id, messageID: "12341234", senderID: currentUserID, messageType: .chat, messageBody: message)
         // TODO: make the message using the message service thing so that we can get a real id for it before passing it off to the tableview
         chatTVC.new(message: message)
         DBService.manager.addMessage(text: message.messageBody, ofType: .chat, fromUserID: currentUserID, toWhim: whim!)
-        DBService.manager.addInterest(forWhim: whim!)
+//        DBService.manager.addInterest(forWhim: whim!)
     }
 }
 
