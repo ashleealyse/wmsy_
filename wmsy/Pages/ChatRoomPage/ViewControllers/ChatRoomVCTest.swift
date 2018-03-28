@@ -145,7 +145,7 @@ extension ChatRoomVCTest: ChatMessagesTableVCDelegate, TextInputVCDelegate, Info
         // TODO: make the message using the message service thing so that we can get a real id for it before passing it off to the tableview
         chatTVC.new(message: message)
         DBService.manager.addMessage(text: message.messageBody, ofType: .chat, fromUserID: currentUserID, toWhim: whim!)
-        DBService.manager.addInterest(forWhim: whim!)
+//        DBService.manager.addInterest(forWhim: whim!)
     }
 }
 
