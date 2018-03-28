@@ -233,7 +233,7 @@ extension CreateWhimTVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! WhimCategoryCollectionViewCell
         let tuple = categoryList[indexPath.row]
-        let indexPath = IndexPath.init(row: 0, section: 0)
+        let indexPath = IndexPath.init(row: 1, section: 0)
         let categoryTableViewCell = tableView.cellForRow(at: indexPath) as! WhimCategoryTableViewCell
         var selectedCategory = tuple
         categoryTableViewCell.categoryLabel.text = "Category: \(selectedCategory.0)"
