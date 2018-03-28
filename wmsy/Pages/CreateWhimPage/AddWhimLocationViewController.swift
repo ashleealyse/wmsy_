@@ -21,7 +21,8 @@ class AddWhimLocationViewController: UIViewController {
     var addWhimLocationView = AddWhimLocationView()
     var selectedLocation: String = "" {
         didSet {
-            addWhimLocationView.locationLabel.text = "Selected Address: \(selectedLocation)"
+            addWhimLocationView.locationLabel.text = "\(selectedLocation)"
+            addWhimLocationView.locationLabel.textColor = Stylesheet.Colors.WMSYKSUPurple
         }
     }
     var lat = ""
@@ -58,7 +59,7 @@ class AddWhimLocationViewController: UIViewController {
     @objc func selectLocation() {
         // replace this with the pin point location from map
         
-        
+      
         print("Location Selected: \(selectedLocation)")
         
         delegate?.setAddress(atAddress: selectedLocation)

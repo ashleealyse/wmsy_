@@ -22,30 +22,63 @@ extension DBService {
             "badge" : appUser.badge,
             "flags" : appUser.flags
             ])
+        print("added new user \(appUser.name) with uid: \(appUser.userID)")
     }
-    
-    
     public func addImageToUser(url: String, userID: String) {
         addImage(url: url, ref: usersRef, id: userID)
     }
+    public func checkIfUserExists(userID: String, completion: @escaping (Bool) -> Void) {
+        usersRef.child(userID).observeSingleEvent(of: .value) { (snapshot) in
+            completion(snapshot.exists())
+        }
+        
+    }
     
     
-    
-    func getAppUser(with uID: String, completion: @escaping (_ user: AppUser) -> Void) {
+    func getAppUser(fromID uID: String, completion: @escaping (_ user: AppUser?) -> Void) {
         let userRef = usersRef.child(uID)
         
         userRef.observeSingleEvent(of: .value) { (snapshot) in
-            guard let name = snapshot.childSnapshot(forPath: "name").value as? String else {return}
-            guard let photoID = snapshot.childSnapshot(forPath: "photoID").value as? String else {return}
-            guard let age = snapshot.childSnapshot(forPath: "age").value as? String else {return}
-            guard let userID = snapshot.childSnapshot(forPath: "userID").value as? String else {return}
-            guard let bio = snapshot.childSnapshot(forPath: "bio").value as? String else {return}
-            guard let badge = snapshot.childSnapshot(forPath: "badge").value as? Bool else {return}
-            guard let flags = snapshot.childSnapshot(forPath: "flags").value as? Int else {return}
+            guard
+                let userDict = snapshot.value as? [String: Any],
+                var appUser = AppUser(fromDict: userDict)
             
             
-            let currentAppUser = AppUser(name: name, photoID: photoID, age: age, userID: userID, bio: bio, badge: badge, flags: flags)
-            completion(currentAppUser)
+            else {
+                completion(nil)
+                return
+            }
+            let group = DispatchGroup()
+            
+            
+            
+            if userDict["hostedWhims"] != nil {
+                group.enter()
+                print("getting hosted whims")
+                self.getWhims(forUser: appUser, completion: { (whims) in
+                    appUser.hostedWhims = whims
+                    print("got hosted whims")
+                    group.leave()
+                })
+            }
+            if userDict["interests"] != nil {
+                let interestDict = userDict["interests"] as? [String:Bool]
+                var whimKeys = [String]()
+                for interests in interestDict!{
+                    whimKeys.append(interests.key)
+                }
+                group.enter()
+                print("getting interests")
+                self.getAllInterests(forUser: appUser, interestedWhimKeys: whimKeys, completion: { (interests) in
+                    appUser.interests = interests
+                    print("got interests")
+                    group.leave()
+                })
+            }
+            group.notify(queue: .main) {
+                print("finished getting appUser")
+                completion(appUser)
+            }
         }
     }
     func getAppUsers(fromList userIDs: [String], completion: @escaping ([AppUser]) -> Void) {
@@ -56,29 +89,14 @@ extension DBService {
         var users = [AppUser]()
         for singleUser in userIdArray{
             group.enter()
-            let ref = userRef.child(singleUser)
-            
-            ref.observeSingleEvent(of: .value, with: { (snapshot) in
-                guard
-                    let userDict = snapshot.value as? [String: Any],
-                    let name = userDict["name"] as? String ,
-                    let photoID = userDict["photoID"] as? String,
-                    let age = userDict["age"] as? String,
-                    let userID = userDict["userID"] as? String,
-                    let bio = userDict["bio"] as? String,
-                    let badge = userDict["badge"] as? Bool,
-                    let flags = userDict["flags"] as? Int
-                    else {
-                        group.leave()
-                        return
+            getAppUser(fromID: singleUser, completion: { (appUser) in
+                if let appUser = appUser {
+                    users.append(appUser)
+                } else {
+                    print("getAppUsers(fromID:) error")
                 }
-                let user = AppUser(name: name, photoID: photoID, age: age, userID: userID, bio: bio, badge: badge, flags: flags)
-                users.append(user)
                 group.leave()
-            }) { (error) in
-                print(error)
-                group.leave()
-            }
+            })
         }
         
         group.notify(queue: .main) {

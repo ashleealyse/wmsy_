@@ -18,6 +18,11 @@ class GuestProfileVC: UIViewController {
         profileView.dismissButton.addTarget(self, action: #selector(dismissButtonClicked), for: .touchUpInside)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        profileView.layoutSubviews()
+    }
     @objc func dismissButtonClicked() {
         dismiss(animated: true, completion: nil)
     }

@@ -67,6 +67,7 @@ class ChatMessagesTableVC: UIViewController {
     }
     public func scrollToBottom(animated: Bool) {
         let indexPath = IndexPath(row: messages.count - 1, section: 0)
+        guard indexPath.row >= 0 else {return}
         chatTableView.scrollToRow(at: indexPath, at: .bottom, animated: animated)
     }
 }
@@ -87,7 +88,10 @@ extension ChatMessagesTableVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 return cell
             } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: OtherUserMessageCell.reuseIdentifier, for: indexPath)
+                let cell = tableView.dequeueReusableCell(withIdentifier: OtherUserMessageCell.reuseIdentifier, for: indexPath) as! OtherUserMessageCell
+                if message.messageBody != "oqiudfboasiudf" {
+                    cell.messageText.text = message.messageBody
+                }
                 return cell
             }
         case .notification:

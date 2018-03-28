@@ -8,6 +8,14 @@
 
 import UIKit
 
+protocol FeedCellViewDelegate: class {
+    
+    func showOnMapButtonPressed(whim: Whim)
+    
+    func interestButtonClicked(whim: Whim)
+    
+    func userProfileButtonPressed(whim: Whim)
+}
 
 class FeedCell: UITableViewCell {
     
@@ -15,6 +23,9 @@ class FeedCell: UITableViewCell {
     var expandedView = ExpandedFeedCellView()
     var collapsedConstraint: NSLayoutConstraint!
     var expandedConstraint: NSLayoutConstraint!
+    var whim: Whim?
+    
+    weak var delegate: FeedCellViewDelegate?
     
     var isExpanded: Bool = false {
         didSet {
@@ -44,10 +55,31 @@ class FeedCell: UITableViewCell {
         selectionStyle = .none
         setUpCollapsedView()
         setUpExpandedView()
+        
+       
+        
         //        collapsedConstraint.isActive = !isExpanded
         collapsedConstraint.constant = isExpanded ? 170 : 70
         //        expandedConstraint.isActive = isExpanded
         self.clipsToBounds = true
+        
+        expandedView.showOnMapButton.addTarget(self, action: #selector(showOnMap), for: .touchUpInside)
+        
+        expandedView.interestedButton.addTarget(self, action: #selector(showInterest), for: .touchUpInside)
+        
+        collapsedView.userImageButton.addTarget(self, action: #selector(userProfileImageClicked), for: .touchUpInside)
+    }
+    
+    @objc func showOnMap() {
+        self.delegate?.showOnMapButtonPressed(whim: whim!)
+    }
+    
+    @objc func showInterest() {
+        self.delegate?.interestButtonClicked(whim: whim!)
+    }
+    
+    @objc func userProfileImageClicked(){
+        self.delegate?.userProfileButtonPressed(whim: whim!)
     }
     
     private func setUpCollapsedView() {

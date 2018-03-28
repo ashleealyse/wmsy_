@@ -26,6 +26,4 @@ class AuthUserService: NSObject {
     public func getCurrentUser() -> User? {
         return auth.currentUser
     }
-    
-    
 }

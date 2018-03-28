@@ -15,8 +15,8 @@ class WhimCategoryTableViewCell: UITableViewCell {
     lazy var categoryLabel: UILabel = {
        let lb = UILabel()
 //        lb.backgroundColor = Stylesheet.Colors.WMSYShadowBlue
-        lb.text = "Category: "
-        lb.font = UIFont.systemFont(ofSize: 15)
+        lb.text = "Choose a Category"
+        lb.font = UIFont.systemFont(ofSize: 20)
         return lb
     }()
 
@@ -39,7 +39,7 @@ class WhimCategoryTableViewCell: UITableViewCell {
 //        categoriesCV.backgroundColor = .white
         categoriesCV.register(WhimCategoryCollectionViewCell.self, forCellWithReuseIdentifier: "CategoryCell")
         categoriesCV.showsHorizontalScrollIndicator = false
-        categoriesCV.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
+        categoriesCV.backgroundColor = .white
         return categoriesCV
     }()
     
@@ -52,11 +52,11 @@ class WhimCategoryTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
-    func setUpView() {
+    private func setUpView() {
         setUpConstraints()
     }
     
-    func setUpConstraints() {
+    private func setUpConstraints() {
         
         contentView.addSubview(categoryLabel)
         categoryLabel.snp.makeConstraints { (make) in

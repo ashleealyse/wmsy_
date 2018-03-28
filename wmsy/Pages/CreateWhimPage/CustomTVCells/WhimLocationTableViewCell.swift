@@ -15,17 +15,16 @@ class WhimLocationTableViewCell: UITableViewCell {
     lazy var addressLabel: UILabel = {
         let lb = UILabel()
         lb.text = "Meeting Location: "
-        lb.font = UIFont.systemFont(ofSize: 15)
+        lb.font = UIFont.systemFont(ofSize: 20)
         lb.numberOfLines = 0
-//        lb.backgroundColor = Stylesheet.Colors.WMSYShadowBlue
         return lb
     }()
     
     // Button to select address: "Open Map to Select Meeting Location"
     lazy var selectLocationButton: UIButton = {
        let bt = UIButton()
-        bt.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
-        bt.setTitle("Select Meeting Location on Map", for: .normal)
+        bt.backgroundColor = Stylesheet.Colors.WMSYNeonPurple.withAlphaComponent(0.6)
+        bt.setTitle("Drop Pin", for: .normal)
         return bt
     }()
     
@@ -55,11 +54,10 @@ class WhimLocationTableViewCell: UITableViewCell {
         
         contentView.addSubview(selectLocationButton)
         selectLocationButton.snp.makeConstraints { (make) in
-            make.top.equalTo(addressLabel.snp.bottom).offset(5)
-            make.leading.equalTo(contentView.snp.leading).offset(5)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-5)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-5)
-            
+            make.top.equalTo(addressLabel.snp.bottom)
+            make.leading.equalTo(contentView.snp.leading)
+            make.trailing.equalTo(contentView.snp.trailing)
+            make.bottom.equalTo(contentView.snp.bottom)            
         }
     }
         

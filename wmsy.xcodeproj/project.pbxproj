@@ -11,6 +11,10 @@
 		811FFB9720615B6200F3312B /* DBService+Whim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811FFB9620615B6100F3312B /* DBService+Whim.swift */; };
 		811FFB9920615B6900F3312B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811FFB9820615B6900F3312B /* NotificationManager.swift */; };
 		811FFB9B20616B1E00F3312B /* DBService+Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811FFB9A20616B1E00F3312B /* DBService+Message.swift */; };
+		81202D86206BEBC200CC5588 /* MenuNavigationBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81202D85206BEBC200CC5588 /* MenuNavigationBarVC.swift */; };
+		81202D88206BECCB00CC5588 /* MenuPagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81202D87206BECCB00CC5588 /* MenuPagesVC.swift */; };
+		81202D8A206BED3C00CC5588 /* MenuProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81202D89206BED3C00CC5588 /* MenuProfileVC.swift */; };
+		81202D8C206BEE0E00CC5588 /* MenuChatsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81202D8B206BEE0E00CC5588 /* MenuChatsList.swift */; };
 		812112E120609D3F002D80C2 /* AuthUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812112E020609D3F002D80C2 /* AuthUserService.swift */; };
 		812112E320615BF7002D80C2 /* DBService+Get.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812112E220615BF7002D80C2 /* DBService+Get.swift */; };
 		812112E52062C856002D80C2 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812112E42062C856002D80C2 /* Alert.swift */; };
@@ -18,6 +22,9 @@
 		812112E92062F7D3002D80C2 /* AddWhimLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812112E82062F7D3002D80C2 /* AddWhimLocationView.swift */; };
 		812112EB20632889002D80C2 /* ChatGuestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812112EA20632889002D80C2 /* ChatGuestCollectionViewCell.swift */; };
 		812112ED20641B1D002D80C2 /* CombinationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812112EC20641B1D002D80C2 /* CombinationView.swift */; };
+		81337775206A960B00F1F657 /* FeedMapVC+Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81337774206A960B00F1F657 /* FeedMapVC+Feed.swift */; };
+		81337777206A978900F1F657 /* FeedMapVC+Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81337776206A978900F1F657 /* FeedMapVC+Map.swift */; };
+		81337779206A98BD00F1F657 /* FeedMapVC+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81337778206A98BD00F1F657 /* FeedMapVC+Filter.swift */; };
 		8139A99D205C2E9F006C7058 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8139A99C205C2E9F006C7058 /* GoogleService-Info.plist */; };
 		8139A99F205C309F006C7058 /* Whim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8139A99E205C309F006C7058 /* Whim.swift */; };
 		8139A9A2205C30D7006C7058 /* CreateWhimTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8139A9A1205C30D7006C7058 /* CreateWhimTVC.swift */; };
@@ -28,6 +35,7 @@
 		8190310F205ADCF200932A55 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8190310D205ADCF200932A55 /* LaunchScreen.storyboard */; };
 		8190311A205ADCF200932A55 /* wmsyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81903119205ADCF200932A55 /* wmsyTests.swift */; };
 		81A57A512068952D00E4BE0B /* DBService+Interest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A57A502068952D00E4BE0B /* DBService+Interest.swift */; };
+		81A57A5320697D7000E4BE0B /* MenuData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A57A5220697D7000E4BE0B /* MenuData.swift */; };
 		81AB7ABA205C800E009845EA /* WhimTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AB7AB9205C800E009845EA /* WhimTitleTableViewCell.swift */; };
 		81AB7ABC205C8024009845EA /* WhimDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AB7ABB205C8024009845EA /* WhimDescriptionTableViewCell.swift */; };
 		81AB7ABE205C805A009845EA /* WhimExpirationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AB7ABD205C805A009845EA /* WhimExpirationTableViewCell.swift */; };
@@ -68,6 +76,7 @@
 		81D12DD920673AE60056920C /* TextInputVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D12DD820673AE60056920C /* TextInputVC.swift */; };
 		81D12DDB20673B200056920C /* InfoAndMembersCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D12DDA20673B1F0056920C /* InfoAndMembersCollectionVC.swift */; };
 		81D12DDD20674ED70056920C /* ChatRoomVCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D12DDC20674ED70056920C /* ChatRoomVCTest.swift */; };
+		81DD10A82065CCC5002BAB42 /* MapDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DD10A72065CCC5002BAB42 /* MapDetailView.swift */; };
 		81DECD19205C87ED00214866 /* MenuedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DECD18205C87ED00214866 /* MenuedViewController.swift */; };
 		81DECD1B205C87FA00214866 /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DECD1A205C87FA00214866 /* Interactor.swift */; };
 		81DECD1D205C881200214866 /* MenuHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DECD1C205C881200214866 /* MenuHelper.swift */; };
@@ -85,10 +94,18 @@
 		81EBB58B20601939008A6CE7 /* StorageService+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBB58A20601939008A6CE7 /* StorageService+Image.swift */; };
 		81EBB58D20601C7E008A6CE7 /* DBService+AppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBB58C20601C7E008A6CE7 /* DBService+AppUser.swift */; };
 		81EBB58F20601C86008A6CE7 /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBB58E20601C86008A6CE7 /* DBService.swift */; };
+		81F9F0682065668100D288E8 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F9F0672065668100D288E8 /* FeedVC.swift */; };
+		81F9F06A206566FD00D288E8 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F9F069206566FD00D288E8 /* MapVC.swift */; };
+		81F9F06C20656B1100D288E8 /* FiltersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F9F06B20656B1100D288E8 /* FiltersVC.swift */; };
+		81F9F06E20656B2200D288E8 /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F9F06D20656B2200D288E8 /* FiltersView.swift */; };
+		81F9F0702065D27700D288E8 /* AddChildVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F9F06F2065D27700D288E8 /* AddChildVC.swift */; };
 		8449A2DA7A870D7DFE6E2428 /* Pods_wmsy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CEEC5ACCA9E78DD3C3881CA /* Pods_wmsy.framework */; };
 		932F180D2065A3F300950104 /* FloatingPopsicleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932F180C2065A3F300950104 /* FloatingPopsicleView.swift */; };
 		93495B0620603F9A0080BDBA /* ExpandedFeedCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93495B0520603F9A0080BDBA /* ExpandedFeedCellView.swift */; };
 		93495B08206041080080BDBA /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93495B07206041080080BDBA /* FeedCell.swift */; };
+		93632551206C1597002FFAED /* WhimColorViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93632550206C1597002FFAED /* WhimColorViewTableViewCell.swift */; };
+		93D5CDB0206AB1FC00ABB3E1 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D5CDAF206AB1FC00ABB3E1 /* SplashView.swift */; };
+		93D5CDB2206AB20A00ABB3E1 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D5CDB1206AB20A00ABB3E1 /* SplashViewController.swift */; };
 		E5E0CC0CB13ED0D202D6CA35 /* Pods_wmsyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ABB5CDA9ED0EA6DABA10A94 /* Pods_wmsyTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -111,6 +128,10 @@
 		811FFB9620615B6100F3312B /* DBService+Whim.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DBService+Whim.swift"; sourceTree = "<group>"; };
 		811FFB9820615B6900F3312B /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		811FFB9A20616B1E00F3312B /* DBService+Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DBService+Message.swift"; sourceTree = "<group>"; };
+		81202D85206BEBC200CC5588 /* MenuNavigationBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuNavigationBarVC.swift; sourceTree = "<group>"; };
+		81202D87206BECCB00CC5588 /* MenuPagesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPagesVC.swift; sourceTree = "<group>"; };
+		81202D89206BED3C00CC5588 /* MenuProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuProfileVC.swift; sourceTree = "<group>"; };
+		81202D8B206BEE0E00CC5588 /* MenuChatsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuChatsList.swift; sourceTree = "<group>"; };
 		812112E020609D3F002D80C2 /* AuthUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUserService.swift; sourceTree = "<group>"; };
 		812112E220615BF7002D80C2 /* DBService+Get.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DBService+Get.swift"; sourceTree = "<group>"; };
 		812112E42062C856002D80C2 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
@@ -118,6 +139,9 @@
 		812112E82062F7D3002D80C2 /* AddWhimLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWhimLocationView.swift; sourceTree = "<group>"; };
 		812112EA20632889002D80C2 /* ChatGuestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGuestCollectionViewCell.swift; sourceTree = "<group>"; };
 		812112EC20641B1D002D80C2 /* CombinationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinationView.swift; sourceTree = "<group>"; };
+		81337774206A960B00F1F657 /* FeedMapVC+Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedMapVC+Feed.swift"; sourceTree = "<group>"; };
+		81337776206A978900F1F657 /* FeedMapVC+Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedMapVC+Map.swift"; sourceTree = "<group>"; };
+		81337778206A98BD00F1F657 /* FeedMapVC+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedMapVC+Filter.swift"; sourceTree = "<group>"; };
 		8139A99C205C2E9F006C7058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8139A99E205C309F006C7058 /* Whim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Whim.swift; sourceTree = "<group>"; };
 		8139A9A1205C30D7006C7058 /* CreateWhimTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWhimTVC.swift; sourceTree = "<group>"; };
@@ -132,6 +156,7 @@
 		81903119205ADCF200932A55 /* wmsyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wmsyTests.swift; sourceTree = "<group>"; };
 		8190311B205ADCF200932A55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81A57A502068952D00E4BE0B /* DBService+Interest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DBService+Interest.swift"; sourceTree = "<group>"; };
+		81A57A5220697D7000E4BE0B /* MenuData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuData.swift; sourceTree = "<group>"; };
 		81AB7AB9205C800E009845EA /* WhimTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhimTitleTableViewCell.swift; sourceTree = "<group>"; };
 		81AB7ABB205C8024009845EA /* WhimDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhimDescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		81AB7ABD205C805A009845EA /* WhimExpirationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhimExpirationTableViewCell.swift; sourceTree = "<group>"; };
@@ -172,6 +197,7 @@
 		81D12DD820673AE60056920C /* TextInputVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputVC.swift; sourceTree = "<group>"; };
 		81D12DDA20673B1F0056920C /* InfoAndMembersCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoAndMembersCollectionVC.swift; sourceTree = "<group>"; };
 		81D12DDC20674ED70056920C /* ChatRoomVCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomVCTest.swift; sourceTree = "<group>"; };
+		81DD10A72065CCC5002BAB42 /* MapDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDetailView.swift; sourceTree = "<group>"; };
 		81DECD18205C87ED00214866 /* MenuedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuedViewController.swift; sourceTree = "<group>"; };
 		81DECD1A205C87FA00214866 /* Interactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
 		81DECD1C205C881200214866 /* MenuHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHelper.swift; sourceTree = "<group>"; };
@@ -189,10 +215,18 @@
 		81EBB58A20601939008A6CE7 /* StorageService+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageService+Image.swift"; sourceTree = "<group>"; };
 		81EBB58C20601C7E008A6CE7 /* DBService+AppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DBService+AppUser.swift"; sourceTree = "<group>"; };
 		81EBB58E20601C86008A6CE7 /* DBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBService.swift; sourceTree = "<group>"; };
+		81F9F0672065668100D288E8 /* FeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
+		81F9F069206566FD00D288E8 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
+		81F9F06B20656B1100D288E8 /* FiltersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersVC.swift; sourceTree = "<group>"; };
+		81F9F06D20656B2200D288E8 /* FiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
+		81F9F06F2065D27700D288E8 /* AddChildVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChildVC.swift; sourceTree = "<group>"; };
 		876DF1E5D004E38FACE607E8 /* Pods-wmsy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wmsy.release.xcconfig"; path = "Pods/Target Support Files/Pods-wmsy/Pods-wmsy.release.xcconfig"; sourceTree = "<group>"; };
 		932F180C2065A3F300950104 /* FloatingPopsicleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPopsicleView.swift; sourceTree = "<group>"; };
 		93495B0520603F9A0080BDBA /* ExpandedFeedCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedFeedCellView.swift; sourceTree = "<group>"; };
 		93495B07206041080080BDBA /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
+		93632550206C1597002FFAED /* WhimColorViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhimColorViewTableViewCell.swift; sourceTree = "<group>"; };
+		93D5CDAF206AB1FC00ABB3E1 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		93D5CDB1206AB20A00ABB3E1 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		A3CBD7D0321B7C36EB143EB4 /* Pods-wmsy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wmsy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-wmsy/Pods-wmsy.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -223,6 +257,17 @@
 				7ABB5CDA9ED0EA6DABA10A94 /* Pods_wmsyTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		81202D84206BEBA200CC5588 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				81202D85206BEBC200CC5588 /* MenuNavigationBarVC.swift */,
+				81202D87206BECCB00CC5588 /* MenuPagesVC.swift */,
+				81202D89206BED3C00CC5588 /* MenuProfileVC.swift */,
+				81202D8B206BEE0E00CC5588 /* MenuChatsList.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		8139A9A0205C30B6006C7058 /* CreateWhimPage */ = {
@@ -285,6 +330,7 @@
 		81AB7AC9205C9A53009845EA /* CustomTVCells */ = {
 			isa = PBXGroup;
 			children = (
+				93632550206C1597002FFAED /* WhimColorViewTableViewCell.swift */,
 				81AB7AC1205C80B4009845EA /* WhimCategoryTableViewCell.swift */,
 				81AB7AC5205C94DD009845EA /* WhimCategoryCollectionViewCell.swift */,
 				81AB7AB9205C800E009845EA /* WhimTitleTableViewCell.swift */,
@@ -311,6 +357,7 @@
 		81BAD673205AED2600C7F039 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
+				93D5CDAE206AB14A00ABB3E1 /* SplashPage */,
 				81BAD674205AED3700C7F039 /* LoginPage */,
 				81BAD679205AED7900C7F039 /* FeedMapPage */,
 				81BAD682205AEDE800C7F039 /* SideMenuPage */,
@@ -335,8 +382,16 @@
 			isa = PBXGroup;
 			children = (
 				81BAD67A205AEDAA00C7F039 /* FeedMapVC.swift */,
+				81337774206A960B00F1F657 /* FeedMapVC+Feed.swift */,
+				81337776206A978900F1F657 /* FeedMapVC+Map.swift */,
+				81337778206A98BD00F1F657 /* FeedMapVC+Filter.swift */,
+				81F9F0672065668100D288E8 /* FeedVC.swift */,
+				81F9F069206566FD00D288E8 /* MapVC.swift */,
+				81F9F06B20656B1100D288E8 /* FiltersVC.swift */,
 				81BAD67C205AEDBF00C7F039 /* FeedView.swift */,
+				81DD10A72065CCC5002BAB42 /* MapDetailView.swift */,
 				81BAD67E205AEDC800C7F039 /* MapView.swift */,
+				81F9F06D20656B2200D288E8 /* FiltersView.swift */,
 				812112EC20641B1D002D80C2 /* CombinationView.swift */,
 				811FFB5620606B5500F3312B /* CollapsedFeedCellView.swift */,
 				93495B0520603F9A0080BDBA /* ExpandedFeedCellView.swift */,
@@ -350,6 +405,7 @@
 			children = (
 				81DECD17205C878E00214866 /* SupportFiles */,
 				81DECD24205C910100214866 /* Views */,
+				81202D84206BEBA200CC5588 /* ViewControllers */,
 				81BAD690205AEF6600C7F039 /* SideMenuVC.swift */,
 				81BAD692205AEF7B00C7F039 /* MyChatsView.swift */,
 			);
@@ -405,9 +461,10 @@
 				81EBB58C20601C7E008A6CE7 /* DBService+AppUser.swift */,
 				811FFB9620615B6100F3312B /* DBService+Whim.swift */,
 				811FFB9A20616B1E00F3312B /* DBService+Message.swift */,
+				81A57A502068952D00E4BE0B /* DBService+Interest.swift */,
 				812112E020609D3F002D80C2 /* AuthUserService.swift */,
 				812112E220615BF7002D80C2 /* DBService+Get.swift */,
-				81A57A502068952D00E4BE0B /* DBService+Interest.swift */,
+				81F9F06F2065D27700D288E8 /* AddChildVC.swift */,
 				811FFB9820615B6900F3312B /* NotificationManager.swift */,
 			);
 			path = Services;
@@ -442,6 +499,7 @@
 				81DECD3120600FB000214866 /* Page.swift */,
 				81DECD1A205C87FA00214866 /* Interactor.swift */,
 				81DECD1C205C881200214866 /* MenuHelper.swift */,
+				81A57A5220697D7000E4BE0B /* MenuData.swift */,
 				81DECD1E205C882100214866 /* PresentMenuAnimator.swift */,
 				81DECD20205C882900214866 /* DismissMenuAnimator.swift */,
 			);
@@ -460,6 +518,15 @@
 				81D12DCE20641B210056920C /* FooterTabDotsView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		93D5CDAE206AB14A00ABB3E1 /* SplashPage */ = {
+			isa = PBXGroup;
+			children = (
+				93D5CDAF206AB1FC00ABB3E1 /* SplashView.swift */,
+				93D5CDB1206AB20A00ABB3E1 /* SplashViewController.swift */,
+			);
+			path = SplashPage;
 			sourceTree = "<group>";
 		};
 		B2F8ADA7007772FA5D9A5CEF /* Pods */ = {
@@ -631,6 +698,7 @@
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/TextFieldEffects/TextFieldEffects.framework",
 				"${BUILT_PRODUCTS_DIR}/Toucan/Toucan.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -649,6 +717,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TextFieldEffects.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toucan.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -718,6 +787,8 @@
 			files = (
 				81EBB58D20601C7E008A6CE7 /* DBService+AppUser.swift in Sources */,
 				81BAD6A3205AF07300C7F039 /* GuestMessageCell.swift in Sources */,
+				93D5CDB0206AB1FC00ABB3E1 /* SplashView.swift in Sources */,
+				81337777206A978900F1F657 /* FeedMapVC+Map.swift in Sources */,
 				812112E120609D3F002D80C2 /* AuthUserService.swift in Sources */,
 				812112ED20641B1D002D80C2 /* CombinationView.swift in Sources */,
 				81DECD2A205C93A300214866 /* MenuCollectionViewWrapper.swift in Sources */,
@@ -725,12 +796,16 @@
 				81DECD2E205E229E00214866 /* MenuWhimsCell.swift in Sources */,
 				81D12DD120643A920056920C /* MenuChatView.swift in Sources */,
 				81AB7AC0205C806C009845EA /* WhimLocationTableViewCell.swift in Sources */,
+				81F9F06C20656B1100D288E8 /* FiltersVC.swift in Sources */,
 				81AB7ABA205C800E009845EA /* WhimTitleTableViewCell.swift in Sources */,
 				812112E52062C856002D80C2 /* Alert.swift in Sources */,
 				81EBB58F20601C86008A6CE7 /* DBService.swift in Sources */,
 				81BAD689205AEEC300C7F039 /* AppUser.swift in Sources */,
+				81F9F0682065668100D288E8 /* FeedVC.swift in Sources */,
 				81D12DD720673AC30056920C /* ChatMessagesTableVC.swift in Sources */,
+				81337779206A98BD00F1F657 /* FeedMapVC+Filter.swift in Sources */,
 				81BAD6A1205AF06900C7F039 /* HostMessageCell.swift in Sources */,
+				81F9F0702065D27700D288E8 /* AddChildVC.swift in Sources */,
 				81BAD693205AEF7B00C7F039 /* MyChatsView.swift in Sources */,
 				81AB7AC4205C80FC009845EA /* HostAWhimButtonTableViewCell.swift in Sources */,
 				81AB7AC6205C94DD009845EA /* WhimCategoryCollectionViewCell.swift in Sources */,
@@ -739,8 +814,13 @@
 				81DECD21205C882900214866 /* DismissMenuAnimator.swift in Sources */,
 				81DECD23205C892B00214866 /* MenuViewController.swift in Sources */,
 				81BAD69D205AF04600C7F039 /* HostChatView.swift in Sources */,
+
+				93632551206C1597002FFAED /* WhimColorViewTableViewCell.swift in Sources */,
+				81202D8C206BEE0E00CC5588 /* MenuChatsList.swift in Sources */,
+				81F9F06A206566FD00D288E8 /* MapVC.swift in Sources */,
 				81B928E120617D07002CD355 /* ChatView.swift in Sources */,
 				81BAD6A5205AF08100C7F039 /* NotificationMsgCell.swift in Sources */,
+				81202D88206BECCB00CC5588 /* MenuPagesVC.swift in Sources */,
 				8139A9A2205C30D7006C7058 /* CreateWhimTVC.swift in Sources */,
 				81D12DD42065AA470056920C /* DataQueue.swift in Sources */,
 				81DECD2C205DECF900214866 /* MenuWhimsHeader.swift in Sources */,
@@ -749,11 +829,15 @@
 				81903105205ADCF200932A55 /* AppDelegate.swift in Sources */,
 				81BAD678205AED7100C7F039 /* LoginView.swift in Sources */,
 				93495B0620603F9A0080BDBA /* ExpandedFeedCellView.swift in Sources */,
+				81DD10A82065CCC5002BAB42 /* MapDetailView.swift in Sources */,
 				932F180D2065A3F300950104 /* FloatingPopsicleView.swift in Sources */,
 				81AB7AC8205C9548009845EA /* Stylesheet.swift in Sources */,
+				81F9F06E20656B2200D288E8 /* FiltersView.swift in Sources */,
 				811FFB9720615B6200F3312B /* DBService+Whim.swift in Sources */,
+				81337775206A960B00F1F657 /* FeedMapVC+Feed.swift in Sources */,
 				81DECD1B205C87FA00214866 /* Interactor.swift in Sources */,
 				812112E72062F660002D80C2 /* AddWhimLocationViewController.swift in Sources */,
+				81202D86206BEBC200CC5588 /* MenuNavigationBarVC.swift in Sources */,
 				81DECD26205C91F900214866 /* MenuProfileView.swift in Sources */,
 				81DECD19205C87ED00214866 /* MenuedViewController.swift in Sources */,
 				81BAD69F205AF05500C7F039 /* GuestChatView.swift in Sources */,
@@ -777,6 +861,8 @@
 				81BAD691205AEF6600C7F039 /* SideMenuVC.swift in Sources */,
 				81DECD1D205C881200214866 /* MenuHelper.swift in Sources */,
 				81B928E920618D76002CD355 /* LocationDetailsTableViewCell.swift in Sources */,
+				81202D8A206BED3C00CC5588 /* MenuProfileVC.swift in Sources */,
+				81A57A5320697D7000E4BE0B /* MenuData.swift in Sources */,
 				81BAD67D205AEDBF00C7F039 /* FeedView.swift in Sources */,
 				8139A9A6205C3130006C7058 /* CreateWhimView.swift in Sources */,
 				81A57A512068952D00E4BE0B /* DBService+Interest.swift in Sources */,
@@ -784,6 +870,7 @@
 				81B928E320618D41002CD355 /* CurrentUserMessageCell.swift in Sources */,
 				81EBB58B20601939008A6CE7 /* StorageService+Image.swift in Sources */,
 				81BAD68F205AEEE200C7F039 /* Message.swift in Sources */,
+				93D5CDB2206AB20A00ABB3E1 /* SplashViewController.swift in Sources */,
 				81BAD67B205AEDAA00C7F039 /* FeedMapVC.swift in Sources */,
 				81DECD3220600FB000214866 /* Page.swift in Sources */,
 				811FFB5720606B5500F3312B /* CollapsedFeedCellView.swift in Sources */,

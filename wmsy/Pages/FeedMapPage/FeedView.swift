@@ -13,6 +13,7 @@ class FeedView: UIView {
     
     lazy var tableView: UITableView = {
         let tv = UITableView()
+        tv.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
         return tv
     }()
     
@@ -26,7 +27,8 @@ class FeedView: UIView {
         commonInit()
     }
     private func commonInit() {
-        backgroundColor = UIColor(displayP3Red: 165, green: 138, blue: 189, alpha: 0.50)
+//        backgroundColor = UIColor(displayP3Red: 165, green: 138, blue: 189, alpha: 0.50)
+        self.backgroundColor = .yellow
         setUpTableView()
     }
     private func setUpTableView() {

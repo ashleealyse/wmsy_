@@ -73,6 +73,8 @@ extension LoginVC: loginViewDelegate {
                 print(error)
             case .cancelled:
                 print("User cancelled login.")
+                
+            // Logged In
             case .success(let grantedPermissions, let declinedPermissions, let accessToken):
                 SVProgressHUD.show()
                 self.connection.add(MyProfileRequest()) { response, result in
@@ -80,18 +82,41 @@ extension LoginVC: loginViewDelegate {
                     case .success(let response):
                         let cred = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
                         Auth.auth().signIn(with: cred, completion: { (user, error) in
-                            let userName = response.name
-//                            let userID = response.id
-                            let userID = user?.uid
-                            if let photoID = response.profilePictureUrl{
-                            let newUser = AppUser(name: userName!, photoID: response.profilePictureUrl! , age: "", userID: userID!, bio: "", badge: false, flags: 0)
-                                DBService.manager.addAppUser(newUser)
+                            guard let user = user else {
+                                if let error = error {
+                                    print("error logging in?")
+                                }
+                                return
                             }
-                            (self.tabBarController as? MainTabBarVC)?.animateTo(page: .feedAndMap, fromViewController: self)
-                          
-//                            let vc = FeedMapVC()
-//                            let nav = UINavigationController(rootViewController: vc)
-//                            self.present(nav, animated: true, completion: nil)
+                            // Configure rest of app
+                            DBService.manager.checkIfUserExists(userID: user.uid, completion: { (userAlreadyExists) in
+                                var currentUser: AppUser!
+                                if userAlreadyExists {
+                                    DBService.manager.getAppUser(fromID: user.uid, completion: { (appUser) in
+                                        if let appUser = appUser {
+                                            AppUser.currentAppUser = appUser
+                                            MenuData.manager.configureInitialData(forUser: appUser, completion: {
+                                                print("set up everything already")
+                                                (self.tabBarController as? MainTabBarVC)?.animateTo(page: .feedAndMap, fromViewController: self)
+                                            })
+                                        } else {
+                                            print("some other error here")
+                                        }
+                                    })
+                                } else {
+                                    let userName = response.name
+                                    let userID = user.uid
+                                    if let photoID = response.profilePictureUrl{
+                                        currentUser = AppUser(name: userName!, photoID: photoID, age: "", userID: userID, bio: "", badge: false, flags: 0, hostedWhims: [], interests: [])
+                                        AppUser.currentAppUser = currentUser
+                                        DBService.manager.addAppUser(currentUser)
+                                        MenuData.manager.configureInitialData(forUser: currentUser, completion: {
+                                            print("set up everything already")
+                                            (self.tabBarController as? MainTabBarVC)?.animateTo(page: .feedAndMap, fromViewController: self)
+                                        })
+                                    }
+                                }
+                            })
                         })
                     case .failed(let error):
                         print("Custom Graph Request Failed: \(error)")

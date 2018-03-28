@@ -11,245 +11,187 @@ import SnapKit
 import GoogleMaps
 import SVProgressHUD
 
+
 class FeedMapVC: MenuedViewController {
     
+    let toolBarHeight: CGFloat = 90.0
+    var verticalPinConstraint: Constraint? = nil
     var feedView = FeedView()
     var mapView = MapView()
+    var filtersView = FiltersView()
+    var mapUp: Bool = false
+    
+    var guestProfile = GuestProfileVC()
     var expandedRows = Set<Int>()
+    var interestButtonCounter = 0
+    
+    var currentUser = AppUser.currentAppUser
+    
+    var currentUsersInterests = Set<String>() {
+        didSet {
+            print("Current User Interests: \(currentUsersInterests.count)")
+        }
+    }
+    
+    var locationManager = CLLocationManager()
+    let categoryList = categoryTuples
+    var userLocation = CLLocation(){
+        didSet{
+            print("userLocation set")
+            DBService.manager.getClosestWhims(location: userLocation) { (whims) in
+                self.feedWhims = whims
+            }
+        }
+    }
     
     var feedWhims: [Whim] = [] {
         didSet {
+            print("number of whims to load: \(feedWhims.count)")
             feedWhims = feedWhims.sortedByTimestamp()
             feedView.tableView.reloadData()
             mapView.mapView.clear()
             for whim in feedWhims{
                 let position = CLLocationCoordinate2D(latitude: Double(whim.lat)!, longitude: Double(whim.long)!)
                 let marker = GMSMarker(position: position)
-                marker.title = whim.title
-                marker.snippet = whim.description
+                marker.userData = ["title": whim.title,
+                                   "description": whim.description,
+                                   "hostImageURL": whim.hostImageURL,
+                                   "category": whim.category,
+                                   "hostID" : whim.hostID
+                ]
                 marker.map = mapView.mapView
             }
         }
     }
     
- 
-    var locationManager = CLLocationManager()
-    var userLocation = CLLocation (){
-        didSet{
-            DBService.manager.getClosestWhims(location: userLocation) { (whims) in
-                self.feedWhims = whims
-            }
-        }
-    }
-//
-//    override func viewWillDisappear(_ animated: Bool) {
-//        self.locationManager.stopUpdatingLocation()
-//        self.mapView.mapView.isMyLocationEnabled = false
-//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        currentUser = AppUser.currentAppUser
+        if let currentUser = currentUser {
+            print("current user: \(currentUser.name)")
+            currentUsersInterests = Set(currentUser.interests.map{$0.whimID})
+        }
+        
         SVProgressHUD.dismiss()
+
+        configureNavBar()
+        
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
         locationManager.distanceFilter = 50
         locationManager.startUpdatingLocation()
         self.locationManager.delegate = self
-//<<<<<<< HEAD
-//        
-//=======
-//
-//
-//
-//>>>>>>> qa
-//        view.addSubview(mapView)
-//        let mylocation = mapView.mapView.myLocation
-//        mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
-//                                                          longitude: (mylocation?.coordinate.longitude)!,
-//                                                          zoom: mapView.zoomLevel)
-//        mapView.mapView.settings.myLocationButton = true
-//        mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
         
-        
-        
+        layoutFeedMapView()
+        layoutFiltersView()
+        layoutMapView()
+        self.mapView.detailView.isHidden = true
+        self.mapView.mapView.delegate = self
+        self.mapView.detailView.delegate = self
+    }
 
-        view.addSubview(feedView)
-
+    func layoutFeedMapView() {
+        self.view.addSubview(feedView)
 
         feedView.snp.makeConstraints { (make) in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(toolBarHeight)
         }
-        feedView.tableView.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
         feedView.tableView.dataSource = self
         feedView.tableView.delegate = self
         feedView.tableView.rowHeight = UITableViewAutomaticDimension
-        feedView.tableView.estimatedRowHeight = 90
         feedView.tableView.separatorStyle = .none
+    }
+    
+    func layoutFiltersView() {
+        view.addSubview(filtersView)
+        filtersView.snp.makeConstraints { (make) in
+            make.height.equalTo(toolBarHeight)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            self.verticalPinConstraint = make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).constraint
+        }
+        filtersView.categoriesCV.delegate = self
+        filtersView.categoriesCV.dataSource = self
+        filtersView.categoriesCV.reloadData()
+        filtersView.clearSearchButton.addTarget(self, action: #selector(clearSearch), for: .touchUpInside)
 
-        configureNavBar()
-        
+    }
+    
+    func layoutMapView() {
+        view.addSubview(mapView)
+        mapView.snp.makeConstraints { (make) in
+            make.top.equalTo(filtersView.snp.bottom)
+            make.leading.equalTo(view.safeAreaLayoutGuide)
+            make.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(feedView.snp.height)
+        }
+
+        let mylocation = mapView.mapView.myLocation
+        mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
+                                                          longitude: (mylocation?.coordinate.longitude)!,
+                                                          zoom: mapView.zoomLevel)
+        mapView.mapView.settings.myLocationButton = true
+        mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
     }
     
     
-    override func viewWillAppear(_ animated: Bool) {
-        feedView.tableView.reloadData()
-    }
-    
-    // setup UIBarButtonItem
+    // setup UIBarButtonItems
     private func configureNavBar() {
-        //        navigationItem.title = "wmsy"
-        // top left bar button item to Host a Whim (popsicles with a + symbol?)
+        navigationItem.title = "wmsy"
+        
         let topLeftBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addIcon"), style: .plain, target: self, action: #selector(hostAWhim))
         navigationItem.leftBarButtonItem = topLeftBarItem
-
-        navigationItem.title = "wmsy"
-
-
-        let topRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "wmsyCategoryIcon"), style: .plain, target: self, action: #selector(hostAChat))
+        
+        let topRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "mapIcon"), style: .plain, target: self, action: #selector(toggleMap))
         navigationItem.rightBarButtonItem = topRightBarItem
         
-
     }
     
+    
     @objc func hostAWhim() {
-        
-//        let createWhimTVC = CreateWhimTVC()
-//        createWhimTVC.modalTransitionStyle = .coverVertical
-//        createWhimTVC.modalPresentationStyle = .currentContext
-//        navigationController?.present(createWhimTVC, animated: true, completion: nil)
-        
         navigationController?.pushViewController(CreateWhimTVC(), animated: true)
     }
     
-
-
-    @objc func hostAChat() {
-        navigationController?.pushViewController(ChatRoomVC(), animated: true)
+    func pinFilterViewToBottom() {
+        filtersView.snp.makeConstraints { (make) in
+            self.verticalPinConstraint = make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).constraint
+        }
+    }
+    
+    func pinFilterViewToTop() {
+        filtersView.snp.makeConstraints { (make) in
+            self.verticalPinConstraint = make.top.equalTo(view.safeAreaLayoutGuide.snp.top).constraint
+        }
+    }
+    
+    @objc func toggleMap(sender: UIBarButtonItem) {
+        sender.isEnabled = false
+        verticalPinConstraint?.deactivate()
         
-        print("temporary testing link for WhimChat")
-    }
-    
-
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
-}
-
-extension FeedMapVC: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? FeedCell else {
-                return
+        if mapUp {
+            pinFilterViewToBottom()
+        } else {
+            pinFilterViewToTop()
         }
         
-        switch cell.isExpanded {
-        case true:
-            self.expandedRows.remove(indexPath.row)
-        default:
-            self.expandedRows.insert(indexPath.row)
-        }
-        
-        cell.isExpanded = !cell.isExpanded
-        
-        tableView.beginUpdates()
-        tableView.endUpdates()
-    }
-}
-
-extension FeedMapVC: UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return feedWhims.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "WhimFeedCell", for: indexPath) as! FeedCell
-        cell.collapsedView.delegate = self
-        cell.isExpanded = self.expandedRows.contains(indexPath.row)
-        let whim = feedWhims[indexPath.row]
-        cell.collapsedView.postTitleLabel.text = whim.title
-        cell.collapsedView.categoryIcon.image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
-        cell.collapsedView.userImageButton.imageView?.kf.setImage(with: URL(string: whim.hostImageURL), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
-            cell.collapsedView.userImageButton.setImage(image, for: .normal)
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: { (_) in
+            self.mapUp = !self.mapUp
+            sender.isEnabled = true
         })
-        cell.expandedView.postDescriptionTF.text = whim.description
-        return cell
-
-    }
-}
-
-extension FeedMapVC: CLLocationManagerDelegate{
-    
-    
-    // Handle incoming location events.
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location: CLLocation = locations.last!
-        print("Location: \(location)")
-        self.userLocation = location
-        
-        
-        
-        
-        
-//        let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
-//                                              longitude: location.coordinate.longitude,
-//                                              zoom: mapView.zoomLevel)
-//
-//        if mapView.isHidden {
-//            mapView.isHidden = false
-//            self.mapView.mapView.camera = camera
-//        } else {
-//            self.mapView.mapView.animate(to: camera)
-//        }
-        
     }
     
-    // Handle authorization for the location manager.
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .restricted:
-            print("Location access was restricted.")
-        case .denied:
-            print("User denied access to location.")
-        case .notDetermined:
-            print("Location status not determined.")
-        case .authorizedAlways: fallthrough
-        case .authorizedWhenInUse:
-            print("Location status is OK.")
+    @objc func clearSearch() {
+        DBService.manager.getClosestWhims(location: userLocation) { (whims) in
+            self.feedWhims = whims
         }
+        self.expandedRows = Set<Int>()
     }
-    
-    // Handle location manager errors.
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        self.locationManager.stopUpdatingLocation()
-        print("Error: \(error)")
-    }
-    
-}
-
-extension FeedMapVC: CollapsedFeedCellViewDelegate {
-    
-    func userProfileButtonPressed() {
-        present(GuestProfileVC(), animated: true, completion: nil)
-    }
-    
-    
-    
-    
 }

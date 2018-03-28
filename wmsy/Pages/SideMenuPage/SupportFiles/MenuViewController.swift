@@ -103,7 +103,14 @@ class MenuViewController: UIViewController {
     }
     
     public func switchTo(page: Page) {
-                (fromVC?.tabBarController as? MainTabBarVC)?.animateTo(page: page, fromViewController: self)
+        guard
+            let fromVC = fromVC,
+            let tabBarVC = (fromVC.tabBarController as? MainTabBarVC)
+            else {
+                closeMenu(sender: self)
+                return
+        }
+        tabBarVC.animateTo(page: page, fromViewController: self)
     }
     public func viewController(for page: Page) -> UIViewController? {
         return (fromVC?.tabBarController as? MainTabBarVC)?.viewController(for: page)

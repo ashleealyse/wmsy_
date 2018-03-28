@@ -9,70 +9,138 @@
 import UIKit
 import SnapKit
 
-
-class SideMenuVC: MenuViewController {
-//    var viewIsVisible: Bool = true
-//    override var prefersStatusBarHidden: Bool {
-//        return !viewIsVisible
-//    }
-    var newMenu: MenuCollectionViewWrapper!
-    var isChatRoomVisible: Bool = false {
-        didSet {
-            newMenu.menuPagesCollectionView.reloadData()
-            newMenu.dotsView.isChatRoomVisible = isChatRoomVisible
-        }
-    }
+class SideMenuVCTest: MenuViewController {
+    
+    private var hostedWhims = [Whim]()
+    private var guestWhims = [Whim]()
+    private var pendingInterests = [Interest]()
+    
+    let navVC = MenuNavigationBarVC()
+    let menuPagesVC = MenuPagesVC.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+    
+    let info = MenuData.manager
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.automaticallyAdjustsScrollViewInsets = false
+        
+        self.add(navVC)
+        self.add(menuPagesVC)
+        
+        navVC.view.snp.makeConstraints { (make) in
+            make.top.leading.trailing.equalTo(self.menuScreen)
+        }
+        menuPagesVC.view.snp.makeConstraints { (make) in
+            make.top.equalTo(navVC.view.snp.bottom)
+            make.leading.trailing.bottom.equalTo(self.menuScreen)
+        }
+        
+        //nav
+        navVC.feedButton.addTarget(self, action: #selector(goToFeed), for: .touchUpInside)
+        
+        // profile
+        if let appUser = AppUser.currentAppUser {
+            menuPagesVC.pageOne.configureWith(appUser: appUser)
+        }
+        
+        
+        // whim list
+        menuPagesVC.pageTwo.delegate = self
+        let hostedWhims = info.hostedWhims
+        let guestWhims = info.guestWhims
+        let pendingInterests = info.pendingInterests
+        menuPagesVC.pageTwo.configureWith(hostedWhims: hostedWhims, guestWhims: guestWhims, pendingInterests: pendingInterests)
+    }
+    
+    @objc private func goToFeed() {
+        if let _ = fromVC as? FeedMapVC {
+            closeMenu(sender: self)
+        } else {
+            switchTo(page: .feedAndMap)
+        }
+    }
+}
+
+extension SideMenuVCTest: MenuChatsListVCDelegate {
+    func didSelect(whim: Whim) {
+        if let vc = viewController(for: .chatRoom) as? ChatRoomVCTest {
+            vc.loadAllInitialData(forWhim: whim)
+        } else {
+            return
+        }
+        switchTo(page: .chatRoom)
+    }
+}
+// ===========================================
+// ===========================================
+// ===========================================
+// ===========================================
+// ===========================================
+// ===========================================
+// ===========================================
+// ===========================================
+// ===========================================
+// ===========================================
+// ===========================================
+// ===========================================
+// ===========================================
+// ===========================================
+class SideMenuVC: MenuViewController {
+    
+    private var hostedWhims = [Whim]()
+    private var guestWhims = [Whim]()
+    private var pendingInterests = [Interest]()
+    
+    var menuHeader = UIView()
+    var newMenu: MenuCollectionViewWrapper!
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print("viewisdidloading")
         newMenu = MenuCollectionViewWrapper(frame: menuScreen.frame)
         newMenu.menuPagesCollectionView.dataSource = self
         newMenu.menuPagesCollectionView.delegate = self
-//        newMenu.backgroundColor = Stylesheet.Colors.WMSYMummysTomb
+        menuScreen.addSubview(menuHeader)
         menuScreen.addSubview(newMenu)
-        newMenu.snp.makeConstraints { (make) in
-            make.edges.equalTo(menuScreen)
+        
+        menuHeader.snp.makeConstraints { (make) in
+            if let navBarHeight = fromVC?.navigationController?.navigationBar.frame.height,
+                let navBarOrigin = fromVC?.navigationController?.navigationBar.frame.origin.y {
+                make.height.equalTo(navBarHeight + navBarOrigin)
+            } else {
+                make.height.equalTo(64)
+            }
+            make.top.leading.trailing.equalTo(menuScreen)
         }
-//        newMenu = MenuCollectionViewWrapper(frame: view.frame)
-//        view.insertSubview(newMenu, belowSubview: snapShotOfMenuedViewController)
-//        view.bringSubview(toFront: snapShotOfMenuedViewController)
-        // Do any additional setup after loading the view.
+        newMenu.snp.makeConstraints { (make) in
+            make.top.equalTo(menuHeader.snp.bottom)
+            make.leading.trailing.bottom.equalTo(menuScreen)
+        }
+        
+        // setup Header
+        let touchRecognizer = UITapGestureRecognizer(target: self, action: #selector(goToFeed))
+        menuHeader.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
+        menuHeader.addGestureRecognizer(touchRecognizer)
     }
-    
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//        print(newMenu.bounds.height)
-//        newMenu.layoutStuff()
-//    }
-//    override func viewWillLayoutSubviews() {
-//        super.viewWillLayoutSubviews()
-//        print(newMenu.bounds.height)
-//    }
+    @objc private func goToFeed() {
+        if let _ = fromVC as? FeedMapVC {
+            closeMenu(sender: self)
+        } else {
+            switchTo(page: .feedAndMap)
+        }
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("view is willappearing")
-//        viewIsVisible = true
-//        UIView.animate(withDuration: 0.5) {
-//            self.setNeedsStatusBarAppearanceUpdate()
-//        }
+        print("viewiswillappearing")
+        // TODO: load data from MenuData
+        loadMenuInfo()
+    }
+    private func loadMenuInfo() {
+        let info = MenuData.manager
+        hostedWhims = info.hostedWhims
+        guestWhims = info.guestWhims
+        pendingInterests = info.pendingInterests
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-//        self.viewIsVisible = true
-//        UIView.animate(withDuration: 0.1) {
-//            self.setNeedsStatusBarAppearanceUpdate()
-//        }
-//        navigationController.set
-//        super.viewDidAppear(animated)
-//        print(newMenu.bounds.height)
-//        newMenu.layoutStuff()
-    }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-//        viewIsVisible = false
-//        prefersStatusBarHidden = false
-    }
+    
     private var lastContentOffset: CGFloat = 0
 }
 
@@ -81,7 +149,7 @@ extension SideMenuVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLa
         return 0
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return isChatRoomVisible ? 3 : 2
+        return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -105,19 +173,8 @@ extension SideMenuVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLa
         }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return menuScreen.bounds.size
+        return collectionView.bounds.size
     }
-//    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-//        if scrollView == newMenu.menuPagesCollectionView {
-//            print("scrolling collection view")
-//            if let pageIndex = newMenu.menuPagesCollectionView.indexPathsForVisibleItems.first {
-//                newMenu.currentlyOn(page: pageIndex.item)
-//            }
-//        }
-//        else {
-//            print("scrolling table view")
-//        }
-//    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == newMenu.menuPagesCollectionView {
@@ -134,35 +191,9 @@ extension SideMenuVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLa
         else {
             print("scrolling table view")
         }
-//        if (self.lastContentOffset > scrollView.contentOffset.y) {
-//            // move up
-//        }
-//        else if (self.lastContentOffset < scrollView.contentOffset.y) {
-//            // move down
-//        }
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-//        let targetContentOffset = scrollView.contentOffset
-////        float pageWidth = (float)self.articlesCollectionView.bounds.size.width;
-//        let pageWidth = newMenu.menuPagesCollectionView.bounds.size.width
-////        int minSpace = 10;
-//        let minSpace: CGFloat = 10
-////
-////        int cellToSwipe = (scrollView.contentOffset.x)/(pageWidth + minSpace) + 0.5; // cell width + min spacing for lines
-//        var cellToSwipe = (scrollView.contentOffset.x) / (pageWidth + minSpace) + 0.5
-////        if (cellToSwipe < 0) {
-////            cellToSwipe = 0;
-////        } else if (cellToSwipe >= self.articles.count) {
-////            cellToSwipe = self.articles.count - 1;
-////        }
-//        if cellToSwipe < 0 {
-//            cellToSwipe = 0
-//        } else if cellToSwipe >= 2 { // should represent datasource.count
-//            cellToSwipe = 1 // should be last index of datasource
-//        }
-//        newMenu.menuPagesCollectionView.scrollToItem(at: IndexPath.init(row: Int(cellToSwipe), section: 0), at: .left, animated: true)
-////        [self.articlesCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:cellToSwipe inSection:0] atScrollPosition:UICollectionViewScrollPositionLeft animated:YES];
     }
 }
 
@@ -194,16 +225,11 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MenuWhimsView.cellIdentifier, for: indexPath) as? MenuWhimsCell else {
             return
         }
-//        isChatRoomVisible = true
-//        newMenu.currentlyOn(page: 2)
-//        let chatRoomIndexPath = IndexPath.init(row: 2, section: 0)
-//        newMenu.menuPagesCollectionView.scrollToItem(at: chatRoomIndexPath, at: .right, animated: true)
         if let vc = viewController(for: .chatRoom) as? ChatRoomVCTest {
             let whim = Whim.init(id: "-L8JoE-G-U1uGGYyt4X5", category: "wmsy", title: "Pictures please", description: ":D", hostID: "mdH6CJXxDkYBqhfjjptVnTpMp3g2", hostImageURL: "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/29366139_128316311338085_2672539358371774464_n.jpg?_nc_cat=0&oh=3df47771fb34edb538211510eaa9dff9&oe=5B4431F0", location: "142 West 46th Street New York, NY 10036", long: "-73.9841802790761", lat: "40.7578242106358", duration: 2, expiration: "March 23, 2018 at 7:43:21 PM EDT", finalized: false, timestamp: "March 23, 2018 at 5:43:21 PM EDT", whimChats: [])
             vc.loadAllInitialData(forWhim: whim)
         }
         switchTo(page: .chatRoom)
-//        (tabBarController as? MainTabBarVC)?.animateTo(page: .chatRoom, fromViewController: self)
     }
 }
 
