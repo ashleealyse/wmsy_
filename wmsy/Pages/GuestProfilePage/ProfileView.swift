@@ -94,8 +94,8 @@ class ProfileView: UIView {
     private func setupBadgeView() {
         containerView.addSubview(badgeView)
         badgeView.snp.makeConstraints { (make) in
-            make.top.equalTo(containerView).offset(10)
-            make.trailing.equalTo(containerView).offset(-12)
+            make.top.equalTo(containerView).offset(8)
+            make.trailing.equalTo(containerView).offset(-8)
             make.width.equalTo(self).multipliedBy(0.1)
             make.height.equalTo(self.snp.width).multipliedBy(0.1)
         }
@@ -103,10 +103,10 @@ class ProfileView: UIView {
     private func setupProfileImageView() {
         containerView.addSubview(profileImageView)
         profileImageView.snp.makeConstraints { (make) in
-            make.top.equalTo(containerView.snp.top).offset(0.5)
+            make.top.equalTo(containerView.snp.top)
             make.leading.equalTo(containerView.snp.leading)
             make.width.equalTo(containerView.snp.width).multipliedBy(0.6)
-            make.bottom.equalTo(containerView).offset(-0.5)
+            make.bottom.equalTo(containerView)
 
             
         }
@@ -126,7 +126,7 @@ class ProfileView: UIView {
             make.leading.equalTo(profileImageView.snp.trailing)
             make.trailing.equalTo(containerView.snp.trailing)
             make.bottom.equalTo(containerView.snp.bottom)
-            make.height.equalTo(profileImageView.snp.height).multipliedBy(0.6)
+            make.height.equalTo(profileImageView.snp.height).multipliedBy(0.8)
         }
     }
     
