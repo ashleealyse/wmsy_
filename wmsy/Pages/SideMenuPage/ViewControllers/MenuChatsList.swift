@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 
 protocol MenuChatsListVCDelegate: class {
+    func didSelect(whim: Whim) -> Void
 }
 
 class MenuChatsListVC: UIViewController {
@@ -18,6 +19,8 @@ class MenuChatsListVC: UIViewController {
     private var hostedWhims = [Whim]()
     private var guestWhims = [Whim]()
     private var pendingInterests = [Interest]()
+    
+    weak var delegate: MenuChatsListVCDelegate?
     
     
     override func viewDidLoad() {
@@ -29,6 +32,12 @@ class MenuChatsListVC: UIViewController {
         
         chatsListTableView.dataSource = self
         chatsListTableView.delegate = self
+        chatsListTableView.rowHeight = UITableViewAutomaticDimension
+        chatsListTableView.sectionHeaderHeight = UITableViewAutomaticDimension
+        chatsListTableView.estimatedSectionHeaderHeight = 50
+        chatsListTableView.estimatedRowHeight = 50
+        
+        
         
         chatsListTableView.snp.makeConstraints { (make) in
             make.edges.equalTo(view)
@@ -92,6 +101,21 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
             break
         }
         return cell
+    }
+    // MARK: - Delegate Methods
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 0:
+            let whim = hostedWhims[indexPath.row]
+            delegate?.didSelect(whim: whim)
+        case 1:
+            let whim = guestWhims[indexPath.row]
+            delegate?.didSelect(whim: whim)
+        case 2:
+            return
+        default:
+            return
+        }
     }
 }
 

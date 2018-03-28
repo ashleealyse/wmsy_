@@ -44,6 +44,7 @@ class SideMenuVCTest: MenuViewController {
         
         
         // whim list
+        menuPagesVC.pageTwo.delegate = self
         let hostedWhims = info.hostedWhims
         let guestWhims = info.guestWhims
         let pendingInterests = info.pendingInterests
@@ -57,9 +58,18 @@ class SideMenuVCTest: MenuViewController {
             switchTo(page: .feedAndMap)
         }
     }
-    
 }
 
+extension SideMenuVCTest: MenuChatsListVCDelegate {
+    func didSelect(whim: Whim) {
+        if let vc = viewController(for: .chatRoom) as? ChatRoomVCTest {
+            vc.loadAllInitialData(forWhim: whim)
+        } else {
+            return
+        }
+        switchTo(page: .chatRoom)
+    }
+}
 // ===========================================
 // ===========================================
 // ===========================================
