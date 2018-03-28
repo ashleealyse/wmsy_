@@ -20,7 +20,7 @@ class MenuedViewController: UIViewController {
     
     @IBAction func openMenu(sender: AnyObject) {
         //        performSegueWithIdentifier("openMenu", sender: nil)
-        let menu = SideMenuVC()
+        let menu = SideMenuVCTest()
         menu.transitioningDelegate = self
         menu.interactor = interactor
         menu.fromVC = self
@@ -80,7 +80,7 @@ class MenuedViewController: UIViewController {
             progress: progress,
             interactor: interactor){
                 //                self.performSegueWithIdentifier("openMenu", sender: nil)
-                let menu = SideMenuVC()
+                let menu = SideMenuVCTest()
                 menu.transitioningDelegate = self
                 menu.interactor = interactor
                 menu.fromVC = self
