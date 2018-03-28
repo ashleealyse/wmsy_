@@ -10,16 +10,27 @@ import UIKit
 import SnapKit
 
 protocol InfoAndMembersCollectionVCDelegate: class {
-    
+    func toggleUser(user: AppUser)
 }
 
 class InfoAndMembersCollectionVC: UIViewController {
     
     private var membersCollectionView: UICollectionView!
-    private var members = [AppUser]()
+    private var memberInfoView: ChatInfoView!
+    
+    private var members = [AppUser]() {
+        didSet {
+            print("members: \(members)")
+        }
+    }
     private var inChat = [String: Bool]()
     
     private var isShowingInfo = false
+    private var currentSelectedUser: AppUser? {
+        didSet {
+            print("Current Selected User: \(currentSelectedUser?.name ?? "No Current Selected User")")
+        }
+    }
     
     public weak var delegate: InfoAndMembersCollectionVCDelegate?
     
@@ -35,18 +46,44 @@ class InfoAndMembersCollectionVC: UIViewController {
         super.viewDidLoad()
         self.view.translatesAutoresizingMaskIntoConstraints = false
         
+        
         // setup collectionView
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         membersCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         membersCollectionView.dataSource = self
         membersCollectionView.delegate = self
+        membersCollectionView.register(ChatGuestCollectionViewCell.self, forCellWithReuseIdentifier: "ChatGuestCell")
+        membersCollectionView.backgroundColor = .yellow
+        
+        memberInfoView = ChatInfoView()
+        memberInfoView.backgroundColor = .cyan
+        
+        
+        
+        
         
         self.view.addSubview(membersCollectionView)
         membersCollectionView.snp.makeConstraints { (make) in
-            make.height.equalTo(150)
-            make.edges.equalTo(self.view)
+            make.height.equalTo(50)
+            make.leading.trailing.top.equalTo(self.view.safeAreaLayoutGuide)
         }
+        
+        self.view.addSubview(memberInfoView)
+        memberInfoView.snp.makeConstraints { (make) in
+            make.height.equalTo(100)
+            make.leading.trailing.equalTo(membersCollectionView)
+            make.top.equalTo(membersCollectionView.snp.bottom)
+        }
+        
+    }
+    
+    
+    
+    @objc func toggle() {
+        
+        // idk if this does anything
+        delegate?.toggleUser(user: currentSelectedUser!)
     }
     
     
@@ -54,12 +91,17 @@ class InfoAndMembersCollectionVC: UIViewController {
 
 extension InfoAndMembersCollectionVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return members.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = UICollectionViewCell()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChatGuestCell", for: indexPath) as! ChatGuestCollectionViewCell
         let user = members[indexPath.row]
+        let userImagePhotoIDString = user.photoID
+        let userImagePhotoIDurl = URL(string: userImagePhotoIDString)
+        cell.guestImageView.kf.setImage(with: userImagePhotoIDurl)
+        cell.guestImageView.kf.indicatorType = .activity
+        cell.isSelected = true
         cell.backgroundColor = (inChat[user.userID] ?? false) ? .blue : .red
         return cell
     }
@@ -70,5 +112,15 @@ extension InfoAndMembersCollectionVC: UICollectionViewDataSource, UICollectionVi
         return cellSize
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)  as! ChatGuestCollectionViewCell
+        let user = members[indexPath.row]
+//        let guestImagePhotoIDString = guest.photoID
+//        let guestImagePhotoIDurl = URL(string: guestImagePhotoIDString)
+//        cell.guestImageView.kf.setImage(with: guestImagePhotoIDurl)
+//        cell.guestImageView.kf.indicatorType = .activity
+//        cell.isSelected = true
+        currentSelectedUser = user
+    }
 }
 

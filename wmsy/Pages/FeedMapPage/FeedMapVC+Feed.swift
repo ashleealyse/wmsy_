@@ -102,14 +102,14 @@ extension FeedMapVC: FeedCellViewDelegate {
         let interests = getInterestKeys(appUser: AppUser.currentAppUser!)
         if interests.contains(whim.id){
             //User is interested
-            print("Current User: \(currentUser?.name) Is NOT Interested in \(whim.id)")
+            print("Current User: \(currentUser?.name ?? "No current user") Is NOT Interested in Whim #: \(whim.id) by Host: \(whim.hostID)")
             let indexPath = IndexPath.init(row: returnIndex(whim: whim), section: 0)
             let cell = self.feedView.tableView.cellForRow(at: indexPath) as? FeedCell
             DBService.manager.removeInterest(forWhim: whim)
             self.feedView.tableView.reloadData()
         } else {
             //User is not interested
-            print("Current User: \(currentUser?.name ?? "No current user") is Interested in \(whim.id)")
+            print("Current User: \(currentUser?.name ?? "No current user") is Interested in Whim #: \(whim.id) by Host: \(whim.hostID)")
             DBService.manager.addInterest(forWhim: whim)
             let indexPath = IndexPath.init(row: returnIndex(whim: whim), section: 0)
             let cell = self.feedView.tableView.cellForRow(at: indexPath) as? FeedCell
