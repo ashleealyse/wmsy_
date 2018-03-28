@@ -88,25 +88,10 @@ class FeedMapVC: MenuedViewController {
         layoutFiltersView()
         layoutMapView()
     }
-    
-<<<<<<< HEAD
-    override func viewDidAppear(_ animated: Bool) {
-        
-        let height = view.safeAreaLayoutGuide.layoutFrame.height
-        let width = view.safeAreaLayoutGuide.layoutFrame.width
-        let x = view.frame.origin.x
-        let y = height - (height * toolBarHeightMultiplier)
-        let startingContainerFrame = CGRect(x: x, y: y, width: width, height: height)
-        containerView = UIView.init(frame: startingContainerFrame)
-        
-        view.addSubview(feedView)
-        view.addSubview(containerView)
-        containerView.addSubview(filtersView)
-        containerView.addSubview(mapView)
-=======
+
     func layoutFeedMapView() {
         self.view.addSubview(feedView)
->>>>>>> qa
+
         feedView.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
@@ -142,16 +127,14 @@ class FeedMapVC: MenuedViewController {
             make.trailing.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(feedView.snp.height)
         }
-<<<<<<< HEAD
-        super.viewDidAppear(animated)
-=======
+
         let mylocation = mapView.mapView.myLocation
         mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
                                                           longitude: (mylocation?.coordinate.longitude)!,
                                                           zoom: mapView.zoomLevel)
         mapView.mapView.settings.myLocationButton = true
         mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
->>>>>>> qa
+
     }
     
     
