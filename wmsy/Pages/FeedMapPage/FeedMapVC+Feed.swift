@@ -87,7 +87,7 @@ extension FeedMapVC: FeedCellViewDelegate {
         interestButtonCounter += 1
         if interestButtonCounter % 2 == 0 {
             //User is interested
-            print("Current User: \(currentUser?.name) Is NOT Interested in Whim #: \(whim.id) by Host: \(whim.hostID)")
+            print("Current User: \(currentUser?.name ?? "No current user") Is NOT Interested in Whim #: \(whim.id) by Host: \(whim.hostID)")
             DBService.manager.removeInterest(forWhim: whim)
             
 
