@@ -60,11 +60,18 @@ extension FeedMapVC: UITableViewDataSource {
         }else{
             cell.expandedView.interestedButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
         }
-            
-     
-
+        
+        if whim.hostID == AppUser.currentAppUser?.userID{
+            cell.expandedView.interestLabel.isHidden = true
+            cell.expandedView.interestedButton.isHidden = true
+            return cell
+        }
+        cell.expandedView.interestLabel.isHidden = false
+        cell.expandedView.interestedButton.isHidden = false
         return cell
     }
+    
+    
     
     public func getInterestKeys(appUser: AppUser) -> [String]{
         var interests = appUser.interests

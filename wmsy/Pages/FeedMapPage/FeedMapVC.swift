@@ -96,9 +96,17 @@ class FeedMapVC: MenuedViewController {
         self.mapView.detailView.delegate = self
     }
 
+
     
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
+
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("removing live feed updates")
+        DBService.manager.whimsRef.removeAllObservers()
+
     }
     
     func layoutFeedMapView() {

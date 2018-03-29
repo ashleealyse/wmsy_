@@ -22,7 +22,7 @@ class MenuPagesVC: UIPageViewController {
         self.dataSource = self
         self.delegate = self
         
-        if let firstVC = menuPages.first
+        if let firstVC = menuPages.last
         {
             setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
         }
