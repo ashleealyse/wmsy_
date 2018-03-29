@@ -106,15 +106,29 @@ extension LoginVC: loginViewDelegate {
                                 } else {
                                     let userName = response.name
                                     let userID = user.uid
-                                    if let photoID = response.profilePictureUrl{
-                                        currentUser = AppUser(name: userName!, photoID: photoID, age: "", userID: userID, bio: "", badge: false, flags: 0, hostedWhims: [], interests: [])
+                                    var imageView = UIImageView()
+                                    imageView.kf.setImage(with: URL(string: response.profilePictureUrl!), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+                                        
+                                       let photoID = StorageService.manager.storeUserImage(image: image, userID: userID)
+                                        
+                                        
+                                        currentUser = AppUser(name: userName!, photoID: photoID!, age: "", userID: userID, bio: "", badge: false, flags: 0, hostedWhims: [], interests: [])
                                         AppUser.currentAppUser = currentUser
                                         DBService.manager.addAppUser(currentUser)
                                         MenuData.manager.configureInitialData(forUser: currentUser, completion: {
                                             print("set up everything already")
                                             (self.tabBarController as? MainTabBarVC)?.animateTo(page: .feedAndMap, fromViewController: self)
                                         })
-                                    }
+                                        
+                                        
+                                    })
+                                    
+                                
+                                    
+                                    
+                                    
+                                   
+                                
                                 }
                             })
                         })

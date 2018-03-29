@@ -829,7 +829,6 @@
 				81DECD21205C882900214866 /* DismissMenuAnimator.swift in Sources */,
 				81DECD23205C892B00214866 /* MenuViewController.swift in Sources */,
 				81BAD69D205AF04600C7F039 /* HostChatView.swift in Sources */,
-
 				93632551206C1597002FFAED /* WhimColorViewTableViewCell.swift in Sources */,
 				81202D8C206BEE0E00CC5588 /* MenuChatsList.swift in Sources */,
 				81F9F06A206566FD00D288E8 /* MapVC.swift in Sources */,
