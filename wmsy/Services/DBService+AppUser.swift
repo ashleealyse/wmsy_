@@ -104,6 +104,11 @@ extension DBService {
             print("loop finished")
         }
     }
+    public func updateBio(_ bio: String, forUser user: AppUser) {
+        let ref = usersRef.child(user.userID).child("bio")
+        ref.setValue(bio)
+        print("should have updated the bio")
+    }
 }
 
 

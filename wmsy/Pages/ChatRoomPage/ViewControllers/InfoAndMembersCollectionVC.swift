@@ -66,7 +66,7 @@ class InfoAndMembersCollectionVC: UIViewController {
         self.view.addSubview(membersCollectionView)
         membersCollectionView.snp.makeConstraints { (make) in
             make.height.equalTo(50)
-            make.leading.trailing.top.equalTo(self.view.safeAreaLayoutGuide)
+            make.leading.trailing.top.equalTo(self.view)
         }
         
         self.view.addSubview(memberInfoView)
@@ -74,6 +74,7 @@ class InfoAndMembersCollectionVC: UIViewController {
             make.height.equalTo(100)
             make.leading.trailing.equalTo(membersCollectionView)
             make.top.equalTo(membersCollectionView.snp.bottom)
+            make.bottom.equalTo(view)
         }
         
     }
