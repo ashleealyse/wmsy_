@@ -94,7 +94,13 @@ class FeedMapVC: MenuedViewController {
         self.mapView.mapView.delegate = self
         self.mapView.detailView.delegate = self
     }
-
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("removing live feed updates")
+        DBService.manager.whimsRef.removeAllObservers()
+    }
+    
     func layoutFeedMapView() {
         self.view.addSubview(feedView)
 

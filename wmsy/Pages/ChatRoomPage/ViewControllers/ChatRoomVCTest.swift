@@ -103,7 +103,8 @@ class ChatRoomVCTest: MenuedViewController {
     }
     
     // To be called anytime a (different) chat is being presented
-    public func loadAllInitialData(forWhim whim: Whim) {
+    public func loadAllInitialData(forWhim whim: Whim,
+                                   completion: @escaping () -> Void) {
         if self.whim != nil {
             guard whim.id != self.whim!.id else {
                     return
@@ -111,12 +112,16 @@ class ChatRoomVCTest: MenuedViewController {
         }
         
         self.whim = whim
+        let group = DispatchGroup()
+        group.enter()
         // TODO: get all whim messages
         DBService.manager.getAllMessages(forWhim: whim) { (messages) in
             self.whim!.whimChats = messages
             self.chatTVC.configureWith(self.whim!)
+            group.leave()
         }
         // TODO: get all interests associated with the whim
+        group.enter()
         DBService.manager.getAllInterests(forWhim: whim) { (interests) in
             self.interests = interests
             var interestDict = [String: Bool]()
@@ -129,9 +134,12 @@ class ChatRoomVCTest: MenuedViewController {
             DBService.manager.getAppUsers(fromList: userIDs) { (users) in
                 self.interestedUsers = users
                 self.membersCollectionVC.configureWith(members: users, andPermissions: interestDict)
+                group.leave()
             }
         }
-        
+        group.notify(queue: .main) {
+            completion()
+        }
         // TODO: hand off that data to childVCs
     }
     private var messageHandle: DatabaseReference!
@@ -170,7 +178,7 @@ class ChatRoomVCTest: MenuedViewController {
             self.interests.append(interest)
             DBService.manager.getAppUser(fromID: interest.userID, completion: { (user) in
                 if let user = user,
-                    user.userID != self.membersCollectionVC.lastMemberID {
+                self.membersCollectionVC.inChat[user.userID] == nil {
                     self.membersCollectionVC.new(interestedUser: user)
                     self.addInChatListener(forUser: user)
                 }
@@ -188,7 +196,7 @@ class ChatRoomVCTest: MenuedViewController {
             self.newUserInChatHandles[userID]?.removeAllObservers()
             DBService.manager.getAppUser(fromID: userID, completion: { (user) in
                 if let user = user {
-                    DBService.manager.addMessage(text: "\(user.name) has left", fromUserID: nil, toWhim: whim)
+                    DBService.manager.addMessage(text: "\(user.name) has left", ofType: .notification, fromUserID: nil, toWhim: whim)
                 }
             })
         }
