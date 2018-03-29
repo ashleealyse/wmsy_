@@ -11,7 +11,7 @@ import UIKit
 class OtherUserMessageCell: UITableViewCell {
     
     static let reuseIdentifier = "GuestMessageTableViewCell"
-    private var profileImageView = UIImageView()
+    public var profileImageView = UIImageView()
     private var textContainer = UIView()
     public var messageText = UILabel()
     
@@ -53,21 +53,20 @@ class OtherUserMessageCell: UITableViewCell {
         textContainer.snp.makeConstraints { (make) in
             make.leading.equalTo(profileImageView.snp.trailing).offset(16)
 //            make.trailing.equalTo(contentView).offset(-50)
-            make.trailing.lessThanOrEqualTo(contentView).offset(-70)
+            make.trailing.equalTo(contentView).offset(-70)
             make.top.equalTo(profileImageView)
             make.bottom.equalTo(contentView.layoutMarginsGuide)
         }
     }
     private func setupMessageText() {
-        messageText.numberOfLines = 0
+        messageText.numberOfLines = 10
         textContainer.addSubview(messageText)
         messageText.snp.makeConstraints { (make) in
-            make.edges.equalTo(textContainer.layoutMarginsGuide)
+            make.edges.equalTo(textContainer).inset(5)
         }
     }
     private func placeholderTesting() {
         selectionStyle = .none
-        messageText.text = "oqiudfboasiudf"
         profileImageView.backgroundColor = .red
         textContainer.backgroundColor = .blue
     }
