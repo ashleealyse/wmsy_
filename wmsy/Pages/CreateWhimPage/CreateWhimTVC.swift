@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class CreateWhimTVC: UITableViewController, setAddressDelegate {
     func setAddress(atAddress: String) {
@@ -38,7 +39,7 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
         self.tableView.estimatedRowHeight = 100
         self.tableView.allowsSelection = false
         self.tableView.bounces = false
-        self.tableView.separatorStyle = .none
+//        self.tableView.separatorStyle = .singleLine
 //        self.tableView.separatorColor = Stylesheet.Colors.WMSYOuterSpace
         self.tableView.register(WhimColorViewTableViewCell.self, forCellReuseIdentifier: "ColorViewCell")
         self.tableView.register(WhimCategoryTableViewCell.self, forCellReuseIdentifier: "CategoryCell")
@@ -109,10 +110,17 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
             return descriptionCell
         case 4:
             let locationCell = tableView.dequeueReusableCell(withIdentifier: "LocationCell", for: indexPath) as! WhimLocationTableViewCell
-
+            
             locationCell.selectLocationButton.addTarget(self, action: #selector(selectLocation), for: .touchUpInside)
-            locationCell.addressLabel.text = "Meeting Location: " + whimLocation
-          return locationCell
+            if whimLocation == "" {
+                locationCell.addressLabel.text = "Drop Pin"
+                locationCell.addressLabel.textAlignment = .left
+            } else {
+                locationCell.addressLabel.text = whimLocation
+                locationCell.addressLabel.textAlignment = .center
+                
+            }
+            return locationCell
         case 5:
             let expirationCell = tableView.dequeueReusableCell(withIdentifier: "ExpirationCell", for: indexPath) as! WhimExpirationTableViewCell
             expirationCell.hourPickerView.dataSource = self
@@ -283,6 +291,7 @@ extension CreateWhimTVC: UIPickerViewDataSource, UIPickerViewDelegate {
 //            print("\(hourIndex + 1) hours until Whim expires")
 //        }
     }
+
     
 }
 

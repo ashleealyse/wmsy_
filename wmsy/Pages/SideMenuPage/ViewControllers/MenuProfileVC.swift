@@ -24,7 +24,7 @@ class MenuProfileVC: UIViewController {
     public func configureWith(appUser: AppUser) {
         guard let url = URL(string: appUser.photoID) else {return}
         profileView.profileImageView.kf.setImage(with: url)
-        profileView.bioLabel.text = appUser.bio
+        profileView.bioTextView.text = appUser.bio
         profileView.nameLabel.text = appUser.name
     }
 }

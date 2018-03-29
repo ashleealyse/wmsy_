@@ -9,22 +9,15 @@
 import UIKit
 import SnapKit
 
-//protocol CollapsedFeedCellViewDelegate: class {
-//    func userProfileButtonPressed()
-//}
 
 class CollapsedFeedCellView: UIView {
     
     let profileView = ProfileView()
     
-//    weak var delegate: CollapsedFeedCellViewDelegate?
-    
     lazy var userImageButton: UIButton = {
         let button = UIButton()
         button.imageView?.contentMode = .scaleToFill
-        button.layer.borderWidth = 1.0
         button.clipsToBounds = true
-//        button.addTarget(self, action: #selector(userProfileImageClicked), for: .touchUpInside)
         return button
     }()
     
@@ -37,10 +30,6 @@ class CollapsedFeedCellView: UIView {
         let image = UIImageView()
         return image
     }()
-    
-//    @objc func userProfileImageClicked(){
-//        self.delegate?.userProfileButtonPressed()
-//    }
     
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
