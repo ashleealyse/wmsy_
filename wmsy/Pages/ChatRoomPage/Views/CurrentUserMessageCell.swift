@@ -62,10 +62,11 @@ class CurrentUserMessageCell: UITableViewCell {
         }
     }
     private func setupMessageText() {
-        messageText.numberOfLines = 10
+        messageText.numberOfLines = 0
         textContainer.addSubview(messageText)
         messageText.snp.makeConstraints { (make) in
             make.edges.equalTo(textContainer).inset(5)
+            messageText.sizeToFit()
         }
     }
     private func placeholderTesting() {
