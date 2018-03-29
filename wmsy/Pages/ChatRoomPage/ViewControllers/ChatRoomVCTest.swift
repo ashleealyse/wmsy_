@@ -188,9 +188,9 @@ extension ChatRoomVCTest: ChatInfoViewDelegate {
         let member = members[index]
         let interests = member.interests.filter{$0.whimID == whimID}
         if interests[0].inChat {
-            inviteToWhimChat(member: member)
-        } else {
             removeFromWhimChat(member: member)
+        } else {
+            inviteToWhimChat(member: member)
         }
         print("Member Modified: \(member.name)")
     }
