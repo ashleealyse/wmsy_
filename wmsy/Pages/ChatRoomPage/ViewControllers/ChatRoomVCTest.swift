@@ -24,7 +24,11 @@ class ChatRoomVCTest: MenuedViewController {
     private var interests = [Interest]()
     private var interestedUsers = [AppUser]()
     
-    
+    private var members = [AppUser]() {
+        didSet {
+            print("members: \(members)")
+        }
+    }
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +42,7 @@ class ChatRoomVCTest: MenuedViewController {
         chatTVC.delegate = self
         textInputVC.delegate = self
         
-        chatTVC.configureWith(whim!)
+        membersCollectionVC.memberInfoView.delegate = self
         
         setupSubviewsConstraints()
         setupKeyboardHandling()
@@ -46,9 +50,12 @@ class ChatRoomVCTest: MenuedViewController {
         DataQueue.manager.delegate = self
         DataQueue.manager.startSendingData()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupObservers()
+        chatTVC.configureWith(whim!)
+        membersCollectionVC.configureWith(whim!)
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -66,7 +73,7 @@ class ChatRoomVCTest: MenuedViewController {
 //        on one screen
         
         membersCollectionVC.view.snp.makeConstraints { (make) in
-            make.top.leading.trailing.equalTo(self.view)
+            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
         chatTVC.view.snp.makeConstraints { (make) in
             make.top.equalTo(membersCollectionVC.view.snp.bottom)
@@ -152,6 +159,10 @@ class ChatRoomVCTest: MenuedViewController {
 
 // MARK: - childVCs delegate methods implementation
 extension ChatRoomVCTest: ChatMessagesTableVCDelegate, TextInputVCDelegate, InfoAndMembersCollectionVCDelegate {
+    func updateMembers(members: [AppUser]) {
+        self.members = members
+    }
+    
     func toggleUser(user: AppUser) {
         print("ChatRoomVCTest - user: \(user)")
     }
@@ -171,5 +182,27 @@ extension ChatRoomVCTest: DataReceiver {
 }
 
 
-
+extension ChatRoomVCTest: ChatInfoViewDelegate {
+    func inviteOrRemoveUserPressed(sender: UIButton) {
+        let index = sender.tag
+        let member = members[index]
+        let interests = member.interests.filter{$0.whimID == whimID}
+        if interests[0].inChat {
+            inviteToWhimChat(member: member)
+        } else {
+            removeFromWhimChat(member: member)
+        }
+        print("Member Modified: \(member.name)")
+    }
+    
+    
+    func inviteToWhimChat(member: AppUser) {
+        print("invite to chat: \(member.name)")
+    }
+    
+    func removeFromWhimChat(member: AppUser) {
+        print("remove from chat: \(member.name)")
+    }
+    
+}
 

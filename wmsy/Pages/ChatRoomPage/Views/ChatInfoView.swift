@@ -9,6 +9,12 @@
 import UIKit
 import SnapKit
 
+protocol ChatInfoViewDelegate: class {
+    func inviteOrRemoveUserPressed(sender: UIButton)
+    
+    
+}
+
 class ChatInfoView: UIView {
 
     lazy var shortLabel: UILabel = {
@@ -30,10 +36,18 @@ class ChatInfoView: UIView {
     lazy var inviteButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .green
-        button.setTitle("Invite", for: .normal)
-        button.setTitle("Remove", for: .selected)
+//        button.setTitle("Invite", for: .normal)
+        button.addTarget(self, action: #selector(inviteUser), for: .touchUpInside)
         return button
     }()
+    
+    
+    weak var delegate: ChatInfoViewDelegate?
+    
+    @objc func inviteUser() {
+        self.delegate?.inviteOrRemoveUserPressed(sender: self.inviteButton)
+        print("Invite Button Pressed")
+    }
     
     
     // setup custom view
@@ -70,8 +84,8 @@ class ChatInfoView: UIView {
         }
         
         inviteButton.snp.makeConstraints { (make) in
-            make.height.equalTo(50)
-            make.width.equalTo(100)
+            make.height.equalTo(self.snp.height).multipliedBy(0.3)
+            make.width.equalTo(self.snp.width).multipliedBy(0.25)
             make.bottom.equalTo(self.snp.bottom).offset(-5)
             make.trailing.equalTo(self.snp.trailing).offset(-5)
         }
@@ -80,6 +94,7 @@ class ChatInfoView: UIView {
             make.top.equalTo(shortLabel.snp.bottom).offset(5)
             make.leading.equalTo(self.snp.leading).offset(5)
             make.trailing.equalTo(inviteButton.snp.leading).offset(-5)
+            make.bottom.equalTo(self.snp.bottom).offset(-5)
         }
         
         
