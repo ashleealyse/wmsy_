@@ -24,9 +24,10 @@ class WhimLocationTableViewCell: UITableViewCell {
     // Button to select address: "Open Map to Select Meeting Location"
     lazy var selectLocationButton: UIButton = {
        let bt = UIButton()
-//        bt.backgroundColor = Stylesheet.Colors.WMSYNeonPurple.withAlphaComponent(0.6)
-//        bt.setTitle("Drop Pin", for: .normal)
+        bt.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
         bt.setImage(#imageLiteral(resourceName: "dropPinIcon"), for: .normal)
+        bt.titleLabel?.textColor = .white
+        bt.setTitle("Drop Pin", for: .normal)
         return bt
     }()
     
@@ -47,19 +48,19 @@ class WhimLocationTableViewCell: UITableViewCell {
     }
     
     func setUpConstraints() {
-        contentView.addSubview(addressLabel)
-        addressLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(contentView.snp.top)
-            make.trailing.equalTo(contentView.snp.trailing)
-            make.bottom.equalTo(contentView.snp.bottom)
-            make.width.equalTo(contentView).multipliedBy(0.9)
-        }
-        
+//        contentView.addSubview(addressLabel)
+//        addressLabel.snp.makeConstraints { (make) in
+//            make.top.equalTo(contentView.snp.top)
+//            make.trailing.equalTo(contentView.snp.trailing)
+//            make.bottom.equalTo(contentView.snp.bottom)
+//            make.width.equalTo(contentView).multipliedBy(0.9)
+//        }
+//
         contentView.addSubview(selectLocationButton)
         selectLocationButton.snp.makeConstraints { (make) in
             make.top.equalTo(contentView.snp.top)
             make.leading.equalTo(contentView.snp.leading)
-            make.trailing.equalTo(addressLabel.snp.leading)
+            make.trailing.equalTo(contentView.snp.trailing)
             make.bottom.equalTo(contentView.snp.bottom)            
         }
     }

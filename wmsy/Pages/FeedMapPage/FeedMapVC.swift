@@ -24,6 +24,7 @@ class FeedMapVC: MenuedViewController {
     var guestProfile = GuestProfileVC()
     var expandedRows = Set<Int>()
     var interestButtonCounter = 0
+    var currentWhim: Whim?
     
     var currentUser = AppUser.currentAppUser
     
@@ -159,12 +160,12 @@ class FeedMapVC: MenuedViewController {
     
     
     @objc func hostAWhim() {
-        navigationController?.pushViewController(CreateWhimTVC(), animated: true)
-//        print("Show Whim Host User Profile")
-//        CreateWhimTVC().modalPresentationStyle = .overCurrentContext
-//        CreateWhimTVC().modalTransitionStyle = .crossDissolve
-//        self.present(CreateWhimTVC(), animated: true, completion: nil)
-
+//        navigationController?.pushViewController(CreateWhimTVC(), animated: true)
+        print("Show Whim Host User Profile")
+        CreateWhimTVC().modalPresentationStyle = .overCurrentContext
+        CreateWhimTVC().modalTransitionStyle = .crossDissolve
+        CreateWhimTVC().view.backgroundColor = .clear
+        self.present(CreateWhimTVC(), animated: true, completion: nil)
     }
     
     func pinFilterViewToBottom() {
