@@ -14,6 +14,12 @@ class FiltersView: UIView {
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
     
+    lazy var pullButton: UIButton = {
+       let btn = UIButton()
+        btn.setImage(#imageLiteral(resourceName: "pullIcon"), for: .normal)
+        return btn
+    }()
+    
     // Category Label
     lazy var categoryLabel: UILabel = {
         let lb = UILabel()
@@ -74,7 +80,9 @@ class FiltersView: UIView {
     }
     
     private func commonInit() {
-        backgroundColor = Stylesheet.Colors.WMSYKSUPurple
+        backgroundColor = .white
+        self.layer.borderWidth = 1.0
+        self.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
         setUpViews()
     }
     
@@ -83,9 +91,16 @@ class FiltersView: UIView {
     }
     
     private func setUpConstraints() {
+        
+        addSubview(pullButton)
+        pullButton.snp.makeConstraints { (make) in
+            make.top.equalTo(self.snp.top)
+            make.leading.trailing.equalTo(safeAreaLayoutGuide)
+            make.height.equalTo(self.snp.height).multipliedBy(0.25)
+        }
         addSubview(categoryLabel)
         categoryLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.snp.top).offset(5)
+            make.top.equalTo(pullButton.snp.bottom).offset(5)
             make.leading.equalTo(self.snp.leading).offset(5)
             make.trailing.equalTo(self.snp.trailing).offset(-5)
             make.height.equalTo(self.snp.height).multipliedBy(0.2)
@@ -109,14 +124,14 @@ class FiltersView: UIView {
             make.trailing.equalTo(self.snp.trailing).offset(-5)
         }
         
-        addSubview(distanceSegmentedControl)
-        distanceSegmentedControl.snp.makeConstraints { (make) in
-            make.leading.equalTo(self.snp.leading).offset(5)
-            make.trailing.equalTo(self.snp.trailing).offset(-5)
-            make.top.equalTo(categoriesCV.snp.bottom).offset(5)
-            make.height.equalTo(self.snp.height).multipliedBy(0.3)
-//            make.bottom.equalTo(self.snp.bottom).offset(-5)
-        }
+//        addSubview(distanceSegmentedControl)
+//        distanceSegmentedControl.snp.makeConstraints { (make) in
+//            make.leading.equalTo(self.snp.leading).offset(5)
+//            make.trailing.equalTo(self.snp.trailing).offset(-5)
+//            make.top.equalTo(categoriesCV.snp.bottom).offset(5)
+//            make.height.equalTo(self.snp.height).multipliedBy(0.3)
+////            make.bottom.equalTo(self.snp.bottom).offset(-5)
+//        }
         
     }
 }

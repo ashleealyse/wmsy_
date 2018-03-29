@@ -162,10 +162,8 @@ class FeedMapVC: MenuedViewController {
     @objc func hostAWhim() {
 //        navigationController?.pushViewController(CreateWhimTVC(), animated: true)
         print("Show Whim Host User Profile")
-        CreateWhimTVC().modalPresentationStyle = .overCurrentContext
-        CreateWhimTVC().modalTransitionStyle = .crossDissolve
-        CreateWhimTVC().view.backgroundColor = .clear
-        self.present(CreateWhimTVC(), animated: true, completion: nil)
+        CreateWhimTVC().modalPresentationStyle = .none
+        self.present(CreateWhimTVC(), animated: false, completion: nil)
     }
     
     func pinFilterViewToBottom() {
@@ -202,6 +200,13 @@ class FeedMapVC: MenuedViewController {
     @objc func clearSearch() {
         DBService.manager.getClosestWhims(location: userLocation) { (whims) in
             self.feedWhims = whims
+//            for i in 0...5 {
+//                let indexPath = IndexPath.init(row: i, section: 0)
+//                print(i)
+//                let cell = self.filtersView.categoriesCV.cellForItem(at: indexPath) as! WhimCategoryCollectionViewCell
+//                cell.isSelected = false
+//
+//            }
         }
         self.expandedRows = Set<Int>()
     }
