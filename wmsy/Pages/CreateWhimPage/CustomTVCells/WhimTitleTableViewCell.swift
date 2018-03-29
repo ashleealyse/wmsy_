@@ -14,12 +14,13 @@ class WhimTitleTableViewCell: UITableViewCell {
     // Title Textfield with max 100 characters
     lazy var titleTextfield: UITextField = {
         let tf = UITextField()
-        tf.borderStyle = .roundedRect
-        tf.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
-        tf.placeholder = "Enter a title for your Whim"
+//        tf.borderStyle = .roundedRect
+//        tf.layer.borderWidth = 0.5
+//        tf.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
+        tf.placeholder = "Title"
         tf.font = UIFont.boldSystemFont(ofSize: 20)
         tf.textColor = Stylesheet.Colors.WMSYKSUPurple
-        tf.clearButtonMode = .always
+//        tf.clearButtonMode = .always
         return tf
     }()
     
