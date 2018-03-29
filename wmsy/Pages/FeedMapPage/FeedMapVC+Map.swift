@@ -88,7 +88,7 @@ extension FeedMapVC: mapDetailViewDelegate {
         if interests.contains(currentWhim!.id){
             //User is interested
             print("Current User: \(currentUser?.name ?? "No current user") Is NOT Interested in Whim #: \(currentWhim?.id) by Host: \(currentWhim?.hostID)")
-            DBService.manager.removeInterest(forWhim: currentWhim!)
+            DBService.manager.removeInterest(forWhim: currentWhim!, forUser: AppUser.currentAppUser!)
             self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
             self.feedView.tableView.reloadData()
             
