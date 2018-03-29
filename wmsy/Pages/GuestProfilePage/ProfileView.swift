@@ -20,11 +20,11 @@ class ProfileView: UIView {
         return view
     }()
     
-    var dismissButton: UIButton = {
-        let button = UIButton()
-        button.setImage(#imageLiteral(resourceName: "cancelIcon"), for: .normal)
-        return button
-    }()
+//    var dismissButton: UIButton = {
+//        let button = UIButton()
+//        button.setImage(#imageLiteral(resourceName: "cancelIcon"), for: .normal)
+//        return button
+//    }()
     
     var badgeView: UIImageView = {
         let badge = UIImageView()
@@ -35,8 +35,7 @@ class ProfileView: UIView {
     var profileImageView: UIImageView = {
         let img = UIImageView()
         img.image = #imageLiteral(resourceName: "artsCategoryIcon")
-        img.contentMode = .scaleToFill
-        img.layer.borderWidth = 1.0
+        img.contentMode = .scaleAspectFill
         img.clipsToBounds = true
         return img
     }()
@@ -45,13 +44,7 @@ class ProfileView: UIView {
         let lbl = UILabel()
         lbl.text = "T-Swift"
         lbl.textAlignment = .center
-        return lbl
-    }()
-    
-    var ageLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.text = "22"
-        lbl.textAlignment = .center
+        lbl.font = UIFont(name: "Helvetica", size: 20)
         return lbl
     }()
     
@@ -60,6 +53,8 @@ class ProfileView: UIView {
         lbl.numberOfLines = 0
         lbl.textAlignment = .center
         lbl.text = "Hey I am t-Swift. I love writing breakup songs"
+        lbl.textColor = .black
+        lbl.backgroundColor = Stylesheet.Colors.WMSYNeonPurple.withAlphaComponent(0.2)
         return lbl
     }()
     
@@ -81,30 +76,29 @@ class ProfileView: UIView {
     
     private func setupViews() {
         setupContainerView()
-        setUpDismissButton()
+//        setUpDismissButton()
         setupBadgeView()
         setupProfileImageView()
-        setupNameLabel()
-        setupAgeLabel()
         setupBioTV()
+        setupNameLabel()
     }
     
-    private func setUpDismissButton() {
-        containerView.addSubview(dismissButton)
-        dismissButton.snp.makeConstraints { (make) in
-            make.top.equalTo(safeAreaLayoutGuide).offset(70)
-            make.leading.equalTo(safeAreaLayoutGuide).offset(30)
-            make.width.equalTo(self).multipliedBy(0.05)
-            make.height.equalTo(self.snp.width).multipliedBy(0.05)
-            
-        }
-    }
+//    private func setUpDismissButton() {
+//        containerView.addSubview(dismissButton)
+//        dismissButton.snp.makeConstraints { (make) in
+//            make.top.equalTo(containerView).offset(10)
+//            make.leading.equalTo(containerView).offset(20)
+//            make.width.equalTo(self).multipliedBy(0.05)
+//            make.height.equalTo(self.snp.width).multipliedBy(0.05)
+//
+//        }
+//    }
     
     private func setupBadgeView() {
         containerView.addSubview(badgeView)
         badgeView.snp.makeConstraints { (make) in
-            make.top.equalTo(safeAreaLayoutGuide).offset(70)
-            make.trailing.equalTo(safeAreaLayoutGuide).offset(-30)
+            make.top.equalTo(containerView).offset(8)
+            make.trailing.equalTo(containerView).offset(-8)
             make.width.equalTo(self).multipliedBy(0.1)
             make.height.equalTo(self.snp.width).multipliedBy(0.1)
         }
@@ -112,34 +106,30 @@ class ProfileView: UIView {
     private func setupProfileImageView() {
         containerView.addSubview(profileImageView)
         profileImageView.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self)
-            make.top.equalTo(containerView).offset(100)
-            make.width.equalTo(self).multipliedBy(0.3)
-            make.height.equalTo(self.snp.width).multipliedBy(0.3)
+            make.top.equalTo(containerView.snp.top)
+            make.leading.equalTo(containerView.snp.leading)
+            make.width.equalTo(containerView.snp.width).multipliedBy(0.6)
+            make.bottom.equalTo(containerView)
+
             
         }
     }
     private func setupNameLabel() {
         containerView.addSubview(nameLabel)
         nameLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(profileImageView.snp.bottom).offset(10)
-            make.centerX.equalTo(self)
-        }
-    }
-    
-    private func setupAgeLabel() {
-        containerView.addSubview(ageLabel)
-        ageLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(nameLabel.snp.bottom).offset(10)
-            make.centerX.equalTo(self)
+            make.bottom.equalTo(bioLabel.snp.top).offset(-5)
+            make.leading.equalTo(profileImageView.snp.trailing)
+            make.trailing.equalTo(containerView.snp.trailing)
         }
     }
     
     private func setupBioTV() {
         containerView.addSubview(bioLabel)
         bioLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(ageLabel.snp.bottom).offset(10)
-            make.centerX.equalTo(self)
+            make.leading.equalTo(profileImageView.snp.trailing)
+            make.trailing.equalTo(containerView.snp.trailing)
+            make.bottom.equalTo(containerView.snp.bottom)
+            make.height.equalTo(profileImageView.snp.height).multipliedBy(0.75)
         }
     }
     
@@ -149,7 +139,7 @@ class ProfileView: UIView {
         containerView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         containerView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         containerView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.90).isActive = true
-        containerView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.80).isActive = true
+        containerView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.50).isActive = true
     }
     
     

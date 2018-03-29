@@ -47,7 +47,7 @@ class MenuViewController: UIViewController {
     
     private func setupMenuRegion() {
         view.addSubview(menuScreen)
-        menuScreen.backgroundColor = .red
+        menuScreen.backgroundColor = .white
         menuScreen.snp.makeConstraints { (make) in
             make.leading.top.bottom.equalTo(view)
             make.width.equalTo(view).multipliedBy(MenuHelper.menuWidth)
