@@ -79,6 +79,9 @@ extension DBService {
 //    }
     
     public func removeInterest(forWhim whim: Whim, forUser user: AppUser) {
+        let interests = AppUser.currentAppUser!.interests
+        let updatedInterests = interests.filter(){$0.whimID != whim.id}
+        AppUser.currentAppUser?.interests = updatedInterests
         let userRef = usersRef.child(user.userID).child("interests").child(whim.id)
         let interestRef = interestsRef.child(whim.id).child(user.userID)
         userRef.removeValue()
@@ -87,6 +90,8 @@ extension DBService {
     
     // allows user into chat
     public func acceptInterest(forUser user: AppUser, inWhim whim: Whim) {
+        let newInterest = Interest.init(whimID: whim.id, userID: user.userID, inChat: false)
+        AppUser.currentAppUser?.interests.append(newInterest)
         let userRef = usersRef.child(user.userID).child("interests").child(whim.id)
         let interestRef = interestsRef.child(whim.id).child(user.userID)
         userRef.setValue(true)
