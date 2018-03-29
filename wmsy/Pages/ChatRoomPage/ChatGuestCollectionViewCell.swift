@@ -41,6 +41,8 @@ class ChatGuestCollectionViewCell: UICollectionViewCell {
             }
         }
     }
+
+    public var highlight = false
     
     private func setupViews(){
         setupGuestImage()

@@ -15,8 +15,9 @@ protocol InfoAndMembersCollectionVCDelegate: class {
 }
 
 class InfoAndMembersCollectionVC: UIViewController {
-    
+    var detailDrawerClosed = false
     private var currentWhim: Whim?
+    private var heightConstraint: Constraint? = nil
     
     private var membersCollectionView: UICollectionView!
     var memberInfoView: ChatInfoView!
@@ -54,7 +55,6 @@ class InfoAndMembersCollectionVC: UIViewController {
         super.viewDidLoad()
         self.view.translatesAutoresizingMaskIntoConstraints = false
         
-        
         // setup collectionView
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -80,8 +80,14 @@ class InfoAndMembersCollectionVC: UIViewController {
             make.height.equalTo(90)
             make.leading.trailing.equalTo(membersCollectionView)
             make.top.equalTo(membersCollectionView.snp.bottom)
-            make.bottom.equalTo(view)
+           
         }
+        
+        self.view.snp.makeConstraints { (make) in
+           self.heightConstraint = make.bottom.equalTo(memberInfoView.snp.bottom).constraint
+        }
+        
+      
     }
     
     @objc func toggle() {
@@ -117,6 +123,12 @@ extension InfoAndMembersCollectionVC: UICollectionViewDataSource, UICollectionVi
         let cvHeight = collectionView.bounds.height * 0.8
         let cellSize = CGSize.init(width: cvHeight, height: cvHeight)
         return cellSize
+    }
+    
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        self.detailDrawerClosed = false
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
