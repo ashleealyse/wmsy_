@@ -42,7 +42,6 @@ class CreateWhimTVC: UITableViewController {
         self.tableView.register(HostAWhimButtonTableViewCell.self, forCellReuseIdentifier: "ButtonCell")
         self.tableView.register(WhimExpirationTableViewCell.self, forCellReuseIdentifier: "ExpirationCell")
         self.tableView.register(WhimLocationTableViewCell.self, forCellReuseIdentifier: "LocationCell")
-        self.tableView.isScrollEnabled = false
         DBService.manager.getAppUser(fromID: (AuthUserService.manager.getCurrentUser()?.uid)!) { (user) in
             self.whimHostImageURL = user!.photoID
         }
@@ -59,11 +58,16 @@ class CreateWhimTVC: UITableViewController {
     }
     
     
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = false 
+    }
+    
     private func configureNavBar() {
         navigationItem.title = "Host a Whim"
     }
     
     override func viewWillAppear(_ animated: Bool) {
+//        self.navigationController?.navigationBar.isHidden = true
         view.setNeedsLayout()
         view.layoutIfNeeded()
         tableView.reloadData()
@@ -75,15 +79,15 @@ class CreateWhimTVC: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        if let window = UIApplication.shared.delegate?.window {            
-            window!.backgroundColor = .darkGray
-            tableView.frame = CGRect(x: 0, y: 60,
-                                     width: UIScreen.main.bounds.width * 0.90,
-                                     height: UIScreen.main.bounds.height * 0.80)
-            tableView.center = window!.center
-            tableView.layer.cornerRadius = 10
-            tableView.layer.masksToBounds = true
-        }
+//        if let window = UIApplication.shared.delegate?.window {
+//            window!.backgroundColor = .darkGray
+//            tableView.frame = CGRect(x: 0, y: 60,
+//                                     width: UIScreen.main.bounds.width * 0.90,
+//                                     height: UIScreen.main.bounds.height * 0.80)
+//            tableView.center = window!.center
+//            tableView.layer.cornerRadius = 10
+//            tableView.layer.masksToBounds = true
+//        }
     }
 
 
@@ -160,7 +164,7 @@ class CreateWhimTVC: UITableViewController {
     
     
     @objc func dismissButtonClicked() {
-        dismiss(animated: false, completion: nil)
+        navigationController?.popViewController(animated: false)
     }
     
     @objc func collectInputs() {

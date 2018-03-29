@@ -14,7 +14,7 @@ class HostAWhimButtonTableViewCell: UITableViewCell {
     // "Host a Whim" button
     lazy var hostButton: UIButton = {
         let bt = UIButton()
-        bt.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
+        bt.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.7)
         bt.setTitle("Host a Whim", for: .normal)
         return bt
     }()

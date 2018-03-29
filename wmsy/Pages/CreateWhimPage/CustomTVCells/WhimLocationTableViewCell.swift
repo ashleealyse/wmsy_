@@ -24,7 +24,7 @@ class WhimLocationTableViewCell: UITableViewCell {
     // Button to select address: "Open Map to Select Meeting Location"
     lazy var selectLocationButton: UIButton = {
        let bt = UIButton()
-        bt.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
+        bt.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.7)
         bt.setImage(#imageLiteral(resourceName: "dropPinIcon"), for: .normal)
         bt.titleLabel?.textColor = .white
         bt.setTitle("Drop Pin", for: .normal)
