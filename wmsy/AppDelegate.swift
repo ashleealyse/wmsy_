@@ -47,6 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //>>>>>>> qa
         let vc = MainTabBarVC()
         window = UIWindow(frame: UIScreen.main.bounds)
+        window?.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
 //        }
