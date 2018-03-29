@@ -26,7 +26,8 @@ class InfoAndMembersCollectionVC: UIViewController {
             self.delegate?.updateMembers(members: members)
         }
     }
-    private var inChat = [String: Bool]()
+    public var lastMemberID: String? {return members.last?.userID}
+    public var inChat = [String: Bool]()
     
     private var isShowingInfo = false
     private var currentSelectedUser: AppUser? {
@@ -84,6 +85,14 @@ class InfoAndMembersCollectionVC: UIViewController {
         }
     }
     
+    public func new(interestedUser user: AppUser) {
+        members.append(user)
+        inChat[user.userID] = false
+        membersCollectionView.reloadData()
+    }
+    public func invited(_ user: AppUser) {
+        inChat[user.userID] = true
+    }
     @objc func toggle() {
         
         // idk if this does anything

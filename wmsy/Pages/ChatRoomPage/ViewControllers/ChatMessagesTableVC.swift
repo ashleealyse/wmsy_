@@ -108,7 +108,8 @@ extension ChatMessagesTableVC: UITableViewDataSource, UITableViewDelegate {
                 return cell
             }
         case .notification:
-            let cell = tableView.dequeueReusableCell(withIdentifier: NotificationTableViewCell.reuseIdentifier, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: NotificationTableViewCell.reuseIdentifier, for: indexPath) as! NotificationTableViewCell
+            cell.notificationLabel.text = message.messageBody
             return cell
         case .button:
             let cell = tableView.dequeueReusableCell(withIdentifier: LocationDetailsTableViewCell.reuseIdentifier, for: indexPath)

@@ -135,7 +135,7 @@ extension FeedMapVC: FeedCellViewDelegate {
         if interests.contains(whim.id){
             //User is interested
             print("Current User: \(currentUser?.name ?? "No current user") Is NOT Interested in Whim #: \(whim.id) by Host: \(whim.hostID)")
-            DBService.manager.removeInterest(forWhim: whim)
+            DBService.manager.removeInterest(forWhim: whim, forUser: AppUser.currentAppUser!)
             self.feedView.tableView.reloadData()
         } else {
             //User is not interested
