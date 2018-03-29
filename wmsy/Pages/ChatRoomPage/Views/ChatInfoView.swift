@@ -9,6 +9,12 @@
 import UIKit
 import SnapKit
 
+protocol ChatInfoViewDelegate: class {
+    func inviteOrRemoveUserPressed(sender: UIButton)
+    
+    
+}
+
 class ChatInfoView: UIView {
 
     lazy var shortLabel: UILabel = {
@@ -30,10 +36,18 @@ class ChatInfoView: UIView {
     lazy var inviteButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .green
-        button.setTitle("Invite", for: .normal)
-        button.setTitle("Remove", for: .selected)
+//        button.setTitle("Invite", for: .normal)
+        button.addTarget(self, action: #selector(inviteUser), for: .touchUpInside)
         return button
     }()
+    
+    
+    weak var delegate: ChatInfoViewDelegate?
+    
+    @objc func inviteUser() {
+        self.delegate?.inviteOrRemoveUserPressed(sender: self.inviteButton)
+        print("Invite Button Pressed")
+    }
     
     
     // setup custom view
