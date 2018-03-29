@@ -28,6 +28,20 @@ class CreateWhimView: UIView {
     
     
     // setup custom view
+    var creatWhimTVC = CreateWhimTVC()
+    
+    lazy var containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 20
+        view.layer.masksToBounds = true
+        return view
+    }()
+    
+    lazy var tableView: UITableView = {
+       let tV = UITableView()
+        return tV
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
@@ -45,7 +59,21 @@ class CreateWhimView: UIView {
     }
     
     private func setupViews() {
-        
+        setupContainerView()
+        setUpTableView()
+    }
+    
+    private func setupContainerView() {
+        addSubview(containerView)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        containerView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        containerView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.90).isActive = true
+        containerView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.80).isActive = true
+    }
+
+    private func setUpTableView() {
+        containerView.addSubview(creatWhimTVC.tableView)
     }
     
     /*

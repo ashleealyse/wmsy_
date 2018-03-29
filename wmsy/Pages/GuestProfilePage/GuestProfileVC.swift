@@ -22,6 +22,11 @@ class GuestProfileVC: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        dismissButtonClicked()
+    }
+    
     public func configure(with user: AppUser) {
         let url = URL(string: user.photoID)
         profileView.profileImageView.kf.setImage(with: url)

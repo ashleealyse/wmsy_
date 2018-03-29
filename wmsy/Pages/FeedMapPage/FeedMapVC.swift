@@ -156,6 +156,11 @@ class FeedMapVC: MenuedViewController {
     
     @objc func hostAWhim() {
         navigationController?.pushViewController(CreateWhimTVC(), animated: true)
+//        print("Show Whim Host User Profile")
+//        CreateWhimTVC().modalPresentationStyle = .overCurrentContext
+//        CreateWhimTVC().modalTransitionStyle = .crossDissolve
+//        self.present(CreateWhimTVC(), animated: true, completion: nil)
+
     }
     
     func pinFilterViewToBottom() {
