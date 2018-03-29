@@ -170,7 +170,7 @@ class ChatRoomVCTest: MenuedViewController {
             self.interests.append(interest)
             DBService.manager.getAppUser(fromID: interest.userID, completion: { (user) in
                 if let user = user,
-                    user.userID != self.membersCollectionVC.lastMemberID {
+                self.membersCollectionVC.inChat[user.userID] == nil {
                     self.membersCollectionVC.new(interestedUser: user)
                     self.addInChatListener(forUser: user)
                 }
