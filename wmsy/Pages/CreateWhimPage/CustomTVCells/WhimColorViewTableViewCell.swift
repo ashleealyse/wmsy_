@@ -11,9 +11,9 @@ import SnapKit
 
 class WhimColorViewTableViewCell: UITableViewCell {
     
-    lazy var colorView: UIImageView = {
-       let cV = UIImageView()
-        cV.image = #imageLiteral(resourceName: "purpleGradient")
+    lazy var colorView: UIView = {
+       let cV = UIView()
+        cV.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.7)
         return cV
     }()
     
@@ -51,7 +51,7 @@ class WhimColorViewTableViewCell: UITableViewCell {
         addSubview(colorView)
         colorView.snp.makeConstraints { (make) in
             make.edges.equalTo(safeAreaLayoutGuide)
-            make.height.equalTo(116)
+            make.height.equalTo(180)
         }
     }
     

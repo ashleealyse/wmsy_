@@ -70,6 +70,7 @@ class FeedMapVC: MenuedViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.isHidden = false
         currentUser = AppUser.currentAppUser
         if let currentUser = currentUser {
             print("current user: \(currentUser.name)")
@@ -94,11 +95,18 @@ class FeedMapVC: MenuedViewController {
         self.mapView.mapView.delegate = self
         self.mapView.detailView.delegate = self
     }
+
+
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true
+
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         print("removing live feed updates")
         DBService.manager.whimsRef.removeAllObservers()
+
     }
     
     func layoutFeedMapView() {
@@ -166,10 +174,12 @@ class FeedMapVC: MenuedViewController {
     
     
     @objc func hostAWhim() {
-//        navigationController?.pushViewController(CreateWhimTVC(), animated: true)
+        navigationController?.pushViewController(CreateWhimTVC(), animated: false)
+        
+        navigationController?.isToolbarHidden = true
         print("Show Whim Host User Profile")
-        CreateWhimTVC().modalPresentationStyle = .none
-        self.present(CreateWhimTVC(), animated: false, completion: nil)
+//        CreateWhimTVC().modalPresentationStyle = .none
+//        self.present(CreateWhimTVC(), animated: false, completion: nil)
     }
     
     func pinFilterViewToBottom() {
