@@ -44,6 +44,7 @@ class ProfileView: UIView {
         let lbl = UILabel()
         lbl.text = "T-Swift"
         lbl.textAlignment = .center
+        lbl.font = UIFont(name: "Helvetica", size: 20)
         return lbl
     }()
     
@@ -52,6 +53,8 @@ class ProfileView: UIView {
         lbl.numberOfLines = 0
         lbl.textAlignment = .center
         lbl.text = "Hey I am t-Swift. I love writing breakup songs"
+        lbl.textColor = .black
+        lbl.backgroundColor = Stylesheet.Colors.WMSYNeonPurple.withAlphaComponent(0.2)
         return lbl
     }()
     
@@ -114,7 +117,7 @@ class ProfileView: UIView {
     private func setupNameLabel() {
         containerView.addSubview(nameLabel)
         nameLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(bioLabel.snp.top).offset(10)
+            make.bottom.equalTo(bioLabel.snp.top).offset(-5)
             make.leading.equalTo(profileImageView.snp.trailing)
             make.trailing.equalTo(containerView.snp.trailing)
         }
@@ -126,7 +129,7 @@ class ProfileView: UIView {
             make.leading.equalTo(profileImageView.snp.trailing)
             make.trailing.equalTo(containerView.snp.trailing)
             make.bottom.equalTo(containerView.snp.bottom)
-            make.height.equalTo(profileImageView.snp.height).multipliedBy(0.8)
+            make.height.equalTo(profileImageView.snp.height).multipliedBy(0.75)
         }
     }
     
