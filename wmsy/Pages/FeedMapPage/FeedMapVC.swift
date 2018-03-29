@@ -24,6 +24,7 @@ class FeedMapVC: MenuedViewController {
     var guestProfile = GuestProfileVC()
     var expandedRows = Set<Int>()
     var interestButtonCounter = 0
+    var currentWhim: Whim?
     
     var currentUser = AppUser.currentAppUser
     

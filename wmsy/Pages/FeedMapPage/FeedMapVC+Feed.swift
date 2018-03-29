@@ -93,6 +93,7 @@ extension FeedMapVC: UITableViewDataSource {
 extension FeedMapVC: FeedCellViewDelegate {
     
     func showOnMapButtonPressed(whim: Whim) {
+        self.currentWhim = whim
         verticalPinConstraint?.deactivate()
         
         if mapUp {
@@ -107,7 +108,7 @@ extension FeedMapVC: FeedCellViewDelegate {
             self.mapUp = !self.mapUp
         })
         let location = CLLocation.init(latitude: Double(whim.lat)!, longitude: Double(whim.long)!)
-        let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: 15.0)
+        let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: 17.0)
         self.mapView.mapView.animate(to: camera)
         self.mapView.detailView.whimTitle.text = whim.title
         self.mapView.detailView.whimDescription.text = whim.description
