@@ -73,6 +73,7 @@
 		81BAD6A5205AF08100C7F039 /* NotificationMsgCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BAD6A4205AF08100C7F039 /* NotificationMsgCell.swift */; };
 		81BAD6A7205AF09400C7F039 /* LocationDetailsMsgCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BAD6A6205AF09400C7F039 /* LocationDetailsMsgCell.swift */; };
 		81BAD6A9205AF0AA00C7F039 /* GuestProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BAD6A8205AF0AA00C7F039 /* GuestProfileVC.swift */; };
+		81C3AF52206D324D001686F0 /* TextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C3AF51206D324D001686F0 /* TextInputView.swift */; };
 		81D12DCF20641B210056920C /* FooterTabDotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D12DCE20641B210056920C /* FooterTabDotsView.swift */; };
 		81D12DD120643A920056920C /* MenuChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D12DD020643A920056920C /* MenuChatView.swift */; };
 		81D12DD42065AA470056920C /* DataQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D12DD32065AA470056920C /* DataQueue.swift */; };
@@ -198,6 +199,7 @@
 		81BAD6A4205AF08100C7F039 /* NotificationMsgCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationMsgCell.swift; sourceTree = "<group>"; };
 		81BAD6A6205AF09400C7F039 /* LocationDetailsMsgCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailsMsgCell.swift; sourceTree = "<group>"; };
 		81BAD6A8205AF0AA00C7F039 /* GuestProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestProfileVC.swift; sourceTree = "<group>"; };
+		81C3AF51206D324D001686F0 /* TextInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputView.swift; sourceTree = "<group>"; };
 		81D12DCE20641B210056920C /* FooterTabDotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterTabDotsView.swift; sourceTree = "<group>"; };
 		81D12DD020643A920056920C /* MenuChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuChatView.swift; sourceTree = "<group>"; };
 		81D12DD32065AA470056920C /* DataQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataQueue.swift; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 				81B928E620618D64002CD355 /* NotificationTableViewCell.swift */,
 				81B928E820618D76002CD355 /* LocationDetailsTableViewCell.swift */,
 				816D11C9206C333F001D199C /* ChatInfoView.swift */,
+				81C3AF51206D324D001686F0 /* TextInputView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -847,6 +850,7 @@
 				81AB7AC8205C9548009845EA /* Stylesheet.swift in Sources */,
 				81F9F06E20656B2200D288E8 /* FiltersView.swift in Sources */,
 				81202D90206C591200CC5588 /* PopUpTextViewVC.swift in Sources */,
+				81C3AF52206D324D001686F0 /* TextInputView.swift in Sources */,
 				811FFB9720615B6200F3312B /* DBService+Whim.swift in Sources */,
 				81337775206A960B00F1F657 /* FeedMapVC+Feed.swift in Sources */,
 				81DECD1B205C87FA00214866 /* Interactor.swift in Sources */,

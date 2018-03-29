@@ -12,7 +12,7 @@ class CurrentUserMessageCell: UITableViewCell {
     
     static let reuseIdentifier = "HostMessageTableViewCell"
     
-    private var profileImageView = UIImageView()
+    public var profileImageView = UIImageView()
     private var textContainer = UIView()
     public var messageText = UILabel()
     
@@ -41,11 +41,10 @@ class CurrentUserMessageCell: UITableViewCell {
         setupProfileImageView()
         setupTextContainer()
         setupMessageText()
-        contentView.layoutMarginsGuide.snp.makeConstraints { (make) in
-            make.height.greaterThanOrEqualTo(profileImageView)
-        }
     }
     private func setupProfileImageView() {
+        profileImageView.clipsToBounds = true
+        profileImageView.contentMode = .scaleAspectFill
         contentView.addSubview(profileImageView)
         profileImageView.snp.makeConstraints { (make) in
             make.top.trailing.equalTo(contentView.layoutMarginsGuide)
@@ -63,15 +62,14 @@ class CurrentUserMessageCell: UITableViewCell {
         }
     }
     private func setupMessageText() {
-        messageText.numberOfLines = 0
+        messageText.numberOfLines = 10
         textContainer.addSubview(messageText)
         messageText.snp.makeConstraints { (make) in
-            make.edges.equalTo(textContainer.layoutMarginsGuide)
+            make.edges.equalTo(textContainer).inset(5)
         }
     }
     private func placeholderTesting() {
         selectionStyle = .none
-        messageText.text = "oqiudfboasiudfboaiuefoqwieufoaisdufoiasdhfoiasudhfoaisduhfoiasufhoaidufhoaisdufhoaisdufhoaisdufhpqiwuyefhldjkahsguoyiryqwoj;eklafdnshore;ifdhbaiosldfhubauie8o;fuijblajsdkufhSLkdhj"
         profileImageView.backgroundColor = .red
         textContainer.backgroundColor = .blue
     }

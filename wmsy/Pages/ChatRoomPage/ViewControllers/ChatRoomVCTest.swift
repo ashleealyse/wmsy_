@@ -32,11 +32,11 @@ class ChatRoomVCTest: MenuedViewController {
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .clear
-        
+        self.view.backgroundColor = .white
         self.add(membersCollectionVC)
         self.add(chatTVC)
         self.add(textInputVC)
+        self.membersCollectionVC.detailDrawerClosed = false
         
         membersCollectionVC.delegate = self
         chatTVC.delegate = self
@@ -73,7 +73,7 @@ class ChatRoomVCTest: MenuedViewController {
 //        on one screen
         
         membersCollectionVC.view.snp.makeConstraints { (make) in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.top.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
         }
         chatTVC.view.snp.makeConstraints { (make) in
             make.top.equalTo(membersCollectionVC.view.snp.bottom)
@@ -82,6 +82,7 @@ class ChatRoomVCTest: MenuedViewController {
         textInputVC.view.snp.makeConstraints { (make) in
             make.top.equalTo(chatTVC.view.snp.bottom)
             make.leading.trailing.bottom.equalTo(self.view)
+            make.height.greaterThanOrEqualTo(64)
         }
     }
     
@@ -195,11 +196,9 @@ extension ChatRoomVCTest: ChatInfoViewDelegate {
         print("Member Modified: \(member.name)")
     }
     
-    
     func inviteToWhimChat(member: AppUser) {
         print("invite to chat: \(member.name)")
     }
-    
     func removeFromWhimChat(member: AppUser) {
         print("remove from chat: \(member.name)")
     }

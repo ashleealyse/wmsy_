@@ -15,7 +15,11 @@ protocol TextInputVCDelegate: class {
 
 class TextInputVC: UIViewController {
     
-    public let messageTextField = UITextView()
+//    public let messageTextView = UITextView()
+//    public let sendButton = UIButton()
+    private let textInputView = TextInputView()
+    
+    private let placeholderText = "Say Something..."
     
     public weak var delegate: TextInputVCDelegate?
     
@@ -23,18 +27,39 @@ class TextInputVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(messageTextField)
+        self.view.addSubview(textInputView)
         
-        messageTextField.snp.makeConstraints { (make) in
+        textInputView.snp.makeConstraints { (make) in
             make.edges.equalTo(self.view)
-            make.height.equalTo(100)
         }
-        messageTextField.delegate = self
-        messageTextField.backgroundColor = .red
         
-//        var amountOfLinesToBeShown:CGFloat = 6
-//        var maxHeight:CGFloat = messageTextField.font!.lineHeight * amountOfLinesToBeShown
-//        messageTextField.sizeThatFits(CGSize.init(width: messageTextField.frame.width, height: messageTextField.frame.height))
+        textInputView.messageTextView.delegate = self
+        textInputView.messageTextView.text = placeholderText
+        
+//        self.view.addSubview(messageTextView)
+//        self.view.addSubview(sendButton)
+        
+        // textview
+//        messageTextView.snp.makeConstraints { (make) in
+//            make.top.bottom.leading.equalTo(self.view).inset(16)
+//            make.height.equalTo(20)
+//        }
+//        messageTextView.delegate = self
+//        messageTextView.font = UIFont.systemFont(ofSize: 20)
+//        messageTextView.text = placeholderText
+//        messageTextView.textColor = UIColor.lightGray
+//        messageTextView.backgroundColor = .clear
+//        messageTextView.sizeToFit()
+//        messageTextView.isScrollEnabled = false
+//
+//        // sendbutton
+//        sendButton.snp.makeConstraints { (make) in
+//            make.leading.equalTo(messageTextView.snp.trailing)
+//            make.top.bottom.equalTo(self.view)
+//            make.trailing.equalTo(self.view)
+//        }
+//        sendButton.setTitle("SEND", for: .normal)
+//        sendButton.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
     }
 }
 
@@ -48,6 +73,19 @@ extension TextInputVC: UITextViewDelegate {
             return false
         }
         return true
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.white
+        }
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = placeholderText
+            textView.textColor = UIColor.lightGray
+        }
     }
 }
 
