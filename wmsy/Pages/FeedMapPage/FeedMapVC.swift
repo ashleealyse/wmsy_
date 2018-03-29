@@ -19,6 +19,7 @@ class FeedMapVC: MenuedViewController {
     var feedView = FeedView()
     var mapView = MapView()
     var filtersView = FiltersView()
+    var filterMapContainerView = UIView()
     var mapUp: Bool = false
     
     var guestProfile = GuestProfileVC()
@@ -85,15 +86,52 @@ class FeedMapVC: MenuedViewController {
         self.locationManager.delegate = self
         
         layoutFeedMapView()
+        layoutfilterMapContainer()
         layoutFiltersView()
         layoutMapView()
+        addPanGesture(view: filterMapContainerView)
         self.mapView.detailView.isHidden = true
         self.mapView.mapView.delegate = self
         self.mapView.detailView.delegate = self
     }
-
+    func addPanGesture(view: UIView) {
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(FeedMapVC.handlePan(sender:)))
+        view.addGestureRecognizer(pan)
+    }
+    
+    @objc func handlePan(sender: UIPanGestureRecognizer) {
+        let filterMapContainerView = sender.view!
+        let translation = sender.translation(in: view)
+//        let velocity = sender.velocity(in: view)
+        switch sender.state {
+        case .began, .changed:
+//            verticalPinConstraint?.deactivate()
+            filterMapContainerView.center = CGPoint(x: view.center.x, y: filterMapContainerView.center.y + translation.y)
+            sender.setTranslation(CGPoint.zero, in: view)
+            print("\(filterMapContainerView.center.x), \(filterMapContainerView.center.y)")
+//            print(velocity)
+        case .ended:
+            if filterMapContainerView.frame.origin.y <= CGFloat(375) {
+                verticalPinConstraint?.deactivate()
+                self.mapUp = !self.mapUp
+                self.pinFilterViewToTop()
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.view.layoutIfNeeded()
+                })
+            } else {
+                verticalPinConstraint?.deactivate()
+                self.pinFilterViewToBottom()
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.view.layoutIfNeeded()
+                })
+            }
+        default:
+            break
+        }
+    }
+    
     func layoutFeedMapView() {
-        self.view.addSubview(feedView)
+        view.addSubview(feedView)
 
         feedView.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
@@ -106,14 +144,22 @@ class FeedMapVC: MenuedViewController {
         feedView.tableView.rowHeight = UITableViewAutomaticDimension
         feedView.tableView.separatorStyle = .none
     }
-    
-    func layoutFiltersView() {
-        view.addSubview(filtersView)
-        filtersView.snp.makeConstraints { (make) in
-            make.height.equalTo(toolBarHeight)
+    func layoutfilterMapContainer() {
+        view.addSubview(filterMapContainerView)
+        filterMapContainerView.snp.makeConstraints { (make) in
+//            make.height.equalTo(view.safeAreaLayoutGuide.snp.height)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
-            self.verticalPinConstraint = make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).constraint
+            verticalPinConstraint = make.top.equalTo(feedView.snp.bottom).constraint
+        }
+    }
+    func layoutFiltersView() {
+        filterMapContainerView.addSubview(filtersView)
+        filtersView.snp.makeConstraints { (make) in
+            make.height.equalTo(toolBarHeight)
+            make.leading.equalTo(filterMapContainerView.snp.leading)
+            make.trailing.equalTo(filterMapContainerView.snp.trailing)
+            make.top.equalTo(filterMapContainerView.snp.top)
         }
         filtersView.categoriesCV.delegate = self
         filtersView.categoriesCV.dataSource = self
@@ -123,12 +169,13 @@ class FeedMapVC: MenuedViewController {
     }
     
     func layoutMapView() {
-        view.addSubview(mapView)
+        filterMapContainerView.addSubview(mapView)
         mapView.snp.makeConstraints { (make) in
             make.top.equalTo(filtersView.snp.bottom)
-            make.leading.equalTo(view.safeAreaLayoutGuide)
-            make.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(feedView.snp.height)
+            make.leading.equalTo(filterMapContainerView.snp.leading)
+            make.trailing.equalTo(filterMapContainerView.snp.trailing)
+            make.height.equalTo(feedView)
+            make.bottom.equalTo(filterMapContainerView.snp.bottom)
         }
 
         let mylocation = mapView.mapView.myLocation
@@ -139,6 +186,7 @@ class FeedMapVC: MenuedViewController {
         mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
     }
+    
     
     
     // setup UIBarButtonItems
@@ -159,14 +207,14 @@ class FeedMapVC: MenuedViewController {
     }
     
     func pinFilterViewToBottom() {
-        filtersView.snp.makeConstraints { (make) in
-            self.verticalPinConstraint = make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).constraint
+        filterMapContainerView.snp.makeConstraints { (make) in
+            verticalPinConstraint = make.top.equalTo(feedView.snp.bottom).constraint
         }
     }
     
     func pinFilterViewToTop() {
-        filtersView.snp.makeConstraints { (make) in
-            self.verticalPinConstraint = make.top.equalTo(view.safeAreaLayoutGuide.snp.top).constraint
+        filterMapContainerView.snp.makeConstraints { (make) in
+            verticalPinConstraint = make.top.equalTo(view.safeAreaLayoutGuide.snp.top).constraint
         }
     }
     
