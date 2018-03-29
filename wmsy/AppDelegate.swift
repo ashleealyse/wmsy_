@@ -46,6 +46,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let vc = LoginVC()
 //>>>>>>> qa
         let vc = MainTabBarVC()
+        vc.navigationItem.backBarButtonItem?.image = #imageLiteral(resourceName: "backIcon")
+        vc.navigationItem.backBarButtonItem?.tintColor = Stylesheet.Colors.WMSYKSUPurple
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
         window?.rootViewController = vc

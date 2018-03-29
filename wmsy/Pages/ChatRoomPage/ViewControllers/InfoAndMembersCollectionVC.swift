@@ -19,7 +19,7 @@ class InfoAndMembersCollectionVC: UIViewController {
     private var currentWhim: Whim?
     private var heightConstraint: Constraint? = nil
     
-    private var membersCollectionView: UICollectionView!
+    private var membersCollectionView: UICollectionView?
     var memberInfoView: ChatInfoView!
     
     private var members = [AppUser]() {
@@ -43,7 +43,7 @@ class InfoAndMembersCollectionVC: UIViewController {
         // TODO: get list of members
         self.members = members
         self.inChat = permissions
-        membersCollectionView.reloadData()
+        membersCollectionView?.reloadData()
     }
     
     public func configureWith(_ whim: Whim) {
@@ -61,17 +61,17 @@ class InfoAndMembersCollectionVC: UIViewController {
         layout.scrollDirection = .horizontal
         
         membersCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
-        membersCollectionView.dataSource = self
-        membersCollectionView.delegate = self
+        membersCollectionView?.dataSource = self
+        membersCollectionView?.delegate = self
         
-        membersCollectionView.register(ChatGuestCollectionViewCell.self, forCellWithReuseIdentifier: "ChatGuestCell")
-        membersCollectionView.backgroundColor = .yellow
+        membersCollectionView?.register(ChatGuestCollectionViewCell.self, forCellWithReuseIdentifier: "ChatGuestCell")
+        membersCollectionView?.backgroundColor = .yellow
         
         memberInfoView = ChatInfoView()
         memberInfoView.backgroundColor = .cyan
         
-        self.view.addSubview(membersCollectionView)
-        membersCollectionView.snp.makeConstraints { (make) in
+        self.view.addSubview(membersCollectionView!)
+        membersCollectionView?.snp.makeConstraints { (make) in
             make.height.equalTo(60)
             make.leading.trailing.top.equalTo(self.view)
         }
@@ -79,8 +79,8 @@ class InfoAndMembersCollectionVC: UIViewController {
         self.view.addSubview(memberInfoView)
         memberInfoView.snp.makeConstraints { (make) in
             make.height.equalTo(90)
-            make.leading.trailing.equalTo(membersCollectionView)
-            make.top.equalTo(membersCollectionView.snp.bottom)
+            make.leading.trailing.equalTo(membersCollectionView!)
+            make.top.equalTo(membersCollectionView!.snp.bottom)
            
         }
         
@@ -94,7 +94,7 @@ class InfoAndMembersCollectionVC: UIViewController {
     public func new(interestedUser user: AppUser) {
         members.append(user)
         inChat[user.userID] = false
-        membersCollectionView.reloadData()
+        membersCollectionView?.reloadData()
     }
     public func invited(_ user: AppUser) {
         inChat[user.userID] = true

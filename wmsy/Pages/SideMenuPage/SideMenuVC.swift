@@ -85,13 +85,22 @@ extension SideMenuVC: MenuChatsListVCDelegate {
     func didSelect(whim: Whim) {
         if let vc = viewController(for: .chatRoom) as? ChatRoomVCTest {
             if whim.id != vc.whimID {
-                vc.loadAllInitialData(forWhim: whim)
+                vc.loadAllInitialData(forWhim: whim, completion: {
+                    if let _ = self.fromVC as? ChatRoomVCTest {
+                        self.closeMenu(sender: self)
+                    } else {
+                        self.switchTo(page: .chatRoom)
+                    }
+                })
+            } else {
+                if let _ = fromVC as? ChatRoomVCTest {
+                    closeMenu(sender: self)
+                } else {
+                    switchTo(page: .chatRoom)
+                }
             }
-        }
-        if let _ = fromVC as? ChatRoomVCTest {
-            closeMenu(sender: self)
         } else {
-            switchTo(page: .chatRoom)
+            
         }
     }
 }
