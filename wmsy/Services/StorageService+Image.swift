@@ -26,24 +26,25 @@ extension StorageService {
         })
     }
     
-    public func storeUserImage(image: UIImage?, userID: String) {
+    public func storeUserImage(image: UIImage?, userID: String) -> String?{
+        var downloadURLStr = ""
         guard let image = image else {
             print("no image")
-            return
+            return nil
         }
         guard let uploadTask = StorageService.manager.storeImage(image, imageID: userID) else {
             print("error uploading image")
-            return
+            return nil
         }
         uploadTask.observe(.success) { (taskSnapshot) in
             guard let downloadURL = taskSnapshot.metadata?.downloadURL() else {
                 print("could not download image")
                 return
             }
-            let downloadURLStr = downloadURL.absoluteString
+            downloadURLStr = downloadURL.absoluteString
             DBService.manager.addImageToUser(url: downloadURLStr, userID: userID)
         }
-        
+        return downloadURLStr
     }
     
     

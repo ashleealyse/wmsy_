@@ -15,17 +15,18 @@ class GuestProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(profileView)
-        profileView.dismissButton.addTarget(self, action: #selector(dismissButtonClicked), for: .touchUpInside)
+//        profileView.dismissButton.addTarget(self, action: #selector(dismissButtonClicked), for: .touchUpInside)
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        profileView.layoutSubviews()
-    }
-    @objc func dismissButtonClicked() {
+
+        @objc func dismissButtonClicked() {
         dismiss(animated: true, completion: nil)
     }
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        dismissButtonClicked()
+    }
+    
     public func configure(with user: AppUser) {
         let url = URL(string: user.photoID)
         profileView.profileImageView.kf.setImage(with: url)

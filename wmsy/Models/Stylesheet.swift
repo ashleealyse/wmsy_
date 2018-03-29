@@ -17,5 +17,6 @@ enum Stylesheet {
         static let WMSYShadowBlue = UIColor(red:0.47, green:0.52, blue:0.67, alpha:1.0)
         static let WMSYPastelBlue = UIColor(red:0.60, green:0.78, blue:0.77, alpha:1.0)
         static let WMSYSeaFoamGreen = UIColor(red:0.65, green:0.90, blue:0.73, alpha:1.0)
+        static let WMSYNeonPurple = UIColor(red:0.57, green:0.02, blue:0.83, alpha:1.0)
     }
 }

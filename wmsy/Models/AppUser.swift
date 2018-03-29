@@ -13,7 +13,7 @@ struct AppUser: Codable {
     let photoID: String
     let age: String
     let userID: String
-    let bio: String
+    var bio: String
     let badge: Bool
     let flags: Int
     var hostedWhims: [Whim]
