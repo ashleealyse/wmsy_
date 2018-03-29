@@ -39,7 +39,7 @@ class HostAWhimButtonTableViewCell: UITableViewCell {
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
             let screenHeight = UIScreen.main.bounds.height
-            make.height.equalTo(screenHeight * 0.1)
+            make.height.equalTo(screenHeight * 0.09)
             make.bottom.equalTo(contentView.snp.bottom)
             
         }

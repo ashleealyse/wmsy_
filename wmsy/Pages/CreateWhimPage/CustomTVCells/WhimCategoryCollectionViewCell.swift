@@ -16,7 +16,7 @@ class WhimCategoryCollectionViewCell: UICollectionViewCell {
         imageView.backgroundColor = .clear
         imageView.contentMode = .scaleAspectFit
         imageView.layer.masksToBounds = true
-        imageView.alpha = 0.3
+        imageView.alpha = 0.8
         return imageView
     }()
     
@@ -38,7 +38,7 @@ class WhimCategoryCollectionViewCell: UICollectionViewCell {
                 categoryImage.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.2)
                 categoryImage.layer.cornerRadius = categoryImage.frame.size.height / 2
             } else {
-                categoryImage.alpha = 0.3
+                categoryImage.alpha = 0.8
                 categoryImage.backgroundColor = .clear
                 categoryImage.layer.cornerRadius = categoryImage.frame.size.height / 2
             }
