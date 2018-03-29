@@ -38,6 +38,11 @@ extension DBService {
     
     
     func getAppUser(fromID uID: String, completion: @escaping (_ user: AppUser?) -> Void) {
+        guard !uID.isEmpty else {
+            print("got empty user id")
+            completion(nil)
+            return
+        }
         if let user = DBService.cachedUsers[uID] {
             completion(user)
             return
