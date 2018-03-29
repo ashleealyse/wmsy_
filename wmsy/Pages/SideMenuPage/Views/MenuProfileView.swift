@@ -16,9 +16,10 @@ class MenuProfileView: UICollectionViewCell {
     public var profileImageView = UIImageView(image: #imageLiteral(resourceName: "wmsyCategoryIcon"))
     public var nameLabel = UILabel()
     public var ageLabel = UILabel()
-    public var bioLabel = UILabel()
+    public var bioTextView = UITextView()
     public var signOutButton = UIButton()
-
+    public var editBioButton = UIButton()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -40,8 +41,9 @@ class MenuProfileView: UICollectionViewCell {
         setupProfileImageView()
         setupNameLabel()
         setupAgeLabel()
-        setupBioLabel()
         setupSignOutButton()
+        setupBioTextView()
+        setupEditBioButton()
     }
 
     private func setupBadgeView() {
@@ -76,20 +78,31 @@ class MenuProfileView: UICollectionViewCell {
             make.top.equalTo(nameLabel.snp.bottom).offset(8)
         }
     }
-    private func setupBioLabel() {
-        contentView.addSubview(bioLabel)
-        bioLabel.snp.makeConstraints { (make) in
-            make.centerX.equalTo(contentView.snp.centerX)
-            make.width.equalTo(contentView).multipliedBy(0.75)
-            make.top.equalTo(ageLabel.snp.bottom).offset(20)
-        }
-    }
     private func setupSignOutButton() {
         contentView.addSubview(signOutButton)
         signOutButton.snp.makeConstraints { (make) in
             make.leading.bottom.equalTo(contentView).inset(16)
         }
     }
+    private func setupBioTextView() {
+        bioTextView.isEditable = false
+        contentView.addSubview(bioTextView)
+        bioTextView.snp.makeConstraints { (make) in
+            make.centerX.equalTo(contentView.snp.centerX)
+            make.width.equalTo(contentView).multipliedBy(0.75)
+            make.top.equalTo(ageLabel.snp.bottom).offset(20)
+            make.bottom.equalTo(signOutButton.snp.top).offset(-20)
+        }
+    }
+    private func setupEditBioButton() {
+        editBioButton.setTitle("EDIT", for: .normal)
+        editBioButton.setTitleColor(.white, for: .normal)
+        contentView.addSubview(editBioButton)
+        editBioButton.snp.makeConstraints { (make) in
+            make.top.trailing.equalTo(bioTextView.layoutMarginsGuide)
+        }
+    }
+    
     private func placeholderTesting() {
         let bgColor = Stylesheet.Colors.WMSYDeepViolet
         let fontColor = Stylesheet.Colors.WMSYPastelBlue
@@ -99,14 +112,14 @@ class MenuProfileView: UICollectionViewCell {
         ageLabel.textColor = fontColor
         nameLabel.backgroundColor = bgColor
         nameLabel.textColor = fontColor
-        bioLabel.backgroundColor = bgColor
-        bioLabel.textColor = fontColor
+        bioTextView.backgroundColor = bgColor
+        bioTextView.textColor = fontColor
         signOutButton.backgroundColor = bgColor
         signOutButton.setTitleColor(fontColor, for: .normal)
 
         nameLabel.text = "HotRod"
         ageLabel.text = "4206969 years old"
-        bioLabel.text = "I'm Rod and I like to party."
+        bioTextView.text = "I'm Rod and I like to party."
         signOutButton.setTitle("Signout", for: .normal)
     }
     
