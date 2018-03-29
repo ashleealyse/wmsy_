@@ -82,6 +82,7 @@ class ChatRoomVCTest: MenuedViewController {
         textInputVC.view.snp.makeConstraints { (make) in
             make.top.equalTo(chatTVC.view.snp.bottom)
             make.leading.trailing.bottom.equalTo(self.view)
+            make.height.greaterThanOrEqualTo(64)
         }
     }
     
@@ -195,11 +196,9 @@ extension ChatRoomVCTest: ChatInfoViewDelegate {
         print("Member Modified: \(member.name)")
     }
     
-    
     func inviteToWhimChat(member: AppUser) {
         print("invite to chat: \(member.name)")
     }
-    
     func removeFromWhimChat(member: AppUser) {
         print("remove from chat: \(member.name)")
     }

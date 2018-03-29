@@ -88,15 +88,23 @@ extension ChatMessagesTableVC: UITableViewDataSource, UITableViewDelegate {
         case .chat:
             if message.senderID == self.currentUserID {
                 let cell = tableView.dequeueReusableCell(withIdentifier: CurrentUserMessageCell.reuseIdentifier, for: indexPath) as! CurrentUserMessageCell
-                if message.messageBody != "aidfnaoidsufoiudh" {
-                    cell.messageText.text = message.messageBody
-                }
+                cell.messageText.text = message.messageBody
+                DBService.manager.getAppUser(fromID: message.senderID!, completion: { (user) in
+                    if let user = user {
+                        let url = URL(string: user.photoID)
+                        cell.profileImageView.kf.setImage(with: url)
+                    }
+                })
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: OtherUserMessageCell.reuseIdentifier, for: indexPath) as! OtherUserMessageCell
-                if message.messageBody != "oqiudfboasiudf" {
-                    cell.messageText.text = message.messageBody
-                }
+                cell.messageText.text = message.messageBody
+                DBService.manager.getAppUser(fromID: message.senderID!, completion: { (user) in
+                    if let user = user {
+                        let url = URL(string: user.photoID)
+                        cell.profileImageView.kf.setImage(with: url)
+                    }
+                })
                 return cell
             }
         case .notification:
