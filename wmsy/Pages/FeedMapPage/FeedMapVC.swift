@@ -164,8 +164,7 @@ class FeedMapVC: MenuedViewController {
         CreateWhimTVC().modalPresentationStyle = .overCurrentContext
         CreateWhimTVC().modalTransitionStyle = .crossDissolve
         CreateWhimTVC().view.backgroundColor = .clear
-        self.present(CreateWhimTVC(), animated: false, completion: nil)
-
+        self.present(CreateWhimTVC(), animated: true, completion: nil)
     }
     
     func pinFilterViewToBottom() {

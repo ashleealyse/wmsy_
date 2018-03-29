@@ -75,9 +75,8 @@ class CreateWhimTVC: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        view.backgroundColor = .clear
-        if let window = UIApplication.shared.delegate?.window {
-            window!.backgroundColor = .clear
+        if let window = UIApplication.shared.delegate?.window {            
+            window!.backgroundColor = .darkGray
             tableView.frame = CGRect(x: 0, y: 60,
                                      width: UIScreen.main.bounds.width * 0.90,
                                      height: UIScreen.main.bounds.height * 0.80)
@@ -86,6 +85,7 @@ class CreateWhimTVC: UITableViewController {
             tableView.layer.masksToBounds = true
         }
     }
+
 
     // MARK: - Table view data source
 
