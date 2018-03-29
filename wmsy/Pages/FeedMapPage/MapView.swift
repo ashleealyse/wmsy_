@@ -47,9 +47,9 @@ class MapView: UIView {
         mapView.addSubview(detailView)
         
         detailView.snp.makeConstraints { (make) in
-            make.trailing.equalTo(self.snp.trailing)
-            make.leading.equalTo(self.snp.leading)
-            make.bottom.equalTo(self.snp.bottom)
+            make.trailing.equalTo(self.snp.trailing).offset(-11)
+            make.leading.equalTo(self.snp.leading).offset(11)
+            make.bottom.equalTo(self.snp.bottom).offset(-11)
             make.centerX.equalTo(self.snp.centerX)
             make.height.equalTo(self.snp.height).multipliedBy(0.2)
         }

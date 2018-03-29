@@ -93,7 +93,39 @@ extension FeedMapVC: UITableViewDataSource {
 extension FeedMapVC: FeedCellViewDelegate {
     
     func showOnMapButtonPressed(whim: Whim) {
-        //Show Map
+        verticalPinConstraint?.deactivate()
+        
+        if mapUp {
+            pinFilterViewToBottom()
+        } else {
+            pinFilterViewToTop()
+        }
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: { (_) in
+            self.mapUp = !self.mapUp
+        })
+        let location = CLLocation.init(latitude: Double(whim.lat)!, longitude: Double(whim.long)!)
+        let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: 15.0)
+        self.mapView.mapView.animate(to: camera)
+        self.mapView.detailView.whimTitle.text = whim.title
+        self.mapView.detailView.whimDescription.text = whim.description
+        let hostURL = URL(string: whim.hostImageURL)
+        let hostID = whim.hostID
+        DBService.manager.getAppUser(fromID: hostID) { (appUser) in
+            self.currentUser = appUser
+        }
+        self.mapView.detailView.userPicture.kf.setImage(with: hostURL, for: .normal)
+        
+        let interests = getInterestKeys(appUser: AppUser.currentAppUser!)
+        if interests.contains(whim.id){
+            self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "interestedCircleIcon"), for: .normal)
+        }else{
+            self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
+        }
+        self.mapView.detailView.isHidden = false
+        
         print("Show on Map Button Pressed")
         
     }
@@ -102,33 +134,17 @@ extension FeedMapVC: FeedCellViewDelegate {
         let interests = getInterestKeys(appUser: AppUser.currentAppUser!)
         if interests.contains(whim.id){
             //User is interested
-            print("Current User: \(currentUser?.name) Is NOT Interested in \(whim.id)")
-            let indexPath = IndexPath.init(row: returnIndex(whim: whim), section: 0)
-            let cell = self.feedView.tableView.cellForRow(at: indexPath) as? FeedCell
+            print("Current User: \(currentUser?.name ?? "No current user") Is NOT Interested in Whim #: \(whim.id) by Host: \(whim.hostID)")
             DBService.manager.removeInterest(forWhim: whim)
             self.feedView.tableView.reloadData()
         } else {
             //User is not interested
-            print("Current User: \(currentUser?.name ?? "No current user") is Interested in \(whim.id)")
+            print("Current User: \(currentUser?.name ?? "No current user") is Interested in Whim #: \(whim.id) by Host: \(whim.hostID)")
             DBService.manager.addInterest(forWhim: whim)
-            let indexPath = IndexPath.init(row: returnIndex(whim: whim), section: 0)
-            let cell = self.feedView.tableView.cellForRow(at: indexPath) as? FeedCell
-//            cell?.expandedView.interestedButton.setImage(#imageLiteral(resourceName: "interestedCircleIcon"), for: .normal)
             self.feedView.tableView.reloadData()
-
         }
     }
     
-    func returnIndex(whim: Whim) -> Int{
-        var index = 0
-        for feedWhim in feedWhims{
-            if feedWhim.id == whim.id{
-                return index
-            }
-            index += 1
-        }
-        return index
-    }
     
     
     
