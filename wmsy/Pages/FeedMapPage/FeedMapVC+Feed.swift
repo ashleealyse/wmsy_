@@ -49,19 +49,34 @@ extension FeedMapVC: UITableViewDataSource {
         let whim = feedWhims[indexPath.row]
         cell.whim = whim
         cell.collapsedView.postTitleLabel.text = whim.title
-        
-        if currentUsersInterests.contains(whim.id) {
-            cell.collapsedView.backgroundColor = .red
-        }
-        
         cell.collapsedView.categoryIcon.image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
         cell.collapsedView.userImageButton.imageView?.kf.setImage(with: URL(string: whim.hostImageURL), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
             cell.collapsedView.userImageButton.setImage(image, for: .normal)
         })
         cell.expandedView.postDescriptionTF.text = whim.description
+        let interests = getInterestKeys(appUser: AppUser.currentAppUser!)
+        if interests.contains(whim.id){
+            cell.expandedView.interestedButton.setImage(#imageLiteral(resourceName: "interestedCircleIcon"), for: .normal)
+        }else{
+            cell.expandedView.interestedButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
+        }
+            
+     
+
         return cell
-        
     }
+    
+    public func getInterestKeys(appUser: AppUser) -> [String]{
+        var interests = appUser.interests
+        var finalArr = [String]()
+        for interest in interests{
+            finalArr.append(interest.whimID)
+        }
+        return finalArr
+    }
+    
+    
+    
 }
 
 
@@ -78,31 +93,76 @@ extension FeedMapVC: UITableViewDataSource {
 extension FeedMapVC: FeedCellViewDelegate {
     
     func showOnMapButtonPressed(whim: Whim) {
-        //Show Map
+        verticalPinConstraint?.deactivate()
+        
+        if mapUp {
+            pinFilterViewToBottom()
+        } else {
+            pinFilterViewToTop()
+        }
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: { (_) in
+            self.mapUp = !self.mapUp
+        })
+        let location = CLLocation.init(latitude: Double(whim.lat)!, longitude: Double(whim.long)!)
+        let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: 15.0)
+        self.mapView.mapView.animate(to: camera)
+        self.mapView.detailView.whimTitle.text = whim.title
+        self.mapView.detailView.whimDescription.text = whim.description
+        let hostURL = URL(string: whim.hostImageURL)
+        let hostID = whim.hostID
+        DBService.manager.getAppUser(fromID: hostID) { (appUser) in
+            self.currentUser = appUser
+        }
+        self.mapView.detailView.userPicture.kf.setImage(with: hostURL, for: .normal)
+        
+        let interests = getInterestKeys(appUser: AppUser.currentAppUser!)
+        if interests.contains(whim.id){
+            self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "interestedCircleIcon"), for: .normal)
+        }else{
+            self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
+        }
+        self.mapView.detailView.isHidden = false
+        
         print("Show on Map Button Pressed")
         
     }
     
     func interestButtonClicked(whim: Whim) {
-        interestButtonCounter += 1
-        if interestButtonCounter % 2 == 0 {
+        let interests = getInterestKeys(appUser: AppUser.currentAppUser!)
+        if interests.contains(whim.id){
             //User is interested
-            print("Current User: \(currentUser?.name) Is NOT Interested in \(whim.id)")
+            print("Current User: \(currentUser?.name ?? "No current user") Is NOT Interested in Whim #: \(whim.id) by Host: \(whim.hostID)")
             DBService.manager.removeInterest(forWhim: whim)
-            
-
+            self.feedView.tableView.reloadData()
         } else {
             //User is not interested
-            print("Current User: \(currentUser?.name ?? "No current user") is Interested in \(whim.id)")
+            print("Current User: \(currentUser?.name ?? "No current user") is Interested in Whim #: \(whim.id) by Host: \(whim.hostID)")
             DBService.manager.addInterest(forWhim: whim)
+            self.feedView.tableView.reloadData()
         }
     }
+    
+    
+    
+    
+    
+    
     
     func userProfileButtonPressed(whim: Whim) {
         print("Show Whim Host User Profile")
         guestProfile.modalPresentationStyle = .overCurrentContext
         guestProfile.modalTransitionStyle = .crossDissolve
-        present(guestProfile, animated: true, completion: nil)
+        let url = URL(string: whim.hostImageURL)
+        
+        DBService.manager.getAppUser(fromID: whim.hostID) { (appUser) in
+            if let appUser = appUser {
+                self.guestProfile.configure(with: appUser)
+                self.present(self.guestProfile, animated: true, completion: nil)
+            }
+        }
     }
 }
 

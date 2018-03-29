@@ -94,10 +94,11 @@ extension LoginVC: loginViewDelegate {
                                 if userAlreadyExists {
                                     DBService.manager.getAppUser(fromID: user.uid, completion: { (appUser) in
                                         if let appUser = appUser {
-                                            currentUser = appUser
-                                            AppUser.currentAppUser = currentUser
-                                            print("set up everything already")
-                                            (self.tabBarController as? MainTabBarVC)?.animateTo(page: .feedAndMap, fromViewController: self)
+                                            AppUser.currentAppUser = appUser
+                                            MenuData.manager.configureInitialData(forUser: appUser, completion: {
+                                                print("set up everything already")
+                                                (self.tabBarController as? MainTabBarVC)?.animateTo(page: .feedAndMap, fromViewController: self)
+                                            })
                                         } else {
                                             print("some other error here")
                                         }
@@ -109,8 +110,10 @@ extension LoginVC: loginViewDelegate {
                                         currentUser = AppUser(name: userName!, photoID: photoID, age: "", userID: userID, bio: "", badge: false, flags: 0, hostedWhims: [], interests: [])
                                         AppUser.currentAppUser = currentUser
                                         DBService.manager.addAppUser(currentUser)
-                                        print("set up everything already")
-                                        (self.tabBarController as? MainTabBarVC)?.animateTo(page: .feedAndMap, fromViewController: self)
+                                        MenuData.manager.configureInitialData(forUser: currentUser, completion: {
+                                            print("set up everything already")
+                                            (self.tabBarController as? MainTabBarVC)?.animateTo(page: .feedAndMap, fromViewController: self)
+                                        })
                                     }
                                 }
                             })

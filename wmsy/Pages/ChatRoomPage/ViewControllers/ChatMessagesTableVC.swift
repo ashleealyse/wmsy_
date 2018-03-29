@@ -18,6 +18,7 @@ class ChatMessagesTableVC: UIViewController {
     
     let chatTableView = UITableView()
     private var messages = [Message]()
+    public var lastMessageID: String? {return messages.last?.messageID}
     private var currentUserID: String {return AuthUserService.manager.getCurrentUser()?.uid ?? ""}
     
     public weak var delegate: ChatMessagesTableVCDelegate?
@@ -49,7 +50,11 @@ class ChatMessagesTableVC: UIViewController {
         chatTableView.estimatedRowHeight = 100
         chatTableView.separatorStyle = .none
         chatTableView.allowsSelection = false
-        chatTableView.backgroundColor = .clear
+        chatTableView.backgroundColor = .gray
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        scrollToBottom(animated: false)
     }
     
     public func new(message: Message) {
@@ -66,6 +71,7 @@ class ChatMessagesTableVC: UIViewController {
         }
     }
     public func scrollToBottom(animated: Bool) {
+        guard messages.count > 0 else {return}
         let indexPath = IndexPath(row: messages.count - 1, section: 0)
         chatTableView.scrollToRow(at: indexPath, at: .bottom, animated: animated)
     }

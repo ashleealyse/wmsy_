@@ -8,22 +8,7 @@
 
 import UIKit
 import SnapKit
-
-//extension UIViewController {
-//    func add(_ child: UIViewController) {
-//        addChildViewController(child)
-//        view.addSubview(child.view)
-//        child.didMove(toParentViewController: self)
-//    }
-//    func remove() {
-//        guard parent != nil else {
-//            return
-//        }
-//        willMove(toParentViewController: nil)
-//        removeFromParentViewController()
-//        view.removeFromSuperview()
-//    }
-//}
+import FirebaseDatabase
 
 
 class ChatRoomVCTest: MenuedViewController {
@@ -33,17 +18,21 @@ class ChatRoomVCTest: MenuedViewController {
     let chatTVC = ChatMessagesTableVC()
     let textInputVC = TextInputVC()
     
-//    private var whim = Whim.init(id: "-L8JoE-G-U1uGGYyt4X5", category: "wmsy", title: "Pictures please", description: ":D", hostID: "mdH6CJXxDkYBqhfjjptVnTpMp3g2", hostImageURL: "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/29366139_128316311338085_2672539358371774464_n.jpg?_nc_cat=0&oh=3df47771fb34edb538211510eaa9dff9&oe=5B4431F0", location: "142 West 46th Street New York, NY 10036", long: "-73.9841802790761", lat: "40.7578242106358", duration: 2, expiration: "March 23, 2018 at 7:43:21 PM EDT", finalized: false, timestamp: "March 23, 2018 at 5:43:21 PM EDT", whimChats: [])
     private var whim: Whim?
+    public var whimID: String? {return whim?.id}
     private var currentUserID: String { return AuthUserService.manager.getCurrentUser()?.uid ?? "" }
     private var interests = [Interest]()
     private var interestedUsers = [AppUser]()
     
-    
+    private var members = [AppUser]() {
+        didSet {
+            print("members: \(members)")
+        }
+    }
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .black
+        self.view.backgroundColor = .clear
         
         self.add(membersCollectionVC)
         self.add(chatTVC)
@@ -53,7 +42,7 @@ class ChatRoomVCTest: MenuedViewController {
         chatTVC.delegate = self
         textInputVC.delegate = self
         
-        chatTVC.configureWith(whim!)
+        membersCollectionVC.memberInfoView.delegate = self
         
         setupSubviewsConstraints()
         setupKeyboardHandling()
@@ -61,6 +50,18 @@ class ChatRoomVCTest: MenuedViewController {
         DataQueue.manager.delegate = self
         DataQueue.manager.startSendingData()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupObservers()
+        chatTVC.configureWith(whim!)
+        membersCollectionVC.configureWith(whim!)
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        detachObservers()
+    }
+    
     private func setupSubviewsConstraints() {
 //        This page is comprised of 3 sections:
 //        a controlling collection view on top
@@ -72,7 +73,7 @@ class ChatRoomVCTest: MenuedViewController {
 //        on one screen
         
         membersCollectionVC.view.snp.makeConstraints { (make) in
-            make.top.leading.trailing.equalTo(self.view)
+            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
         chatTVC.view.snp.makeConstraints { (make) in
             make.top.equalTo(membersCollectionVC.view.snp.bottom)
@@ -91,7 +92,6 @@ class ChatRoomVCTest: MenuedViewController {
     
     @objc private func adjustForKeyboard(_ notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
-        
         let keyboardScreenEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
 //        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
         UIView.animate(withDuration: 0.4) {
@@ -133,19 +133,42 @@ class ChatRoomVCTest: MenuedViewController {
         
         // TODO: hand off that data to childVCs
     }
+    private var messageHandler: DatabaseReference!
     public func setupObservers() {
-        
+        guard let whim = whim else { return }
+        messageHandler = DBService.manager.messagesRef.child(whim.id)
+        messageHandler.queryLimited(toLast: 1).observe(.childAdded) { (snapshot) in
+            guard
+                var messageDict = snapshot.value as? [String: Any] else {
+                    print(snapshot.key)
+                    return
+            }
+            messageDict["whimID"] = whim.id
+            messageDict["messageID"] = snapshot.key
+            if let message = Message.init(fromDict: messageDict),
+                message.messageID != self.chatTVC.lastMessageID {
+                self.whim!.whimChats.append(message)
+                self.chatTVC.new(message: message)
+            }
+        }
+    }
+    private func detachObservers() {
+        messageHandler.removeAllObservers()
     }
 }
 
 // MARK: - childVCs delegate methods implementation
 extension ChatRoomVCTest: ChatMessagesTableVCDelegate, TextInputVCDelegate, InfoAndMembersCollectionVCDelegate {
+    func updateMembers(members: [AppUser]) {
+        self.members = members
+    }
+    
+    func toggleUser(user: AppUser) {
+        print("ChatRoomVCTest - user: \(user)")
+    }
+    
     func send(message: String) {
-        let message = Message.init(whimID: whim!.id, messageID: "12341234", senderID: currentUserID, messageType: .chat, messageBody: message)
-        // TODO: make the message using the message service thing so that we can get a real id for it before passing it off to the tableview
-        chatTVC.new(message: message)
-        DBService.manager.addMessage(text: message.messageBody, ofType: .chat, fromUserID: currentUserID, toWhim: whim!)
-        DBService.manager.addInterest(forWhim: whim!)
+        DBService.manager.addMessage(text: message, ofType: .chat, fromUserID: currentUserID, toWhim: whim!)
     }
 }
 
@@ -159,5 +182,27 @@ extension ChatRoomVCTest: DataReceiver {
 }
 
 
-
+extension ChatRoomVCTest: ChatInfoViewDelegate {
+    func inviteOrRemoveUserPressed(sender: UIButton) {
+        let index = sender.tag
+        let member = members[index]
+        let interests = member.interests.filter{$0.whimID == whimID}
+        if interests[0].inChat {
+            inviteToWhimChat(member: member)
+        } else {
+            removeFromWhimChat(member: member)
+        }
+        print("Member Modified: \(member.name)")
+    }
+    
+    
+    func inviteToWhimChat(member: AppUser) {
+        print("invite to chat: \(member.name)")
+    }
+    
+    func removeFromWhimChat(member: AppUser) {
+        print("remove from chat: \(member.name)")
+    }
+    
+}
 
