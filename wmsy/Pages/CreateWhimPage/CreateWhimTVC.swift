@@ -171,7 +171,7 @@ class CreateWhimTVC: UITableViewController {
             print("New Whim - Title: \(whimTitle), Description: \(whimDescription), Category: \(whimCategory), Location: \(whimLocation), Long: \(whimLong), Lat: \(whimLat) Duration: \(whimDuration)")
             
           
-            self.navigationController?.popViewController(animated: true)
+            dismissButtonClicked()
             
         } else {
             print("Missing item -  Title: \(whimTitle), Description: \(whimDescription), Category: \(whimCategory), Location: \(whimLocation), Duration: \(whimDuration)")
