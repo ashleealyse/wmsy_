@@ -58,14 +58,13 @@ class AddWhimLocationViewController: UIViewController {
     
     @objc func selectLocation() {
         // replace this with the pin point location from map
-        
-      
         print("Location Selected: \(selectedLocation)")
         
         delegate?.setAddress(atAddress: selectedLocation)
         delegate?.setCoordinates(long: long, lat: lat)
         // take the selectedLocation and bring it to the CreateWhimTVC
-        navigationController?.popViewController(animated: true)
+//        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
