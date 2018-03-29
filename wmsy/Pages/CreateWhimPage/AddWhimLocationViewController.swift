@@ -41,10 +41,14 @@ class AddWhimLocationViewController: UIViewController {
         addWhimLocationView.addWhimMap.settings.myLocationButton = true
         addWhimLocationView.addWhimMap.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
+        addWhimLocationView.layer.cornerRadius = 10
+        addWhimLocationView.layer.masksToBounds = true
+        
         view.addSubview(addWhimLocationView)
         
         addWhimLocationView.snp.makeConstraints { (make) in
             make.edges.equalTo(view.safeAreaLayoutGuide)
+
         }
         
         

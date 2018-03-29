@@ -63,7 +63,7 @@ class WhimColorViewTableViewCell: UITableViewCell {
     }
     
     func setUpDismissButton() {
-        colorView.addSubview(dismissButton)
+        addSubview(dismissButton)
         dismissButton.snp.makeConstraints { (make) in
             make.top.equalTo(colorView.snp.top).offset(5)
             make.leading.equalTo(colorView.snp.leading).offset(5)
