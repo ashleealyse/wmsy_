@@ -91,7 +91,6 @@ struct Whim: Codable {
     
 }
 
-
 extension Array where Element == Whim {
     func sortedByTimestamp() -> [Whim] {
         return self.sorted(by: { (first, second) -> Bool in
