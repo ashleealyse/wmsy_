@@ -41,7 +41,7 @@ class FeedMapVC: MenuedViewController {
         didSet{
             print("userLocation set")
             DBService.manager.getClosestWhims(location: userLocation) { (whims) in
-                self.feedWhims = whims
+                self.feedWhims = whims.filter(){$0.finalized != true}
             }
         }
     }
@@ -71,7 +71,7 @@ class FeedMapVC: MenuedViewController {
     
     @objc func refreshData(refreshControl: UIRefreshControl){
         DBService.manager.getClosestWhims(location: userLocation) { (whims) in
-            self.feedWhims = whims
+            self.feedWhims = whims.filter(){$0.finalized != true}
             self.feedView.tableView.reloadData()
             refreshControl.endRefreshing()
         }
