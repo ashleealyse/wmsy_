@@ -41,7 +41,7 @@ class FeedMapVC: MenuedViewController {
         didSet{
             print("userLocation set")
             DBService.manager.getClosestWhims(location: userLocation) { (whims) in
-                self.feedWhims = whims
+                self.feedWhims = whims.filter(){$0.finalized != true}
             }
         }
     }
@@ -69,12 +69,31 @@ class FeedMapVC: MenuedViewController {
     }
     
     
+    @objc func refreshData(refreshControl: UIRefreshControl){
+        DBService.manager.getClosestWhims(location: userLocation) { (whims) in
+            self.feedWhims = whims.filter(){$0.finalized != true}
+            self.feedView.tableView.reloadData()
+            refreshControl.endRefreshing()
+        }
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.feedView.tableView.separatorStyle = .singleLine
+        self.feedView.tableView.separatorColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.5)
+        self.feedView.tableView.separatorInset.right = 10
+        self.feedView.tableView.separatorInset.left = 10
+
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.backgroundColor = .white
         self.navigationController?.navigationBar.tintColor = .white
         self.navigationController?.navigationBar.barTintColor = .white
+        self.navigationController?.navigationBar.shadowImage = UIImage.imageWithColor(color: Stylesheet.Colors.WMSYDeepViolet)
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        self.feedView.tableView.refreshControl = refreshControl
         currentUser = AppUser.currentAppUser
         if let currentUser = currentUser {
             print("current user: \(currentUser.name)")
@@ -159,7 +178,7 @@ class FeedMapVC: MenuedViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         print("removing live feed updates")
-        DBService.manager.whimsRef.removeAllObservers()
+//        DBService.manager.whimsRef.removeAllObservers()
     }
     
     
@@ -175,7 +194,6 @@ class FeedMapVC: MenuedViewController {
         feedView.tableView.dataSource = self
         feedView.tableView.delegate = self
         feedView.tableView.rowHeight = UITableViewAutomaticDimension
-        feedView.tableView.separatorStyle = .none
     }
     func layoutfilterMapContainer() {
         view.addSubview(filterMapContainerView)
@@ -289,6 +307,18 @@ class FeedMapVC: MenuedViewController {
 //            }
         }
         self.expandedRows = Set<Int>()
+    }
+}
+
+extension UIImage {
+    class func imageWithColor(color: UIColor) -> UIImage {
+        let rect = CGRect(x: 0.0, y: 0.0, width: 1.0, height: 0.5)
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
+        color.setFill()
+        UIRectFill(rect)
+        let image : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return image
     }
 }
 

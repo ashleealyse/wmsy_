@@ -91,10 +91,13 @@ struct Whim: Codable {
     
 }
 
-
 extension Array where Element == Whim {
     func sortedByTimestamp() -> [Whim] {
-        return self.sorted {$0.timestamp > $1.timestamp}
+        return self.sorted(by: { (first, second) -> Bool in
+            let firstTimeStamp = DateFormatter.wmsyDateFormatter.date(from: first.timestamp)!.timeIntervalSinceNow
+            let secondTimeStamp = DateFormatter.wmsyDateFormatter.date(from: second.timestamp)!.timeIntervalSinceNow
+            return firstTimeStamp > secondTimeStamp
+        })
     }
-    
 }
+
