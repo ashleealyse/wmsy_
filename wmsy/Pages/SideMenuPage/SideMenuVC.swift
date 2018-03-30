@@ -20,7 +20,7 @@ class SideMenuVC: MenuViewController {
     let navVC = MenuNavigationBarVC()
     let menuPagesVC = MenuPagesVC.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     
-    let info = MenuData.manager
+    var info = MenuData.manager
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +54,8 @@ class SideMenuVC: MenuViewController {
         let guestWhims = info.guestWhims.map{$0.whim}
         let pendingInterests = info.pendingInterests
         menuPagesVC.pageTwo.configureWith(hostedWhims: hostedWhims, guestWhims: guestWhims, pendingInterests: pendingInterests)
+        
+        MenuData.manager.delegate = self
     }
     
     @objc private func editBio() {
@@ -114,5 +116,19 @@ extension SideMenuVC: UITextViewDelegate {
             return false
         }
         return true
+    }
+}
+
+extension SideMenuVC: MenuDataDelegate {
+    func receivedUpdate() {
+        
+    }
+    
+    func reconfigure() {
+        info = MenuData.manager
+        let hostedWhims = info.hostedWhims.map{$0.whim}
+        let guestWhims = info.guestWhims.map{$0.whim}
+        let pendingInterests = info.pendingInterests
+        menuPagesVC.pageTwo.configureWith(hostedWhims: hostedWhims, guestWhims: guestWhims, pendingInterests: pendingInterests)
     }
 }
