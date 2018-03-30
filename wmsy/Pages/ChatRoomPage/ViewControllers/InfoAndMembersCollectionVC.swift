@@ -12,6 +12,8 @@ import SnapKit
 protocol InfoAndMembersCollectionVCDelegate: class {
     func toggleUser(user: AppUser)
     func updateMembers(members: [AppUser])
+    func addInterestedUser(_ user: AppUser)
+    func removeUser(_ user: AppUser)
 }
 
 class InfoAndMembersCollectionVC: UIViewController {
@@ -24,7 +26,7 @@ class InfoAndMembersCollectionVC: UIViewController {
     
     private var members = [AppUser]() {
         didSet {
-            self.delegate?.updateMembers(members: members)
+//            self.delegate?.updateMembers(members: members)
         }
     }
     public var lastMemberID: String? {return members.last?.userID}
@@ -88,7 +90,7 @@ class InfoAndMembersCollectionVC: UIViewController {
            self.heightConstraint = make.bottom.equalTo(memberInfoView.snp.bottom).constraint
         }
         
-      
+        memberInfoView.inviteButton.addTarget(self, action: #selector(inviteButtonHit), for: .touchUpInside)
     }
     
     public func new(interestedUser user: AppUser) {
@@ -99,6 +101,22 @@ class InfoAndMembersCollectionVC: UIViewController {
     public func invited(_ user: AppUser) {
         inChat[user.userID] = true
     }
+    
+    @objc func inviteButtonHit() {
+        guard
+            let user = currentSelectedUser,
+            let inChat = inChat[user.userID] else {
+                return
+        }
+        if inChat {
+            delegate?.removeUser(user)
+        } else {
+            delegate?.addInterestedUser(user)
+            memberInfoView.inviteButton.setTitle("Remove", for: .normal)
+            memberInfoView.inviteButton.backgroundColor = .red
+        }
+    }
+    
     @objc func toggle() {
         
         // idk if this does anything
@@ -149,19 +167,31 @@ extension InfoAndMembersCollectionVC: UICollectionViewDataSource, UICollectionVi
             memberInfoView.inviteButton.isHidden = true
             return
         }
-        memberInfoView.inviteButton.tag = indexPath.row - 1
-        let user = members[indexPath.row - 1]
-        currentSelectedUser = user
-        memberInfoView.shortLabel.text = user.name
-        memberInfoView.longLabel.text = user.bio
+        currentSelectedUser = members[indexPath.row - 1]
+        memberInfoView.shortLabel.text = currentSelectedUser?.name
+        memberInfoView.longLabel.text = currentSelectedUser?.bio
         memberInfoView.inviteButton.isHidden = false
-        
-        let interests = user.interests.filter{$0.whimID == currentWhim?.id}
-        if interests[0].inChat {
+        if inChat[currentSelectedUser!.userID]! {
             memberInfoView.inviteButton.setTitle("Remove", for: .normal)
+            memberInfoView.inviteButton.backgroundColor = .red
         } else {
             memberInfoView.inviteButton.setTitle("Invite", for: .normal)
+            memberInfoView.inviteButton.backgroundColor = .green
         }
+        
+//        memberInfoView.inviteButton.tag = indexPath.row - 1
+//        let user = members[indexPath.row - 1]
+//        currentSelectedUser = user
+//        memberInfoView.shortLabel.text = user.name
+//        memberInfoView.longLabel.text = user.bio
+//        memberInfoView.inviteButton.isHidden = false
+//
+//        let interests = user.interests.filter{$0.whimID == currentWhim?.id}
+//        if interests[0].inChat {
+//            memberInfoView.inviteButton.setTitle("Remove", for: .normal)
+//        } else {
+//            memberInfoView.inviteButton.setTitle("Invite", for: .normal)
+//        }
     }
 
     

@@ -46,13 +46,13 @@ class MapView: UIView {
         }
         
         mapView.addSubview(detailView)
-        
+        detailView.layer.cornerRadius = 20
         detailView.snp.makeConstraints { (make) in
             make.trailing.equalTo(self.snp.trailing).offset(-11)
             make.leading.equalTo(self.snp.leading).offset(11)
             make.bottom.equalTo(self.snp.bottom).offset(-11)
             make.centerX.equalTo(self.snp.centerX)
-            make.height.equalTo(self.snp.height).multipliedBy(0.2)
+            make.height.equalTo(self.snp.height).multipliedBy(0.25)
         }
         
     }
