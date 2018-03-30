@@ -15,8 +15,8 @@ class WhimCategoryTableViewCell: UITableViewCell {
     lazy var categoryLabel: UILabel = {
        let lb = UILabel()
 //        lb.backgroundColor = Stylesheet.Colors.WMSYShadowBlue
-        lb.text = "Category: "
-        lb.font = UIFont.systemFont(ofSize: 15)
+        lb.text = "Choose a Category"
+        lb.font = UIFont.systemFont(ofSize: 20)
         return lb
     }()
 

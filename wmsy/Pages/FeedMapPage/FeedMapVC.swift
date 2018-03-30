@@ -25,6 +25,7 @@ class FeedMapVC: MenuedViewController {
     var guestProfile = GuestProfileVC()
     var expandedRows = Set<Int>()
     var interestButtonCounter = 0
+    var currentWhim: Whim?
     
     var currentUser = AppUser.currentAppUser
     
@@ -70,6 +71,10 @@ class FeedMapVC: MenuedViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.backgroundColor = .white
+        self.navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.barTintColor = .white
         currentUser = AppUser.currentAppUser
         if let currentUser = currentUser {
             print("current user: \(currentUser.name)")
@@ -96,6 +101,7 @@ class FeedMapVC: MenuedViewController {
         self.mapView.mapView.delegate = self
         self.mapView.detailView.delegate = self
     }
+
     func addPanGesture(view: UIView) {
         let pan = UIPanGestureRecognizer(target: self, action: #selector(FeedMapVC.handlePan(sender:)))
         view.addGestureRecognizer(pan)
@@ -139,7 +145,23 @@ class FeedMapVC: MenuedViewController {
         default:
             break
         }
+
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = false
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("removing live feed updates")
+        DBService.manager.whimsRef.removeAllObservers()
+    }
+    
     
     func layoutFeedMapView() {
         view.addSubview(feedView)
@@ -203,18 +225,25 @@ class FeedMapVC: MenuedViewController {
     // setup UIBarButtonItems
     private func configureNavBar() {
         navigationItem.title = "wmsy"
-        
         let topLeftBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addIcon"), style: .plain, target: self, action: #selector(hostAWhim))
+        topLeftBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
         navigationItem.leftBarButtonItem = topLeftBarItem
         
         let topRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "mapIcon"), style: .plain, target: self, action: #selector(toggleMap))
+        topRightBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
         navigationItem.rightBarButtonItem = topRightBarItem
+        
         
     }
     
     
     @objc func hostAWhim() {
-        navigationController?.pushViewController(CreateWhimTVC(), animated: true)
+        navigationController?.pushViewController(CreateWhimTVC(), animated: false)
+        
+        navigationController?.isToolbarHidden = true
+        print("Show Whim Host User Profile")
+//        CreateWhimTVC().modalPresentationStyle = .none
+//        self.present(CreateWhimTVC(), animated: false, completion: nil)
     }
     
     func pinFilterViewToBottom() {
@@ -251,7 +280,15 @@ class FeedMapVC: MenuedViewController {
     @objc func clearSearch() {
         DBService.manager.getClosestWhims(location: userLocation) { (whims) in
             self.feedWhims = whims
+//            for i in 0...5 {
+//                let indexPath = IndexPath.init(row: i, section: 0)
+//                print(i)
+//                let cell = self.filtersView.categoriesCV.cellForItem(at: indexPath) as! WhimCategoryCollectionViewCell
+//                cell.isSelected = false
+//
+//            }
         }
         self.expandedRows = Set<Int>()
     }
 }
+

@@ -23,7 +23,6 @@ class AddWhimLocationViewController: UIViewController {
         didSet {
             addWhimLocationView.locationLabel.text = "\(selectedLocation)"
             addWhimLocationView.locationLabel.textColor = Stylesheet.Colors.WMSYKSUPurple
-            addWhimLocationView.locationLabel.textAlignment = .center
         }
     }
     var lat = ""
@@ -42,10 +41,14 @@ class AddWhimLocationViewController: UIViewController {
         addWhimLocationView.addWhimMap.settings.myLocationButton = true
         addWhimLocationView.addWhimMap.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
+        addWhimLocationView.layer.cornerRadius = 10
+        addWhimLocationView.layer.masksToBounds = true
+        
         view.addSubview(addWhimLocationView)
         
         addWhimLocationView.snp.makeConstraints { (make) in
             make.edges.equalTo(view.safeAreaLayoutGuide)
+
         }
         
         
@@ -59,14 +62,13 @@ class AddWhimLocationViewController: UIViewController {
     
     @objc func selectLocation() {
         // replace this with the pin point location from map
-        
-      
         print("Location Selected: \(selectedLocation)")
         
         delegate?.setAddress(atAddress: selectedLocation)
         delegate?.setCoordinates(long: long, lat: lat)
         // take the selectedLocation and bring it to the CreateWhimTVC
-        navigationController?.popViewController(animated: true)
+//        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {

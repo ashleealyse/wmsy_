@@ -11,6 +11,8 @@ import FirebaseDatabase
 import UIKit
 
 extension DBService {
+    
+    static var cachedUsers = [String: AppUser]()
     public func addAppUser(_ appUser: AppUser) {
         let ref = usersRef.child(appUser.userID)
         ref.setValue([
@@ -36,6 +38,16 @@ extension DBService {
     
     
     func getAppUser(fromID uID: String, completion: @escaping (_ user: AppUser?) -> Void) {
+        guard !uID.isEmpty else {
+            print("got empty user id")
+            completion(nil)
+            return
+        }
+        if let user = DBService.cachedUsers[uID] {
+            completion(user)
+            return
+        }
+        
         let userRef = usersRef.child(uID)
         
         userRef.observeSingleEvent(of: .value) { (snapshot) in
@@ -77,6 +89,7 @@ extension DBService {
             }
             group.notify(queue: .main) {
                 print("finished getting appUser")
+                DBService.cachedUsers[uID] = appUser
                 completion(appUser)
             }
         }
@@ -103,6 +116,14 @@ extension DBService {
             completion(users)
             print("loop finished")
         }
+    }
+    public func updateBio(_ bio: String, forUser user: AppUser) {
+        let ref = usersRef.child(user.userID).child("bio")
+        ref.setValue(bio)
+        if let _ = DBService.cachedUsers[user.userID] {
+            DBService.cachedUsers[user.userID]?.bio = bio
+        }
+        print("should have updated the bio")
     }
 }
 

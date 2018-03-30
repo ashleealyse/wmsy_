@@ -25,11 +25,10 @@ class WhimDescriptionTableViewCell: UITableViewCell {
        let tv = UITextView()
         tv.isEditable = true
         tv.backgroundColor = .white
-        tv.layer.borderWidth = 0.5
-        tv.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
-        tv.font = UIFont.systemFont(ofSize: 15)
-        tv.text = "Describe your Whim"
-        tv.textColor = .gray
+//        tv.layer.borderWidth = 0.5
+//        tv.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
+        tv.font = UIFont.boldSystemFont(ofSize: 20)
+        tv.text = "Describe Your Whim"
         tv.clipsToBounds = true
         tv.layer.cornerRadius = 5.0
         return tv

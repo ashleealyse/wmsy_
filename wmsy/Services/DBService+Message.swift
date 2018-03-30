@@ -17,7 +17,7 @@ extension DBService {
         
         let message = Message(whimID: whim.id, messageID: messageRef.key, senderID: userID, messageType: type, messageBody: text)
         messageRef.setValue([
-            "userID": message.senderID ?? "",
+            "userID": message.senderID,
             "body": message.messageBody,
             "timestamp": message.timestamp,
             "type": message.messageType.rawValue

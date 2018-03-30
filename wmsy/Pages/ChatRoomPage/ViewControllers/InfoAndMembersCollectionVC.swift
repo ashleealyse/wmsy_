@@ -15,10 +15,11 @@ protocol InfoAndMembersCollectionVCDelegate: class {
 }
 
 class InfoAndMembersCollectionVC: UIViewController {
-    
+    var detailDrawerClosed = false
     private var currentWhim: Whim?
+    private var heightConstraint: Constraint? = nil
     
-    private var membersCollectionView: UICollectionView!
+    private var membersCollectionView: UICollectionView?
     var memberInfoView: ChatInfoView!
     
     private var members = [AppUser]() {
@@ -26,7 +27,8 @@ class InfoAndMembersCollectionVC: UIViewController {
             self.delegate?.updateMembers(members: members)
         }
     }
-    private var inChat = [String: Bool]()
+    public var lastMemberID: String? {return members.last?.userID}
+    public var inChat = [String: Bool]()
     
     private var isShowingInfo = false
     private var currentSelectedUser: AppUser? {
@@ -41,7 +43,7 @@ class InfoAndMembersCollectionVC: UIViewController {
         // TODO: get list of members
         self.members = members
         self.inChat = permissions
-        membersCollectionView.reloadData()
+        membersCollectionView?.reloadData()
     }
     
     public func configureWith(_ whim: Whim) {
@@ -54,23 +56,22 @@ class InfoAndMembersCollectionVC: UIViewController {
         super.viewDidLoad()
         self.view.translatesAutoresizingMaskIntoConstraints = false
         
-        
         // setup collectionView
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         
         membersCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
-        membersCollectionView.dataSource = self
-        membersCollectionView.delegate = self
+        membersCollectionView?.dataSource = self
+        membersCollectionView?.delegate = self
         
-        membersCollectionView.register(ChatGuestCollectionViewCell.self, forCellWithReuseIdentifier: "ChatGuestCell")
-        membersCollectionView.backgroundColor = .yellow
+        membersCollectionView?.register(ChatGuestCollectionViewCell.self, forCellWithReuseIdentifier: "ChatGuestCell")
+        membersCollectionView?.backgroundColor = .yellow
         
         memberInfoView = ChatInfoView()
         memberInfoView.backgroundColor = .cyan
         
-        self.view.addSubview(membersCollectionView)
-        membersCollectionView.snp.makeConstraints { (make) in
+        self.view.addSubview(membersCollectionView!)
+        membersCollectionView?.snp.makeConstraints { (make) in
             make.height.equalTo(60)
             make.leading.trailing.top.equalTo(self.view)
         }
@@ -78,12 +79,26 @@ class InfoAndMembersCollectionVC: UIViewController {
         self.view.addSubview(memberInfoView)
         memberInfoView.snp.makeConstraints { (make) in
             make.height.equalTo(90)
-            make.leading.trailing.equalTo(membersCollectionView)
-            make.top.equalTo(membersCollectionView.snp.bottom)
-            make.bottom.equalTo(view)
+            make.leading.trailing.equalTo(membersCollectionView!)
+            make.top.equalTo(membersCollectionView!.snp.bottom)
+           
         }
+        
+        self.view.snp.makeConstraints { (make) in
+           self.heightConstraint = make.bottom.equalTo(memberInfoView.snp.bottom).constraint
+        }
+        
+      
     }
     
+    public func new(interestedUser user: AppUser) {
+        members.append(user)
+        inChat[user.userID] = false
+        membersCollectionView?.reloadData()
+    }
+    public func invited(_ user: AppUser) {
+        inChat[user.userID] = true
+    }
     @objc func toggle() {
         
         // idk if this does anything
@@ -117,6 +132,12 @@ extension InfoAndMembersCollectionVC: UICollectionViewDataSource, UICollectionVi
         let cvHeight = collectionView.bounds.height * 0.8
         let cellSize = CGSize.init(width: cvHeight, height: cvHeight)
         return cellSize
+    }
+    
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        self.detailDrawerClosed = false
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

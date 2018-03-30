@@ -60,11 +60,18 @@ extension FeedMapVC: UITableViewDataSource {
         }else{
             cell.expandedView.interestedButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
         }
-            
-     
-
+        
+        if whim.hostID == AppUser.currentAppUser?.userID{
+            cell.expandedView.interestLabel.isHidden = true
+            cell.expandedView.interestedButton.isHidden = true
+            return cell
+        }
+        cell.expandedView.interestLabel.isHidden = false
+        cell.expandedView.interestedButton.isHidden = false
         return cell
     }
+    
+    
     
     public func getInterestKeys(appUser: AppUser) -> [String]{
         var interests = appUser.interests
@@ -93,6 +100,7 @@ extension FeedMapVC: UITableViewDataSource {
 extension FeedMapVC: FeedCellViewDelegate {
     
     func showOnMapButtonPressed(whim: Whim) {
+        self.currentWhim = whim
         verticalPinConstraint?.deactivate()
         
         if mapUp {
@@ -107,7 +115,7 @@ extension FeedMapVC: FeedCellViewDelegate {
             self.mapUp = !self.mapUp
         })
         let location = CLLocation.init(latitude: Double(whim.lat)!, longitude: Double(whim.long)!)
-        let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: 15.0)
+        let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: 17.0)
         self.mapView.mapView.animate(to: camera)
         self.mapView.detailView.whimTitle.text = whim.title
         self.mapView.detailView.whimDescription.text = whim.description
@@ -135,7 +143,7 @@ extension FeedMapVC: FeedCellViewDelegate {
         if interests.contains(whim.id){
             //User is interested
             print("Current User: \(currentUser?.name ?? "No current user") Is NOT Interested in Whim #: \(whim.id) by Host: \(whim.hostID)")
-            DBService.manager.removeInterest(forWhim: whim)
+            DBService.manager.removeInterest(forWhim: whim, forUser: AppUser.currentAppUser!)
             self.feedView.tableView.reloadData()
         } else {
             //User is not interested

@@ -68,16 +68,33 @@ extension DBService {
         }
     }
     
+//    public func removeInterest(forWhim whim: Whim){
+//        let userInterests = AppUser.currentAppUser?.interests
+//        let updatedInterests = userInterests!.filter(){$0.whimID != whim.id}
+//        AppUser.currentAppUser?.interests = updatedInterests
+//        let interestRef = interestsRef.child(whim.id).child(AuthUserService.manager.getCurrentUser()!.uid)
+//        interestRef.removeValue()
+//        let userRef = DBService.manager.usersRef.child(AuthUserService.manager.getCurrentUser()!.uid).child("interests").child(whim.id)
+//        userRef.removeValue()
+//    }
     
-    public func removeInterest(forWhim whim: Whim){
-        let userInterests = AppUser.currentAppUser?.interests
-        let updatedInterests = userInterests!.filter(){$0.whimID != whim.id}
+    public func removeInterest(forWhim whim: Whim, forUser user: AppUser) {
+        let interests = AppUser.currentAppUser!.interests
+        let updatedInterests = interests.filter(){$0.whimID != whim.id}
         AppUser.currentAppUser?.interests = updatedInterests
-        let interestRef = interestsRef.child(whim.id).child(AuthUserService.manager.getCurrentUser()!.uid)
-        interestRef.removeValue()
-        let userRef = DBService.manager.usersRef.child(AuthUserService.manager.getCurrentUser()!.uid).child("interests").child(whim.id)
+        let userRef = usersRef.child(user.userID).child("interests").child(whim.id)
+        let interestRef = interestsRef.child(whim.id).child(user.userID)
         userRef.removeValue()
+        interestRef.removeValue()
     }
     
-    
+    // allows user into chat
+    public func acceptInterest(forUser user: AppUser, inWhim whim: Whim) {
+        let newInterest = Interest.init(whimID: whim.id, userID: user.userID, inChat: false)
+        AppUser.currentAppUser?.interests.append(newInterest)
+        let userRef = usersRef.child(user.userID).child("interests").child(whim.id)
+        let interestRef = interestsRef.child(whim.id).child(user.userID)
+        userRef.setValue(true)
+        interestRef.setValue(true)
+    }
 }

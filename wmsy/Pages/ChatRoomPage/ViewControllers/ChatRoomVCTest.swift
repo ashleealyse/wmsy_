@@ -32,11 +32,11 @@ class ChatRoomVCTest: MenuedViewController {
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .clear
-        
+        self.view.backgroundColor = .white
         self.add(membersCollectionVC)
         self.add(chatTVC)
         self.add(textInputVC)
+        self.membersCollectionVC.detailDrawerClosed = false
         
         membersCollectionVC.delegate = self
         chatTVC.delegate = self
@@ -73,7 +73,7 @@ class ChatRoomVCTest: MenuedViewController {
 //        on one screen
         
         membersCollectionVC.view.snp.makeConstraints { (make) in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.top.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
         }
         chatTVC.view.snp.makeConstraints { (make) in
             make.top.equalTo(membersCollectionVC.view.snp.bottom)
@@ -82,6 +82,7 @@ class ChatRoomVCTest: MenuedViewController {
         textInputVC.view.snp.makeConstraints { (make) in
             make.top.equalTo(chatTVC.view.snp.bottom)
             make.leading.trailing.bottom.equalTo(self.view)
+            make.height.greaterThanOrEqualTo(64)
         }
     }
     
@@ -102,7 +103,8 @@ class ChatRoomVCTest: MenuedViewController {
     }
     
     // To be called anytime a (different) chat is being presented
-    public func loadAllInitialData(forWhim whim: Whim) {
+    public func loadAllInitialData(forWhim whim: Whim,
+                                   completion: @escaping () -> Void) {
         if self.whim != nil {
             guard whim.id != self.whim!.id else {
                     return
@@ -110,12 +112,16 @@ class ChatRoomVCTest: MenuedViewController {
         }
         
         self.whim = whim
+        let group = DispatchGroup()
+        group.enter()
         // TODO: get all whim messages
         DBService.manager.getAllMessages(forWhim: whim) { (messages) in
             self.whim!.whimChats = messages
             self.chatTVC.configureWith(self.whim!)
+            group.leave()
         }
         // TODO: get all interests associated with the whim
+        group.enter()
         DBService.manager.getAllInterests(forWhim: whim) { (interests) in
             self.interests = interests
             var interestDict = [String: Bool]()
@@ -128,16 +134,26 @@ class ChatRoomVCTest: MenuedViewController {
             DBService.manager.getAppUsers(fromList: userIDs) { (users) in
                 self.interestedUsers = users
                 self.membersCollectionVC.configureWith(members: users, andPermissions: interestDict)
+                group.leave()
             }
         }
-        
+        group.notify(queue: .main) {
+            completion()
+        }
         // TODO: hand off that data to childVCs
     }
-    private var messageHandler: DatabaseReference!
+    private var messageHandle: DatabaseReference!
+    private var newInterestHandle: DatabaseReference!
+    private var newUserInChatHandles = [String: DatabaseReference]()
+    private var userRemovedHandle: DatabaseReference!
     public func setupObservers() {
         guard let whim = whim else { return }
-        messageHandler = DBService.manager.messagesRef.child(whim.id)
-        messageHandler.queryLimited(toLast: 1).observe(.childAdded) { (snapshot) in
+        // listen for new messages
+        // listen for people being interested
+        // listen for people being accepted
+        // listen for people being removed
+        messageHandle = DBService.manager.messagesRef.child(whim.id)
+        messageHandle.queryLimited(toLast: 1).observe(.childAdded) { (snapshot) in
             guard
                 var messageDict = snapshot.value as? [String: Any] else {
                     print(snapshot.key)
@@ -151,9 +167,79 @@ class ChatRoomVCTest: MenuedViewController {
                 self.chatTVC.new(message: message)
             }
         }
+        
+        
+        newInterestHandle = DBService.manager.interestsRef.child(whim.id)
+        newInterestHandle.queryLimited(toLast: 1).observe(.childAdded) { (snapshot) in
+            guard let inChat = snapshot.value as? Bool else {
+                return
+            }
+            let interest = Interest(whimID: whim.id, userID: snapshot.key, inChat: inChat)
+            self.interests.append(interest)
+            DBService.manager.getAppUser(fromID: interest.userID, completion: { (user) in
+                if let user = user,
+                self.membersCollectionVC.inChat[user.userID] == nil {
+                    self.membersCollectionVC.new(interestedUser: user)
+                    self.addInChatListener(forUser: user)
+                }
+            })
+        }
+        
+        
+        for user in interestedUsers {
+            addInChatListener(forUser: user)
+        }
+        
+        userRemovedHandle = DBService.manager.interestsRef.child(whim.id)
+        userRemovedHandle.queryLimited(toLast: 1).observe(.childRemoved) { (snapshot) in
+            let userID = snapshot.key
+            self.newUserInChatHandles[userID]?.removeAllObservers()
+            DBService.manager.getAppUser(fromID: userID, completion: { (user) in
+                if let user = user {
+                    DBService.manager.addMessage(text: "\(user.name) has left", ofType: .notification, fromUserID: nil, toWhim: whim)
+                }
+            })
+        }
+    }
+    private func addInChatListener(forUser user: AppUser) {
+        guard let whim = whim else {return}
+        newUserInChatHandles[user.userID] = DBService.manager.interestsRef.child(whim.id).child(user.userID)
+        newUserInChatHandles[user.userID]!.observe(.value) { (snapshot) in
+            if let inChat = snapshot.value as? Bool {
+                if inChat,
+                    !self.membersCollectionVC.inChat[user.userID]! {
+                    self.membersCollectionVC.invited(user)
+                    DBService.manager.addMessage(text: "\(user.name) has joined", ofType: .notification, fromUserID: nil, toWhim: whim)
+                }
+            }
+        }
     }
     private func detachObservers() {
-        messageHandler.removeAllObservers()
+        messageHandle.removeAllObservers()
+        newInterestHandle.removeAllObservers()
+        for handle in newUserInChatHandles {
+            handle.value.removeAllObservers()
+            newUserInChatHandles[handle.key] = nil
+        }
+        userRemovedHandle.removeAllObservers()
+    }
+    
+    private func add(user: AppUser) {
+        guard let whim = whim else { return }
+        // TODO: update interest from DBuser and DB interests
+        DBService.manager.acceptInterest(forUser: user, inWhim: whim)
+        // TODO: update info and members list
+        // should happen automatically through listener
+        // TODO: send notification message
+        //
+    }
+    private func remove(user: AppUser) {
+        guard let whim = whim else {return}
+        // TODO: remove interest from DBuser and DB interests
+        DBService.manager.removeInterest(forWhim: whim, forUser: user)
+        // TODO: update info and members list
+        // should happen automatically through listener
+        // TODO: send notification message
     }
 }
 
@@ -188,18 +274,17 @@ extension ChatRoomVCTest: ChatInfoViewDelegate {
         let member = members[index]
         let interests = member.interests.filter{$0.whimID == whimID}
         if interests[0].inChat {
-            inviteToWhimChat(member: member)
-        } else {
             removeFromWhimChat(member: member)
+        } else {
+            inviteToWhimChat(member: member)
         }
         print("Member Modified: \(member.name)")
     }
     
-    
     func inviteToWhimChat(member: AppUser) {
         print("invite to chat: \(member.name)")
+        add(user: member)
     }
-    
     func removeFromWhimChat(member: AppUser) {
         print("remove from chat: \(member.name)")
     }
