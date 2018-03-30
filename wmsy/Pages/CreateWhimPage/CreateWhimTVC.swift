@@ -147,6 +147,9 @@ class CreateWhimTVC: UITableViewController {
             buttonCell.hostButton.addTarget(self, action: #selector(collectInputs), for: .touchUpInside)
             
             return buttonCell
+        case 7:
+            let cancelButton = tableView.dequeueReusableCell(withIdentifier: "CancelButton", for: indexPath) as! CancelCreateWhimTableViewCell
+//            cancelButton.
         default:
             let cell = UITableViewCell()
             return cell
@@ -154,7 +157,6 @@ class CreateWhimTVC: UITableViewController {
     }
     @objc func selectLocation() {
         let addWhimVC = AddWhimLocationViewController()
-        navigationController?.pushViewController(addWhimVC, animated: true)
         addWhimVC.modalPresentationStyle = .overCurrentContext
         addWhimVC.modalTransitionStyle = .crossDissolve
         self.present(addWhimVC, animated: false, completion: nil)
