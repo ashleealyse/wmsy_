@@ -50,8 +50,8 @@ class SideMenuVC: MenuViewController {
         
         // whim list
         menuPagesVC.pageTwo.delegate = self
-        let hostedWhims = info.hostedWhims
-        let guestWhims = info.guestWhims
+        let hostedWhims = info.hostedWhims.map{$0.whim}
+        let guestWhims = info.guestWhims.map{$0.whim}
         let pendingInterests = info.pendingInterests
         menuPagesVC.pageTwo.configureWith(hostedWhims: hostedWhims, guestWhims: guestWhims, pendingInterests: pendingInterests)
     }
