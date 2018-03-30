@@ -100,7 +100,7 @@ class FeedMapVC: MenuedViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
-
+    }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -227,3 +227,4 @@ class FeedMapVC: MenuedViewController {
         self.expandedRows = Set<Int>()
     }
 }
+
