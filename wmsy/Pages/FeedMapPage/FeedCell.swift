@@ -48,7 +48,6 @@ class FeedCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         commonInit()
-        backgroundColor = .yellow
     }
     
     private func commonInit() {
