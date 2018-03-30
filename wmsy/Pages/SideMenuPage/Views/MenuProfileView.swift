@@ -96,7 +96,7 @@ class MenuProfileView: UICollectionViewCell {
         }
     }
     private func setupEditBioButton() {
-        editBioButton.setTitle("EDIT", for: .normal)
+        editBioButton.setImage(#imageLiteral(resourceName: "editBioIcon"), for: .normal)
         editBioButton.setTitleColor(.black, for: .normal)
         contentView.addSubview(editBioButton)
         editBioButton.snp.makeConstraints { (make) in
