@@ -72,6 +72,8 @@ class FeedMapVC: MenuedViewController {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.backgroundColor = .white
+        self.navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.barTintColor = .white
         currentUser = AppUser.currentAppUser
         if let currentUser = currentUser {
             print("current user: \(currentUser.name)")
