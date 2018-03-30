@@ -42,7 +42,7 @@ class ChatRoomVCTest: MenuedViewController {
         chatTVC.delegate = self
         textInputVC.delegate = self
         
-        membersCollectionVC.memberInfoView.delegate = self
+//        membersCollectionVC.memberInfoView.delegate = self
         
         setupSubviewsConstraints()
         setupKeyboardHandling()
@@ -196,6 +196,20 @@ class ChatRoomVCTest: MenuedViewController {
             self.newUserInChatHandles[userID]?.removeAllObservers()
             DBService.manager.getAppUser(fromID: userID, completion: { (user) in
                 if let user = user {
+                    DBService.manager.getAllInterests(forWhim: whim) { (interests) in
+                        self.interests = interests
+                        var interestDict = [String: Bool]()
+                        for interest in interests {
+                            interestDict[interest.userID] = interest.inChat
+                        }
+                        
+                        // TODO: get all user info for interested users
+                        let userIDs = interests.map{$0.userID}
+                        DBService.manager.getAppUsers(fromList: userIDs) { (users) in
+                            self.interestedUsers = users
+                            self.membersCollectionVC.configureWith(members: users, andPermissions: interestDict)
+                        }
+                    }
                     DBService.manager.addMessage(text: "\(user.name) has left", ofType: .notification, fromUserID: nil, toWhim: whim)
                 }
             })
@@ -245,6 +259,14 @@ class ChatRoomVCTest: MenuedViewController {
 
 // MARK: - childVCs delegate methods implementation
 extension ChatRoomVCTest: ChatMessagesTableVCDelegate, TextInputVCDelegate, InfoAndMembersCollectionVCDelegate {
+    func addInterestedUser(_ user: AppUser) {
+        add(user: user)
+    }
+    
+    func removeUser(_ user: AppUser) {
+        remove(user: user)
+    }
+    
     func updateMembers(members: [AppUser]) {
         self.members = members
     }
@@ -268,26 +290,26 @@ extension ChatRoomVCTest: DataReceiver {
 }
 
 
-extension ChatRoomVCTest: ChatInfoViewDelegate {
-    func inviteOrRemoveUserPressed(sender: UIButton) {
-        let index = sender.tag
-        let member = members[index]
-        let interests = member.interests.filter{$0.whimID == whimID}
-        if interests[0].inChat {
-            removeFromWhimChat(member: member)
-        } else {
-            inviteToWhimChat(member: member)
-        }
-        print("Member Modified: \(member.name)")
-    }
-    
-    func inviteToWhimChat(member: AppUser) {
-        print("invite to chat: \(member.name)")
-        add(user: member)
-    }
-    func removeFromWhimChat(member: AppUser) {
-        print("remove from chat: \(member.name)")
-    }
-    
-}
+//extension ChatRoomVCTest: ChatInfoViewDelegate {
+//    func inviteOrRemoveUserPressed(sender: UIButton) {
+//        let index = sender.tag
+//        let member = members[index]
+//        let interests = member.interests.filter{$0.whimID == whimID}
+//        if interests[0].inChat {
+//            removeFromWhimChat(member: member)
+//        } else {
+//            inviteToWhimChat(member: member)
+//        }
+//        print("Member Modified: \(member.name)")
+//    }
+//    
+//    func inviteToWhimChat(member: AppUser) {
+//        print("invite to chat: \(member.name)")
+//        add(user: member)
+//    }
+//    func removeFromWhimChat(member: AppUser) {
+//        print("remove from chat: \(member.name)")
+//    }
+//    
+//}
 
