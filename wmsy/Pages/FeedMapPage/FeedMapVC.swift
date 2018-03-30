@@ -116,6 +116,7 @@ class FeedMapVC: MenuedViewController {
         layoutFiltersView()
         layoutMapView()
         addPanGesture(view: filterMapContainerView)
+        addTapGesture(view: feedView)
         self.mapView.detailView.isHidden = true
         self.mapView.mapView.delegate = self
         self.mapView.detailView.delegate = self
@@ -124,6 +125,23 @@ class FeedMapVC: MenuedViewController {
     func addPanGesture(view: UIView) {
         let pan = UIPanGestureRecognizer(target: self, action: #selector(FeedMapVC.handlePan(sender:)))
         view.addGestureRecognizer(pan)
+    }
+    
+    func addTapGesture(view: UIView) {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(FeedMapVC.openFeed(sender:)))
+        self.navigationController?.navigationBar.addGestureRecognizer(tap)
+    }
+    
+    @objc func openFeed(sender: UITapGestureRecognizer) {
+        switch sender.state {
+        case .began:
+            openMenu(sender: sender)
+        case .ended:
+            openMenu(sender: sender)
+
+        default:
+            break
+        }
     }
     
     @objc func handlePan(sender: UIPanGestureRecognizer) {
