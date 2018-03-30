@@ -67,10 +67,12 @@ class InfoAndMembersCollectionVC: UIViewController {
         membersCollectionView?.delegate = self
         
         membersCollectionView?.register(ChatGuestCollectionViewCell.self, forCellWithReuseIdentifier: "ChatGuestCell")
-        membersCollectionView?.backgroundColor = .yellow
+        membersCollectionView?.backgroundColor = .white
         
         memberInfoView = ChatInfoView()
-        memberInfoView.backgroundColor = .cyan
+        memberInfoView.backgroundColor = .white
+        memberInfoView?.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
+        memberInfoView?.layer.borderWidth = 1.0
         
         self.view.addSubview(membersCollectionView!)
         membersCollectionView?.snp.makeConstraints { (make) in
@@ -176,7 +178,7 @@ extension InfoAndMembersCollectionVC: UICollectionViewDataSource, UICollectionVi
             memberInfoView.inviteButton.backgroundColor = .red
         } else {
             memberInfoView.inviteButton.setTitle("Invite", for: .normal)
-            memberInfoView.inviteButton.backgroundColor = .green
+            memberInfoView.inviteButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
         }
         
 //        memberInfoView.inviteButton.tag = indexPath.row - 1

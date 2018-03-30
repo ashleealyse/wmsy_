@@ -19,7 +19,7 @@ class ChatInfoView: UIView {
 
     lazy var shortLabel: UILabel = {
        let lb = UILabel()
-        lb.backgroundColor = .orange
+        lb.backgroundColor = .white
         lb.numberOfLines = 0
         lb.text = "Short Label for user name or Whim title"
         return lb
@@ -27,7 +27,7 @@ class ChatInfoView: UIView {
 
     lazy var longLabel: UILabel = {
         let lb = UILabel()
-        lb.backgroundColor = .purple
+        lb.backgroundColor = .white
         lb.numberOfLines = 0
         lb.text = "Long label for user bio or Whim description here with lots of text but only like 100 characters"
         return lb
@@ -35,8 +35,8 @@ class ChatInfoView: UIView {
     
     lazy var inviteButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .green
-//        button.setTitle("Invite", for: .normal)
+        button.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
+            //        button.setTitle("Invite", for: .normal)
         button.addTarget(self, action: #selector(inviteUser), for: .touchUpInside)
         return button
     }()
