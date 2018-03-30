@@ -33,7 +33,7 @@ class MapView: UIView {
         let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
         mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
         mapView.isMyLocationEnabled = true
-        mapView.settings.consumesGesturesInView = false
+//        mapView.settings.consumesGesturesInView = false
         // Add the map to the view, hide it until we've got a location update.
         
         
