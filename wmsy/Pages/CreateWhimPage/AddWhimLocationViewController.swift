@@ -112,6 +112,7 @@ extension AddWhimLocationViewController: GMSMapViewDelegate{
         
         self.addWhimLocationView.addWhimMap.clear() // clearing Pin before adding new
         let marker = GMSMarker(position: coordinate)
+        marker.icon = GMSMarker.markerImage(with: Stylesheet.Colors.WMSYDeepViolet)
         marker.map = self.addWhimLocationView.addWhimMap
         
     }
