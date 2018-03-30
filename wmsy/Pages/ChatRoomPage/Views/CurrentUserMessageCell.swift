@@ -43,6 +43,8 @@ class CurrentUserMessageCell: UITableViewCell {
         setupMessageText()
     }
     private func setupProfileImageView() {
+        profileImageView.layer.cornerRadius = profileImageView.frame.size.height / 2.0
+        profileImageView.layer.masksToBounds = true
         profileImageView.clipsToBounds = true
         profileImageView.contentMode = .scaleAspectFill
         contentView.addSubview(profileImageView)
@@ -71,8 +73,10 @@ class CurrentUserMessageCell: UITableViewCell {
     }
     private func placeholderTesting() {
         selectionStyle = .none
-        profileImageView.backgroundColor = .red
-        textContainer.backgroundColor = .blue
+        textContainer.backgroundColor = .white
+        textContainer.layer.borderWidth = 1.0
+        textContainer.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
+        textContainer.layer.cornerRadius = 10
     }
     
     

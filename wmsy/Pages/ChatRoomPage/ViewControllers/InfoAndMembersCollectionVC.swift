@@ -67,10 +67,12 @@ class InfoAndMembersCollectionVC: UIViewController {
         membersCollectionView?.delegate = self
         
         membersCollectionView?.register(ChatGuestCollectionViewCell.self, forCellWithReuseIdentifier: "ChatGuestCell")
-        membersCollectionView?.backgroundColor = .yellow
+        membersCollectionView?.backgroundColor = .white
         
         memberInfoView = ChatInfoView()
-        memberInfoView.backgroundColor = .cyan
+        memberInfoView.backgroundColor = .white
+        memberInfoView?.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
+        memberInfoView?.layer.borderWidth = 1.0
         
         self.view.addSubview(membersCollectionView!)
         membersCollectionView?.snp.makeConstraints { (make) in
@@ -112,8 +114,8 @@ class InfoAndMembersCollectionVC: UIViewController {
             delegate?.removeUser(user)
         } else {
             delegate?.addInterestedUser(user)
+            memberInfoView.inviteButton.backgroundColor = UIColor.red.withAlphaComponent(0.5)
             memberInfoView.inviteButton.setTitle("Remove", for: .normal)
-            memberInfoView.inviteButton.backgroundColor = .red
         }
     }
     
@@ -173,10 +175,10 @@ extension InfoAndMembersCollectionVC: UICollectionViewDataSource, UICollectionVi
         memberInfoView.inviteButton.isHidden = false
         if inChat[currentSelectedUser!.userID]! {
             memberInfoView.inviteButton.setTitle("Remove", for: .normal)
-            memberInfoView.inviteButton.backgroundColor = .red
+            memberInfoView.inviteButton.backgroundColor = UIColor.red.withAlphaComponent(0.5)
         } else {
             memberInfoView.inviteButton.setTitle("Invite", for: .normal)
-            memberInfoView.inviteButton.backgroundColor = .green
+            memberInfoView.inviteButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)
         }
         
 //        memberInfoView.inviteButton.tag = indexPath.row - 1

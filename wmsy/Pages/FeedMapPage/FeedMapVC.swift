@@ -41,7 +41,7 @@ class FeedMapVC: MenuedViewController {
         didSet{
             print("userLocation set")
             DBService.manager.getClosestWhims(location: userLocation) { (whims) in
-                self.feedWhims = whims
+                self.feedWhims = whims.filter(){$0.finalized != true}
             }
         }
     }
@@ -71,7 +71,7 @@ class FeedMapVC: MenuedViewController {
     
     @objc func refreshData(refreshControl: UIRefreshControl){
         DBService.manager.getClosestWhims(location: userLocation) { (whims) in
-            self.feedWhims = whims
+            self.feedWhims = whims.filter(){$0.finalized != true}
             self.feedView.tableView.reloadData()
             refreshControl.endRefreshing()
         }
@@ -81,6 +81,11 @@ class FeedMapVC: MenuedViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.feedView.tableView.separatorStyle = .singleLine
+        self.feedView.tableView.separatorColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.5)
+        self.feedView.tableView.separatorInset.right = 10
+        self.feedView.tableView.separatorInset.left = 10
+
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.backgroundColor = .white
         self.navigationController?.navigationBar.tintColor = .white
@@ -189,7 +194,6 @@ class FeedMapVC: MenuedViewController {
         feedView.tableView.dataSource = self
         feedView.tableView.delegate = self
         feedView.tableView.rowHeight = UITableViewAutomaticDimension
-        feedView.tableView.separatorStyle = .none
     }
     func layoutfilterMapContainer() {
         view.addSubview(filterMapContainerView)
