@@ -65,7 +65,8 @@ class TextInputView: UIView {
         commonInit()
     }
     private func commonInit() {
-        backgroundColor = Stylesheet.Colors.WMSYShadowBlue
+        backgroundColor = .white
+        
         setupViews()
     }
     
@@ -77,7 +78,9 @@ class TextInputView: UIView {
     private func setupMessageTextView() {
         messageTextView.backgroundColor = .clear
         messageTextView.font = UIFont.systemFont(ofSize: 20)
-        messageTextView.textColor = UIColor.lightGray
+        messageTextView.textColor = .white
+        messageTextView.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
+        messageTextView.layer.borderWidth = 1.0
         messageTextView.backgroundColor = .clear
         messageTextView.text = "adlfjhaldksfjn"
         addSubview(messageTextView)
@@ -87,7 +90,7 @@ class TextInputView: UIView {
     }
     private func setupSendButton() {
         sendButton.setTitle("SEND", for: .normal)
-        sendButton.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
+        sendButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)
         addSubview(sendButton)
         sendButton.snp.makeConstraints { (make) in
             make.leading.equalTo(messageTextView.snp.trailing)

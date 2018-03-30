@@ -38,6 +38,7 @@ class ChatInfoView: UIView {
         button.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
             //        button.setTitle("Invite", for: .normal)
         button.addTarget(self, action: #selector(inviteUser), for: .touchUpInside)
+        button.layer.cornerRadius = 10
         return button
     }()
     
