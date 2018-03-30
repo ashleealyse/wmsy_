@@ -58,7 +58,7 @@ class MenuWhimsCell: UITableViewCell {
     }
     private func placeholderTesting() {
         whimTitle.text = "Testing putting some very long message in a chat title when looking at it through a menu. This text is set in MenuWhimsCell.swift"
-        notificationBadge.backgroundColor = .red
+        notificationBadge.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
         selectionStyle = .none
         
     }
