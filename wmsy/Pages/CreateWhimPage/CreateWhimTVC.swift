@@ -107,7 +107,6 @@ class CreateWhimTVC: UITableViewController {
         switch indexPath.row {
         case 0:
             let categoryCell = tableView.dequeueReusableCell(withIdentifier: "ColorViewCell", for: indexPath) as! WhimColorViewTableViewCell
-            categoryCell.dismissButton.addTarget(self, action: #selector(dismissButtonClicked), for: .touchUpInside)
             return categoryCell
         case 1:
             let categoryCell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! WhimCategoryTableViewCell
@@ -130,13 +129,8 @@ class CreateWhimTVC: UITableViewController {
             locationCell.selectLocationButton.addTarget(self, action: #selector(selectLocation), for: .touchUpInside)
             if whimLocation == "" {
                 locationCell.selectLocationButton.setTitle("Drop Pin", for: .normal)
-//                locationCell.addressLabel.text = "Drop Pin"
-//                locationCell.addressLabel.textAlignment = .left
             } else {
                 locationCell.selectLocationButton.setTitle(whimLocation, for: .normal)
-//                locationCell.addressLabel.text = whimLocation
-//                locationCell.addressLabel.textAlignment = .center
-                
             }
             return locationCell
         case 5:
@@ -151,6 +145,7 @@ class CreateWhimTVC: UITableViewController {
             return buttonCell
         case 7:
             let cancelButton = tableView.dequeueReusableCell(withIdentifier: "CancelButton", for: indexPath) as! CancelCreateWhimTableViewCell
+            cancelButton.cancelButton.addTarget(self, action: #selector(dismissButtonClicked), for: .touchUpInside)
         
             return cancelButton
         default:

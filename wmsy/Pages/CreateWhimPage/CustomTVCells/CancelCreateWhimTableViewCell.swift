@@ -13,7 +13,7 @@ class CancelCreateWhimTableViewCell: UITableViewCell {
     // "Host a Whim" button
     lazy var cancelButton: UIButton = {
         let bt = UIButton()
-        bt.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.9)
+        bt.backgroundColor = UIColor.red.withAlphaComponent(0.5)
         bt.setTitle("Cancel", for: .normal)
         return bt
     }()
@@ -38,7 +38,7 @@ class CancelCreateWhimTableViewCell: UITableViewCell {
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
             let screenHeight = UIScreen.main.bounds.height
-            make.height.equalTo(screenHeight * 0.04)
+            make.height.equalTo(screenHeight * 0.06)
             make.bottom.equalTo(contentView.snp.bottom)
             
         }
