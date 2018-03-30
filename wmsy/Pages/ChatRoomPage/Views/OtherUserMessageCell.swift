@@ -43,6 +43,8 @@ class OtherUserMessageCell: UITableViewCell {
     }
     private func setupProfileImageView() {
         contentView.addSubview(profileImageView)
+        profileImageView.layer.cornerRadius = profileImageView.frame.size.height / 2.0
+        profileImageView.layer.masksToBounds = true
         profileImageView.snp.makeConstraints { (make) in
             make.top.leading.equalTo(contentView.layoutMarginsGuide)
             make.width.height.equalTo(self.snp.width).multipliedBy(0.1)
@@ -67,8 +69,10 @@ class OtherUserMessageCell: UITableViewCell {
     }
     private func placeholderTesting() {
         selectionStyle = .none
-        profileImageView.backgroundColor = .red
-        textContainer.backgroundColor = .blue
+        textContainer.backgroundColor = .white
+        textContainer.layer.borderWidth = 1.0
+        textContainer.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
+        textContainer.layer.cornerRadius = 10
     }
     
     override func layoutSubviews() {
