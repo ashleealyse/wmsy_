@@ -112,6 +112,7 @@
 		93632551206C1597002FFAED /* WhimColorViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93632550206C1597002FFAED /* WhimColorViewTableViewCell.swift */; };
 		93D5CDB0206AB1FC00ABB3E1 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D5CDAF206AB1FC00ABB3E1 /* SplashView.swift */; };
 		93D5CDB2206AB20A00ABB3E1 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D5CDB1206AB20A00ABB3E1 /* SplashViewController.swift */; };
+		93E12D62206DCC0B00BD49FA /* CancelCreateWhimTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E12D61206DCC0B00BD49FA /* CancelCreateWhimTableViewCell.swift */; };
 		E5E0CC0CB13ED0D202D6CA35 /* Pods_wmsyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ABB5CDA9ED0EA6DABA10A94 /* Pods_wmsyTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -239,6 +240,7 @@
 		93632550206C1597002FFAED /* WhimColorViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhimColorViewTableViewCell.swift; sourceTree = "<group>"; };
 		93D5CDAF206AB1FC00ABB3E1 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		93D5CDB1206AB20A00ABB3E1 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		93E12D61206DCC0B00BD49FA /* CancelCreateWhimTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelCreateWhimTableViewCell.swift; sourceTree = "<group>"; };
 		A3CBD7D0321B7C36EB143EB4 /* Pods-wmsy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wmsy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-wmsy/Pods-wmsy.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -351,6 +353,7 @@
 				81AB7ABD205C805A009845EA /* WhimExpirationTableViewCell.swift */,
 				81AB7ABF205C806C009845EA /* WhimLocationTableViewCell.swift */,
 				81AB7AC3205C80FC009845EA /* HostAWhimButtonTableViewCell.swift */,
+				93E12D61206DCC0B00BD49FA /* CancelCreateWhimTableViewCell.swift */,
 			);
 			path = CustomTVCells;
 			sourceTree = "<group>";
@@ -872,6 +875,7 @@
 				81D12DD920673AE60056920C /* TextInputVC.swift in Sources */,
 				81BAD695205AEF8900C7F039 /* ProfileView.swift in Sources */,
 				81202D92206C59D300CC5588 /* PopUpTextView.swift in Sources */,
+				93E12D62206DCC0B00BD49FA /* CancelCreateWhimTableViewCell.swift in Sources */,
 				81D12DDD20674ED70056920C /* ChatRoomVCTest.swift in Sources */,
 				81DECD28205C932200214866 /* MenuWhimsView.swift in Sources */,
 				811FFB9920615B6900F3312B /* NotificationManager.swift in Sources */,
@@ -1056,10 +1060,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3B9BY3LUJD;
 				INFOPLIST_FILE = wmsy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = c.wmsy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wmsy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1072,10 +1076,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3B9BY3LUJD;
 				INFOPLIST_FILE = wmsy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = c.wmsy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wmsy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

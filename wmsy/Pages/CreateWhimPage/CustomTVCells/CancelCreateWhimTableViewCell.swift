@@ -1,21 +1,20 @@
 //
-//  HostAWhimButtonTableViewCell.swift
+//  CancelCreateWhimTableViewCell.swift
 //  wmsy
 //
-//  Created by C4Q on 3/16/18.
+//  Created by Ashlee Krammer on 3/29/18.
 //  Copyright © 2018 C4Q. All rights reserved.
 //
 
 import UIKit
-import SnapKit
 
-class HostAWhimButtonTableViewCell: UITableViewCell {
+class CancelCreateWhimTableViewCell: UITableViewCell {
 
     // "Host a Whim" button
-    lazy var hostButton: UIButton = {
+    lazy var cancelButton: UIButton = {
         let bt = UIButton()
-        bt.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.7)
-        bt.setTitle("Host a Whim", for: .normal)
+        bt.backgroundColor = UIColor.red.withAlphaComponent(0.5)
+        bt.setTitle("Cancel", for: .normal)
         return bt
     }()
     
@@ -33,15 +32,16 @@ class HostAWhimButtonTableViewCell: UITableViewCell {
     }
     
     func setUpConstraints() {
-        contentView.addSubview(hostButton)
-        hostButton.snp.makeConstraints { (make) in
+        contentView.addSubview(cancelButton)
+        cancelButton.snp.makeConstraints { (make) in
             make.top.equalTo(contentView.snp.top)
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
             let screenHeight = UIScreen.main.bounds.height
-            make.height.equalTo(screenHeight * 0.09)
+            make.height.equalTo(screenHeight * 0.06)
             make.bottom.equalTo(contentView.snp.bottom)
             
         }
     }
+
 }

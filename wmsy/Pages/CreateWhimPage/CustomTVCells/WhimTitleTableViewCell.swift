@@ -19,7 +19,6 @@ class WhimTitleTableViewCell: UITableViewCell {
 //        tf.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
         tf.placeholder = "Title"
         tf.font = UIFont.boldSystemFont(ofSize: 20)
-        tf.textColor = Stylesheet.Colors.WMSYKSUPurple
 //        tf.clearButtonMode = .always
         return tf
     }()

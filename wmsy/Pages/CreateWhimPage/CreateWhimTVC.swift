@@ -42,7 +42,8 @@ class CreateWhimTVC: UITableViewController {
         self.tableView.register(HostAWhimButtonTableViewCell.self, forCellReuseIdentifier: "ButtonCell")
         self.tableView.register(WhimExpirationTableViewCell.self, forCellReuseIdentifier: "ExpirationCell")
         self.tableView.register(WhimLocationTableViewCell.self, forCellReuseIdentifier: "LocationCell")
-        self.tableView.isScrollEnabled = false
+        self.tableView.register(CancelCreateWhimTableViewCell.self, forCellReuseIdentifier: "CancelButton")
+
         DBService.manager.getAppUser(fromID: (AuthUserService.manager.getCurrentUser()?.uid)!) { (user) in
             self.whimHostImageURL = user!.photoID
         }
@@ -59,11 +60,16 @@ class CreateWhimTVC: UITableViewController {
     }
     
     
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = false 
+    }
+    
     private func configureNavBar() {
         navigationItem.title = "Host a Whim"
     }
     
     override func viewWillAppear(_ animated: Bool) {
+//        self.navigationController?.navigationBar.isHidden = true
         view.setNeedsLayout()
         view.layoutIfNeeded()
         tableView.reloadData()
@@ -72,20 +78,6 @@ class CreateWhimTVC: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        if let window = UIApplication.shared.delegate?.window {            
-            window!.backgroundColor = .darkGray
-            tableView.frame = CGRect(x: 0, y: 60,
-                                     width: UIScreen.main.bounds.width * 0.90,
-                                     height: UIScreen.main.bounds.height * 0.80)
-            tableView.center = window!.center
-            tableView.layer.cornerRadius = 10
-            tableView.layer.masksToBounds = true
-        }
-    }
-
 
     // MARK: - Table view data source
 
@@ -94,14 +86,13 @@ class CreateWhimTVC: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        return 8
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
             let categoryCell = tableView.dequeueReusableCell(withIdentifier: "ColorViewCell", for: indexPath) as! WhimColorViewTableViewCell
-            categoryCell.dismissButton.addTarget(self, action: #selector(dismissButtonClicked), for: .touchUpInside)
             return categoryCell
         case 1:
             let categoryCell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! WhimCategoryTableViewCell
@@ -124,13 +115,8 @@ class CreateWhimTVC: UITableViewController {
             locationCell.selectLocationButton.addTarget(self, action: #selector(selectLocation), for: .touchUpInside)
             if whimLocation == "" {
                 locationCell.selectLocationButton.setTitle("Drop Pin", for: .normal)
-//                locationCell.addressLabel.text = "Drop Pin"
-//                locationCell.addressLabel.textAlignment = .left
             } else {
                 locationCell.selectLocationButton.setTitle(whimLocation, for: .normal)
-//                locationCell.addressLabel.text = whimLocation
-//                locationCell.addressLabel.textAlignment = .center
-                
             }
             return locationCell
         case 5:
@@ -143,6 +129,11 @@ class CreateWhimTVC: UITableViewController {
             buttonCell.hostButton.addTarget(self, action: #selector(collectInputs), for: .touchUpInside)
             
             return buttonCell
+        case 7:
+            let cancelButton = tableView.dequeueReusableCell(withIdentifier: "CancelButton", for: indexPath) as! CancelCreateWhimTableViewCell
+            cancelButton.cancelButton.addTarget(self, action: #selector(dismissButtonClicked), for: .touchUpInside)
+        
+            return cancelButton
         default:
             let cell = UITableViewCell()
             return cell
@@ -150,7 +141,6 @@ class CreateWhimTVC: UITableViewController {
     }
     @objc func selectLocation() {
         let addWhimVC = AddWhimLocationViewController()
-        navigationController?.pushViewController(addWhimVC, animated: true)
         addWhimVC.modalPresentationStyle = .overCurrentContext
         addWhimVC.modalTransitionStyle = .crossDissolve
         self.present(addWhimVC, animated: false, completion: nil)
@@ -160,7 +150,7 @@ class CreateWhimTVC: UITableViewController {
     
     
     @objc func dismissButtonClicked() {
-        dismiss(animated: false, completion: nil)
+        navigationController?.popViewController(animated: false)
     }
     
     @objc func collectInputs() {

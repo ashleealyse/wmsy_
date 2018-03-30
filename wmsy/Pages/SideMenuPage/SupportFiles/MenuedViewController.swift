@@ -35,7 +35,7 @@ class MenuedViewController: UIViewController {
         screenGesture.edges = .left
         view.addGestureRecognizer(screenGesture)
         
-        view.backgroundColor = .blue
+//        view.backgroundColor = .blue
 //        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(openMenu(sender:)))
         
     }
