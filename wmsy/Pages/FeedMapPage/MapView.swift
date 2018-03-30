@@ -23,6 +23,7 @@ class MapView: UIView {
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         loadView()
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
