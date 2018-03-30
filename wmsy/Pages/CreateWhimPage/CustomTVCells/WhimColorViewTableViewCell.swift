@@ -25,12 +25,7 @@ class WhimColorViewTableViewCell: UITableViewCell {
         cWL.font = UIFont(name: "Helvetica", size: 35)
         return cWL
     }()
-    
-    lazy var dismissButton: UIButton = {
-        let btn = UIButton()
-        btn.setImage(#imageLiteral(resourceName: "dismissIcon"), for: .normal)
-        return btn
-    }()
+
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -44,14 +39,13 @@ class WhimColorViewTableViewCell: UITableViewCell {
     private func setUpView() {
         setUpColoredView()
         setUpCreatWhimLabel()
-        setUpDismissButton()
     }
     
     func setUpColoredView() {
         addSubview(colorView)
         colorView.snp.makeConstraints { (make) in
             make.edges.equalTo(safeAreaLayoutGuide)
-            make.height.equalTo(180)
+            make.height.equalTo(198)
         }
     }
     
@@ -59,14 +53,6 @@ class WhimColorViewTableViewCell: UITableViewCell {
         addSubview(createWhimLabel)
         createWhimLabel.snp.makeConstraints { (make) in
             make.centerX.centerY.equalTo(colorView)
-        }
-    }
-    
-    func setUpDismissButton() {
-        addSubview(dismissButton)
-        dismissButton.snp.makeConstraints { (make) in
-            make.top.equalTo(colorView.snp.top).offset(5)
-            make.leading.equalTo(colorView.snp.leading).offset(5)
         }
     }
 

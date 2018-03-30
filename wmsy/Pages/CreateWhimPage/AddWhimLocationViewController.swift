@@ -35,6 +35,16 @@ class AddWhimLocationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //        if let window = UIApplication.shared.delegate?.window {
+        //            window!.backgroundColor = .darkGray
+        self.view.backgroundColor = UIColor.darkGray.withAlphaComponent(0.5)
+                    self.view.frame = CGRect(x: 0, y: 0,
+                                             width: UIScreen.main.bounds.width * 0.20,
+                                             height: UIScreen.main.bounds.height * 0.20)
+                    self.view.layer.cornerRadius = 10
+                    self.view.layer.masksToBounds = true
+        //        }
+        
         addWhimLocationView.locationManager.delegate = self
         addWhimLocationView.addWhimMap.delegate = self
       

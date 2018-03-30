@@ -78,20 +78,6 @@ class CreateWhimTVC: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-//        if let window = UIApplication.shared.delegate?.window {
-//            window!.backgroundColor = .darkGray
-//            tableView.frame = CGRect(x: 0, y: 60,
-//                                     width: UIScreen.main.bounds.width * 0.90,
-//                                     height: UIScreen.main.bounds.height * 0.80)
-//            tableView.center = window!.center
-//            tableView.layer.cornerRadius = 10
-//            tableView.layer.masksToBounds = true
-//        }
-    }
-
 
     // MARK: - Table view data source
 
@@ -107,7 +93,6 @@ class CreateWhimTVC: UITableViewController {
         switch indexPath.row {
         case 0:
             let categoryCell = tableView.dequeueReusableCell(withIdentifier: "ColorViewCell", for: indexPath) as! WhimColorViewTableViewCell
-            categoryCell.dismissButton.addTarget(self, action: #selector(dismissButtonClicked), for: .touchUpInside)
             return categoryCell
         case 1:
             let categoryCell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! WhimCategoryTableViewCell
@@ -130,13 +115,8 @@ class CreateWhimTVC: UITableViewController {
             locationCell.selectLocationButton.addTarget(self, action: #selector(selectLocation), for: .touchUpInside)
             if whimLocation == "" {
                 locationCell.selectLocationButton.setTitle("Drop Pin", for: .normal)
-//                locationCell.addressLabel.text = "Drop Pin"
-//                locationCell.addressLabel.textAlignment = .left
             } else {
                 locationCell.selectLocationButton.setTitle(whimLocation, for: .normal)
-//                locationCell.addressLabel.text = whimLocation
-//                locationCell.addressLabel.textAlignment = .center
-                
             }
             return locationCell
         case 5:
@@ -151,6 +131,7 @@ class CreateWhimTVC: UITableViewController {
             return buttonCell
         case 7:
             let cancelButton = tableView.dequeueReusableCell(withIdentifier: "CancelButton", for: indexPath) as! CancelCreateWhimTableViewCell
+            cancelButton.cancelButton.addTarget(self, action: #selector(dismissButtonClicked), for: .touchUpInside)
         
             return cancelButton
         default:
