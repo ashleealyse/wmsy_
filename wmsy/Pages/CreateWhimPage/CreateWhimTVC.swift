@@ -78,20 +78,6 @@ class CreateWhimTVC: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-//        if let window = UIApplication.shared.delegate?.window {
-//            window!.backgroundColor = .darkGray
-//            tableView.frame = CGRect(x: 0, y: 60,
-//                                     width: UIScreen.main.bounds.width * 0.90,
-//                                     height: UIScreen.main.bounds.height * 0.80)
-//            tableView.center = window!.center
-//            tableView.layer.cornerRadius = 10
-//            tableView.layer.masksToBounds = true
-//        }
-    }
-
 
     // MARK: - Table view data source
 

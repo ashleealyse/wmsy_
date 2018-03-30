@@ -45,7 +45,7 @@ class WhimColorViewTableViewCell: UITableViewCell {
         addSubview(colorView)
         colorView.snp.makeConstraints { (make) in
             make.edges.equalTo(safeAreaLayoutGuide)
-            make.height.equalTo(200)
+            make.height.equalTo(198)
         }
     }
     
