@@ -104,26 +104,35 @@ class FeedMapVC: MenuedViewController {
     @objc func handlePan(sender: UIPanGestureRecognizer) {
         let filterMapContainerView = sender.view!
         let translation = sender.translation(in: view)
-//        let velocity = sender.velocity(in: view)
+        let velocity = sender.velocity(in: view)
         switch sender.state {
         case .began, .changed:
-//            verticalPinConstraint?.deactivate()
+            //Check to make sure new center is within bounds
             filterMapContainerView.center = CGPoint(x: view.center.x, y: filterMapContainerView.center.y + translation.y)
-            sender.setTranslation(CGPoint.zero, in: view)
-            print("\(filterMapContainerView.center.x), \(filterMapContainerView.center.y)")
-//            print(velocity)
+                sender.setTranslation(CGPoint.zero, in: view)
         case .ended:
-            if filterMapContainerView.frame.origin.y <= CGFloat(375) {
+            if filterMapContainerView.frame.minY > feedView.frame.maxY {
+                print(filterMapContainerView.frame.minY)
+                print(feedView.frame.maxY)
+                verticalPinConstraint?.deactivate()
+                self.mapUp = false
+                self.pinFilterViewToBottom()
+//                UIView.animate(withDuration: 0.2, animations: {
+                self.view.layoutIfNeeded()
+//                })
+            }
+            if filterMapContainerView.frame.minY <= CGFloat(368) || velocity.y < -300 {
                 verticalPinConstraint?.deactivate()
                 self.mapUp = !self.mapUp
                 self.pinFilterViewToTop()
-                UIView.animate(withDuration: 0.5, animations: {
+                UIView.animate(withDuration: 0.3, animations: {
                     self.view.layoutIfNeeded()
                 })
-            } else {
+            }
+            if velocity.y > 300 {
                 verticalPinConstraint?.deactivate()
                 self.pinFilterViewToBottom()
-                UIView.animate(withDuration: 0.5, animations: {
+                UIView.animate(withDuration: 0.3, animations: {
                     self.view.layoutIfNeeded()
                 })
             }
