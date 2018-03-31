@@ -154,19 +154,13 @@ extension InfoAndMembersCollectionVC: UICollectionViewDataSource, UICollectionVi
         return cellSize
     }
     
-    
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        self.detailDrawerClosed = false
-    }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)  as! ChatGuestCollectionViewCell
         if indexPath.row == 0 {
             print("whim info")
             memberInfoView.shortLabel.text = currentWhim?.title
             memberInfoView.longLabel.text = currentWhim?.description
-            memberInfoView.inviteButton.isHidden = true
             return
         }
         currentSelectedUser = members[indexPath.row - 1]

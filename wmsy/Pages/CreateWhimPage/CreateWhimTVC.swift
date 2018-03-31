@@ -27,6 +27,7 @@ class CreateWhimTVC: UITableViewController {
         super.viewDidLoad()
         let tap = UITapGestureRecognizer()
         tap.addTarget(self, action: #selector(tapped))
+        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
         self.tableView.delegate = self
         self.tableView.dataSource = self
