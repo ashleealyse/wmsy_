@@ -88,6 +88,7 @@ extension DBService {
             ])
     }
     public func getWhim(fromID whimID: String, completion: @escaping (Whim?) -> Void) {
+        
         let whimRef = whimsRef.child(whimID)
         whimRef.observeSingleEvent(of: .value) { (snapshot) in
             guard

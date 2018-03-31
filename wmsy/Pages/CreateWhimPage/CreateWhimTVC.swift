@@ -7,17 +7,10 @@
 //
 
 import UIKit
+import SnapKit
 
-class CreateWhimTVC: UITableViewController, setAddressDelegate {
-    func setAddress(atAddress: String) {
-        self.whimLocation = atAddress
-        
-    }
-    func setCoordinates(long: String, lat: String) {
-        self.whimLong = long
-        self.whimLat = lat
-    }
-    
+class CreateWhimTVC: UITableViewController {
+   
     
     let categoryList = categoryTuples
     let hoursList = hoursOfTwentyFour
@@ -32,13 +25,17 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let tap = UITapGestureRecognizer()
+        tap.addTarget(self, action: #selector(tapped))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 100
         self.tableView.allowsSelection = false
         self.tableView.bounces = false
-        self.tableView.separatorStyle = .none
+//        self.tableView.separatorStyle = .singleLine
 //        self.tableView.separatorColor = Stylesheet.Colors.WMSYOuterSpace
         self.tableView.register(WhimColorViewTableViewCell.self, forCellReuseIdentifier: "ColorViewCell")
         self.tableView.register(WhimCategoryTableViewCell.self, forCellReuseIdentifier: "CategoryCell")
@@ -47,6 +44,8 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
         self.tableView.register(HostAWhimButtonTableViewCell.self, forCellReuseIdentifier: "ButtonCell")
         self.tableView.register(WhimExpirationTableViewCell.self, forCellReuseIdentifier: "ExpirationCell")
         self.tableView.register(WhimLocationTableViewCell.self, forCellReuseIdentifier: "LocationCell")
+        self.tableView.register(CancelCreateWhimTableViewCell.self, forCellReuseIdentifier: "CancelButton")
+
         DBService.manager.getAppUser(fromID: (AuthUserService.manager.getCurrentUser()?.uid)!) { (user) in
             self.whimHostImageURL = user!.photoID
         }
@@ -63,11 +62,26 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
     }
     
     
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = false 
+    }
+    
+    @objc func tapped(){
+        let titleCell = self.tableView.cellForRow(at: IndexPath.init(row: 2, section: 0)) as? WhimTitleTableViewCell
+        let descriptionCell = self.tableView.cellForRow(at: IndexPath.init(row: 3, section: 0)) as? WhimDescriptionTableViewCell
+        titleCell?.titleTextfield.resignFirstResponder()
+        descriptionCell?.descriptionTextView.resignFirstResponder()
+    }
+    
+    
+    
+    
     private func configureNavBar() {
         navigationItem.title = "Host a Whim"
     }
     
     override func viewWillAppear(_ animated: Bool) {
+//        self.navigationController?.navigationBar.isHidden = true
         view.setNeedsLayout()
         view.layoutIfNeeded()
         tableView.reloadData()
@@ -84,7 +98,7 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        return 8
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -109,10 +123,14 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
             return descriptionCell
         case 4:
             let locationCell = tableView.dequeueReusableCell(withIdentifier: "LocationCell", for: indexPath) as! WhimLocationTableViewCell
-
+            
             locationCell.selectLocationButton.addTarget(self, action: #selector(selectLocation), for: .touchUpInside)
-            locationCell.addressLabel.text = "Meeting Location: " + whimLocation
-          return locationCell
+            if whimLocation == "" {
+                locationCell.selectLocationButton.setTitle("Drop Pin", for: .normal)
+            } else {
+                locationCell.selectLocationButton.setTitle(whimLocation, for: .normal)
+            }
+            return locationCell
         case 5:
             let expirationCell = tableView.dequeueReusableCell(withIdentifier: "ExpirationCell", for: indexPath) as! WhimExpirationTableViewCell
             expirationCell.hourPickerView.dataSource = self
@@ -123,6 +141,11 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
             buttonCell.hostButton.addTarget(self, action: #selector(collectInputs), for: .touchUpInside)
             
             return buttonCell
+        case 7:
+            let cancelButton = tableView.dequeueReusableCell(withIdentifier: "CancelButton", for: indexPath) as! CancelCreateWhimTableViewCell
+            cancelButton.cancelButton.addTarget(self, action: #selector(dismissButtonClicked), for: .touchUpInside)
+        
+            return cancelButton
         default:
             let cell = UITableViewCell()
             return cell
@@ -130,11 +153,17 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
     }
     @objc func selectLocation() {
         let addWhimVC = AddWhimLocationViewController()
-        navigationController?.pushViewController(addWhimVC, animated: true)
+        addWhimVC.modalPresentationStyle = .overCurrentContext
+        addWhimVC.modalTransitionStyle = .crossDissolve
+        self.present(addWhimVC, animated: false, completion: nil)
         addWhimVC.delegate = self
         print("open modal map to select a pin location for private address")
     }
     
+    
+    @objc func dismissButtonClicked() {
+        navigationController?.popViewController(animated: false)
+    }
     
     @objc func collectInputs() {
         
@@ -144,7 +173,7 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
             print("New Whim - Title: \(whimTitle), Description: \(whimDescription), Category: \(whimCategory), Location: \(whimLocation), Long: \(whimLong), Lat: \(whimLat) Duration: \(whimDuration)")
             
           
-            self.navigationController?.popViewController(animated: true)
+            dismissButtonClicked()
             
         } else {
             print("Missing item -  Title: \(whimTitle), Description: \(whimDescription), Category: \(whimCategory), Location: \(whimLocation), Duration: \(whimDuration)")
@@ -157,6 +186,14 @@ class CreateWhimTVC: UITableViewController, setAddressDelegate {
 }
 
 extension CreateWhimTVC: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    
+    
     
     func textField(_ textFieldToChange: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
@@ -175,6 +212,8 @@ extension CreateWhimTVC: UITextFieldDelegate {
             return newLength <= characterCountLimit
 
     }
+    
+    
     
     func textFieldDidEndEditing(_ textField: UITextField) {
 //        switch textField.tag {
@@ -283,6 +322,21 @@ extension CreateWhimTVC: UIPickerViewDataSource, UIPickerViewDelegate {
 //            print("\(hourIndex + 1) hours until Whim expires")
 //        }
     }
+
     
 }
 
+extension CreateWhimTVC: setAddressDelegate{
+    
+    func setAddress(atAddress: String) {
+        self.whimLocation = atAddress
+        self.tableView.reloadData()
+        
+    }
+    func setCoordinates(long: String, lat: String) {
+        self.whimLong = long
+        self.whimLat = lat
+    }
+    
+    
+}

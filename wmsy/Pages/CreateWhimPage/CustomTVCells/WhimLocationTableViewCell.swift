@@ -14,7 +14,8 @@ class WhimLocationTableViewCell: UITableViewCell {
     // Address Label
     lazy var addressLabel: UILabel = {
         let lb = UILabel()
-        lb.text = "Meeting Location: "
+        lb.text = "Drop Pin"
+        lb.textColor = Stylesheet.Colors.WMSYKSUPurple
         lb.font = UIFont.systemFont(ofSize: 20)
         lb.numberOfLines = 0
         return lb
@@ -23,7 +24,9 @@ class WhimLocationTableViewCell: UITableViewCell {
     // Button to select address: "Open Map to Select Meeting Location"
     lazy var selectLocationButton: UIButton = {
        let bt = UIButton()
-        bt.backgroundColor = Stylesheet.Colors.WMSYNeonPurple.withAlphaComponent(0.6)
+        bt.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.7)
+        bt.setImage(#imageLiteral(resourceName: "dropPinIcon"), for: .normal)
+        bt.titleLabel?.textColor = .white
         bt.setTitle("Drop Pin", for: .normal)
         return bt
     }()
@@ -45,16 +48,17 @@ class WhimLocationTableViewCell: UITableViewCell {
     }
     
     func setUpConstraints() {
-        contentView.addSubview(addressLabel)
-        addressLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(contentView.snp.top).offset(5)
-            make.leading.equalTo(contentView.snp.leading).offset(5)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-5)
-        }
-        
+//        contentView.addSubview(addressLabel)
+//        addressLabel.snp.makeConstraints { (make) in
+//            make.top.equalTo(contentView.snp.top)
+//            make.trailing.equalTo(contentView.snp.trailing)
+//            make.bottom.equalTo(contentView.snp.bottom)
+//            make.width.equalTo(contentView).multipliedBy(0.9)
+//        }
+//
         contentView.addSubview(selectLocationButton)
         selectLocationButton.snp.makeConstraints { (make) in
-            make.top.equalTo(addressLabel.snp.bottom)
+            make.top.equalTo(contentView.snp.top)
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
             make.bottom.equalTo(contentView.snp.bottom)            

@@ -35,16 +35,30 @@ class AddWhimLocationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //        if let window = UIApplication.shared.delegate?.window {
+        //            window!.backgroundColor = .darkGray
+        self.view.backgroundColor = UIColor.darkGray.withAlphaComponent(0.5)
+                    self.view.frame = CGRect(x: 0, y: 0,
+                                             width: UIScreen.main.bounds.width * 0.20,
+                                             height: UIScreen.main.bounds.height * 0.20)
+                    self.view.layer.cornerRadius = 10
+                    self.view.layer.masksToBounds = true
+        //        }
+        
         addWhimLocationView.locationManager.delegate = self
         addWhimLocationView.addWhimMap.delegate = self
       
         addWhimLocationView.addWhimMap.settings.myLocationButton = true
         addWhimLocationView.addWhimMap.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
+        addWhimLocationView.layer.cornerRadius = 10
+        addWhimLocationView.layer.masksToBounds = true
+        
         view.addSubview(addWhimLocationView)
         
         addWhimLocationView.snp.makeConstraints { (make) in
             make.edges.equalTo(view.safeAreaLayoutGuide)
+
         }
         
         
@@ -58,14 +72,13 @@ class AddWhimLocationViewController: UIViewController {
     
     @objc func selectLocation() {
         // replace this with the pin point location from map
-        
-      
         print("Location Selected: \(selectedLocation)")
         
         delegate?.setAddress(atAddress: selectedLocation)
         delegate?.setCoordinates(long: long, lat: lat)
         // take the selectedLocation and bring it to the CreateWhimTVC
-        navigationController?.popViewController(animated: true)
+//        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -109,6 +122,7 @@ extension AddWhimLocationViewController: GMSMapViewDelegate{
         
         self.addWhimLocationView.addWhimMap.clear() // clearing Pin before adding new
         let marker = GMSMarker(position: coordinate)
+        marker.icon = GMSMarker.markerImage(with: Stylesheet.Colors.WMSYDeepViolet)
         marker.map = self.addWhimLocationView.addWhimMap
         
     }

@@ -15,17 +15,31 @@ extension FeedMapVC: GMSMapViewDelegate{
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude,
                                               longitude: marker.position.longitude,
-                                              zoom: 15.0)
+                                              zoom: 17.0)
         self.mapView.mapView.animate(to: camera)
         let dict = marker.userData as? [String: String]
-        self.mapView.detailView.whimTitle.text = dict!["title"]
+        let whimTiltle = dict!["title"]
+        for whim in feedWhims{
+            if whim.title == whimTiltle{
+                self.currentWhim = whim
+            }
+        }
+        self.mapView.detailView.whimTitle.text = whimTiltle
         self.mapView.detailView.whimDescription.text = dict!["description"]
         let hostURL = URL(string: dict!["hostImageURL"]!)
         let hostID = dict!["hostID"]
+        let whimID = dict!["whimID"]
         DBService.manager.getAppUser(fromID: hostID!) { (appUser) in
             self.currentUser = appUser
         }
         self.mapView.detailView.userPicture.kf.setImage(with: hostURL, for: .normal)
+        let interests = getInterestKeys(appUser: AppUser.currentAppUser!)
+        if interests.contains(whimID!){
+            self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "interestedCircleIcon"), for: .normal)
+        }else{
+            self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
+        }
+        
         self.mapView.detailView.isHidden = false
 
         return true
@@ -70,6 +84,21 @@ extension FeedMapVC: CLLocationManagerDelegate{
 extension FeedMapVC: mapDetailViewDelegate {
     func interestPressed() {
         print("interest is being pressed")
+        let interests = getInterestKeys(appUser: AppUser.currentAppUser!)
+        if interests.contains(currentWhim!.id){
+            //User is interested
+            print("Current User: \(currentUser?.name ?? "No current user") Is NOT Interested in Whim #: \(currentWhim?.id) by Host: \(currentWhim?.hostID)")
+            DBService.manager.removeInterest(forWhim: currentWhim!, forUser: AppUser.currentAppUser!)
+            self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
+            self.feedView.tableView.reloadData()
+            
+        } else {
+            //User is not interested
+            print("Current User: \(currentUser?.name ?? "No current user") is Interested in Whim #: \(currentWhim?.id) by Host: \(currentWhim?.hostID)")
+            DBService.manager.addInterest(forWhim: currentWhim!)
+            self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "interestedCircleIcon"), for: .normal)
+            self.feedView.tableView.reloadData()
+        }
     }
     
     func userPicturePressed() {

@@ -90,8 +90,8 @@ class ExpandedFeedCellView: UIView {
         showOnMapButton.snp.makeConstraints { (make) in
             make.leading.equalTo(self.snp.leading).offset(5)
             make.bottom.equalTo(self.snp.bottom).offset(-5)
-            make.width.equalTo(self.snp.width).multipliedBy(0.05)
-            make.height.equalTo(self.snp.width).multipliedBy(0.05)
+            make.width.equalTo(self.snp.width).multipliedBy(0.07)
+            make.height.equalTo(self.snp.width).multipliedBy(0.07)
         }
     }
     
@@ -100,8 +100,8 @@ class ExpandedFeedCellView: UIView {
         interestedButton.snp.makeConstraints { (make) in
             make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-5)
             make.bottom.equalTo(self.snp.bottom).offset(-5)
-            make.width.equalTo(self.snp.width).multipliedBy(0.05)
-            make.height.equalTo(self.snp.width).multipliedBy(0.05)
+            make.width.equalTo(self.snp.width).multipliedBy(0.07)
+            make.height.equalTo(self.snp.width).multipliedBy(0.07)
         }
     }
     

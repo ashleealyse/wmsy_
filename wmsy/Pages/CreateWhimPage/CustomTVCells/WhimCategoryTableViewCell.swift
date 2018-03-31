@@ -16,7 +16,7 @@ class WhimCategoryTableViewCell: UITableViewCell {
        let lb = UILabel()
 //        lb.backgroundColor = Stylesheet.Colors.WMSYShadowBlue
         lb.text = "Choose a Category"
-        lb.font = UIFont.systemFont(ofSize: 20)
+        lb.font = UIFont.systemFont(ofSize: 16)
         return lb
     }()
 
@@ -71,8 +71,8 @@ class WhimCategoryTableViewCell: UITableViewCell {
             make.top.equalTo(categoryLabel.snp.bottom).offset(5)
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-5)
-            make.height.equalTo(categoryLabel.snp.height).multipliedBy(3)
+            make.bottom.equalTo(contentView.snp.bottom)
+            make.height.equalTo(categoryLabel.snp.height).multipliedBy(2)
         }
     }
 

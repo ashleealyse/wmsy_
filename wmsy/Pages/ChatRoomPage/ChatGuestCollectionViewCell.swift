@@ -12,13 +12,9 @@ class ChatGuestCollectionViewCell: UICollectionViewCell {
     
     lazy var guestImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleToFill
         imageView.clipsToBounds = true
-        imageView.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
-        imageView.layer.borderWidth = 0.5
-        imageView.layer.cornerRadius = imageView.bounds.width / 5.0
-        
+//        imageView.layer.cornerRadius = imageView.bounds.width / 2.0
         return imageView
     }()
     
@@ -41,6 +37,8 @@ class ChatGuestCollectionViewCell: UICollectionViewCell {
             }
         }
     }
+
+    public var highlight = false
     
     private func setupViews(){
         setupGuestImage()
@@ -51,11 +49,17 @@ class ChatGuestCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupGuestImage(){
+  
         guestImageView.snp.makeConstraints { (make) in
             make.centerX.equalTo(self)
             make.centerY.equalTo(self)
             make.width.equalTo(snp.width)
             make.height.equalTo(snp.height)
         }
+    }
+    
+    override func layoutSubviews() {
+        guestImageView.layer.masksToBounds = true
+        guestImageView.layer.cornerRadius = guestImageView.frame.size.height / 2.0
     }
 }
