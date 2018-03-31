@@ -25,8 +25,10 @@ class CreateWhimTVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
+        let tap = UITapGestureRecognizer()
+        tap.addTarget(self, action: #selector(tapped))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.rowHeight = UITableViewAutomaticDimension
@@ -63,6 +65,16 @@ class CreateWhimTVC: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = false 
     }
+    
+    @objc func tapped(){
+        let titleCell = self.tableView.cellForRow(at: IndexPath.init(row: 2, section: 0)) as? WhimTitleTableViewCell
+        let descriptionCell = self.tableView.cellForRow(at: IndexPath.init(row: 3, section: 0)) as? WhimDescriptionTableViewCell
+        titleCell?.titleTextfield.resignFirstResponder()
+        descriptionCell?.descriptionTextView.resignFirstResponder()
+    }
+    
+    
+    
     
     private func configureNavBar() {
         navigationItem.title = "Host a Whim"
@@ -175,6 +187,14 @@ class CreateWhimTVC: UITableViewController {
 
 extension CreateWhimTVC: UITextFieldDelegate {
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    
+    
+    
     func textField(_ textFieldToChange: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
 
@@ -192,6 +212,8 @@ extension CreateWhimTVC: UITextFieldDelegate {
             return newLength <= characterCountLimit
 
     }
+    
+    
     
     func textFieldDidEndEditing(_ textField: UITextField) {
 //        switch textField.tag {
