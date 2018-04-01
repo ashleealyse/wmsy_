@@ -37,6 +37,8 @@ class TextInputVC: UIViewController {
         textInputView.messageTextView.text = placeholderText
         textInputView.messageTextView.textColor = UIColor.lightGray
         
+        textInputView.sendButton.addTarget(self, action: #selector(sendMessage), for: .touchUpInside)
+        
 //        self.view.addSubview(messageTextView)
 //        self.view.addSubview(sendButton)
         
@@ -61,6 +63,13 @@ class TextInputVC: UIViewController {
 //        }
 //        sendButton.setTitle("SEND", for: .normal)
 //        sendButton.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
+    }
+    
+    @objc func sendMessage() {
+        textInputView.messageTextView.resignFirstResponder()
+        let text = textInputView.messageTextView.text!
+        textInputView.messageTextView.text = ""
+        if !text.isEmpty {delegate?.send(message: text)}
     }
 }
 
