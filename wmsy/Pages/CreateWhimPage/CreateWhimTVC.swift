@@ -49,15 +49,6 @@ class CreateWhimTVC: UITableViewController {
         DBService.manager.getAppUser(fromID: (AuthUserService.manager.getCurrentUser()?.uid)!) { (user) in
             self.whimHostImageURL = user!.photoID
         }
-        
-        
-        
-        
-        // Uncomment the followinwg line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
 
     }
     
@@ -216,12 +207,7 @@ extension CreateWhimTVC: UITextFieldDelegate {
     
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-//        switch textField.tag {
-//        case 0:
-            whimTitle = textField.text!
-//        default:
-//            break
-//        }
+        whimTitle = textField.text!
     }
 }
 
@@ -243,12 +229,7 @@ extension CreateWhimTVC: UITextViewDelegate {
         if textView.text.isEmpty || textView.text == "" {
             textView.textColor = .gray
             textView.text = "Describe your Whim"
-//            print("Description empty")
         }
-//        } else {
-//            whimDescription = textView.text
-//            print("Description: \(whimDescription)")
-//        }
         textView.isScrollEnabled = false
         textView.resignFirstResponder()
     }
@@ -264,9 +245,9 @@ extension CreateWhimTVC: UITextViewDelegate {
         let cell = tableView.cellForRow(at: indexPath) as! WhimDescriptionTableViewCell
         cell.charactersRemainingLabel.text = "\(newLength)/100"
         
-        if(text == "\n") {
-            textView.resignFirstResponder()
-        }
+//        if(text == "\n") {
+//            textView.resignFirstResponder()
+//        }
         
         return newLength <= characterCountLimit
     }
@@ -318,13 +299,7 @@ extension CreateWhimTVC: UIPickerViewDataSource, UIPickerViewDelegate {
 //        let hour = hoursList[row]
         let hourIndex = row
         
-        whimDuration = hourIndex + 1
-//        switch hourIndex {
-//        case 0:
-//            print("1 hour until Whim expires")
-//        default:
-//            print("\(hourIndex + 1) hours until Whim expires")
-//        }
+        whimDuration = hourIndex
     }
 
     
