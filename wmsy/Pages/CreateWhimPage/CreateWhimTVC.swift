@@ -264,6 +264,10 @@ extension CreateWhimTVC: UITextViewDelegate {
         let cell = tableView.cellForRow(at: indexPath) as! WhimDescriptionTableViewCell
         cell.charactersRemainingLabel.text = "\(newLength)/100"
         
+        if(text == "\n") {
+            textView.resignFirstResponder()
+        }
+        
         return newLength <= characterCountLimit
     }
 }
