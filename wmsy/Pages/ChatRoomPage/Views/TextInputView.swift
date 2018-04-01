@@ -32,7 +32,7 @@ class AutoHeightTextView: UITextView {
     
     @objc func updateHeight() {
         // trigger your animation here
-        print("some stuff")
+//        print("some stuff")
         UIView.animate(withDuration: 0.2) {
          var newFrame = self.frame
          
