@@ -77,7 +77,7 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
         case 1:
             header.titleLabel.text = "Guest Whims"
         case 2:
-            header.titleLabel.text = "Pending Interests"
+            header.titleLabel.text = "Pending Whims"
         default:
             break
         }
