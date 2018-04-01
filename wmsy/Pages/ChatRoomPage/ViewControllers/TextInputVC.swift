@@ -35,6 +35,7 @@ class TextInputVC: UIViewController {
         
         textInputView.messageTextView.delegate = self
         textInputView.messageTextView.text = placeholderText
+        textInputView.messageTextView.textColor = UIColor.lightGray
         
 //        self.view.addSubview(messageTextView)
 //        self.view.addSubview(sendButton)
@@ -77,8 +78,8 @@ extension TextInputVC: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
-            textView.text = nil
-            textView.textColor = UIColor.white
+            textView.text = ""
+            textView.textColor = UIColor.black
         }
     }
     func textViewDidEndEditing(_ textView: UITextView) {
