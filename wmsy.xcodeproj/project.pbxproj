@@ -39,6 +39,7 @@
 		8190310C205ADCF200932A55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8190310B205ADCF200932A55 /* Assets.xcassets */; };
 		8190310F205ADCF200932A55 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8190310D205ADCF200932A55 /* LaunchScreen.storyboard */; };
 		8190311A205ADCF200932A55 /* wmsyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81903119205ADCF200932A55 /* wmsyTests.swift */; };
+		8196983B2072D970000267A6 /* Interest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8196983A2072D970000267A6 /* Interest.swift */; };
 		81A57A512068952D00E4BE0B /* DBService+Interest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A57A502068952D00E4BE0B /* DBService+Interest.swift */; };
 		81A57A5320697D7000E4BE0B /* MenuData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A57A5220697D7000E4BE0B /* MenuData.swift */; };
 		81AB7ABA205C800E009845EA /* WhimTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AB7AB9205C800E009845EA /* WhimTitleTableViewCell.swift */; };
@@ -165,6 +166,7 @@
 		81903115205ADCF200932A55 /* wmsyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = wmsyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		81903119205ADCF200932A55 /* wmsyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wmsyTests.swift; sourceTree = "<group>"; };
 		8190311B205ADCF200932A55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8196983A2072D970000267A6 /* Interest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interest.swift; sourceTree = "<group>"; };
 		81A57A502068952D00E4BE0B /* DBService+Interest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DBService+Interest.swift"; sourceTree = "<group>"; };
 		81A57A5220697D7000E4BE0B /* MenuData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuData.swift; sourceTree = "<group>"; };
 		81AB7AB9205C800E009845EA /* WhimTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhimTitleTableViewCell.swift; sourceTree = "<group>"; };
@@ -450,7 +452,7 @@
 		81BAD686205AEE6A00C7F039 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				810816AE2072D01C00E59456 /* Interest.swift */,
+				8196983A2072D970000267A6 /* Interest.swift */,
 				81BAD688205AEEC300C7F039 /* AppUser.swift */,
 				8107D92320729A9100CEC5B2 /* AppUser+CurrentUser.swift */,
 				81BAD68E205AEEE200C7F039 /* Message.swift */,
@@ -887,6 +889,7 @@
 				81EBB58B20601939008A6CE7 /* StorageService+Image.swift in Sources */,
 				81BAD68F205AEEE200C7F039 /* Message.swift in Sources */,
 				93D5CDB2206AB20A00ABB3E1 /* SplashViewController.swift in Sources */,
+				8196983B2072D970000267A6 /* Interest.swift in Sources */,
 				81BAD67B205AEDAA00C7F039 /* FeedMapVC.swift in Sources */,
 				81DECD3220600FB000214866 /* Page.swift in Sources */,
 				811FFB5720606B5500F3312B /* CollapsedFeedCellView.swift in Sources */,
