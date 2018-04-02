@@ -47,8 +47,6 @@ class ChatInfoView: UIView {
     lazy var inviteButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
-                    button.setTitle("Invite", for: .normal)
-        button.addTarget(self, action: #selector(inviteUser), for: .touchUpInside)
         button.layer.cornerRadius = 10
         return button
     }()
@@ -56,18 +54,9 @@ class ChatInfoView: UIView {
     lazy var showMapButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
-        button.setTitle("Map", for: .normal)
-        button.addTarget(self, action: #selector(inviteUser), for: .touchUpInside)
         button.layer.cornerRadius = 10
         return button
     }()
-    
-    weak var delegate: ChatInfoViewDelegate?
-    
-    @objc func inviteUser() {
-        self.delegate?.inviteOrRemoveUserPressed(sender: self.inviteButton)
-        print("Invite Button Pressed")
-    }
     
     
     // setup custom view
