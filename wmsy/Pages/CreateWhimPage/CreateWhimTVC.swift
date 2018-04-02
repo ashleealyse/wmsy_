@@ -188,7 +188,6 @@ extension CreateWhimTVC: UITextFieldDelegate {
             let indexPath = IndexPath.init(row: 2, section: 0)
             let cell = tableView.cellForRow(at: indexPath) as! WhimTitleTableViewCell
             cell.charactersRemainingLabel.text = "\(newLength)/35"
-            
             return newLength <= characterCountLimit
 
     }
@@ -241,7 +240,6 @@ extension CreateWhimTVC: UITextViewDelegate {
         let indexPath = IndexPath.init(row: 3, section: 0)
         let cell = tableView.cellForRow(at: indexPath) as! WhimDescriptionTableViewCell
         cell.charactersRemainingLabel.text = "\(newLength)/100"
-        
         return newLength <= characterCountLimit
     }
 }
