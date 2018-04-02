@@ -25,7 +25,7 @@ class MenuWhimsHeader: UITableViewHeaderFooterView {
     }
     
     private func commonInit() {
-        contentView.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.4)
+        contentView.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.1)
         setupViews()
         placeholderTesting()
     }
@@ -40,8 +40,8 @@ class MenuWhimsHeader: UITableViewHeaderFooterView {
         }
     }
     private func placeholderTesting() {
-        titleLabel.font = UIFont.systemFont(ofSize: 25, weight: .heavy)
-        titleLabel.textColor = .white
+        titleLabel.font = UIFont(name: "Helvetica-Light", size: 30)
+        titleLabel.textColor = Stylesheet.Colors.WMSYDeepViolet
         titleLabel.text = "Host Chats"
     }
     /*
