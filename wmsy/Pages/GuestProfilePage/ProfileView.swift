@@ -48,9 +48,8 @@ class ProfileView: UIView {
         return lbl
     }()
     
-    var bioLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.numberOfLines = 0
+    var bioLabel: UITextView = {
+        let lbl = UITextView()
         lbl.textAlignment = .center
         lbl.text = "Hey I am t-Swift. I love writing breakup songs"
         lbl.textColor = .black
