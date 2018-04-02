@@ -233,7 +233,7 @@ extension CreateWhimTVC: UITextViewDelegate {
             textView.textColor = UIColor.lightGray
             textView.text = placeholderText
         }
-        textView.isScrollEnabled = false
+//        textView.isScrollEnabled = false
         textView.resignFirstResponder()
     }
     
