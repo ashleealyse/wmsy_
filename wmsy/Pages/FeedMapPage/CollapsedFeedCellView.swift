@@ -71,7 +71,7 @@ class CollapsedFeedCellView: UIView {
     private func setUpCategoryIcon() {
         addSubview(categoryIcon)
         categoryIcon.snp.makeConstraints { (make) in
-            make.trailing.equalTo(self).offset(-5)
+            make.trailing.equalTo(self).offset(-10)
             make.centerY.equalTo(userImageButton.snp.centerY)
             make.width.equalTo(self.snp.height).multipliedBy(0.3)
             make.height.equalTo(categoryIcon.snp.width)

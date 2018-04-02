@@ -39,7 +39,7 @@ class ExpandedFeedCellView: UIView {
     
     lazy var interestedButton: UIButton = {
         let interestButton = UIButton()
-        interestButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
+        interestButton.setImage(#imageLiteral(resourceName: "wmsyCategoryIcon"), for: .normal)
 //        interestButton.addTarget(self, action: #selector(showInterest), for: .touchUpInside)
         return interestButton
     }()
