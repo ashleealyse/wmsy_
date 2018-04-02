@@ -121,7 +121,6 @@ class FeedMapVC: MenuedViewController {
         layoutFiltersView()
         layoutMapView()
         addPanGesture(view: filterMapContainerView)
-        addTapGesture(view: feedView)
         self.mapView.detailView.isHidden = true
         self.mapView.mapView.delegate = self
         self.mapView.detailView.delegate = self
@@ -266,18 +265,21 @@ class FeedMapVC: MenuedViewController {
     
     // setup UIBarButtonItems
     private func configureNavBar() {
-        navigationItem.title = "wmsy"
-        let topLeftBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addIcon"), style: .plain, target: self, action: #selector(hostAWhim))
+        navigationItem.title = "Feed"
+        let topLeftBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "wmsyCategoryIcon"), style: .plain, target: self, action: #selector(showMenu(sender:)))
         topLeftBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
         navigationItem.leftBarButtonItem = topLeftBarItem
         
-        let topRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "mapIcon"), style: .plain, target: self, action: #selector(toggleMap))
+        let topRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addIcon"), style: .plain, target: self, action: #selector(hostAWhim))
         topRightBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
         navigationItem.rightBarButtonItem = topRightBarItem
         
         
     }
     
+    @objc func showMenu(sender: UIViewController){
+        openMenu(sender: sender)
+    }
     
     @objc func hostAWhim() {
         navigationController?.pushViewController(CreateWhimTVC(), animated: false)
