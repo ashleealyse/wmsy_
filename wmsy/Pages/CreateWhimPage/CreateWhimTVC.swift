@@ -25,8 +25,10 @@ class CreateWhimTVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
+        let tap = UITapGestureRecognizer()
+        tap.addTarget(self, action: #selector(tapped))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.rowHeight = UITableViewAutomaticDimension
@@ -47,15 +49,6 @@ class CreateWhimTVC: UITableViewController {
         DBService.manager.getAppUser(fromID: (AuthUserService.manager.getCurrentUser()?.uid)!) { (user) in
             self.whimHostImageURL = user!.photoID
         }
-        
-        
-        
-        
-        // Uncomment the followinwg line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
 
     }
     
@@ -63,6 +56,16 @@ class CreateWhimTVC: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = false 
     }
+    
+    @objc func tapped(){
+        let titleCell = self.tableView.cellForRow(at: IndexPath.init(row: 2, section: 0)) as? WhimTitleTableViewCell
+        let descriptionCell = self.tableView.cellForRow(at: IndexPath.init(row: 3, section: 0)) as? WhimDescriptionTableViewCell
+        titleCell?.titleTextfield.resignFirstResponder()
+        descriptionCell?.descriptionTextView.resignFirstResponder()
+    }
+    
+    
+    
     
     private func configureNavBar() {
         navigationItem.title = "Host a Whim"
@@ -175,6 +178,14 @@ class CreateWhimTVC: UITableViewController {
 
 extension CreateWhimTVC: UITextFieldDelegate {
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    
+    
+    
     func textField(_ textFieldToChange: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
 
@@ -192,13 +203,10 @@ extension CreateWhimTVC: UITextFieldDelegate {
 
     }
     
+    
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
-//        switch textField.tag {
-//        case 0:
-            whimTitle = textField.text!
-//        default:
-//            break
-//        }
+        whimTitle = textField.text!
     }
 }
 
@@ -220,12 +228,7 @@ extension CreateWhimTVC: UITextViewDelegate {
         if textView.text.isEmpty || textView.text == "" {
             textView.textColor = .gray
             textView.text = "Describe your Whim"
-//            print("Description empty")
         }
-//        } else {
-//            whimDescription = textView.text
-//            print("Description: \(whimDescription)")
-//        }
         textView.isScrollEnabled = false
         textView.resignFirstResponder()
     }
@@ -240,6 +243,13 @@ extension CreateWhimTVC: UITextViewDelegate {
         let indexPath = IndexPath.init(row: 3, section: 0)
         let cell = tableView.cellForRow(at: indexPath) as! WhimDescriptionTableViewCell
         cell.charactersRemainingLabel.text = "\(newLength)/100"
+
+        
+//        if(text == "\n") {
+//            textView.resignFirstResponder()
+//        }
+        
+
         return newLength <= characterCountLimit
     }
 }
@@ -290,13 +300,7 @@ extension CreateWhimTVC: UIPickerViewDataSource, UIPickerViewDelegate {
 //        let hour = hoursList[row]
         let hourIndex = row
         
-        whimDuration = hourIndex + 1
-//        switch hourIndex {
-//        case 0:
-//            print("1 hour until Whim expires")
-//        default:
-//            print("\(hourIndex + 1) hours until Whim expires")
-//        }
+        whimDuration = hourIndex
     }
 
     
