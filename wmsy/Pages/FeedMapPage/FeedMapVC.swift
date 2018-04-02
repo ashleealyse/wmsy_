@@ -23,6 +23,8 @@ class FeedMapVC: MenuedViewController {
     var mapUp: Bool = false
     
     var guestProfile = GuestProfileVC()
+    var hostProfileView = GuestProfileVC()
+
     var expandedRows = Set<Int>()
     var interestButtonCounter = 0
     var currentWhim: Whim?
@@ -339,6 +341,7 @@ extension UIImage {
         return image
     }
 }
+
 
 extension UICollectionView {
     func deselectAllItems(animated: Bool = false) {
