@@ -34,7 +34,15 @@ extension FeedMapVC: UITableViewDelegate {
 }
 
 extension FeedMapVC: UITableViewDataSource {
-    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
+    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return nil
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return nil
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return feedWhims.count
     }
@@ -48,11 +56,19 @@ extension FeedMapVC: UITableViewDataSource {
         cell.isExpanded = self.expandedRows.contains(indexPath.row)
         let whim = feedWhims[indexPath.row]
         cell.whim = whim
-        cell.collapsedView.postTitleLabel.text = whim.title
+        let time = getTimeRemaining(whim: whim)
+        let titleCount = whim.title.count
+        
+        let customString = NSMutableAttributedString.init(string: "\(whim.title) \(time)", attributes: [NSAttributedStringKey.font:UIFont(name: "Helvetica", size: 16.0)!])
+        customString.addAttributes([NSAttributedStringKey.font:UIFont(name: "Helvetica", size: 14.0)!,NSAttributedStringKey.foregroundColor:UIColor.lightGray], range: NSRange(location:titleCount,length: time.count + 1))
+
+        
+        cell.collapsedView.postTitleLabel.attributedText = customString
         cell.collapsedView.categoryIcon.image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
         cell.collapsedView.userImageButton.imageView?.kf.setImage(with: URL(string: whim.hostImageURL), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
             cell.collapsedView.userImageButton.setImage(image, for: .normal)
         })
+        
         cell.expandedView.postDescriptionTF.text = whim.description
         let interests = getInterestKeys(appUser: AppUser.currentAppUser!)
         if interests.contains(whim.id){
@@ -82,6 +98,22 @@ extension FeedMapVC: UITableViewDataSource {
         return finalArr
     }
     
+    
+    public func getTimeRemaining(whim: Whim) -> String{
+        let expirationDate = DateFormatter.wmsyDateFormatter.date(from: whim.expiration)
+        let currentDate = Date()
+        let hoursRemaining =  expirationDate!.hours(from: currentDate)
+        let minutesRemaining = expirationDate!.minutes(from: currentDate)
+        let hourConversion = hoursRemaining * 60
+        let finalMinutes = minutesRemaining - hourConversion
+        
+        switch hoursRemaining{
+        case 0:
+            return "\(finalMinutes.description) m left"
+        default:
+            return "\(hoursRemaining.description) hr left"
+        }
+    }
     
     
 }
@@ -117,7 +149,11 @@ extension FeedMapVC: FeedCellViewDelegate {
         let location = CLLocation.init(latitude: Double(whim.lat)!, longitude: Double(whim.long)!)
         let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: 17.0)
         self.mapView.mapView.animate(to: camera)
-        self.mapView.detailView.whimTitle.text = whim.title
+        let expiration = getTimeRemaining(whim: whim)
+        let titleCount = whim.title.count
+        let customString = NSMutableAttributedString.init(string: "\(whim.title) \(expiration)", attributes: [NSAttributedStringKey.font:UIFont(name: "Helvetica", size: 18.0)!])
+        customString.addAttributes([NSAttributedStringKey.font:UIFont(name: "Helvetica", size: 14.0)!,NSAttributedStringKey.foregroundColor:UIColor.lightGray], range: NSRange(location:titleCount,length: expiration.count + 1))
+        self.mapView.detailView.whimTitle.attributedText = customString
         self.mapView.detailView.whimDescription.text = whim.description
         let hostURL = URL(string: whim.hostImageURL)
         let hostID = whim.hostID
@@ -133,7 +169,7 @@ extension FeedMapVC: FeedCellViewDelegate {
             self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "wmsyCategoryIcon"), for: .normal)
         }
         self.mapView.detailView.isHidden = false
-        
+        self.feedView.tableView.reloadData()
         print("Show on Map Button Pressed")
         
     }

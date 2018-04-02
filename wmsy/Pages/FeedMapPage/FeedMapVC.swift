@@ -55,12 +55,14 @@ class FeedMapVC: MenuedViewController {
             for whim in feedWhims{
                 let position = CLLocationCoordinate2D(latitude: Double(whim.lat)!, longitude: Double(whim.long)!)
                 let marker = GMSMarker(position: position)
+                let timeRemaining = getTimeRemaining(whim: whim)
                 marker.userData = ["title": whim.title,
                                    "description": whim.description,
                                    "hostImageURL": whim.hostImageURL,
                                    "category": whim.category,
                                    "hostID" : whim.hostID,
-                                   "whimID": whim.id
+                                   "whimID": whim.id,
+                                   "expiration": timeRemaining
                 ]
                 marker.icon = GMSMarker.markerImage(with: Stylesheet.Colors.WMSYDeepViolet)
                 marker.map = mapView.mapView
@@ -353,4 +355,14 @@ extension UIView{
         self.alpha = 0.2
         UIView.animate(withDuration: 1, delay: 0.0, options: [.curveLinear, .repeat, .autoreverse], animations: {self.alpha = 1.0}, completion: nil)
     }
+}
+
+extension Date{
+func hours(from date: Date) -> Int {
+    return Calendar.current.dateComponents([.hour], from: date, to: self).hour ?? 0
+}
+
+func minutes(from date: Date) -> Int {
+    return Calendar.current.dateComponents([.minute], from: date, to: self).minute ?? 0
+}
 }
