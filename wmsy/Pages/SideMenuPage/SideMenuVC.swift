@@ -125,7 +125,7 @@ extension SideMenuVC: MenuDataDelegate {
     }
     
     func reconfigure() {
-        info = MenuData.manager
+//        info = MenuData.manager
         let hostedWhims = info.hostedWhims.map{$0.whim}
         let guestWhims = info.guestWhims.map{$0.whim}
         let pendingInterests = info.pendingInterests

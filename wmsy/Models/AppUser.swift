@@ -56,7 +56,7 @@ struct AppUser: Codable {
     }
     
     static let singleUser = AppUser(name: "Ashlee", photoID: "q1w2e3r4t5y6", age: "24" , userID: "Q1W2E3R4T5Y6", bio: "I LOVE KRAV MAGA, TRYING NEW FOODS, ANIMAL WELFARE, AND LONG WALKS ON THE BEACH. I'M ALWAYS DOWN FOR THRIFT SHOPPING AND COLLECTING VINTAGES.", badge: true, flags: 420, hostedWhims: [Whim](), interests: [Interest]())
-    static var currentAppUser: AppUser?
+//    static var currentAppUser: AppUser?
     
     
 }
