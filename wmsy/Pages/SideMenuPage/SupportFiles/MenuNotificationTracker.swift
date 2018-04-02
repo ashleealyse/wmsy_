@@ -14,6 +14,10 @@ protocol MenuNotificationTrackerDelegate: class {
     func guestChatNotification(inWhim whimID: String) -> Void
     func interestNotification(forWhim whimID: String) -> Void
     func newUserInterested(inWhim whimID: String) -> Void
+    
+    func currentUserInterested(inWhim whimID: String) -> Void
+    func currentUserNoLongerInterested(inWhim whimID: String) -> Void
+    func currentUserAllowedInChat(forWhim whimID: String) -> Void
 }
 
 
@@ -26,43 +30,44 @@ class MenuNotificationTracker {
         let userInterests = user.interests.filter{!$0.inChat}.map{$0.whimID}
         let guestWhims = user.interests.filter{$0.inChat}.map{$0.whimID}
         let hostWhims = user.hostedWhims.map{$0.id}
-        for whimID in userInterests {
-            userInterestsHandle[whimID] = DBService.manager.usersRef.child(user.userID).child("interests").child(whimID)
-            userInterestsHandle[whimID]!.observe(.value, with: { (snapshot) in
-                if let inChat = snapshot.value as? Bool,
-                    inChat {
-                self.delegate?.interestNotification(forWhim: whimID)
-                self.userInterestsHandle[whimID]?.removeAllObservers()
-                self.userInterestsHandle[whimID] = nil
-                } else {
-                    print("no")
-                }
-            })
-        }
-        for whimID in guestWhims {
-            guestChatsHandle[whimID] = DBService.manager.messagesRef.child(whimID)
-            guestChatsHandle[whimID]!.observe(.value, with: { (snapshot) in
-                self.delegate?.guestChatNotification(inWhim: whimID)
-            })
-        }
-        for whimID in hostWhims {
-            hostChatHandle[whimID] = DBService.manager.messagesRef.child(whimID)
-            hostChatHandle[whimID]!.observe(.value, with: { (snapshot) in
-                self.delegate?.hostChatNotification(inWhim: whimID)
-            })
-            guestInterestedHandle[whimID] = DBService.manager.interestsRef.child(whimID)
-            guestInterestedHandle[whimID]?.observe(.value, with: { (snapshot) in
-                self.delegate?.newUserInterested(inWhim: whimID)
-            })
-        }
-        delegate = MenuData.manager
+//        for whimID in userInterests {
+//            userInterestsHandle[whimID] = DBService.manager.usersRef.child(user.userID).child("interests").child(whimID)
+//            userInterestsHandle[whimID]!.observe(.value, with: { (snapshot) in
+//                if let inChat = snapshot.value as? Bool,
+//                    inChat {
+//                self.delegate?.interestNotification(forWhim: whimID)
+//                self.userInterestsHandle[whimID]?.removeAllObservers()
+//                self.userInterestsHandle[whimID] = nil
+//                } else {
+//                    print("no")
+//                }
+//            })
+//        }
+//        for whimID in guestWhims {
+//            guestChatsHandle[whimID] = DBService.manager.messagesRef.child(whimID)
+//            guestChatsHandle[whimID]!.observe(.value, with: { (snapshot) in
+//                self.delegate?.guestChatNotification(inWhim: whimID)
+//            })
+//        }
+//        for whimID in hostWhims {
+//            hostChatHandle[whimID] = DBService.manager.messagesRef.child(whimID)
+//            hostChatHandle[whimID]!.observe(.value, with: { (snapshot) in
+//                self.delegate?.hostChatNotification(inWhim: whimID)
+//            })
+//            guestInterestedHandle[whimID] = DBService.manager.interestsRef.child(whimID)
+//            guestInterestedHandle[whimID]?.observe(.value, with: { (snapshot) in
+//                self.delegate?.newUserInterested(inWhim: whimID)
+//            })
+//        }
+//        hookUpUserInterestsHandle()
+//        hookUpUserNoLongerInterestedHandle()
     }
     static let manager = MenuNotificationTracker()
     
-    // listen if youre allowed in a chat
+//    listen if youre allowed in a chat
 //    listen if youre removed from a chat
 //    listen if youve received any new messages
-    private weak var delegate: MenuNotificationTrackerDelegate?
+    public weak var delegate: MenuNotificationTrackerDelegate?
     private var userInterestsHandle = [String: DatabaseReference]()
     private var guestChatsHandle = [String: DatabaseReference]()
     private var hostChatHandle = [String: DatabaseReference]()
@@ -91,7 +96,90 @@ class MenuNotificationTracker {
             })
         }
     }
-//    public func setToChatOpen(forWhim: Whim) {
-//        clearObservers()
-//    }
+    
+    // Current User Has shown interest in something
+    private var hookedUpCurrentUserIsInterested = false
+    private var currentUserInterestedInNewWhimHandle: DatabaseReference!
+    private func hookUpUserInterestsHandle(forUser user: AppUser) {
+        currentUserInterestedInNewWhimHandle = DBService.manager.usersRef.child(user.userID).child("interests")
+        currentUserInterestedInNewWhimHandle.observe(.childAdded) { (snapshot) in
+            guard let _ = snapshot.value as? Bool else {
+                    
+                print("user interest not properly created from firebase")
+                fatalError()
+            }
+//            let interest = Interest(whimID: snapshot.key, userID: user.userID, inChat: false)
+//            AppUser.currentAppUser?.interests.append(interest)
+            AppUser.currentAppUser!.interests.forEach{print($0.whimID)}
+            self.addInGuestChatHandle(forWhim: snapshot.key)
+            self.delegate?.currentUserInterested(inWhim: snapshot.key)
+        }
+    }
+    
+    // Current User has removed interest in something
+    private var hookedUpCurrentUserNoLongerInterested = false
+    private var currentUserNoLongerInterestedHandle: DatabaseReference!
+    private func hookUpUserNoLongerInterestedHandle(forUser user: AppUser) {
+        currentUserNoLongerInterestedHandle = DBService.manager.usersRef.child(user.userID).child("interests")
+        currentUserNoLongerInterestedHandle.observe(.childRemoved) { (snapshot) in
+            guard let _ = snapshot.value as? Bool else{
+                
+                print("user interest not properly created from firebase")
+                fatalError()
+            }
+//            guard let index = AppUser.currentAppUser?.interests.index(where: {$0.whimID == snapshot.key}) else {
+//                print("current user didnt have this interest")
+//                AppUser.currentAppUser!.interests.forEach{print($0.whimID)}
+//                fatalError()
+//            }
+//            AppUser.currentAppUser?.interests.remove(at: index)
+            self.delegate?.currentUserNoLongerInterested(inWhim: snapshot.key)
+            self.removeInGuestChatHandle(forWhim: snapshot.key)
+        }
+        print("should be second")
+    }
+    
+    // Current user allowed in a chat
+    private var currentUserAllowedInChatHandle = [String: DatabaseReference]()
+    private func hookUpUserAllowedInChatHandle(forUser user: AppUser) {
+        let userInterests = user.interests.filter{!$0.inChat}.map{$0.whimID}
+        for whimID in userInterests {
+            addInGuestChatHandle(forWhim: whimID)
+        }
+    }
+    private func addInGuestChatHandle(forWhim whimID: String) {
+        guard let user = AppUser.currentAppUser else {
+            print("no user right now")
+            fatalError()
+        }
+        currentUserAllowedInChatHandle[whimID] = DBService.manager.usersRef.child(user.userID).child("interests").child(whimID)
+        currentUserAllowedInChatHandle[whimID]!.observe(.value, with: { (snapshot) in
+            if let inChat = snapshot.value as? Bool,
+                inChat {
+                guard let index = AppUser.currentAppUser?.interests.index(where: {$0.whimID == snapshot.key}) else {
+                    print("current user didnt have this interest")
+                    fatalError()
+                }
+                AppUser.currentAppUser?.interests[index].inChat = true
+                self.delegate?.currentUserAllowedInChat(forWhim: whimID)
+                self.removeInGuestChatHandle(forWhim: whimID)
+            } else {
+                print("no")
+            }
+        })
+    }
+    private func removeInGuestChatHandle(forWhim whimID: String) {
+        self.currentUserAllowedInChatHandle[whimID]?.removeAllObservers()
+        self.currentUserAllowedInChatHandle[whimID] = nil
+    }
+    
+    
+    // callback just in case something asynchrounous is needed
+    public func setupListeners(forUser user: AppUser, completion: @escaping () -> Void) {
+        hookUpUserInterestsHandle(forUser: user)
+        hookUpUserNoLongerInterestedHandle(forUser: user)
+        hookUpUserAllowedInChatHandle(forUser: user)
+        
+        completion()
+    }
 }

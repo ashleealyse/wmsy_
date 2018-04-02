@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8107D92420729A9100CEC5B2 /* AppUser+CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107D92320729A9100CEC5B2 /* AppUser+CurrentUser.swift */; };
+		810816AF2072D01C00E59456 /* Interest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810816AE2072D01C00E59456 /* Interest.swift */; };
 		811FFB5720606B5500F3312B /* CollapsedFeedCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811FFB5620606B5500F3312B /* CollapsedFeedCellView.swift */; };
 		811FFB9720615B6200F3312B /* DBService+Whim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811FFB9620615B6100F3312B /* DBService+Whim.swift */; };
 		811FFB9920615B6900F3312B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811FFB9820615B6900F3312B /* NotificationManager.swift */; };
@@ -126,6 +128,10 @@
 		12481557B949A7967EAD55F0 /* Pods-wmsyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wmsyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-wmsyTests/Pods-wmsyTests.release.xcconfig"; sourceTree = "<group>"; };
 		7ABB5CDA9ED0EA6DABA10A94 /* Pods_wmsyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wmsyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CEEC5ACCA9E78DD3C3881CA /* Pods_wmsy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wmsy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8107D9212070193500CEC5B2 /* RandomLocation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = RandomLocation.gpx; sourceTree = "<group>"; };
+		8107D92220728D4400CEC5B2 /* C4Q.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = C4Q.gpx; sourceTree = "<group>"; };
+		8107D92320729A9100CEC5B2 /* AppUser+CurrentUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppUser+CurrentUser.swift"; sourceTree = "<group>"; };
+		810816AE2072D01C00E59456 /* Interest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interest.swift; sourceTree = "<group>"; };
 		811FFB5620606B5500F3312B /* CollapsedFeedCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsedFeedCellView.swift; sourceTree = "<group>"; };
 		811FFB9620615B6100F3312B /* DBService+Whim.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DBService+Whim.swift"; sourceTree = "<group>"; };
 		811FFB9820615B6900F3312B /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -319,6 +325,8 @@
 				8190310D205ADCF200932A55 /* LaunchScreen.storyboard */,
 				8139A99C205C2E9F006C7058 /* GoogleService-Info.plist */,
 				81903110205ADCF200932A55 /* Info.plist */,
+				8107D9212070193500CEC5B2 /* RandomLocation.gpx */,
+				8107D92220728D4400CEC5B2 /* C4Q.gpx */,
 			);
 			path = wmsy;
 			sourceTree = "<group>";
@@ -446,6 +454,7 @@
 			children = (
 				8196983A2072D970000267A6 /* Interest.swift */,
 				81BAD688205AEEC300C7F039 /* AppUser.swift */,
+				8107D92320729A9100CEC5B2 /* AppUser+CurrentUser.swift */,
 				81BAD68E205AEEE200C7F039 /* Message.swift */,
 				8139A99E205C309F006C7058 /* Whim.swift */,
 				81AB7AC7205C9548009845EA /* Stylesheet.swift */,
@@ -811,6 +820,7 @@
 				81F9F0702065D27700D288E8 /* AddChildVC.swift in Sources */,
 				81AB7AC4205C80FC009845EA /* HostAWhimButtonTableViewCell.swift in Sources */,
 				81AB7AC6205C94DD009845EA /* WhimCategoryCollectionViewCell.swift in Sources */,
+				810816AF2072D01C00E59456 /* Interest.swift in Sources */,
 				93495B08206041080080BDBA /* FeedCell.swift in Sources */,
 				81AB7ABC205C8024009845EA /* WhimDescriptionTableViewCell.swift in Sources */,
 				81DECD21205C882900214866 /* DismissMenuAnimator.swift in Sources */,
@@ -870,6 +880,7 @@
 				81202D8A206BED3C00CC5588 /* MenuProfileVC.swift in Sources */,
 				81A57A5320697D7000E4BE0B /* MenuData.swift in Sources */,
 				81BAD67D205AEDBF00C7F039 /* FeedView.swift in Sources */,
+				8107D92420729A9100CEC5B2 /* AppUser+CurrentUser.swift in Sources */,
 				8139A9A6205C3130006C7058 /* CreateWhimView.swift in Sources */,
 				81C3AF54206DA6AC001686F0 /* MenuNotificationTracker.swift in Sources */,
 				81A57A512068952D00E4BE0B /* DBService+Interest.swift in Sources */,
@@ -1040,11 +1051,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NLCWGA9FRB;
+				DEVELOPMENT_TEAM = 4RRD8LK54L;
 				INFOPLIST_FILE = wmsy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wmsy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wmsy4321;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1057,11 +1068,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NLCWGA9FRB;
+				DEVELOPMENT_TEAM = 4RRD8LK54L;
 				INFOPLIST_FILE = wmsy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wmsy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wmsy4321;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
