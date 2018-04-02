@@ -73,6 +73,7 @@ class FeedMapVC: MenuedViewController {
         DBService.manager.getClosestWhims(location: userLocation) { (whims) in
             self.feedWhims = whims.filter(){$0.finalized != true}
             self.feedView.tableView.reloadData()
+            refreshControl.blink()
             refreshControl.endRefreshing()
         }
     }
@@ -81,6 +82,7 @@ class FeedMapVC: MenuedViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = .green
         self.feedView.tableView.separatorStyle = .singleLine
         self.feedView.tableView.separatorColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.5)
         self.feedView.tableView.separatorInset.right = 10
@@ -92,6 +94,9 @@ class FeedMapVC: MenuedViewController {
         self.navigationController?.navigationBar.barTintColor = .white
         self.navigationController?.navigationBar.shadowImage = UIImage.imageWithColor(color: Stylesheet.Colors.WMSYDeepViolet)
         let refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString.init(string: "loading whims")
+        refreshControl.tintColor = .clear
+        refreshControl.backgroundColor = Stylesheet.Colors.WMSYNeonPurple.withAlphaComponent(0.5)
         refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         self.feedView.tableView.refreshControl = refreshControl
         currentUser = AppUser.currentAppUser
@@ -116,6 +121,7 @@ class FeedMapVC: MenuedViewController {
         layoutFiltersView()
         layoutMapView()
         addPanGesture(view: filterMapContainerView)
+        addTapGesture(view: feedView)
         self.mapView.detailView.isHidden = true
         self.mapView.mapView.delegate = self
         self.mapView.detailView.delegate = self
@@ -131,6 +137,21 @@ class FeedMapVC: MenuedViewController {
         view.addGestureRecognizer(pan)
     }
     
+    func addTapGesture(view: UIView) {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(FeedMapVC.openFeed(sender:)))
+        self.navigationController?.navigationBar.addGestureRecognizer(tap)
+    }
+    
+    @objc func openFeed(sender: UITapGestureRecognizer) {
+        switch sender.state {
+        case .ended, .began, .changed:
+            print("ended")
+            toggleMap(sender: sender)
+        default:
+            break
+        }
+    }
+    
     @objc func handlePan(sender: UIPanGestureRecognizer) {
         let filterMapContainerView = sender.view!
         let translation = sender.translation(in: view)
@@ -143,13 +164,13 @@ class FeedMapVC: MenuedViewController {
         case .ended:
             if filterMapContainerView.frame.minY > feedView.frame.maxY {
                 print(filterMapContainerView.frame.minY)
-                print(feedView.frame.maxY)
+                print(feedView.frame.minY)
                 verticalPinConstraint?.deactivate()
                 self.mapUp = false
                 self.pinFilterViewToBottom()
-//                UIView.animate(withDuration: 0.2, animations: {
+                UIView.animate(withDuration: 0.3, animations: {
                 self.view.layoutIfNeeded()
-//                })
+                })
             }
             if filterMapContainerView.frame.minY <= CGFloat(368) || velocity.y < -300 {
                 verticalPinConstraint?.deactivate()
@@ -166,6 +187,7 @@ class FeedMapVC: MenuedViewController {
                     self.view.layoutIfNeeded()
                 })
             }
+           
         default:
             break
         }
@@ -248,17 +270,20 @@ class FeedMapVC: MenuedViewController {
     // setup UIBarButtonItems
     private func configureNavBar() {
         navigationItem.title = "wmsy"
-        let topLeftBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addIcon"), style: .plain, target: self, action: #selector(hostAWhim))
+        let topLeftBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "feedIcon"), style: .plain, target: self, action: #selector(showMenu(sender:)))
         topLeftBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
         navigationItem.leftBarButtonItem = topLeftBarItem
         
-        let topRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "mapIcon"), style: .plain, target: self, action: #selector(toggleMap))
+        let topRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addIcon"), style: .plain, target: self, action: #selector(hostAWhim))
         topRightBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
         navigationItem.rightBarButtonItem = topRightBarItem
         
         
     }
     
+    @objc func showMenu(sender: UIViewController){
+        openMenu(sender: sender)
+    }
     
     @objc func hostAWhim() {
         navigationController?.pushViewController(CreateWhimTVC(), animated: false)
@@ -281,8 +306,7 @@ class FeedMapVC: MenuedViewController {
         }
     }
     
-    @objc func toggleMap(sender: UIBarButtonItem) {
-        sender.isEnabled = false
+    @objc func toggleMap(sender: UITapGestureRecognizer) {
         verticalPinConstraint?.deactivate()
         
         if mapUp {
@@ -296,20 +320,14 @@ class FeedMapVC: MenuedViewController {
             self.view.layoutIfNeeded()
         }, completion: { (_) in
             self.mapUp = !self.mapUp
-            sender.isEnabled = true
         })
     }
     
     @objc func clearSearch() {
         DBService.manager.getClosestWhims(location: userLocation) { (whims) in
             self.feedWhims = whims
-//            for i in 0...5 {
-//                let indexPath = IndexPath.init(row: i, section: 0)
-//                print(i)
-//                let cell = self.filtersView.categoriesCV.cellForItem(at: indexPath) as! WhimCategoryCollectionViewCell
-//                cell.isSelected = false
-//
-//            }
+            self.filtersView.categoriesCV.deselectAllItems(animated: false)
+            
         }
         self.expandedRows = Set<Int>()
     }
@@ -327,3 +345,17 @@ extension UIImage {
     }
 }
 
+extension UICollectionView {
+    func deselectAllItems(animated: Bool = false) {
+        for indexPath in self.indexPathsForSelectedItems ?? [] {
+            self.deselectItem(at: indexPath, animated: animated)
+        }
+    }
+}
+
+extension UIView{
+    func blink() {
+        self.alpha = 0.2
+        UIView.animate(withDuration: 1, delay: 0.0, options: [.curveLinear, .repeat, .autoreverse], animations: {self.alpha = 1.0}, completion: nil)
+    }
+}

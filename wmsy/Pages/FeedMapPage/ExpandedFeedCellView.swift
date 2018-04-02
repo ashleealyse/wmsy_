@@ -39,16 +39,16 @@ class ExpandedFeedCellView: UIView {
     
     lazy var interestedButton: UIButton = {
         let interestButton = UIButton()
-        interestButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
+        interestButton.setImage(#imageLiteral(resourceName: "wmsyCategoryIcon"), for: .normal)
 //        interestButton.addTarget(self, action: #selector(showInterest), for: .touchUpInside)
         return interestButton
     }()
     
-    lazy var interestLabel: UILabel = {
-        let lb = UILabel()
-        lb.text = "Show Interest"
-        return lb
-    }()
+//    lazy var interestLabel: UILabel = {
+//        let lb = UILabel()
+//        lb.text = "Show Interest"
+//        return lb
+//    }()
     
 //    @objc func showOnMap() {
 //        self.delegate?.showOnMapButtonPressed()
@@ -69,10 +69,11 @@ class ExpandedFeedCellView: UIView {
     }
     
     private func commonInit() {
+        self.backgroundColor = .white
         setUpPostDescription()
         setUpMapButton()
         setUpInterestButton()
-        setUpInterestLabel()
+//        setUpInterestLabel()
     }
     
     private func setUpPostDescription() {
@@ -105,12 +106,12 @@ class ExpandedFeedCellView: UIView {
         }
     }
     
-    private func setUpInterestLabel() {
-        addSubview(interestLabel)
-        interestLabel.snp.makeConstraints { (make) in
-            make.trailing.equalTo(interestedButton.snp.leading).offset(-2)
-            make.centerY.equalTo(interestedButton.snp.centerY)
-        }
-    }
+//    private func setUpInterestLabel() {
+//        addSubview(interestLabel)
+//        interestLabel.snp.makeConstraints { (make) in
+//            make.trailing.equalTo(interestedButton.snp.leading).offset(-2)
+//            make.centerY.equalTo(interestedButton.snp.centerY)
+//        }
+//    }
 }
 
