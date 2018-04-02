@@ -16,7 +16,7 @@ class FiltersView: UIView {
     
     lazy var pullButton: UIButton = {
        let btn = UIButton()
-        btn.setImage(#imageLiteral(resourceName: "pullIcon"), for: .normal)
+        btn.setImage(#imageLiteral(resourceName: "pullBarIcon"), for: .normal)
         return btn
     }()
     

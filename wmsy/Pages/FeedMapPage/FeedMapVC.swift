@@ -121,6 +121,7 @@ class FeedMapVC: MenuedViewController {
         layoutFiltersView()
         layoutMapView()
         addPanGesture(view: filterMapContainerView)
+        addTapGesture(view: feedView)
         self.mapView.detailView.isHidden = true
         self.mapView.mapView.delegate = self
         self.mapView.detailView.delegate = self
@@ -138,11 +139,9 @@ class FeedMapVC: MenuedViewController {
     
     @objc func openFeed(sender: UITapGestureRecognizer) {
         switch sender.state {
-        case .began:
-            openMenu(sender: sender)
-        case .ended:
-            openMenu(sender: sender)
-
+        case .ended, .began, .changed:
+            print("ended")
+            toggleMap(sender: sender)
         default:
             break
         }
@@ -265,8 +264,8 @@ class FeedMapVC: MenuedViewController {
     
     // setup UIBarButtonItems
     private func configureNavBar() {
-        navigationItem.title = "Feed"
-        let topLeftBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "wmsyCategoryIcon"), style: .plain, target: self, action: #selector(showMenu(sender:)))
+        navigationItem.title = "wmsy"
+        let topLeftBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "feedIcon"), style: .plain, target: self, action: #selector(showMenu(sender:)))
         topLeftBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
         navigationItem.leftBarButtonItem = topLeftBarItem
         
@@ -302,8 +301,7 @@ class FeedMapVC: MenuedViewController {
         }
     }
     
-    @objc func toggleMap(sender: UIBarButtonItem) {
-        sender.isEnabled = false
+    @objc func toggleMap(sender: UITapGestureRecognizer) {
         verticalPinConstraint?.deactivate()
         
         if mapUp {
@@ -317,7 +315,6 @@ class FeedMapVC: MenuedViewController {
             self.view.layoutIfNeeded()
         }, completion: { (_) in
             self.mapUp = !self.mapUp
-            sender.isEnabled = true
         })
     }
     

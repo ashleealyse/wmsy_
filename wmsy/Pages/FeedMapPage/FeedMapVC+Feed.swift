@@ -56,17 +56,17 @@ extension FeedMapVC: UITableViewDataSource {
         cell.expandedView.postDescriptionTF.text = whim.description
         let interests = getInterestKeys(appUser: AppUser.currentAppUser!)
         if interests.contains(whim.id){
-            cell.expandedView.interestedButton.setImage(#imageLiteral(resourceName: "interestedCircleIcon"), for: .normal)
+            cell.expandedView.interestedButton.setImage(#imageLiteral(resourceName: "filledPopsicleIcon"), for: .normal)
         }else{
-            cell.expandedView.interestedButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
+            cell.expandedView.interestedButton.setImage(#imageLiteral(resourceName: "wmsyCategoryIcon"), for: .normal)
         }
         
         if whim.hostID == AppUser.currentAppUser?.userID{
-            cell.expandedView.interestLabel.isHidden = true
+//            cell.expandedView.interestLabel.isHidden = true
             cell.expandedView.interestedButton.isHidden = true
             return cell
         }
-        cell.expandedView.interestLabel.isHidden = false
+//        cell.expandedView.interestLabel.isHidden = false
         cell.expandedView.interestedButton.isHidden = false
         return cell
     }
@@ -128,9 +128,9 @@ extension FeedMapVC: FeedCellViewDelegate {
         
         let interests = getInterestKeys(appUser: AppUser.currentAppUser!)
         if interests.contains(whim.id){
-            self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "interestedCircleIcon"), for: .normal)
+            self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "filledPopsicleIcon"), for: .normal)
         }else{
-            self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
+            self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "wmsyCategoryIcon"), for: .normal)
         }
         self.mapView.detailView.isHidden = false
         
