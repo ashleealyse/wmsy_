@@ -139,11 +139,9 @@ class FeedMapVC: MenuedViewController {
     
     @objc func openFeed(sender: UITapGestureRecognizer) {
         switch sender.state {
-        case .began:
-            openMenu(sender: sender)
-        case .ended:
-            openMenu(sender: sender)
-
+        case .ended, .began, .changed:
+            print("ended")
+            toggleMap(sender: sender)
         default:
             break
         }
@@ -267,17 +265,20 @@ class FeedMapVC: MenuedViewController {
     // setup UIBarButtonItems
     private func configureNavBar() {
         navigationItem.title = "wmsy"
-        let topLeftBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addIcon"), style: .plain, target: self, action: #selector(hostAWhim))
+        let topLeftBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "feedIcon"), style: .plain, target: self, action: #selector(showMenu(sender:)))
         topLeftBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
         navigationItem.leftBarButtonItem = topLeftBarItem
         
-        let topRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "mapIcon"), style: .plain, target: self, action: #selector(toggleMap))
+        let topRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addIcon"), style: .plain, target: self, action: #selector(hostAWhim))
         topRightBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
         navigationItem.rightBarButtonItem = topRightBarItem
         
         
     }
     
+    @objc func showMenu(sender: UIViewController){
+        openMenu(sender: sender)
+    }
     
     @objc func hostAWhim() {
         navigationController?.pushViewController(CreateWhimTVC(), animated: false)
@@ -300,8 +301,7 @@ class FeedMapVC: MenuedViewController {
         }
     }
     
-    @objc func toggleMap(sender: UIBarButtonItem) {
-        sender.isEnabled = false
+    @objc func toggleMap(sender: UITapGestureRecognizer) {
         verticalPinConstraint?.deactivate()
         
         if mapUp {
@@ -315,7 +315,6 @@ class FeedMapVC: MenuedViewController {
             self.view.layoutIfNeeded()
         }, completion: { (_) in
             self.mapUp = !self.mapUp
-            sender.isEnabled = true
         })
     }
     
