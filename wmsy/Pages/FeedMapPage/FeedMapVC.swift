@@ -265,8 +265,8 @@ class FeedMapVC: MenuedViewController {
     
     // setup UIBarButtonItems
     private func configureNavBar() {
-        navigationItem.title = "Feed"
-        let topLeftBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "wmsyCategoryIcon"), style: .plain, target: self, action: #selector(showMenu(sender:)))
+        navigationItem.title = "wmsy"
+        let topLeftBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "feedIcon"), style: .plain, target: self, action: #selector(showMenu(sender:)))
         topLeftBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
         navigationItem.leftBarButtonItem = topLeftBarItem
         
