@@ -12,7 +12,8 @@ import SnapKit
 class FeedView: UIView {
     
     lazy var tableView: UITableView = {
-        let tv = UITableView()
+        let tv = UITableView.init(frame: CGRect.zero, style: .grouped)
+        tv.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
         tv.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
         return tv
     }()
