@@ -12,6 +12,7 @@ import GoogleMaps
 import SVProgressHUD
 
 extension FeedMapVC: GMSMapViewDelegate{
+    
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude,
                                               longitude: marker.position.longitude,
@@ -109,6 +110,13 @@ extension FeedMapVC: mapDetailViewDelegate {
     }
     
     func userPicturePressed() {
-        present(GuestProfileVC(), animated: true, completion: nil)
-    }
+        hostProfileView.modalTransitionStyle = .crossDissolve
+        hostProfileView.modalPresentationStyle = .overCurrentContext
+        tabBarController?.present(hostProfileView, animated: false, completion: nil)
+//        present(GuestProfileVC(), animated: true, completion: nil)
+        hostProfileView.profileView.nameLabel.text = currentUser?.name
+        hostProfileView.profileView.bioLabel.text = currentUser?.bio
+        let url = URL(string: (currentUser?.photoID)!)
+        hostProfileView.profileView.profileImageView.kf.setImage(with: url)
+}
 }

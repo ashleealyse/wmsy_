@@ -20,14 +20,16 @@ class MenuNavigationBarVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(feedButton)
-        view.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
+        view.backgroundColor = Stylesheet.Colors.WMSYDeepViolet
         
         
-        feedButton.setTitleColor(.white, for: .normal)
-        feedButton.setTitle("Go to Feed", for: .normal)
+//        feedButton.setTitleColor(.white, for: .normal)
+//        feedButton.setTitle("Go to Feed", for: .normal)
+        feedButton.setImage(#imageLiteral(resourceName: "whiteForwardIcon"), for: .normal)
         
         feedButton.snp.makeConstraints { (make) in
-            make.top.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.top.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-5)
             make.height.equalTo(64)
         }
     }

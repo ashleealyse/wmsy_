@@ -53,7 +53,7 @@ class ProfileView: UIView {
         lbl.textAlignment = .center
         lbl.text = "Hey I am t-Swift. I love writing breakup songs"
         lbl.textColor = .black
-        lbl.backgroundColor = Stylesheet.Colors.WMSYNeonPurple.withAlphaComponent(0.2)
+//        lbl.backgroundColor = Stylesheet.Colors.WMSYNeonPurple.withAlphaComponent(0.2)
         return lbl
     }()
     
@@ -107,7 +107,7 @@ class ProfileView: UIView {
         profileImageView.snp.makeConstraints { (make) in
             make.top.equalTo(containerView.snp.top)
             make.leading.equalTo(containerView.snp.leading)
-            make.width.equalTo(containerView.snp.width).multipliedBy(0.6)
+            make.width.equalTo(containerView.snp.width).multipliedBy(0.5)
             make.bottom.equalTo(containerView)
 
             
@@ -138,7 +138,7 @@ class ProfileView: UIView {
         containerView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         containerView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         containerView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.90).isActive = true
-        containerView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.50).isActive = true
+        containerView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.40).isActive = true
     }
     
     
