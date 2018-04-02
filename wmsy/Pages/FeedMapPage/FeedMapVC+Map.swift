@@ -19,13 +19,20 @@ extension FeedMapVC: GMSMapViewDelegate{
                                               zoom: 17.0)
         self.mapView.mapView.animate(to: camera)
         let dict = marker.userData as? [String: String]
-        let whimTiltle = dict!["title"]
+        let whimTitle = dict!["title"]
         for whim in feedWhims{
-            if whim.title == whimTiltle{
+            if whim.title == whimTitle{
                 self.currentWhim = whim
             }
         }
-        self.mapView.detailView.whimTitle.text = whimTiltle
+        let expiration = dict!["expiration"]
+        let titleCount  = whimTitle?.count
+        let customString = NSMutableAttributedString.init(string: "\(whimTitle!) \(expiration!)", attributes: [NSAttributedStringKey.font:UIFont(name: "Helvetica", size: 18.0)!])
+        customString.addAttributes([NSAttributedStringKey.font:UIFont(name: "Helvetica", size: 14.0)!,NSAttributedStringKey.foregroundColor:UIColor.lightGray], range: NSRange(location:titleCount!,length: (expiration?.count)! + 1))
+        
+        
+        
+        self.mapView.detailView.whimTitle.attributedText = customString
         self.mapView.detailView.whimDescription.text = dict!["description"]
         let hostURL = URL(string: dict!["hostImageURL"]!)
         let hostID = dict!["hostID"]
