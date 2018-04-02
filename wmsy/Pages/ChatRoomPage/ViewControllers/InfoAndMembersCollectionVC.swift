@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 protocol InfoAndMembersCollectionVCDelegate: class {
-    func toggleUser(user: AppUser)
+//    func toggleUser(user: AppUser)
     func updateMembers(members: [AppUser])
     func addInterestedUser(_ user: AppUser)
     func removeUser(_ user: AppUser)
@@ -52,6 +52,11 @@ class InfoAndMembersCollectionVC: UIViewController {
         self.currentWhim = whim
         self.memberInfoView.shortLabel.text = currentWhim?.title
         self.memberInfoView.longLabel.text = currentWhim?.description
+        
+        let userImageString = currentWhim?.hostImageURL
+        let userImageUrl = URL(string: userImageString!)
+        self.memberInfoView.userImageView.kf.setImage(with: userImageUrl)
+        self.memberInfoView.inviteButton.isHidden = true
     }
     
     override func viewDidLoad() {
@@ -82,7 +87,7 @@ class InfoAndMembersCollectionVC: UIViewController {
         
         self.view.addSubview(memberInfoView)
         memberInfoView.snp.makeConstraints { (make) in
-            make.height.equalTo(90)
+            make.height.equalTo(120)
             make.leading.trailing.equalTo(membersCollectionView!)
             make.top.equalTo(membersCollectionView!.snp.bottom)
            
@@ -93,6 +98,7 @@ class InfoAndMembersCollectionVC: UIViewController {
         }
         
         memberInfoView.inviteButton.addTarget(self, action: #selector(inviteButtonHit), for: .touchUpInside)
+        memberInfoView.showMapButton.addTarget(self, action: #selector(showMapButtonHit), for: .touchUpInside)
     }
     
     public func new(interestedUser user: AppUser) {
@@ -105,6 +111,8 @@ class InfoAndMembersCollectionVC: UIViewController {
     }
     
     @objc func inviteButtonHit() {
+        self.membersCollectionView?.reloadData()
+
         guard
             let user = currentSelectedUser,
             let inChat = inChat[user.userID] else {
@@ -119,11 +127,15 @@ class InfoAndMembersCollectionVC: UIViewController {
         }
     }
     
-    @objc func toggle() {
-        
-        // idk if this does anything
-        delegate?.toggleUser(user: currentSelectedUser!)
+    @objc func showMapButtonHit() {
+        print("Show this Whim on the map")
     }
+    
+//    @objc func toggle() {
+//
+//        // idk if this does anything
+//        delegate?.toggleUser(user: currentSelectedUser!)
+//    }
 }
 
 extension InfoAndMembersCollectionVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -135,6 +147,9 @@ extension InfoAndMembersCollectionVC: UICollectionViewDataSource, UICollectionVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChatGuestCell", for: indexPath) as! ChatGuestCollectionViewCell
         if indexPath.row == 0 {
             cell.guestImageView.image = #imageLiteral(resourceName: "wmsyCategoryIcon")
+            cell.guestImageView.backgroundColor = .white
+            memberInfoView.inviteButton.isHidden = true
+            memberInfoView.showMapButton.isHidden = false
             return cell
         }
         let user = members[indexPath.row - 1]
@@ -143,8 +158,11 @@ extension InfoAndMembersCollectionVC: UICollectionViewDataSource, UICollectionVi
         cell.guestImageView.kf.setImage(with: userImagePhotoIDurl)
         cell.guestImageView.kf.indicatorType = .activity
         cell.isSelected = true
-        cell.backgroundColor = (inChat[user.userID] ?? false) ? .blue : .red
-        memberInfoView.inviteButton.isHidden = true
+        
+//        cell.backgroundColor = (inChat[user.userID] ?? false) ? Stylesheet.Colors.WMSYNeonPurple : Stylesheet.Colors.WMSYPastelBlue
+        cell.guestImageView.alpha = (inChat[user.userID] ?? false) ? 1.0 : 0.5
+        memberInfoView.inviteButton.isHidden = false
+        memberInfoView.showMapButton.isHidden = true
         return cell
     }
     
@@ -157,15 +175,31 @@ extension InfoAndMembersCollectionVC: UICollectionViewDataSource, UICollectionVi
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)  as! ChatGuestCollectionViewCell
+        collectionView.reloadData()
         if indexPath.row == 0 {
             print("whim info")
             memberInfoView.shortLabel.text = currentWhim?.title
             memberInfoView.longLabel.text = currentWhim?.description
+            memberInfoView.inviteButton.isHidden = true
+
+            
+            let userImageString = currentWhim?.hostImageURL
+            let userImageUrl = URL(string: userImageString!)
+            memberInfoView.userImageView.kf.setImage(with: userImageUrl)
+            cell.guestImageView.backgroundColor = .white
             return
         }
         currentSelectedUser = members[indexPath.row - 1]
         memberInfoView.shortLabel.text = currentSelectedUser?.name
         memberInfoView.longLabel.text = currentSelectedUser?.bio
+        memberInfoView.showMapButton.isHidden = true
+        
+        let userImageString = currentSelectedUser?.photoID
+        let userImageUrl = URL(string: userImageString!)
+        memberInfoView.userImageView.kf.setImage(with: userImageUrl)
+        
+        cell.guestImageView.alpha = (inChat[(currentSelectedUser?.userID)!] ?? false) ? 1.0 : 0.5
+        
         memberInfoView.inviteButton.isHidden = false
         if inChat[currentSelectedUser!.userID]! {
             memberInfoView.inviteButton.setTitle("Remove", for: .normal)
