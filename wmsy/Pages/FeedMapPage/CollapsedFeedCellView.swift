@@ -42,6 +42,7 @@ class CollapsedFeedCellView: UIView {
     }
     
     private func commonInit() {
+        self.backgroundColor = .white
         setUpImageButton()
         setUpCategoryIcon()
         setUpPostTitleLabel()

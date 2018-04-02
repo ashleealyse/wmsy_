@@ -36,3 +36,5 @@ extension FeedMapVC: UICollectionViewDataSource {
         return cell
     }
 }
+
+
