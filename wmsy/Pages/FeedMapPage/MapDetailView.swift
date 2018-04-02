@@ -89,8 +89,8 @@ class MapDetailView: UIView {
     private func setUpUserPicture(){
         addSubview(userPicture)
         userPicture.snp.makeConstraints { (make) in
-            make.leading.equalTo(self)
-            make.width.equalTo(self).multipliedBy(0.3)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
+            make.width.equalTo(self).multipliedBy(0.35)
 //            make.height.equalTo(userPicture.snp.width)
             make.top.equalTo(self.snp.top)
             make.bottom.equalTo(self.snp.bottom)
