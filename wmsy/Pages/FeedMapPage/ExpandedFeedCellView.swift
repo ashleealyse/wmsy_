@@ -69,6 +69,7 @@ class ExpandedFeedCellView: UIView {
     }
     
     private func commonInit() {
+        self.backgroundColor = .white
         setUpPostDescription()
         setUpMapButton()
         setUpInterestButton()
