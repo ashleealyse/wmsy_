@@ -41,7 +41,9 @@ class MenuProfileVC: UIViewController {
             DBService.manager.updateBio(textField.text!, forUser: AppUser.currentAppUser!)
             self.profileView.bioTextView.resignFirstResponder()
         }, to: editBioAlert)
-        Alert.addAction(withTitle: "Cancel", style: .cancel, andHandler: nil, to: editBioAlert)
+        Alert.addAction(withTitle: "Cancel", style: .cancel, andHandler: { (action) -> Void in
+            self.profileView.bioTextView.resignFirstResponder()
+        }, to: editBioAlert)
         self.present(editBioAlert, animated: true, completion: nil)
     }
 
