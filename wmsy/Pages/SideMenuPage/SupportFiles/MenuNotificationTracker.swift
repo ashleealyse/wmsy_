@@ -18,6 +18,11 @@ protocol MenuNotificationTrackerDelegate: class {
     func currentUserInterested(inWhim whimID: String) -> Void
     func currentUserNoLongerInterested(inWhim whimID: String) -> Void
     func currentUserAllowedInChat(forWhim whimID: String) -> Void
+    func currentUserRemovedFromChat(forWhim whimID: String) -> Void
+    func currentUserStartedHosting(whim whimID: String) -> Void
+    func currentUserReceivedMessageInHostedWhim(inWhim whimID: String) -> Void
+    
+//    func otherUserExpressedInterestInHostedWhim(withID whimID: String) -> Void
 }
 
 
@@ -164,7 +169,7 @@ class MenuNotificationTracker {
                 self.delegate?.currentUserAllowedInChat(forWhim: whimID)
                 self.removeInGuestChatHandle(forWhim: whimID)
             } else {
-                print("no")
+                print("not in chat for whimID: \(whimID)")
             }
         })
     }
@@ -173,13 +178,108 @@ class MenuNotificationTracker {
         self.currentUserAllowedInChatHandle[whimID] = nil
     }
     
+    // Current User removed from chat
+    private var currentUserRemovedFromChatHandle = [String: DatabaseReference]()
+    private func hookUpUserNoLongerInChatHandle(forUser user: AppUser) {
+        let userInterests = user.interests.filter{!$0.inChat}.map{$0.whimID}
+        for whimID in userInterests {
+            addOutOfGuestChatHandle(forWhim: whimID)
+        }
+    }
+    private func addOutOfGuestChatHandle(forWhim whimID: String) {
+        guard let user = AppUser.currentAppUser else {
+            print("no user right now")
+            fatalError()
+        }
+        currentUserRemovedFromChatHandle[whimID] = DBService.manager.usersRef.child(user.userID).child("interests").child(whimID)
+        currentUserRemovedFromChatHandle[whimID]!.observe(.value, with: { (snapshot) in
+            if let inChat = snapshot.value as? Bool,
+                inChat {
+                guard let index = AppUser.currentAppUser?.interests.index(where: {$0.whimID == snapshot.key}) else {
+                    print("current user didnt have this interest")
+                    fatalError()
+                }
+                AppUser.currentAppUser?.interests.remove(at: index)
+                self.delegate?.currentUserRemovedFromChat(forWhim: whimID)
+                self.removeOutOfGuestChatHandle(forWhim: whimID)
+            } else {
+                print("no")
+            }
+        })
+    }
+    private func removeOutOfGuestChatHandle(forWhim whimID: String) {
+        self.currentUserRemovedFromChatHandle[whimID]?.removeAllObservers()
+        self.currentUserRemovedFromChatHandle[whimID] = nil
+    }
     
+    // Current User started hosting something
+    private var currentUserStartedHostingWhimHandle: DatabaseReference!
+    private func hookUpCurrentUserStartedHostingHandle(forUser user: AppUser) {
+        currentUserStartedHostingWhimHandle = DBService.manager.usersRef.child(user.userID).child("hostedWhims")
+        currentUserStartedHostingWhimHandle.observe(.childAdded) { (snapshot) in
+            guard let _ = snapshot.value as? Bool else {
+                print("user interest not properly created from firebase")
+                fatalError()
+            }
+            AppUser.currentAppUser!.hostedWhims.forEach{print($0.id)}
+//            self.addInGuestChatHandle(forWhim: snapshot.key)
+//            self.delegate?.currentUserInterested(inWhim: snapshot.key)
+            self.addReceivedMessageInHostedWhimHandle(forWhim: snapshot.key)
+            self.delegate?.currentUserStartedHosting(whim: snapshot.key)
+        }
+        
+    }
+    
+    // Current User stopped hosting something
+    
+    // Current User received a message in any chat?
+    private var currentUserHostedWhimsNewMessageHandle = [String: DatabaseReference]()
+    private func hookUpCurrentUserHostedWhimsNewMessageHandle(forUser user: AppUser) {
+//        guard let user = AppUser.currentAppUser else {
+//            print("no user right now")
+//            fatalError()
+//        }
+        let hostedWhims = user.hostedWhims.map{$0.id}
+        for whimID in hostedWhims {
+            addReceivedMessageInHostedWhimHandle(forWhim: whimID)
+        }
+    }
+    private func addReceivedMessageInHostedWhimHandle(forWhim whimID: String) {
+        guard let user = AppUser.currentAppUser else {
+            print("no user right now")
+            fatalError()
+        }
+        currentUserHostedWhimsNewMessageHandle[whimID] = DBService.manager.messagesRef.child(whimID)
+        currentUserHostedWhimsNewMessageHandle[whimID]!.queryLimited(toLast: 1).observe(.childAdded) { (snapshot) in
+            guard
+                var messageDict = snapshot.value as? [String: Any] else {
+                    print(snapshot.key)
+                    return
+            }
+            messageDict["whimID"] = whimID
+            messageDict["messageID"] = snapshot.key
+            if let message = Message.init(fromDict: messageDict){
+                guard let index = user.hostedWhims.index(where: {$0.id == whimID}) else {
+                    print("user isnt hosting a whim with id : \(whimID)")
+                    fatalError()
+                }
+                AppUser.currentAppUser?.hostedWhims[index].whimChats.append(message)
+                self.delegate?.currentUserReceivedMessageInHostedWhim(inWhim: snapshot.key)
+            }
+        }
+    }
+    private func removeMessageReceivedInHostedWhimHandle(forWhim whimID: String) {
+        currentUserHostedWhimsNewMessageHandle[whimID]?.removeAllObservers()
+        currentUserHostedWhimsNewMessageHandle[whimID] = nil
+    }
     // callback just in case something asynchrounous is needed
     public func setupListeners(forUser user: AppUser, completion: @escaping () -> Void) {
         hookUpUserInterestsHandle(forUser: user)
         hookUpUserNoLongerInterestedHandle(forUser: user)
         hookUpUserAllowedInChatHandle(forUser: user)
-        
+        hookUpUserNoLongerInChatHandle(forUser: user)
+        hookUpCurrentUserStartedHostingHandle(forUser: user)
+        hookUpCurrentUserHostedWhimsNewMessageHandle(forUser: user)
         completion()
     }
 }
