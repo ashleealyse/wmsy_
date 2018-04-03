@@ -90,10 +90,13 @@ class MapDetailView: UIView {
         addSubview(userPicture)
         userPicture.snp.makeConstraints { (make) in
             make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
-            make.width.equalTo(self).multipliedBy(0.35)
+            make.top.bottom.equalTo(safeAreaLayoutGuide)
+//            make.height.equalTo(self).multipliedBy(0.5)
+            make.width.equalTo(self.snp.height).multipliedBy(0.9)
+//            make.centerY.equalTo(self)
 //            make.height.equalTo(userPicture.snp.width)
-            make.top.equalTo(self.snp.top)
-            make.bottom.equalTo(self.snp.bottom)
+//            make.top.equalTo(self.snp.top)
+//            make.bottom.equalTo(self.snp.bottom)
         }
         
     }
@@ -101,7 +104,8 @@ class MapDetailView: UIView {
     private func setUpTitle(){
         addSubview(whimTitle)
         whimTitle.snp.makeConstraints { (make) in
-            make.top.equalTo(self.snp.top)
+            make.top.equalTo(self.snp.top).offset(5)
+//            make.centerY.equalTo(userPicture.snp.centerY)
             make.leading.equalTo(userPicture.snp.trailing).offset(5)
             make.trailing.equalTo(self.snp.trailing)
         }

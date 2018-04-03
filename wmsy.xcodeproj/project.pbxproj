@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8107D92420729A9100CEC5B2 /* AppUser+CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107D92320729A9100CEC5B2 /* AppUser+CurrentUser.swift */; };
-		810816AF2072D01C00E59456 /* Interest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810816AE2072D01C00E59456 /* Interest.swift */; };
 		811FFB5720606B5500F3312B /* CollapsedFeedCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811FFB5620606B5500F3312B /* CollapsedFeedCellView.swift */; };
 		811FFB9720615B6200F3312B /* DBService+Whim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811FFB9620615B6100F3312B /* DBService+Whim.swift */; };
 		811FFB9920615B6900F3312B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811FFB9820615B6900F3312B /* NotificationManager.swift */; };
@@ -107,7 +106,6 @@
 		93495B0620603F9A0080BDBA /* ExpandedFeedCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93495B0520603F9A0080BDBA /* ExpandedFeedCellView.swift */; };
 		93495B08206041080080BDBA /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93495B07206041080080BDBA /* FeedCell.swift */; };
 		93632551206C1597002FFAED /* WhimColorViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93632550206C1597002FFAED /* WhimColorViewTableViewCell.swift */; };
-		9370D0DC2072C80F00D86477 /* Interest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9370D0DB2072C80F00D86477 /* Interest.swift */; };
 		93D5CDB0206AB1FC00ABB3E1 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D5CDAF206AB1FC00ABB3E1 /* SplashView.swift */; };
 		93D5CDB2206AB20A00ABB3E1 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D5CDB1206AB20A00ABB3E1 /* SplashViewController.swift */; };
 		93E12D62206DCC0B00BD49FA /* CancelCreateWhimTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E12D61206DCC0B00BD49FA /* CancelCreateWhimTableViewCell.swift */; };
@@ -235,7 +233,6 @@
 		93495B0520603F9A0080BDBA /* ExpandedFeedCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedFeedCellView.swift; sourceTree = "<group>"; };
 		93495B07206041080080BDBA /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		93632550206C1597002FFAED /* WhimColorViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhimColorViewTableViewCell.swift; sourceTree = "<group>"; };
-		9370D0DB2072C80F00D86477 /* Interest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interest.swift; sourceTree = "<group>"; };
 		93D5CDAF206AB1FC00ABB3E1 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		93D5CDB1206AB20A00ABB3E1 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		93E12D61206DCC0B00BD49FA /* CancelCreateWhimTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelCreateWhimTableViewCell.swift; sourceTree = "<group>"; };
@@ -303,6 +300,7 @@
 				81903102205ADCF200932A55 /* Products */,
 				B2F8ADA7007772FA5D9A5CEF /* Pods */,
 				03091284B0376CB4097E8AD5 /* Frameworks */,
+				9370D0E02073E05700D86477 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -454,7 +452,6 @@
 		81BAD686205AEE6A00C7F039 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-
 				8196983A2072D970000267A6 /* Interest.swift */,
 				81BAD688205AEEC300C7F039 /* AppUser.swift */,
 				8107D92320729A9100CEC5B2 /* AppUser+CurrentUser.swift */,
@@ -536,6 +533,14 @@
 				81202D91206C59D300CC5588 /* PopUpTextView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		9370D0E02073E05700D86477 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				810816AE2072D01C00E59456 /* Interest.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		93D5CDAE206AB14A00ABB3E1 /* SplashPage */ = {
@@ -823,7 +828,6 @@
 				81F9F0702065D27700D288E8 /* AddChildVC.swift in Sources */,
 				81AB7AC4205C80FC009845EA /* HostAWhimButtonTableViewCell.swift in Sources */,
 				81AB7AC6205C94DD009845EA /* WhimCategoryCollectionViewCell.swift in Sources */,
-				810816AF2072D01C00E59456 /* Interest.swift in Sources */,
 				93495B08206041080080BDBA /* FeedCell.swift in Sources */,
 				81AB7ABC205C8024009845EA /* WhimDescriptionTableViewCell.swift in Sources */,
 				81DECD21205C882900214866 /* DismissMenuAnimator.swift in Sources */,

@@ -199,6 +199,7 @@ class FeedMapVC: MenuedViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = false
+
     }
     
     override func viewDidDisappear(_ animated: Bool) {
