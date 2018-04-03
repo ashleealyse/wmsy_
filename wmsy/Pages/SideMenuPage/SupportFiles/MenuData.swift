@@ -34,8 +34,10 @@ class MenuData {
         let guestWhimIDs = user.interests.filter{$0.inChat}.map{$0.whimID}
         DBService.manager.getWhims(fromList: guestWhimIDs) { (whims) in
             self.guestWhims = whims.map{($0, false)}
-            let _ = MenuNotificationTracker.manager
+//            let _ = MenuNotificationTracker.manager
+//            MenuNotificationTracker.manager.configure()
             completion()
+//            MenuNotificationTracker.manager.delegate = self
         }
     }
     public func interestAccepted(_ whimID: String) {
@@ -53,39 +55,72 @@ class MenuData {
 extension MenuData: MenuNotificationTrackerDelegate {
     
     func interestNotification(forWhim whimID: String) {
-        guard let interestIndex = pendingInterests.index(where: {$0.whimID == whimID}) else {
-            return
-        }
-        interestAccepted(whimID)
-        print("interest notif")
+//        guard let interestIndex = pendingInterests.index(where: {$0.whimID == whimID}) else {
+//            return
+//        }
+//        interestAccepted(whimID)
+//        print("interest notif")
     }
     
     func newUserInterested(inWhim whimID: String) {
-        guard let index = hostedWhims.index(where: {$0.whim.id == whimID}) else {
-            return
-        }
-        hostedWhims[index].hasNotification = true
-        delegate?.reconfigure()
-        print("newuser notif in \(hostedWhims[index].whim.title)")
+//        guard let index = hostedWhims.index(where: {$0.whim.id == whimID}) else {
+//            return
+//        }
+//        hostedWhims[index].hasNotification = true
+//        delegate?.reconfigure()
+//        print("newuser notif in \(hostedWhims[index].whim.title)")
     }
     
     func hostChatNotification(inWhim whimID: String) {
-        guard let index = hostedWhims.index(where: {$0.whim.id == whimID}) else {
-            return
-        }
-        hostedWhims[index].hasNotification = true
-        delegate?.reconfigure()
-        print("hostchat notif in \(hostedWhims[index].whim.title)")
+//        guard let index = hostedWhims.index(where: {$0.whim.id == whimID}) else {
+//            return
+//        }
+//        hostedWhims[index].hasNotification = true
+//        delegate?.reconfigure()
+//        print("hostchat notif in \(hostedWhims[index].whim.title)")
     }
     
     func guestChatNotification(inWhim whimID: String) {
-        guard let index = guestWhims.index(where: {$0.whim.id == whimID}) else {
-            return
-        }
-        guestWhims[index].hasNotification = true
-        delegate?.reconfigure()
-        print("guest chat notif in \(guestWhims[index].whim.title)")
+//        guard let index = guestWhims.index(where: {$0.whim.id == whimID}) else {
+//            return
+//        }
+//        guestWhims[index].hasNotification = true
+//        delegate?.reconfigure()
+//        print("guest chat notif in \(guestWhims[index].whim.title)")
     }
     
-    
+    func currentUserInterested(inWhim whimID: String)   {
+        print("interested in whim: \(whimID)")
+        print("should show up in menu")
+        guard let user = AppUser.currentAppUser else {
+            print("no current user")
+            fatalError()
+        }
+        let interest = Interest(whimID: whimID, userID: user.userID, inChat: false)
+        pendingInterests.append(interest)
+        delegate?.reconfigure()
+    }
+    func currentUserNoLongerInterested(inWhim whimID: String) {
+        print("no longer interested in whim: \(whimID)")
+        print("should no longer show up in menu")
+        guard let index = pendingInterests.index(where: {$0.whimID == whimID}) else {
+            fatalError()
+        }
+        pendingInterests.remove(at: index)
+        delegate?.reconfigure()
+    }
+    func currentUserAllowedInChat(forWhim whimID: String) {
+        print("user had been allowed in whim: \(whimID)")
+        print("should be moved from interests to guest chats")
+        guard let index = pendingInterests.index(where: {$0.whimID == whimID}) else {
+            fatalError()
+        }
+        pendingInterests.remove(at: index)
+        DBService.manager.getWhim(fromID: whimID) { (whim) in
+            if let whim = whim {
+                self.guestWhims.append((whim: whim, hasNotification: true))
+                self.delegate?.reconfigure()
+            }
+        }
+    }
 }

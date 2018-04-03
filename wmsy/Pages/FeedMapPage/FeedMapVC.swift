@@ -125,6 +125,11 @@ class FeedMapVC: MenuedViewController {
         self.mapView.mapView.delegate = self
         self.mapView.detailView.delegate = self
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        MenuNotificationTracker.manager.delegate = MenuData.manager
+    }
+    
 
     func addPanGesture(view: UIView) {
         let pan = UIPanGestureRecognizer(target: self, action: #selector(FeedMapVC.handlePan(sender:)))

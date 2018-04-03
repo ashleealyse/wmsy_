@@ -11,7 +11,7 @@ import Foundation
 struct Interest: Codable {
     let whimID: String
     let userID: String
-    let inChat: Bool
+    var inChat: Bool
     
     static let singlePendingInterest = Interest(whimID: "ewu12341yr", userID: "fuqyefiuqyweg12312", inChat: false)
     static let singleAcceptedInterest = Interest(whimID: "sjdafh23839ye", userID: "adfiuu238762", inChat: true)
