@@ -53,7 +53,6 @@ class MenuData {
 }
 
 extension MenuData: MenuNotificationTrackerDelegate {
-    
     func interestNotification(forWhim whimID: String) {
 //        guard let interestIndex = pendingInterests.index(where: {$0.whimID == whimID}) else {
 //            return
@@ -104,7 +103,11 @@ extension MenuData: MenuNotificationTrackerDelegate {
         print("no longer interested in whim: \(whimID)")
         print("should no longer show up in menu")
         guard let index = pendingInterests.index(where: {$0.whimID == whimID}) else {
-            fatalError()
+            print("interest wasn't pending")
+            // whim could be in guest chats list but then it should be removed
+            // from that list through the currentUserRemovedFromChat(forWhim:)
+            // delegate method
+            return
         }
         pendingInterests.remove(at: index)
         delegate?.reconfigure()
@@ -122,5 +125,31 @@ extension MenuData: MenuNotificationTrackerDelegate {
                 self.delegate?.reconfigure()
             }
         }
+    }
+    
+    func currentUserRemovedFromChat(forWhim whimID: String) {
+        print("user has been removed from whim: \(whimID)")
+        print("should forcably close the chatroom if it is open")
+        print("should remove guest chat from list")
+    }
+    
+    func currentUserStartedHosting(whim whimID: String) {
+        print("user had started hosting whim: \(whimID)")
+        print("should add whim to hostedwhims list")
+        guard let user = AppUser.currentAppUser else {
+            print("no current user")
+            fatalError()
+        }
+        DBService.manager.getWhim(fromID: whimID) { (whim) in
+            if let whim = whim {
+                self.hostedWhims.append((whim: whim, hasNotification: false))
+                self.delegate?.reconfigure()
+            }
+        }
+    }
+    
+    func currentUserReceivedMessageInHostedWhim(inWhim whimID: String) {
+        print("user has received message for whim: \(whimID)")
+        print("should show notif in that hosted whim")
     }
 }

@@ -293,6 +293,14 @@
 			path = CreateWhimPage;
 			sourceTree = "<group>";
 		};
+		817C73852072DF3300EF160F /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				810816AE2072D01C00E59456 /* Interest.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		819030F8205ADCF200932A55 = {
 			isa = PBXGroup;
 			children = (
@@ -301,7 +309,7 @@
 				81903102205ADCF200932A55 /* Products */,
 				B2F8ADA7007772FA5D9A5CEF /* Pods */,
 				03091284B0376CB4097E8AD5 /* Frameworks */,
-				81F0089F2073CD32002BE507 /* Recovered References */,
+				817C73852072DF3300EF160F /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1058,11 +1066,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4RRD8LK54L;
+				DEVELOPMENT_TEAM = HRCUFV4R99;
 				INFOPLIST_FILE = wmsy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wmsy4321;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wmsy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1075,11 +1083,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4RRD8LK54L;
+				DEVELOPMENT_TEAM = HRCUFV4R99;
 				INFOPLIST_FILE = wmsy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wmsy4321;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wmsy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

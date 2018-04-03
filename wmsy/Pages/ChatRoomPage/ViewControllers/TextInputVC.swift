@@ -29,6 +29,7 @@ class TextInputVC: UIViewController {
         self.view.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(textInputView)
         
+        
         textInputView.snp.makeConstraints { (make) in
             make.edges.equalTo(self.view)
         }
@@ -39,49 +40,32 @@ class TextInputVC: UIViewController {
         
         textInputView.sendButton.addTarget(self, action: #selector(sendMessage), for: .touchUpInside)
         
-//        self.view.addSubview(messageTextView)
-//        self.view.addSubview(sendButton)
-        
-        // textview
-//        messageTextView.snp.makeConstraints { (make) in
-//            make.top.bottom.leading.equalTo(self.view).inset(16)
-//            make.height.equalTo(20)
-//        }
-//        messageTextView.delegate = self
-//        messageTextView.font = UIFont.systemFont(ofSize: 20)
-//        messageTextView.text = placeholderText
-//        messageTextView.textColor = UIColor.lightGray
-//        messageTextView.backgroundColor = .clear
-//        messageTextView.sizeToFit()
-//        messageTextView.isScrollEnabled = false
-//
-//        // sendbutton
-//        sendButton.snp.makeConstraints { (make) in
-//            make.leading.equalTo(messageTextView.snp.trailing)
-//            make.top.bottom.equalTo(self.view)
-//            make.trailing.equalTo(self.view)
-//        }
-//        sendButton.setTitle("SEND", for: .normal)
-//        sendButton.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
     }
     
     @objc func sendMessage() {
-        textInputView.messageTextView.resignFirstResponder()
-        let text = textInputView.messageTextView.text!
-        textInputView.messageTextView.text = ""
-        if !text.isEmpty {delegate?.send(message: text)}
+        if textInputView.messageTextView.text != placeholderText {
+            textInputView.messageTextView.resignFirstResponder()
+            let text = textInputView.messageTextView.text!
+            textInputView.messageTextView.text = ""
+            if !text.isEmpty {delegate?.send(message: text)}
+        } else {
+            print("placeholder text")
+        }
     }
 }
 
 extension TextInputVC: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if(text == "\n") {
-            textView.resignFirstResponder()
-            let text = textView.text!
-            textView.text = ""
-            if !text.isEmpty {delegate?.send(message: text)}
-            return false
+        if textInputView.messageTextView.text != placeholderText {
+            if(text == "\n") {
+                textView.resignFirstResponder()
+                let text = textView.text!
+                textView.text = ""
+                if !text.isEmpty {delegate?.send(message: text)}
+                return false
+            }            
         }
+        print("no text input")
         return true
     }
     
@@ -93,7 +77,7 @@ extension TextInputVC: UITextViewDelegate {
     }
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = placeholderText
+//            textView.text = placeholderText
             textView.textColor = UIColor.lightGray
         }
     }

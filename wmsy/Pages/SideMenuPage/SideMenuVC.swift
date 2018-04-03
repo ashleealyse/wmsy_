@@ -47,7 +47,7 @@ class SideMenuVC: MenuViewController {
         }
         menuPagesVC.pageOne.profileView.signOutButton.addTarget(self, action: #selector(signOut), for: .touchUpInside)
         menuPagesVC.pageOne.profileView.editBioButton.addTarget(self, action: #selector(editBio), for: .touchUpInside)
-        menuPagesVC.pageOne.profileView.bioTextView.delegate = self
+//        menuPagesVC.pageOne.profileView.bioTextView.delegate = self
         
         
         // whim list
@@ -111,17 +111,17 @@ extension SideMenuVC: MenuChatsListVCDelegate {
     }
 }
 
-extension SideMenuVC: UITextViewDelegate {
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if(text == "\n") {
-            textView.resignFirstResponder()
-            let text = textView.text!
-            DBService.manager.updateBio(text, forUser: AppUser.currentAppUser!)
-            return false
-        }
-        return true
-    }
-}
+//extension SideMenuVC: UITextViewDelegate {
+//    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+//        if(text == "\n") {
+//            textView.resignFirstResponder()
+//            let text = textView.text!
+//            DBService.manager.updateBio(text, forUser: AppUser.currentAppUser!)
+//            return false
+//        }
+//        return true
+//    }
+//}
 
 extension SideMenuVC: MenuDataDelegate {
     func receivedUpdate() {

@@ -18,7 +18,7 @@ extension AppUser {
                 print("setup current app user")
                 completion()
             } else {
-                print("some other error here")
+                print("tried and failed to get appUser with uid: \(uid)")
             }
         })
     }

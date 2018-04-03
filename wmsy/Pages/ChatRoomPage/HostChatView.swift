@@ -16,7 +16,6 @@ class HostChatView: UIView {
 
     // Collection View of Interested Guests
     lazy var interestedGuestsCV: UICollectionView = {
-        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let screenHeight: CGFloat = UIScreen.main.bounds.height
@@ -28,11 +27,7 @@ class HostChatView: UIView {
         layout.sectionInset = UIEdgeInsetsMake(cellSpacing, cellSpacing, cellSpacing, cellSpacing)
         layout.minimumLineSpacing = cellSpacing
         layout.minimumInteritemSpacing = cellSpacing
-        
-        
         let interestedGuestsCV = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
-        
-        
         interestedGuestsCV.register(ChatGuestCollectionViewCell.self, forCellWithReuseIdentifier: "ChatGuestCell")
         interestedGuestsCV.showsHorizontalScrollIndicator = false
         interestedGuestsCV.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
@@ -126,26 +121,26 @@ class HostChatView: UIView {
         }
         
         chatTextField.snp.makeConstraints { (make) in
-            make.bottom.equalTo(goOnAWhimButton.snp.top)
+            make.bottom.equalTo(self.snp.bottom)
             make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
             make.width.equalTo(screenWidth * 0.75)
             make.height.equalTo(screenHeight * 0.07)
         }
     
         sendChatButton.snp.makeConstraints { (make) in
-            make.bottom.equalTo(goOnAWhimButton.snp.top)
+            make.bottom.equalTo(self.snp.bottom)
             make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
             make.width.equalTo(screenWidth * 0.2)
             make.height.equalTo(screenHeight * 0.07)
         }
     
-        goOnAWhimButton.snp.makeConstraints { (make) in
-            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
-            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
-            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
-            make.height.equalTo(screenHeight * 0.07)
-            
-        }
+//        goOnAWhimButton.snp.makeConstraints { (make) in
+//            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
+//            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
+//            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
+//            make.height.equalTo(screenHeight * 0.07)
+//
+//        }
     
     }
 }
