@@ -9,6 +9,8 @@
 import UIKit
 import SnapKit
 import FirebaseAuth
+import FacebookCore
+import FacebookLogin
 
 class SideMenuVC: MenuViewController {
     
@@ -76,6 +78,8 @@ class SideMenuVC: MenuViewController {
     override func signOut() {
         super.signOut()
         do {
+            let loginManager = LoginManager()
+            loginManager.logOut()
             try Auth.auth().signOut()
         } catch {
             print(error)
