@@ -54,7 +54,7 @@ class FeedCell: UITableViewCell {
         selectionStyle = .none
         setUpCollapsedView()
         setUpExpandedView()
-        self.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
+        self.backgroundColor = Stylesheet.Colors.WMSYGray
        
         
         //        collapsedConstraint.isActive = !isExpanded

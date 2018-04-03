@@ -86,7 +86,8 @@ class FeedMapVC: MenuedViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.feedView.tableView.separatorStyle = .none
+        self.view.backgroundColor = Stylesheet.Colors.WMSYGray
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.backgroundColor = .white
         self.navigationController?.navigationBar.tintColor = .white
