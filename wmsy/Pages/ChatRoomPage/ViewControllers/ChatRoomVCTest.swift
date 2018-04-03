@@ -280,9 +280,9 @@ extension ChatRoomVCTest: ChatMessagesTableVCDelegate, TextInputVCDelegate, Info
         self.members = members
     }
     
-    func toggleUser(user: AppUser) {
-        print("ChatRoomVCTest - user: \(user)")
-    }
+//    func toggleUser(user: AppUser) {
+//        print("ChatRoomVCTest - user: \(user)")
+//    }
     
     func send(message: String) {
         DBService.manager.addMessage(text: message, ofType: .chat, fromUserID: currentUserID, toWhim: whim!)

@@ -11,12 +11,13 @@ import SnapKit
 
 class CreateWhimTVC: UITableViewController {
    
-    
+    var defaultLook = true
     let categoryList = categoryTuples
     let hoursList = hoursOfTwentyFour
     var whimCategory = ""
     var whimTitle = ""
     var whimDescription = ""
+    private let placeholderText = "Describe Your Whim"
     var whimDuration = 0
     var whimLocation = ""
     var whimLong = ""
@@ -35,6 +36,9 @@ class CreateWhimTVC: UITableViewController {
         self.tableView.estimatedRowHeight = 100
         self.tableView.allowsSelection = false
         self.tableView.bounces = false
+        
+        
+        
 //        self.tableView.separatorStyle = .singleLine
 //        self.tableView.separatorColor = Stylesheet.Colors.WMSYOuterSpace
         self.tableView.register(WhimColorViewTableViewCell.self, forCellReuseIdentifier: "ColorViewCell")
@@ -46,12 +50,19 @@ class CreateWhimTVC: UITableViewController {
         self.tableView.register(WhimLocationTableViewCell.self, forCellReuseIdentifier: "LocationCell")
         self.tableView.register(CancelCreateWhimTableViewCell.self, forCellReuseIdentifier: "CancelButton")
 
+        
+//        let descriptionCellIndexPath = IndexPath(row: 3, section: 0)
+//        let cell = self.tableView.cellForRow(at: descriptionCellIndexPath) as! WhimDescriptionTableViewCell
+//        cell.descriptionTextView.textColor = UIColor.lightGray
+        
+        
         DBService.manager.getAppUser(fromID: (AuthUserService.manager.getCurrentUser()?.uid)!) { (user) in
             self.whimHostImageURL = user!.photoID
         }
 
     }
     
+ 
     
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = false 
@@ -111,6 +122,11 @@ class CreateWhimTVC: UITableViewController {
             let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "DescriptionCell", for: indexPath) as! WhimDescriptionTableViewCell
             descriptionCell.descriptionTextView.delegate = self
             descriptionCell.charactersRemainingLabel.tag = 1
+            if defaultLook {
+                descriptionCell.descriptionTextView.textColor = UIColor.lightGray
+            } else {
+                descriptionCell.descriptionTextView.textColor = UIColor.black
+            }
             return descriptionCell
         case 4:
             let locationCell = tableView.dequeueReusableCell(withIdentifier: "LocationCell", for: indexPath) as! WhimLocationTableViewCell
@@ -212,23 +228,26 @@ extension CreateWhimTVC: UITextFieldDelegate {
 
 extension CreateWhimTVC: UITextViewDelegate {
     func textViewDidBeginEditing (_ textView: UITextView) {
-        if textView.isFirstResponder {
-            textView.text = nil
-            textView.textColor = .black
+        if textView.textColor == UIColor.lightGray {
+            textView.text = ""
+            textView.textColor = UIColor.black
+        } else {
+            textView.textColor = UIColor.black
         }
     }
     
     func textViewDidChange(_ textView: UITextView) {
         whimDescription = textView.text
+        defaultLook = false
     }
 
     
     func textViewDidEndEditing (_ textView: UITextView) {
         if textView.text.isEmpty || textView.text == "" {
-            textView.textColor = .gray
-            textView.text = "Describe your Whim"
+            textView.textColor = UIColor.lightGray
+            textView.text = placeholderText
         }
-        textView.isScrollEnabled = false
+        textView.textColor = UIColor.black
         textView.resignFirstResponder()
     }
     
