@@ -41,7 +41,7 @@ extension DBService {
         
         
         let whim = Whim(id: ref.key, category: category, title: title, description: description, hostID: currentUser.userID, hostImageURL: currentUser.photoID, location: location, long: long, lat: lat, duration: duration, expiration: expirationString, finalized: false, timestamp: dateString, whimChats: [])
-        
+        AppUser.currentAppUser?.hostedWhims.append(whim)
         
         let group = DispatchGroup()
         group.enter()
@@ -74,19 +74,19 @@ extension DBService {
         print("also added to users")
         group.leave()
     }
-    public func add(whim: Whim) {
-        let appUser = AppUser.singleUser // dummy
-        let ref = usersRef.child(appUser.userID)
-        ref.setValue([
-            "name" : appUser.name,
-            "photoID" : appUser.photoID,
-            "age" : appUser.age,
-            "userID" : appUser.userID,
-            "bio" : appUser.bio,
-            "badge" : appUser.badge,
-            "flags" : appUser.flags
-            ])
-    }
+//    public func add(whim: Whim) {
+//        let appUser = AppUser.singleUser // dummy
+//        let ref = usersRef.child(appUser.userID)
+//        ref.setValue([
+//            "name" : appUser.name,
+//            "photoID" : appUser.photoID,
+//            "age" : appUser.age,
+//            "userID" : appUser.userID,
+//            "bio" : appUser.bio,
+//            "badge" : appUser.badge,
+//            "flags" : appUser.flags
+//            ])
+//    }
     public func getWhim(fromID whimID: String, completion: @escaping (Whim?) -> Void) {
         
         let whimRef = whimsRef.child(whimID)

@@ -161,6 +161,7 @@ class ChatRoomVCTest: MenuedViewController {
             }
             messageDict["whimID"] = whim.id
             messageDict["messageID"] = snapshot.key
+            print(messageDict)
             if let message = Message.init(fromDict: messageDict),
                 message.messageID != self.chatTVC.lastMessageID {
                 self.whim!.whimChats.append(message)
@@ -206,10 +207,12 @@ class ChatRoomVCTest: MenuedViewController {
                         // TODO: get all user info for interested users
                         let userIDs = interests.map{$0.userID}
                         DBService.manager.getAppUsers(fromList: userIDs) { (users) in
-                            self.interestedUsers = users
+                        self.interestedUsers = users
                             self.membersCollectionVC.configureWith(members: users, andPermissions: interestDict)
                         }
                     }
+                    
+//                    self.membersCollectionVC.removed(user)
                     DBService.manager.addMessage(text: "\(user.name) has left", ofType: .notification, fromUserID: nil, toWhim: whim)
                 }
             })
@@ -221,12 +224,18 @@ class ChatRoomVCTest: MenuedViewController {
         newUserInChatHandles[user.userID]!.observe(.value) { (snapshot) in
             if let inChat = snapshot.value as? Bool {
                 if inChat,
-                    !self.membersCollectionVC.inChat[user.userID]! {
+                    let inChatLocally = self.membersCollectionVC.inChat[user.userID],
+                    !inChatLocally {
+                    self.removeInChatListener(forUser: user)
                     self.membersCollectionVC.invited(user)
                     DBService.manager.addMessage(text: "\(user.name) has joined", ofType: .notification, fromUserID: nil, toWhim: whim)
                 }
             }
         }
+    }
+    private func removeInChatListener(forUser user: AppUser) {
+        newUserInChatHandles[user.userID]?.removeAllObservers()
+        newUserInChatHandles[user.userID] = nil
     }
     private func detachObservers() {
         messageHandle.removeAllObservers()

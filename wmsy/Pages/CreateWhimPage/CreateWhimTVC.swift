@@ -188,7 +188,6 @@ extension CreateWhimTVC: UITextFieldDelegate {
     
     func textField(_ textFieldToChange: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-
             // Title TextField
             let characterCountLimit = 34
             let startingLength = textFieldToChange.text?.count ?? 0
