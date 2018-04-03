@@ -543,14 +543,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		81F0089F2073CD32002BE507 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				810816AE2072D01C00E59456 /* Interest.swift */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		93D5CDAE206AB14A00ABB3E1 /* SplashPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -1070,7 +1062,7 @@
 				INFOPLIST_FILE = wmsy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wmsy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wmsymhc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1087,7 +1079,7 @@
 				INFOPLIST_FILE = wmsy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wmsy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wmsymhc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
