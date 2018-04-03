@@ -79,7 +79,6 @@
 		81D12DD920673AE60056920C /* TextInputVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D12DD820673AE60056920C /* TextInputVC.swift */; };
 		81D12DDB20673B200056920C /* InfoAndMembersCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D12DDA20673B1F0056920C /* InfoAndMembersCollectionVC.swift */; };
 		81D12DDD20674ED70056920C /* ChatRoomVCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D12DDC20674ED70056920C /* ChatRoomVCTest.swift */; };
-		81D3D4C92072AE2300F5A842 /* Interest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D3D4C82072AE2300F5A842 /* Interest.swift */; };
 		81DD10A82065CCC5002BAB42 /* MapDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DD10A72065CCC5002BAB42 /* MapDetailView.swift */; };
 		81DECD19205C87ED00214866 /* MenuedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DECD18205C87ED00214866 /* MenuedViewController.swift */; };
 		81DECD1B205C87FA00214866 /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DECD1A205C87FA00214866 /* Interactor.swift */; };
@@ -105,6 +104,7 @@
 		93495B0620603F9A0080BDBA /* ExpandedFeedCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93495B0520603F9A0080BDBA /* ExpandedFeedCellView.swift */; };
 		93495B08206041080080BDBA /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93495B07206041080080BDBA /* FeedCell.swift */; };
 		93632551206C1597002FFAED /* WhimColorViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93632550206C1597002FFAED /* WhimColorViewTableViewCell.swift */; };
+		9370D0DC2072C80F00D86477 /* Interest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9370D0DB2072C80F00D86477 /* Interest.swift */; };
 		93D5CDB0206AB1FC00ABB3E1 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D5CDAF206AB1FC00ABB3E1 /* SplashView.swift */; };
 		93D5CDB2206AB20A00ABB3E1 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D5CDB1206AB20A00ABB3E1 /* SplashViewController.swift */; };
 		93E12D62206DCC0B00BD49FA /* CancelCreateWhimTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E12D61206DCC0B00BD49FA /* CancelCreateWhimTableViewCell.swift */; };
@@ -202,7 +202,6 @@
 		81D12DD820673AE60056920C /* TextInputVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputVC.swift; sourceTree = "<group>"; };
 		81D12DDA20673B1F0056920C /* InfoAndMembersCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoAndMembersCollectionVC.swift; sourceTree = "<group>"; };
 		81D12DDC20674ED70056920C /* ChatRoomVCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomVCTest.swift; sourceTree = "<group>"; };
-		81D3D4C82072AE2300F5A842 /* Interest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Interest.swift; path = /Users/c4q/Documents/wmsy/wmsy/Models/Interest.swift; sourceTree = "<absolute>"; };
 		81DD10A72065CCC5002BAB42 /* MapDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDetailView.swift; sourceTree = "<group>"; };
 		81DECD18205C87ED00214866 /* MenuedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuedViewController.swift; sourceTree = "<group>"; };
 		81DECD1A205C87FA00214866 /* Interactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
@@ -228,6 +227,7 @@
 		93495B0520603F9A0080BDBA /* ExpandedFeedCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedFeedCellView.swift; sourceTree = "<group>"; };
 		93495B07206041080080BDBA /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		93632550206C1597002FFAED /* WhimColorViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhimColorViewTableViewCell.swift; sourceTree = "<group>"; };
+		9370D0DB2072C80F00D86477 /* Interest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interest.swift; sourceTree = "<group>"; };
 		93D5CDAF206AB1FC00ABB3E1 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		93D5CDB1206AB20A00ABB3E1 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		93E12D61206DCC0B00BD49FA /* CancelCreateWhimTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelCreateWhimTableViewCell.swift; sourceTree = "<group>"; };
@@ -444,7 +444,7 @@
 		81BAD686205AEE6A00C7F039 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				81D3D4C82072AE2300F5A842 /* Interest.swift */,
+				9370D0DB2072C80F00D86477 /* Interest.swift */,
 				81BAD688205AEEC300C7F039 /* AppUser.swift */,
 				81BAD68E205AEEE200C7F039 /* Message.swift */,
 				8139A99E205C309F006C7058 /* Whim.swift */,
@@ -878,10 +878,10 @@
 				81EBB58B20601939008A6CE7 /* StorageService+Image.swift in Sources */,
 				81BAD68F205AEEE200C7F039 /* Message.swift in Sources */,
 				93D5CDB2206AB20A00ABB3E1 /* SplashViewController.swift in Sources */,
+				9370D0DC2072C80F00D86477 /* Interest.swift in Sources */,
 				81BAD67B205AEDAA00C7F039 /* FeedMapVC.swift in Sources */,
 				81DECD3220600FB000214866 /* Page.swift in Sources */,
 				811FFB5720606B5500F3312B /* CollapsedFeedCellView.swift in Sources */,
-				81D3D4C92072AE2300F5A842 /* Interest.swift in Sources */,
 				81AB7ABE205C805A009845EA /* WhimExpirationTableViewCell.swift in Sources */,
 				81BAD6A9205AF0AA00C7F039 /* GuestProfileVC.swift in Sources */,
 				812112E92062F7D3002D80C2 /* AddWhimLocationView.swift in Sources */,
