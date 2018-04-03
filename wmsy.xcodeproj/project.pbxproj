@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8107D92420729A9100CEC5B2 /* AppUser+CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107D92320729A9100CEC5B2 /* AppUser+CurrentUser.swift */; };
-		810816AF2072D01C00E59456 /* Interest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810816AE2072D01C00E59456 /* Interest.swift */; };
 		811FFB5720606B5500F3312B /* CollapsedFeedCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811FFB5620606B5500F3312B /* CollapsedFeedCellView.swift */; };
 		811FFB9720615B6200F3312B /* DBService+Whim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811FFB9620615B6100F3312B /* DBService+Whim.swift */; };
 		811FFB9920615B6900F3312B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811FFB9820615B6900F3312B /* NotificationManager.swift */; };
@@ -301,6 +300,7 @@
 				81903102205ADCF200932A55 /* Products */,
 				B2F8ADA7007772FA5D9A5CEF /* Pods */,
 				03091284B0376CB4097E8AD5 /* Frameworks */,
+				FA33DDCA2073DAD900219938 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -553,6 +553,14 @@
 				12481557B949A7967EAD55F0 /* Pods-wmsyTests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		FA33DDCA2073DAD900219938 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				810816AE2072D01C00E59456 /* Interest.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -820,7 +828,6 @@
 				81F9F0702065D27700D288E8 /* AddChildVC.swift in Sources */,
 				81AB7AC4205C80FC009845EA /* HostAWhimButtonTableViewCell.swift in Sources */,
 				81AB7AC6205C94DD009845EA /* WhimCategoryCollectionViewCell.swift in Sources */,
-				810816AF2072D01C00E59456 /* Interest.swift in Sources */,
 				93495B08206041080080BDBA /* FeedCell.swift in Sources */,
 				81AB7ABC205C8024009845EA /* WhimDescriptionTableViewCell.swift in Sources */,
 				81DECD21205C882900214866 /* DismissMenuAnimator.swift in Sources */,
