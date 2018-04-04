@@ -328,6 +328,7 @@ class FeedMapVC: MenuedViewController {
         DBService.manager.getClosestWhims(location: userLocation) { (whims) in
             self.feedWhims = whims
             self.filtersView.categoriesCV.deselectAllItems(animated: false)
+            self.filtersView.categoryLabel.text = "Filter Whims"
             
         }
         self.expandedRows = Set<Int>()
