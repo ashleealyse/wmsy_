@@ -162,7 +162,8 @@ extension MenuData: MenuNotificationTrackerDelegate {
         print("show show notif in that guest whim")
         guard let index = guestWhims.index(where: {$0.whim.id == whimID}) else {
             print("guest whims does not have a whim with id: \(whimID)")
-            fatalError()
+//            fatalError()
+            return
         }
         guestWhims[index].hasNotification = true
         simpleListener?.newNotification()
