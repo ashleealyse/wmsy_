@@ -44,9 +44,15 @@ extension FeedMapVC: GMSMapViewDelegate{
             self.mapView.detailView.userPicture.imageView?.setNeedsDisplay()
             let interests = self.getInterestKeys(appUser: AppUser.currentAppUser!)
             if interests.contains(whimID!){
-                self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "interestedCircleIcon"), for: .normal)
+//                self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "interestedCircleIcon"), for: .normal)
+                self.mapView.detailView.interestedButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)
+                self.mapView.detailView.interestedButton.setTitle("Remove Interest", for: .normal)
+                self.mapView.detailView.interestedButton.titleLabel?.textColor = .white
             }else{
-                self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
+//                self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
+                self.mapView.detailView.interestedButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.3)
+                self.mapView.detailView.interestedButton.setTitle("Show Interest", for: .normal)
+                self.mapView.detailView.interestedButton.titleLabel?.textColor = .white
             }
             
             self.mapView.detailView.isHidden = false
@@ -96,17 +102,27 @@ extension FeedMapVC: mapDetailViewDelegate {
         print("interest is being pressed")
         let interests = getInterestKeys(appUser: AppUser.currentAppUser!)
         if interests.contains(currentWhim!.id){
-            //User is interested
+            //User is no longer interested
             print("Current User: \(currentUser?.name ?? "No current user") Is NOT Interested in Whim #: \(currentWhim?.id) by Host: \(currentWhim?.hostID)")
             DBService.manager.removeInterest(forWhim: currentWhim!, forUser: AppUser.currentAppUser!)
-            self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
+//            self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
+
+            
+            self.mapView.detailView.interestedButton.titleLabel?.textColor = .white
+            self.mapView.detailView.interestedButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.3)
+            self.mapView.detailView.interestedButton.setTitle("Show Interest", for: .normal)
             self.feedView.tableView.reloadData()
             
         } else {
-            //User is not interested
+            //User is now interested
             print("Current User: \(currentUser?.name ?? "No current user") is Interested in Whim #: \(currentWhim?.id) by Host: \(currentWhim?.hostID)")
             DBService.manager.addInterest(forWhim: currentWhim!)
-            self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "interestedCircleIcon"), for: .normal)
+//            self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "interestedCircleIcon"), for: .normal)
+            self.mapView.detailView.interestedButton.titleLabel?.textColor = .white
+            self.mapView.detailView.interestedButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)
+            self.mapView.detailView.interestedButton.setTitle("Remove Interest", for: .normal)
+            
+            
             self.feedView.tableView.reloadData()
         }
     }

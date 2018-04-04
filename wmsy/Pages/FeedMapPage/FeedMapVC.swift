@@ -271,7 +271,7 @@ class FeedMapVC: MenuedViewController {
     // setup UIBarButtonItems
     private func configureNavBar() {
         navigationItem.title = "wmsy"
-        let topLeftBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "feedIcon"), style: .plain, target: self, action: #selector(showMenu(sender:)))
+        let topLeftBarItem = UIBarButtonItem(image:#imageLiteral(resourceName: "feedIcon-1"), style: .plain, target: self, action: #selector(showMenu(sender:)))
         topLeftBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
         navigationItem.leftBarButtonItem = topLeftBarItem
         
@@ -288,11 +288,8 @@ class FeedMapVC: MenuedViewController {
     
     @objc func hostAWhim() {
         navigationController?.pushViewController(CreateWhimTVC(), animated: false)
-        
         navigationController?.isToolbarHidden = true
         print("Show Whim Host User Profile")
-//        CreateWhimTVC().modalPresentationStyle = .none
-//        self.present(CreateWhimTVC(), animated: false, completion: nil)
     }
     
     func pinFilterViewToBottom() {

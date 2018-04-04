@@ -49,9 +49,7 @@ extension FeedMapVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WhimFeedCell", for: indexPath) as! FeedCell
-        
-//        cell.collapsedView.delegate = self
-//        cell.expandedView.delegate = self
+   
         cell.delegate = self
         cell.isExpanded = self.expandedRows.contains(indexPath.row)
         let whim = feedWhims[indexPath.row]
@@ -72,18 +70,23 @@ extension FeedMapVC: UITableViewDataSource {
         cell.expandedView.postDescriptionTF.text = whim.description
         let interests = getInterestKeys(appUser: AppUser.currentAppUser!)
         if interests.contains(whim.id){
-            cell.expandedView.interestedButton.setImage(#imageLiteral(resourceName: "filledPopsicleIcon"), for: .normal)
+            cell.expandedView.interestedButton.titleLabel?.textColor = .white
+            cell.expandedView.interestedButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)
+            cell.expandedView.interestedButton.setTitle("Remove Interest", for: .normal)
         }else{
-            cell.expandedView.interestedButton.setImage(#imageLiteral(resourceName: "wmsyCategoryIcon"), for: .normal)
+            cell.expandedView.interestedButton.titleLabel?.textColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)
+            cell.expandedView.interestedButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.3)
+            cell.expandedView.interestedButton.setTitle("Show Interest", for: .normal)
         }
         
         if whim.hostID == AppUser.currentAppUser?.userID{
-//            cell.expandedView.interestLabel.isHidden = true
             cell.expandedView.interestedButton.isHidden = true
+            cell.expandedView.showOnMapButton.isHidden = true
             return cell
         }
-//        cell.expandedView.interestLabel.isHidden = false
         cell.expandedView.interestedButton.isHidden = false
+        cell.expandedView.showOnMapButton.isHidden = false
+
         return cell
     }
     
@@ -117,17 +120,6 @@ extension FeedMapVC: UITableViewDataSource {
     
     
 }
-
-
-//extension FeedMapVC: CollapsedFeedCellViewDelegate {
-//
-//    func userProfileButtonPressed() {
-//        guestProfile.modalPresentationStyle = .overCurrentContext
-//        guestProfile.modalTransitionStyle = .crossDissolve
-//        present(guestProfile, animated: true, completion: nil)
-//    }
-//
-//}
 
 extension FeedMapVC: FeedCellViewDelegate {
     
@@ -164,29 +156,38 @@ extension FeedMapVC: FeedCellViewDelegate {
         
         let interests = getInterestKeys(appUser: AppUser.currentAppUser!)
         if interests.contains(whim.id){
-            self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "filledPopsicleIcon"), for: .normal)
+
+            self.mapView.detailView.interestedButton.titleLabel?.textColor = .white
+            self.mapView.detailView.interestedButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)            
+            self.mapView.detailView.interestedButton.setTitle("Remove Interest", for: .normal)
+
         }else{
-            self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "wmsyCategoryIcon"), for: .normal)
+            self.mapView.detailView.interestedButton.titleLabel?.textColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)
+            self.mapView.detailView.interestedButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.3)
+            self.mapView.detailView.interestedButton.setTitle("Show Interest", for: .normal)
+
         }
-        self.mapView.detailView.isHidden = false
         self.feedView.tableView.reloadData()
-        print("Show on Map Button Pressed")
-        
+        self.mapView.detailView.isHidden = false        
     }
     
     func interestButtonClicked(whim: Whim) {
         let interests = getInterestKeys(appUser: AppUser.currentAppUser!)
         if interests.contains(whim.id){
-            //User is interested
+            //User is no longer interested
             print("Current User: \(currentUser?.name ?? "No current user") Is NOT Interested in Whim #: \(whim.id) by Host: \(whim.hostID)")
             DBService.manager.removeInterest(forWhim: whim, forUser: AppUser.currentAppUser!)
-            self.feedView.tableView.reloadData()
+            
+//            self.feedView.tableView.reloadData()
         } else {
-            //User is not interested
+            //User is now interested
             print("Current User: \(currentUser?.name ?? "No current user") is Interested in Whim #: \(whim.id) by Host: \(whim.hostID)")
             DBService.manager.addInterest(forWhim: whim)
-            self.feedView.tableView.reloadData()
+//            self.feedView.tableView.reloadData()
         }
+        self.feedView.tableView.reloadData()
+        
+        
     }
     
     

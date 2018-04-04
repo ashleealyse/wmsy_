@@ -276,7 +276,6 @@
 				81202D89206BED3C00CC5588 /* MenuProfileVC.swift */,
 				81202D8B206BEE0E00CC5588 /* MenuChatsList.swift */,
 				81202D8F206C591200CC5588 /* PopUpTextViewVC.swift */,
-				8139A9A0205C30B6006C7058 /* CreateWhimPage */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -309,9 +308,7 @@
 				81903102205ADCF200932A55 /* Products */,
 				B2F8ADA7007772FA5D9A5CEF /* Pods */,
 				03091284B0376CB4097E8AD5 /* Frameworks */,
-
 				817C73852072DF3300EF160F /* Recovered References */,
-
 			);
 			sourceTree = "<group>";
 		};
@@ -388,6 +385,7 @@
 				81BAD674205AED3700C7F039 /* LoginPage */,
 				81BAD679205AED7900C7F039 /* FeedMapPage */,
 				81BAD682205AEDE800C7F039 /* SideMenuPage */,
+				8139A9A0205C30B6006C7058 /* CreateWhimPage */,
 				81BAD684205AEE1500C7F039 /* ChatRoomPage */,
 				81BAD685205AEE3500C7F039 /* GuestProfilePage */,
 			);
@@ -543,18 +541,6 @@
 				81202D91206C59D300CC5588 /* PopUpTextView.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-
-
-		81F0089F2073CD32002BE507 /* Recovered References */ = {
-
-
-			isa = PBXGroup;
-			children = (
-				810816AE2072D01C00E59456 /* Interest.swift */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		93D5CDAE206AB14A00ABB3E1 /* SplashPage */ = {
