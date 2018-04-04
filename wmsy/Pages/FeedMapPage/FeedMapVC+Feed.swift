@@ -168,6 +168,15 @@ extension FeedMapVC: FeedCellViewDelegate {
         }else{
             self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "wmsyCategoryIcon"), for: .normal)
         }
+        
+        
+        if whim.hostID == AppUser.currentAppUser?.userID{
+            self.mapView.detailView.interestLabel.isHidden = true
+            self.mapView.detailView.interestedButton.isHidden = true
+        }else{
+            self.mapView.detailView.interestLabel.isHidden = false
+            self.mapView.detailView.interestedButton.isHidden = false
+        }
         self.mapView.detailView.isHidden = false
         self.feedView.tableView.reloadData()
         print("Show on Map Button Pressed")
