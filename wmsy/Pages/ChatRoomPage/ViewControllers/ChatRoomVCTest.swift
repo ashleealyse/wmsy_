@@ -14,6 +14,7 @@ import FirebaseDatabase
 class ChatRoomVCTest: MenuedViewController {
     
     let mainScrollView = UIScrollView()
+    
     let membersCollectionVC = InfoAndMembersCollectionVC()
     let chatTVC = ChatMessagesTableVC()
     let textInputVC = TextInputVC()

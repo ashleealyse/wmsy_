@@ -8,6 +8,9 @@
 
 import UIKit
 
+
+
+
 class CurrentUserMessageCell: UITableViewCell {
     
     static let reuseIdentifier = "HostMessageTableViewCell"
@@ -35,7 +38,7 @@ class CurrentUserMessageCell: UITableViewCell {
     private func commonInit() {
         self.backgroundColor = .clear
         setupViews()
-        placeholderTesting()
+//        placeholderTesting()
     }
     private func setupViews() {
         setupProfileImageView()
@@ -54,21 +57,27 @@ class CurrentUserMessageCell: UITableViewCell {
         }
     }
     private func setupTextContainer() {
+        textContainer.backgroundColor = Stylesheet.Colors.WMSYDeepViolet.withAlphaComponent(0.03)
+        textContainer.layer.cornerRadius = 10
         contentView.addSubview(textContainer)
         textContainer.snp.makeConstraints { (make) in
             make.trailing.equalTo(profileImageView.snp.leading).offset(-16)
-//            make.leading.equalTo(contentView).offset(50)
-            make.leading.equalTo(contentView).offset(70)
+            make.leading.equalTo(contentView).offset(70).priority(.required)
             make.top.equalTo(profileImageView)
             make.bottom.equalTo(contentView.layoutMarginsGuide)
         }
     }
     private func setupMessageText() {
         messageText.numberOfLines = 0
-        textContainer.addSubview(messageText)
+        messageText.setContentHuggingPriority(.required, for: .vertical)
+        messageText.setContentCompressionResistancePriority(.required, for: .vertical)
+        messageText.preferredMaxLayoutWidth = self.bounds.width - 10
+        contentView.addSubview(messageText)
         messageText.snp.makeConstraints { (make) in
-            make.edges.equalTo(textContainer).inset(5)
-            messageText.sizeToFit()
+//            make.edges.equalTo(textContainer).inset(5)
+            make.width.equalTo(textContainer).inset(10)
+            make.centerX.equalTo(textContainer)
+            make.top.bottom.equalTo(textContainer)
         }
     }
     private func placeholderTesting() {

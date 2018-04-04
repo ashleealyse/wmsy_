@@ -41,7 +41,7 @@ extension FeedMapVC: GMSMapViewDelegate{
             self.currentUser = appUser
         }
         self.mapView.detailView.userPicture.kf.setImage(with: hostURL, for: .normal, placeholder: nil, options: nil, progressBlock: nil) { (image, error, cache, url) in
-            self.mapView.detailView.userPicture.imageView?.setNeedsDisplay()
+            self.mapView.detailView.userPicture.imageView!.setNeedsDisplay()
             let interests = self.getInterestKeys(appUser: AppUser.currentAppUser!)
             if interests.contains(whimID!){
                 self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "interestedCircleIcon"), for: .normal)
@@ -54,7 +54,7 @@ extension FeedMapVC: GMSMapViewDelegate{
         }
         return true
     }
-
+    
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         self.mapView.detailView.isHidden = true
     }
@@ -115,10 +115,10 @@ extension FeedMapVC: mapDetailViewDelegate {
         hostProfileView.modalTransitionStyle = .crossDissolve
         hostProfileView.modalPresentationStyle = .overCurrentContext
         tabBarController?.present(hostProfileView, animated: false, completion: nil)
-//        present(GuestProfileVC(), animated: true, completion: nil)
+        //        present(GuestProfileVC(), animated: true, completion: nil)
         hostProfileView.profileView.nameLabel.text = currentUser?.name
         hostProfileView.profileView.bioLabel.text = currentUser?.bio
         let url = URL(string: (currentUser?.photoID)!)
         hostProfileView.profileView.profileImageView.kf.setImage(with: url)
-}
+    }
 }

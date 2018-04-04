@@ -152,8 +152,8 @@ extension InfoAndMembersCollectionVC: UICollectionViewDataSource, UICollectionVi
         if indexPath.row == 0 {
             cell.guestImageView.image = #imageLiteral(resourceName: "wmsyCategoryIcon")
             cell.guestImageView.backgroundColor = .white
-            memberInfoView.inviteButton.isHidden = true
-            memberInfoView.showMapButton.isHidden = false
+//            memberInfoView.inviteButton.isHidden = true
+//            memberInfoView.showMapButton.isHidden = false
             return cell
         }
         let user = members[indexPath.row - 1]
@@ -161,10 +161,10 @@ extension InfoAndMembersCollectionVC: UICollectionViewDataSource, UICollectionVi
         let userImagePhotoIDurl = URL(string: userImagePhotoIDString)
         cell.guestImageView.kf.setImage(with: userImagePhotoIDurl)
         cell.guestImageView.kf.indicatorType = .activity
-        cell.isSelected = true
+//        cell.isSelected = true
         cell.guestImageView.alpha = (inChat[user.userID] ?? false) ? 1.0 : 0.5
-        memberInfoView.inviteButton.isHidden = false
-        memberInfoView.showMapButton.isHidden = true
+//        memberInfoView.inviteButton.isHidden = false
+//        memberInfoView.showMapButton.isHidden = true
         return cell
     }
     
