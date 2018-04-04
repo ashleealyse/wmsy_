@@ -8,9 +8,14 @@
 
 import Foundation
 
+// TODO: add a way to connect to a guest chat to forcably kick them out of that VC if the user has been removed from the whim
 //protocol GuestChat: class {
 //    func gotKickedOut
 //}
+
+protocol MenuDataSimpleNotificationDelegate: class {
+    func newNotification() -> Void
+}
 
 protocol MenuDataDelegate: class {
     func receivedUpdate() -> Void
@@ -25,6 +30,7 @@ class MenuData {
     static let manager = MenuData()
     
     public weak var delegate: MenuDataDelegate?
+    public weak var simpleListener: MenuDataSimpleNotificationDelegate?
     
     public var currentPage = 1
     public var hostedWhims = [(whim: Whim, hasNotification: Bool)]()
@@ -57,42 +63,6 @@ class MenuData {
 }
 
 extension MenuData: MenuNotificationTrackerDelegate {
-    
-    
-    func interestNotification(forWhim whimID: String) {
-//        guard let interestIndex = pendingInterests.index(where: {$0.whimID == whimID}) else {
-//            return
-//        }
-//        interestAccepted(whimID)
-//        print("interest notif")
-    }
-    
-    func newUserInterested(inWhim whimID: String) {
-//        guard let index = hostedWhims.index(where: {$0.whim.id == whimID}) else {
-//            return
-//        }
-//        hostedWhims[index].hasNotification = true
-//        delegate?.reconfigure()
-//        print("newuser notif in \(hostedWhims[index].whim.title)")
-    }
-    
-    func hostChatNotification(inWhim whimID: String) {
-//        guard let index = hostedWhims.index(where: {$0.whim.id == whimID}) else {
-//            return
-//        }
-//        hostedWhims[index].hasNotification = true
-//        delegate?.reconfigure()
-//        print("hostchat notif in \(hostedWhims[index].whim.title)")
-    }
-    
-    func guestChatNotification(inWhim whimID: String) {
-//        guard let index = guestWhims.index(where: {$0.whim.id == whimID}) else {
-//            return
-//        }
-//        guestWhims[index].hasNotification = true
-//        delegate?.reconfigure()
-//        print("guest chat notif in \(guestWhims[index].whim.title)")
-    }
     
     func currentUserInterested(inWhim whimID: String)   {
         print("interested in whim: \(whimID)")
@@ -128,6 +98,7 @@ extension MenuData: MenuNotificationTrackerDelegate {
         DBService.manager.getWhim(fromID: whimID) { (whim) in
             if let whim = whim {
                 self.guestWhims.append((whim: whim, hasNotification: true))
+                self.simpleListener?.newNotification()
                 self.delegate?.reconfigure()
             }
         }
@@ -182,6 +153,7 @@ extension MenuData: MenuNotificationTrackerDelegate {
             fatalError()
         }
         hostedWhims[index].hasNotification = true
+        simpleListener?.newNotification()
         delegate?.reconfigure()
     }
     
@@ -189,10 +161,23 @@ extension MenuData: MenuNotificationTrackerDelegate {
         print("user has received message for whim: \(whimID)")
         print("show show notif in that guest whim")
         guard let index = guestWhims.index(where: {$0.whim.id == whimID}) else {
-            print("guest whim does not have a whim with id: \(whimID)")
+            print("guest whims does not have a whim with id: \(whimID)")
             fatalError()
         }
         guestWhims[index].hasNotification = true
+        simpleListener?.newNotification()
+        delegate?.reconfigure()
+    }
+    
+    func otherUserExpressedInterestInHostedWhim(withID whimID: String) {
+        print("another user has expressed interest in current user's whim: \(whimID)")
+        print("should show notif in that hosted whim")
+        guard let index = hostedWhims.index(where: {$0.whim.id == whimID}) else {
+            print("hosted whims does not have a whim with id: \(whimID)")
+            fatalError()
+        }
+        hostedWhims[index].hasNotification = true
+        simpleListener?.newNotification()
         delegate?.reconfigure()
     }
 }

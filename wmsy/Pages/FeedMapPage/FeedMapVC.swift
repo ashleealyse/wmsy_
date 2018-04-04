@@ -195,11 +195,15 @@ class FeedMapVC: MenuedViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
+        MenuData.manager.simpleListener = nil
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
+        MenuData.manager.simpleListener = self
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -270,7 +274,7 @@ class FeedMapVC: MenuedViewController {
     // setup UIBarButtonItems
     private func configureNavBar() {
         navigationItem.title = "wmsy"
-        let topLeftBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "feedIcon"), style: .plain, target: self, action: #selector(showMenu(sender:)))
+        let topLeftBarItem = UIBarButtonItem(image:#imageLiteral(resourceName: "feedIcon-1"), style: .plain, target: self, action: #selector(showMenu(sender:)))
         topLeftBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
         navigationItem.leftBarButtonItem = topLeftBarItem
         
@@ -282,16 +286,14 @@ class FeedMapVC: MenuedViewController {
     }
     
     @objc func showMenu(sender: UIViewController){
+        self.navigationItem.leftBarButtonItem?.tintColor = Stylesheet.Colors.WMSYKSUPurple
         openMenu(sender: sender)
     }
     
     @objc func hostAWhim() {
         navigationController?.pushViewController(CreateWhimTVC(), animated: false)
-        
         navigationController?.isToolbarHidden = true
         print("Show Whim Host User Profile")
-//        CreateWhimTVC().modalPresentationStyle = .none
-//        self.present(CreateWhimTVC(), animated: false, completion: nil)
     }
     
     func pinFilterViewToBottom() {
@@ -369,4 +371,12 @@ func hours(from date: Date) -> Int {
 func minutes(from date: Date) -> Int {
     return Calendar.current.dateComponents([.minute], from: date, to: self).minute ?? 0
 }
+}
+
+extension FeedMapVC: MenuDataSimpleNotificationDelegate {
+    func newNotification() {
+        // add any code that should trigger when there's been a notification here
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.red.withAlphaComponent(0.5)
+        print("there was some notification")
+    }
 }

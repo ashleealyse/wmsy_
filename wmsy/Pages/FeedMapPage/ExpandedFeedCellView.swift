@@ -9,18 +9,8 @@
 import UIKit
 import SnapKit
 
-//protocol ExpandedFeedCellViewDelegate: class {
-//
-//    func showOnMapButtonPressed()
-//
-//    func interestButtonClicked()
-//
-//}
 
 class ExpandedFeedCellView: UIView {
-    
-//    weak var delegate: ExpandedFeedCellViewDelegate?
-//    weak var delegate: FeedCellViewDelegate?
     
     lazy var postDescriptionTF: UITextView = {
         let tF = UITextView()
@@ -32,32 +22,24 @@ class ExpandedFeedCellView: UIView {
     
     lazy var showOnMapButton: UIButton = {
         let mapButton = UIButton()
-        mapButton.setImage(#imageLiteral(resourceName: "mapIcon"), for: .normal)
-//        mapButton.addTarget(self, action: #selector(showOnMap), for: .touchUpInside)
+//        mapButton.setImage(#imageLiteral(resourceName: "mapIcon"), for: .normal)
+        mapButton.setTitle("Map", for: .normal)
+        mapButton.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8).cgColor
+        mapButton.layer.borderWidth = 1.0
+        mapButton.setTitleColor(Stylesheet.Colors.WMSYKSUPurple, for: .normal)
+//        mapButton.titleLabel?.textColor = .black
         return mapButton
     }()
     
     lazy var interestedButton: UIButton = {
         let interestButton = UIButton()
-        interestButton.setImage(#imageLiteral(resourceName: "wmsyCategoryIcon"), for: .normal)
-//        interestButton.addTarget(self, action: #selector(showInterest), for: .touchUpInside)
+//        interestButton.layer.borderWidth = 1.0
+//        interestButton.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8).cgColor
+        interestButton.setTitle("Show Interest", for: .normal)
+        interestButton.titleLabel?.textColor = .black
         return interestButton
     }()
-    
-//    lazy var interestLabel: UILabel = {
-//        let lb = UILabel()
-//        lb.text = "Show Interest"
-//        return lb
-//    }()
-    
-//    @objc func showOnMap() {
-//        self.delegate?.showOnMapButtonPressed()
-//    }
-//
-//    @objc func showInterest() {
-//        self.delegate?.interestButtonClicked()
-//    }
-    
+
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
@@ -73,7 +55,6 @@ class ExpandedFeedCellView: UIView {
         setUpPostDescription()
         setUpMapButton()
         setUpInterestButton()
-//        setUpInterestLabel()
     }
     
     private func setUpPostDescription() {
@@ -89,29 +70,23 @@ class ExpandedFeedCellView: UIView {
     private func setUpMapButton() {
         addSubview(showOnMapButton)
         showOnMapButton.snp.makeConstraints { (make) in
-            make.leading.equalTo(self.snp.leading).offset(5)
-            make.bottom.equalTo(self.snp.bottom).offset(-5)
-            make.width.equalTo(self.snp.width).multipliedBy(0.07)
-            make.height.equalTo(self.snp.width).multipliedBy(0.07)
+            make.top.equalTo(postDescriptionTF.snp.bottom)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
+            make.width.equalTo(self.snp.width).multipliedBy(0.3)
         }
     }
     
     private func setUpInterestButton() {
         addSubview(interestedButton)
         interestedButton.snp.makeConstraints { (make) in
-            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-5)
-            make.bottom.equalTo(self.snp.bottom).offset(-5)
-            make.width.equalTo(self.snp.width).multipliedBy(0.07)
-            make.height.equalTo(self.snp.width).multipliedBy(0.07)
+            make.top.equalTo(postDescriptionTF.snp.bottom)
+            make.leading.equalTo(showOnMapButton.snp.trailing)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
+            make.width.equalTo(self.snp.width).multipliedBy(0.7)
         }
     }
-    
-//    private func setUpInterestLabel() {
-//        addSubview(interestLabel)
-//        interestLabel.snp.makeConstraints { (make) in
-//            make.trailing.equalTo(interestedButton.snp.leading).offset(-2)
-//            make.centerY.equalTo(interestedButton.snp.centerY)
-//        }
-//    }
+
 }
 
