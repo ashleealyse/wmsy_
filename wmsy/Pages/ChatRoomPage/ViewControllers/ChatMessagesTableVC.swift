@@ -59,6 +59,15 @@ class ChatMessagesTableVC: UIViewController {
     
     public func new(message: Message) {
         let cellCount = messages.count
+        if cellCount > 0 {
+            // this is a hard guard against getting duplicate messages shown,
+            // but shouldn't be necessary if all bugs relating to
+            // firebase observers have been handled
+            guard message.messageID != messages.last?.messageID else {
+                print("almost displayed a duplicate message")
+                return
+            }
+        }
         messages.append(message)
         let newCellIndexPath = IndexPath(row: cellCount, section: 0)
         chatTableView.insertRows(at: [newCellIndexPath], with: .automatic)
