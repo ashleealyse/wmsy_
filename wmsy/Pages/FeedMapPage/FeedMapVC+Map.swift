@@ -58,11 +58,7 @@ extension FeedMapVC: GMSMapViewDelegate{
             self.mapView.detailView.userPicture.kf.setImage(with: URL(string:(self.currentUser?.photoID)!), for: .normal, placeholder: nil, options: nil, progressBlock: nil) { (image, error, cache, url) in
                 self.mapView.detailView.userPicture.imageView?.setNeedsDisplay()
                 let interests = self.getInterestKeys(appUser: AppUser.currentAppUser!)
-                if interests.contains(whimID!){
-                    self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "interestedCircleIcon"), for: .normal)
-                }else{
-                    self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
-                }
+
                 
                 if self.currentUser?.userID == AppUser.currentAppUser?.userID{
                     self.mapView.detailView.interestLabel.isHidden = true
@@ -127,7 +123,7 @@ extension FeedMapVC: mapDetailViewDelegate {
 
             
             self.mapView.detailView.interestedButton.titleLabel?.textColor = .white
-            self.mapView.detailView.interestedButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.3)
+            self.mapView.detailView.interestedButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)
             self.mapView.detailView.interestedButton.setTitle("Show Interest", for: .normal)
             self.feedView.tableView.reloadData()
             
@@ -137,7 +133,7 @@ extension FeedMapVC: mapDetailViewDelegate {
             DBService.manager.addInterest(forWhim: currentWhim!)
 //            self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "interestedCircleIcon"), for: .normal)
             self.mapView.detailView.interestedButton.titleLabel?.textColor = .white
-            self.mapView.detailView.interestedButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)
+            self.mapView.detailView.interestedButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.5)
             self.mapView.detailView.interestedButton.setTitle("Remove Interest", for: .normal)
             
             
