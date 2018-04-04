@@ -39,18 +39,25 @@ extension FeedMapVC: GMSMapViewDelegate{
         let whimID = dict!["whimID"]
         DBService.manager.getAppUser(fromID: hostID!) { (appUser) in
             self.currentUser = appUser
-        }
-        self.mapView.detailView.userPicture.kf.setImage(with: hostURL, for: .normal, placeholder: nil, options: nil, progressBlock: nil) { (image, error, cache, url) in
-            self.mapView.detailView.userPicture.imageView!.setNeedsDisplay()
-            let interests = self.getInterestKeys(appUser: AppUser.currentAppUser!)
-            if interests.contains(whimID!){
-                self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "interestedCircleIcon"), for: .normal)
-            }else{
-                self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
+            self.mapView.detailView.userPicture.kf.setImage(with: URL(string:(self.currentUser?.photoID)!), for: .normal, placeholder: nil, options: nil, progressBlock: nil) { (image, error, cache, url) in
+                self.mapView.detailView.userPicture.imageView?.setNeedsDisplay()
+                let interests = self.getInterestKeys(appUser: AppUser.currentAppUser!)
+                if interests.contains(whimID!){
+                    self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "interestedCircleIcon"), for: .normal)
+                }else{
+                    self.mapView.detailView.interestedButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
+                }
+                
+                if self.currentUser?.userID == AppUser.currentAppUser?.userID{
+                    self.mapView.detailView.interestLabel.isHidden = true
+                    self.mapView.detailView.interestedButton.isHidden = true
+                }else{
+                    self.mapView.detailView.interestLabel.isHidden = false
+                    self.mapView.detailView.interestedButton.isHidden = false
+                }
+                
+                self.mapView.detailView.isHidden = false
             }
-            
-            self.mapView.detailView.isHidden = false
-            
         }
         return true
     }
