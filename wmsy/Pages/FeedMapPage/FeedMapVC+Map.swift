@@ -57,12 +57,11 @@ extension FeedMapVC: GMSMapViewDelegate{
                 }
                 
                 self.mapView.detailView.isHidden = false
-                
             }
         }
         return true
     }
-
+    
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         self.mapView.detailView.isHidden = true
     }
@@ -123,10 +122,10 @@ extension FeedMapVC: mapDetailViewDelegate {
         hostProfileView.modalTransitionStyle = .crossDissolve
         hostProfileView.modalPresentationStyle = .overCurrentContext
         tabBarController?.present(hostProfileView, animated: false, completion: nil)
-//        present(GuestProfileVC(), animated: true, completion: nil)
+        //        present(GuestProfileVC(), animated: true, completion: nil)
         hostProfileView.profileView.nameLabel.text = currentUser?.name
         hostProfileView.profileView.bioLabel.text = currentUser?.bio
         let url = URL(string: (currentUser?.photoID)!)
         hostProfileView.profileView.profileImageView.kf.setImage(with: url)
-}
+    }
 }

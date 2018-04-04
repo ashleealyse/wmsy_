@@ -8,6 +8,10 @@
 
 import Foundation
 
+//protocol GuestChat: class {
+//    func gotKickedOut
+//}
+
 protocol MenuDataDelegate: class {
     func receivedUpdate() -> Void
     func reconfigure() -> Void
@@ -53,6 +57,8 @@ class MenuData {
 }
 
 extension MenuData: MenuNotificationTrackerDelegate {
+    
+    
     func interestNotification(forWhim whimID: String) {
 //        guard let interestIndex = pendingInterests.index(where: {$0.whimID == whimID}) else {
 //            return
@@ -131,10 +137,11 @@ extension MenuData: MenuNotificationTrackerDelegate {
         print("user has been removed from whim: \(whimID)")
         print("should forcably close the chatroom if it is open")
         print("should remove guest chat from list")
+        
     }
     
     func currentUserStartedHosting(whim whimID: String) {
-        print("user had started hosting whim: \(whimID)")
+        print("user has started hosting whim: \(whimID)")
         print("should add whim to hostedwhims list")
         guard let user = AppUser.currentAppUser else {
             print("no current user")
@@ -147,9 +154,45 @@ extension MenuData: MenuNotificationTrackerDelegate {
             }
         }
     }
+    func currentUserNoLongerHosting(whim whimID: String) {
+        print("user has stopped hosting whim: \(whimID)")
+        print("should remove whim from hostedwhims list")
+        guard let menuIndex = hostedWhims.index(where: {$0.whim.id == whimID}) else {
+            print("hostedWhims list does not have a whim with id: \(whimID)")
+            fatalError()
+        }
+        hostedWhims.remove(at: menuIndex)
+        delegate?.reconfigure()
+        guard let user = AppUser.currentAppUser else {
+            print("no current user")
+            fatalError()
+        }
+        guard let userIndex = user.hostedWhims.index(where: {$0.id == whimID}) else {
+            print("user not currently hosting whim with id: \(whimID)")
+            fatalError()
+        }
+        AppUser.currentAppUser?.hostedWhims.remove(at: userIndex)
+    }
     
     func currentUserReceivedMessageInHostedWhim(inWhim whimID: String) {
         print("user has received message for whim: \(whimID)")
         print("should show notif in that hosted whim")
+        guard let index = hostedWhims.index(where: {$0.whim.id == whimID}) else {
+            print("hosted whims does not have whim with id: \(whimID)")
+            fatalError()
+        }
+        hostedWhims[index].hasNotification = true
+        delegate?.reconfigure()
+    }
+    
+    func currentUserReceivedMessageInGuestWhim(inWhim whimID: String) {
+        print("user has received message for whim: \(whimID)")
+        print("show show notif in that guest whim")
+        guard let index = guestWhims.index(where: {$0.whim.id == whimID}) else {
+            print("guest whim does not have a whim with id: \(whimID)")
+            fatalError()
+        }
+        guestWhims[index].hasNotification = true
+        delegate?.reconfigure()
     }
 }
