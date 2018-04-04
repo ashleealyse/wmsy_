@@ -22,18 +22,19 @@ class ExpandedFeedCellView: UIView {
     
     lazy var showOnMapButton: UIButton = {
         let mapButton = UIButton()
-        mapButton.setImage(#imageLiteral(resourceName: "mapIcon"), for: .normal)
-//        mapButton.setTitle("Map", for: .normal)
+//        mapButton.setImage(#imageLiteral(resourceName: "mapIcon"), for: .normal)
+        mapButton.setTitle("Map", for: .normal)
         mapButton.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8).cgColor
         mapButton.layer.borderWidth = 1.0
-        mapButton.titleLabel?.textColor = .black
+        mapButton.setTitleColor(Stylesheet.Colors.WMSYKSUPurple, for: .normal)
+//        mapButton.titleLabel?.textColor = .black
         return mapButton
     }()
     
     lazy var interestedButton: UIButton = {
         let interestButton = UIButton()
-        interestButton.layer.borderWidth = 1.0
-        interestButton.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8).cgColor
+//        interestButton.layer.borderWidth = 1.0
+//        interestButton.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8).cgColor
         interestButton.setTitle("Show Interest", for: .normal)
         interestButton.titleLabel?.textColor = .black
         return interestButton
