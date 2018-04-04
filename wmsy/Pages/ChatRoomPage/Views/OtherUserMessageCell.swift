@@ -55,13 +55,16 @@ class OtherUserMessageCell: UITableViewCell {
         textContainer.snp.makeConstraints { (make) in
             make.leading.equalTo(profileImageView.snp.trailing).offset(16)
 //            make.trailing.equalTo(contentView).offset(-50)
-            make.trailing.equalTo(contentView).offset(-70)
+            make.trailing.equalTo(contentView).offset(-10)
             make.top.equalTo(profileImageView)
             make.bottom.equalTo(contentView.layoutMarginsGuide)
         }
     }
     private func setupMessageText() {
-        messageText.numberOfLines = 10
+        messageText.numberOfLines = 0
+        messageText.setContentHuggingPriority(.required, for: .vertical)
+        messageText.setContentCompressionResistancePriority(.required, for: .vertical)
+        messageText.preferredMaxLayoutWidth = self.bounds.width - 10
         textContainer.addSubview(messageText)
         messageText.snp.makeConstraints { (make) in
             make.edges.equalTo(textContainer).inset(5)

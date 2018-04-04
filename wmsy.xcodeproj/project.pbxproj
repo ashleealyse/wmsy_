@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8107D92420729A9100CEC5B2 /* AppUser+CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107D92320729A9100CEC5B2 /* AppUser+CurrentUser.swift */; };
+		810816B2207465EA00E59456 /* WMSYNavigationBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810816B1207465EA00E59456 /* WMSYNavigationBarController.swift */; };
 		811FFB5720606B5500F3312B /* CollapsedFeedCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811FFB5620606B5500F3312B /* CollapsedFeedCellView.swift */; };
 		811FFB9720615B6200F3312B /* DBService+Whim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811FFB9620615B6100F3312B /* DBService+Whim.swift */; };
 		811FFB9920615B6900F3312B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811FFB9820615B6900F3312B /* NotificationManager.swift */; };
@@ -131,6 +132,7 @@
 		8107D92220728D4400CEC5B2 /* C4Q.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = C4Q.gpx; sourceTree = "<group>"; };
 		8107D92320729A9100CEC5B2 /* AppUser+CurrentUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppUser+CurrentUser.swift"; sourceTree = "<group>"; };
 		810816AE2072D01C00E59456 /* Interest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interest.swift; sourceTree = "<group>"; };
+		810816B1207465EA00E59456 /* WMSYNavigationBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMSYNavigationBarController.swift; sourceTree = "<group>"; };
 		811FFB5620606B5500F3312B /* CollapsedFeedCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsedFeedCellView.swift; sourceTree = "<group>"; };
 		811FFB9620615B6100F3312B /* DBService+Whim.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DBService+Whim.swift"; sourceTree = "<group>"; };
 		811FFB9820615B6900F3312B /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -503,6 +505,7 @@
 			children = (
 				81BAD69A205AF03600C7F039 /* ChatRoomVC.swift */,
 				81D12DDC20674ED70056920C /* ChatRoomVCTest.swift */,
+				810816B1207465EA00E59456 /* WMSYNavigationBarController.swift */,
 				81D12DDA20673B1F0056920C /* InfoAndMembersCollectionVC.swift */,
 				81D12DD620673AC30056920C /* ChatMessagesTableVC.swift */,
 				81D12DD820673AE60056920C /* TextInputVC.swift */,
@@ -831,6 +834,7 @@
 				93495B08206041080080BDBA /* FeedCell.swift in Sources */,
 				81AB7ABC205C8024009845EA /* WhimDescriptionTableViewCell.swift in Sources */,
 				81DECD21205C882900214866 /* DismissMenuAnimator.swift in Sources */,
+				810816B2207465EA00E59456 /* WMSYNavigationBarController.swift in Sources */,
 				81DECD23205C892B00214866 /* MenuViewController.swift in Sources */,
 				81BAD69D205AF04600C7F039 /* HostChatView.swift in Sources */,
 				93632551206C1597002FFAED /* WhimColorViewTableViewCell.swift in Sources */,
