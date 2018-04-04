@@ -74,6 +74,8 @@
 		81BAD6A9205AF0AA00C7F039 /* GuestProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BAD6A8205AF0AA00C7F039 /* GuestProfileVC.swift */; };
 		81C3AF52206D324D001686F0 /* TextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C3AF51206D324D001686F0 /* TextInputView.swift */; };
 		81C3AF54206DA6AC001686F0 /* MenuNotificationTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C3AF53206DA6AC001686F0 /* MenuNotificationTracker.swift */; };
+		81C7DCC6207452D10008D940 /* ChatGuestsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C7DCC5207452D10008D940 /* ChatGuestsTableVC.swift */; };
+		81C7DCC8207459050008D940 /* ChatGuestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C7DCC7207459050008D940 /* ChatGuestTableViewCell.swift */; };
 		81D12DCF20641B210056920C /* FooterTabDotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D12DCE20641B210056920C /* FooterTabDotsView.swift */; };
 		81D12DD120643A920056920C /* MenuChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D12DD020643A920056920C /* MenuChatView.swift */; };
 		81D12DD42065AA470056920C /* DataQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D12DD32065AA470056920C /* DataQueue.swift */; };
@@ -201,6 +203,8 @@
 		81BAD6A8205AF0AA00C7F039 /* GuestProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestProfileVC.swift; sourceTree = "<group>"; };
 		81C3AF51206D324D001686F0 /* TextInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputView.swift; sourceTree = "<group>"; };
 		81C3AF53206DA6AC001686F0 /* MenuNotificationTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuNotificationTracker.swift; sourceTree = "<group>"; };
+		81C7DCC5207452D10008D940 /* ChatGuestsTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGuestsTableVC.swift; sourceTree = "<group>"; };
+		81C7DCC7207459050008D940 /* ChatGuestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGuestTableViewCell.swift; sourceTree = "<group>"; };
 		81D12DCE20641B210056920C /* FooterTabDotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterTabDotsView.swift; sourceTree = "<group>"; };
 		81D12DD020643A920056920C /* MenuChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuChatView.swift; sourceTree = "<group>"; };
 		81D12DD32065AA470056920C /* DataQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataQueue.swift; sourceTree = "<group>"; };
@@ -506,6 +510,8 @@
 				81D12DDA20673B1F0056920C /* InfoAndMembersCollectionVC.swift */,
 				81D12DD620673AC30056920C /* ChatMessagesTableVC.swift */,
 				81D12DD820673AE60056920C /* TextInputVC.swift */,
+				81C7DCC5207452D10008D940 /* ChatGuestsTableVC.swift */,
+				81C7DCC7207459050008D940 /* ChatGuestTableViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -857,6 +863,7 @@
 				81337775206A960B00F1F657 /* FeedMapVC+Feed.swift in Sources */,
 				81DECD1B205C87FA00214866 /* Interactor.swift in Sources */,
 				812112E72062F660002D80C2 /* AddWhimLocationViewController.swift in Sources */,
+				81C7DCC6207452D10008D940 /* ChatGuestsTableVC.swift in Sources */,
 				81202D86206BEBC200CC5588 /* MenuNavigationBarVC.swift in Sources */,
 				81DECD26205C91F900214866 /* MenuProfileView.swift in Sources */,
 				81DECD19205C87ED00214866 /* MenuedViewController.swift in Sources */,
@@ -893,6 +900,7 @@
 				81A57A512068952D00E4BE0B /* DBService+Interest.swift in Sources */,
 				81BAD69B205AF03600C7F039 /* ChatRoomVC.swift in Sources */,
 				81B928E320618D41002CD355 /* CurrentUserMessageCell.swift in Sources */,
+				81C7DCC8207459050008D940 /* ChatGuestTableViewCell.swift in Sources */,
 				81EBB58B20601939008A6CE7 /* StorageService+Image.swift in Sources */,
 				81BAD68F205AEEE200C7F039 /* Message.swift in Sources */,
 				93D5CDB2206AB20A00ABB3E1 /* SplashViewController.swift in Sources */,
@@ -1058,11 +1066,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HRCUFV4R99;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = wmsy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wmsymhc;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wmsy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1075,11 +1083,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HRCUFV4R99;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = wmsy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wmsymhc;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wmsy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

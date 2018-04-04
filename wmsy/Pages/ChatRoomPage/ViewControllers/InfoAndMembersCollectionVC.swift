@@ -102,6 +102,9 @@ class InfoAndMembersCollectionVC: UIViewController {
         memberInfoView.showMapButton.setTitle("Map", for: .normal)
         memberInfoView.inviteButton.addTarget(self, action: #selector(inviteButtonHit), for: .touchUpInside)
         memberInfoView.showMapButton.addTarget(self, action: #selector(showMapButtonHit), for: .touchUpInside)
+        
+        memberInfoView.guestsButton.setTitle("Guests", for: .normal)
+        memberInfoView.guestsButton.addTarget(self, action: #selector(showGuestsTableView), for: .touchUpInside)
     }
     
     public func new(interestedUser user: AppUser) {
@@ -119,6 +122,13 @@ class InfoAndMembersCollectionVC: UIViewController {
         }
         members.remove(at: index)
         inChat[user.userID] = nil
+    }
+    
+    @objc func showGuestsTableView() {
+        
+        let chatGuestsTVC = ChatGuestsTableVC(members: members, inChat: inChat)
+        present(chatGuestsTVC, animated: true, completion: nil)
+
     }
     @objc func inviteButtonHit() {
 
@@ -154,6 +164,8 @@ extension InfoAndMembersCollectionVC: UICollectionViewDataSource, UICollectionVi
             cell.guestImageView.backgroundColor = .white
             memberInfoView.inviteButton.isHidden = true
             memberInfoView.showMapButton.isHidden = false
+            
+            
             return cell
         }
         let user = members[indexPath.row - 1]
