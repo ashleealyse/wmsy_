@@ -36,11 +36,9 @@ class WhimCategoryCollectionViewCell: UICollectionViewCell {
             if self.isSelected {
                 categoryImage.alpha = 1.0
                 categoryImage.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.2)
-                categoryImage.layer.cornerRadius = categoryImage.frame.size.height / 2
             } else {
                 categoryImage.alpha = 0.8
                 categoryImage.backgroundColor = .clear
-                categoryImage.layer.cornerRadius = categoryImage.frame.size.height / 2
             }
         }
     }
