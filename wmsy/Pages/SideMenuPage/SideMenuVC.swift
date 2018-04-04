@@ -52,8 +52,8 @@ class SideMenuVC: MenuViewController {
         
         // whim list
         menuPagesVC.pageTwo.delegate = self
-        let hostedWhims = info.hostedWhims.map{$0.whim}
-        let guestWhims = info.guestWhims.map{$0.whim}
+        let hostedWhims = info.hostedWhims
+        let guestWhims = info.guestWhims
         let pendingInterests = info.pendingInterests
         menuPagesVC.pageTwo.configureWith(hostedWhims: hostedWhims, guestWhims: guestWhims, pendingInterests: pendingInterests)
         
@@ -111,27 +111,14 @@ extension SideMenuVC: MenuChatsListVCDelegate {
     }
 }
 
-//extension SideMenuVC: UITextViewDelegate {
-//    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-//        if(text == "\n") {
-//            textView.resignFirstResponder()
-//            let text = textView.text!
-//            DBService.manager.updateBio(text, forUser: AppUser.currentAppUser!)
-//            return false
-//        }
-//        return true
-//    }
-//}
-
 extension SideMenuVC: MenuDataDelegate {
     func receivedUpdate() {
         
     }
     
     func reconfigure() {
-//        info = MenuData.manager
-        let hostedWhims = info.hostedWhims.map{$0.whim}
-        let guestWhims = info.guestWhims.map{$0.whim}
+        let hostedWhims = info.hostedWhims
+        let guestWhims = info.guestWhims
         let pendingInterests = info.pendingInterests
         menuPagesVC.pageTwo.configureWith(hostedWhims: hostedWhims, guestWhims: guestWhims, pendingInterests: pendingInterests)
     }
