@@ -10,10 +10,6 @@ import Foundation
 import FirebaseDatabase
 
 protocol MenuNotificationTrackerDelegate: class {
-    func hostChatNotification(inWhim whimID: String) -> Void
-    func guestChatNotification(inWhim whimID: String) -> Void
-    func interestNotification(forWhim whimID: String) -> Void
-    func newUserInterested(inWhim whimID: String) -> Void
     
     func currentUserInterested(inWhim whimID: String) -> Void
     func currentUserNoLongerInterested(inWhim whimID: String) -> Void
@@ -24,7 +20,7 @@ protocol MenuNotificationTrackerDelegate: class {
     
     func currentUserReceivedMessageInHostedWhim(inWhim whimID: String) -> Void
     func currentUserReceivedMessageInGuestWhim(inWhim whimID: String) -> Void
-//    func otherUserExpressedInterestInHostedWhim(withID whimID: String) -> Void
+    func otherUserExpressedInterestInHostedWhim(withID whimID: String) -> Void
 }
 
 
@@ -51,24 +47,24 @@ class MenuNotificationTracker {
         hostChatHandle.values.forEach{$0.removeAllObservers()}
         guestInterestedHandle.values.forEach{$0.removeAllObservers()}
     }
-    public func whimChatOpen(_ whim: Whim) {
-        if let handle = guestChatsHandle[whim.id] {
-            handle.removeAllObservers()
-        } else if let handle = hostChatHandle[whim.id] {
-            handle.removeAllObservers()
-        }
-    }
-    public func whimChatClosed(_ whim: Whim) {
-        if let handle = guestChatsHandle[whim.id] {
-            handle.observe(.value, with: { (snapshot) in
-                self.delegate?.guestChatNotification(inWhim: whim.id)
-            })
-        } else if let handle = hostChatHandle[whim.id] {
-            handle.observe(.value, with: { (snapshot) in
-                self.delegate?.guestChatNotification(inWhim: whim.id)
-            })
-        }
-    }
+//    public func whimChatOpen(_ whim: Whim) {
+//        if let handle = guestChatsHandle[whim.id] {
+//            handle.removeAllObservers()
+//        } else if let handle = hostChatHandle[whim.id] {
+//            handle.removeAllObservers()
+//        }
+//    }
+//    public func whimChatClosed(_ whim: Whim) {
+//        if let handle = guestChatsHandle[whim.id] {
+//            handle.observe(.value, with: { (snapshot) in
+//                self.delegate?.guestChatNotification(inWhim: whim.id)
+//            })
+//        } else if let handle = hostChatHandle[whim.id] {
+//            handle.observe(.value, with: { (snapshot) in
+//                self.delegate?.guestChatNotification(inWhim: whim.id)
+//            })
+//        }
+//    }
     
     // Current User Has shown interest in something
     private var hookedUpCurrentUserIsInterested = false
@@ -193,6 +189,7 @@ class MenuNotificationTracker {
             }
             AppUser.currentAppUser!.hostedWhims.forEach{print($0.id)}
             self.addReceivedMessageInHostedWhimHandle(forWhim: snapshot.key)
+            self.addOtherUserExpressedInterestInHostedWhimHandle(forWhim: snapshot.key)
             self.delegate?.currentUserStartedHosting(whim: snapshot.key)
         }
         
@@ -205,6 +202,7 @@ class MenuNotificationTracker {
         currentUserNoLongerHostingWhimHandle.observe(.childRemoved) { (snapshot) in
             self.delegate?.currentUserNoLongerHosting(whim: snapshot.key)
             self.removeMessageReceivedInHostedWhimHandle(forWhim: snapshot.key)
+            self.removeOtherUserExpressedInterestInHostedWhimHandle(forWhim: snapshot.key)
         }
     }
     
@@ -274,6 +272,29 @@ class MenuNotificationTracker {
         currentUserGuestWhimsNewMessageHandle[whimID]?.removeAllObservers()
         currentUserGuestWhimsNewMessageHandle[whimID] = nil
     }
+    
+    // Other User has expressed interest in one of the current user's hosted whims
+    private var otherUserExpressedInterestInHostedWhimHandle = [String: DatabaseReference]()
+    private func hookUpOtherUserExpressedInterestInHostedWhimHandle(forUser user: AppUser) {
+        let hostedWhims = user.hostedWhims.map({$0.id})
+        for whimID in hostedWhims {
+            addOtherUserExpressedInterestInHostedWhimHandle(forWhim: whimID)
+        }
+    }
+    private func addOtherUserExpressedInterestInHostedWhimHandle(forWhim whimID: String) {
+        otherUserExpressedInterestInHostedWhimHandle[whimID] = DBService.manager.interestsRef.child(whimID)
+        otherUserExpressedInterestInHostedWhimHandle[whimID]!.observe(.childAdded) { (snapshot) in
+            guard let _ = snapshot.value as? Bool else {
+                print("user interest not properly created from firebase")
+                fatalError()
+            }
+            self.delegate?.otherUserExpressedInterestInHostedWhim(withID: whimID)
+        }
+    }
+    private func removeOtherUserExpressedInterestInHostedWhimHandle(forWhim whimID: String) {
+        otherUserExpressedInterestInHostedWhimHandle[whimID]?.removeAllObservers()
+        otherUserExpressedInterestInHostedWhimHandle[whimID] = nil
+    }
     // callback just in case something asynchrounous is needed
     public func setupListeners(forUser user: AppUser, completion: @escaping () -> Void) {
         hookUpUserInterestsHandle(forUser: user)
@@ -282,6 +303,8 @@ class MenuNotificationTracker {
         hookUpUserNoLongerInChatHandle(forUser: user)
         hookUpCurrentUserStartedHostingHandle(forUser: user)
         hookUpCurrentUserHostedWhimsNewMessageHandle(forUser: user)
+        hookUpCurrentUserGuestWhimsNewMessageHandle(forUser: user)
+        hookUpOtherUserExpressedInterestInHostedWhimHandle(forUser: user)
         completion()
     }
 }

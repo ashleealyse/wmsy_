@@ -195,11 +195,15 @@ class FeedMapVC: MenuedViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
+        MenuData.manager.simpleListener = nil
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
+        MenuData.manager.simpleListener = self
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -369,4 +373,11 @@ func hours(from date: Date) -> Int {
 func minutes(from date: Date) -> Int {
     return Calendar.current.dateComponents([.minute], from: date, to: self).minute ?? 0
 }
+}
+
+extension FeedMapVC: MenuDataSimpleNotificationDelegate {
+    func newNotification() {
+        // add any code that should trigger when there's been a notification here
+        print("there was some notification")
+    }
 }

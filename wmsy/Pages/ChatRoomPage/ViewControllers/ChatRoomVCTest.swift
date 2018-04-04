@@ -115,13 +115,13 @@ class ChatRoomVCTest: MenuedViewController {
         self.whim = whim
         let group = DispatchGroup()
         group.enter()
-        // TODO: get all whim messages
+        // get all whim messages
         DBService.manager.getAllMessages(forWhim: whim) { (messages) in
             self.whim!.whimChats = messages
             self.chatTVC.configureWith(self.whim!)
             group.leave()
         }
-        // TODO: get all interests associated with the whim
+        // get all interests associated with the whim
         group.enter()
         DBService.manager.getAllInterests(forWhim: whim) { (interests) in
             self.interests = interests
@@ -130,7 +130,7 @@ class ChatRoomVCTest: MenuedViewController {
                 interestDict[interest.userID] = interest.inChat
             }
             
-            // TODO: get all user info for interested users
+            // get all user info for interested users
             let userIDs = interests.map{$0.userID}
             DBService.manager.getAppUsers(fromList: userIDs) { (users) in
                 self.interestedUsers = users
@@ -141,7 +141,7 @@ class ChatRoomVCTest: MenuedViewController {
         group.notify(queue: .main) {
             completion()
         }
-        // TODO: hand off that data to childVCs
+        // hand off that data to childVCs
     }
     private var messageHandle: DatabaseReference!
     private var newInterestHandle: DatabaseReference!
