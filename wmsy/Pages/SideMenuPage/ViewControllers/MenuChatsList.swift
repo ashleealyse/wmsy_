@@ -16,8 +16,8 @@ protocol MenuChatsListVCDelegate: class {
 class MenuChatsListVC: UIViewController {
     
     let chatsListTableView = UITableView()
-    private var hostedWhims = [Whim]()
-    private var guestWhims = [Whim]()
+    private var hostedWhims = [(whim: Whim, hasNotification: Bool)]()
+    private var guestWhims = [(whim: Whim, hasNotification: Bool)]()
     private var pendingInterests = [Interest]()
     
     weak var delegate: MenuChatsListVCDelegate?
@@ -44,7 +44,7 @@ class MenuChatsListVC: UIViewController {
         }
     }
     
-    public func configureWith(hostedWhims: [Whim], guestWhims: [Whim], pendingInterests: [Interest]) {
+    public func configureWith(hostedWhims: [(Whim, Bool)], guestWhims: [(Whim, Bool)], pendingInterests: [Interest]) {
         self.hostedWhims = hostedWhims
         self.guestWhims = guestWhims
         self.pendingInterests = pendingInterests
@@ -89,11 +89,15 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: MenuWhimsCell.reuseIdentifier, for: indexPath) as! MenuWhimsCell
         switch indexPath.section {
         case 0:
-            let whim = hostedWhims[indexPath.row]
+            let whim = hostedWhims[indexPath.row].whim
+            let hasNotif = hostedWhims[indexPath.row].hasNotification
             cell.whimTitle.text = whim.title
+            cell.backgroundColor = hasNotif ? Stylesheet.Colors.WMSYDeepViolet : Stylesheet.Colors.WMSYNeonPurple
         case 1:
-            let whim = guestWhims[indexPath.row]
+            let whim = guestWhims[indexPath.row].whim
+            let hasNotif = guestWhims[indexPath.row].hasNotification
             cell.whimTitle.text = whim.title
+            cell.backgroundColor = hasNotif ? Stylesheet.Colors.WMSYDeepViolet : Stylesheet.Colors.WMSYNeonPurple
         case 2:
             let interest = pendingInterests[indexPath.row]
             cell.whimTitle.text = interest.whimID
@@ -106,10 +110,10 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
-            let whim = hostedWhims[indexPath.row]
+            let whim = hostedWhims[indexPath.row].whim
             delegate?.didSelect(whim: whim)
         case 1:
-            let whim = guestWhims[indexPath.row]
+            let whim = guestWhims[indexPath.row].whim
             delegate?.didSelect(whim: whim)
         case 2:
             return
