@@ -112,7 +112,14 @@ class InfoAndMembersCollectionVC: UIViewController {
     public func invited(_ user: AppUser) {
         inChat[user.userID] = true
     }
-    
+    public func removed(_ user: AppUser) {
+        guard let index = members.index(where: {$0.userID == user.userID}) else {
+            print("wasn't a user in here")
+            fatalError()
+        }
+        members.remove(at: index)
+        inChat[user.userID] = nil
+    }
     @objc func inviteButtonHit() {
 
         guard

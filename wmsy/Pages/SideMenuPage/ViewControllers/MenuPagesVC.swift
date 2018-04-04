@@ -30,12 +30,13 @@ class MenuPagesVC: UIPageViewController {
     }
     func configurePageControl() {
         // The total number of pages that are available is based on how many available colors we have.
-        pageControl = UIPageControl(frame: CGRect(x: 0,y: self.view.frame.maxY - 150,width: UIScreen.main.bounds.width,height: 50))
+        pageControl = UIPageControl(frame: CGRect(x: 100,y: self.view.frame.maxY - 150,width: UIScreen.main.bounds.width/2,height: 50))
         self.pageControl.numberOfPages = menuPages.count
-        self.pageControl.currentPage = 0
+        self.pageControl.currentPage = 1
         self.pageControl.tintColor = UIColor.black
         self.pageControl.pageIndicatorTintColor = UIColor.white
         self.pageControl.currentPageIndicatorTintColor = UIColor.black
+    
         self.view.addSubview(pageControl)
     }
 }

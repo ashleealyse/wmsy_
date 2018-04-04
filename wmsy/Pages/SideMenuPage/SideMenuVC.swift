@@ -9,6 +9,8 @@
 import UIKit
 import SnapKit
 import FirebaseAuth
+import FacebookCore
+import FacebookLogin
 
 class SideMenuVC: MenuViewController {
     
@@ -45,7 +47,7 @@ class SideMenuVC: MenuViewController {
         }
         menuPagesVC.pageOne.profileView.signOutButton.addTarget(self, action: #selector(signOut), for: .touchUpInside)
         menuPagesVC.pageOne.profileView.editBioButton.addTarget(self, action: #selector(editBio), for: .touchUpInside)
-        menuPagesVC.pageOne.profileView.bioTextView.delegate = self
+//        menuPagesVC.pageOne.profileView.bioTextView.delegate = self
         
         
         // whim list
@@ -76,6 +78,8 @@ class SideMenuVC: MenuViewController {
     override func signOut() {
         super.signOut()
         do {
+            let loginManager = LoginManager()
+            loginManager.logOut()
             try Auth.auth().signOut()
         } catch {
             print(error)
@@ -107,17 +111,17 @@ extension SideMenuVC: MenuChatsListVCDelegate {
     }
 }
 
-extension SideMenuVC: UITextViewDelegate {
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if(text == "\n") {
-            textView.resignFirstResponder()
-            let text = textView.text!
-            DBService.manager.updateBio(text, forUser: AppUser.currentAppUser!)
-            return false
-        }
-        return true
-    }
-}
+//extension SideMenuVC: UITextViewDelegate {
+//    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+//        if(text == "\n") {
+//            textView.resignFirstResponder()
+//            let text = textView.text!
+//            DBService.manager.updateBio(text, forUser: AppUser.currentAppUser!)
+//            return false
+//        }
+//        return true
+//    }
+//}
 
 extension SideMenuVC: MenuDataDelegate {
     func receivedUpdate() {

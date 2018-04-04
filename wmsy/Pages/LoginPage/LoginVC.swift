@@ -96,13 +96,13 @@ extension LoginVC: loginViewDelegate {
         let imageView = UIImageView()
         imageView.kf.setImage(with: URL(string: response.profilePictureUrl!), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
             
-            let photoID = StorageService.manager.storeUserImage(image: image, userID: userID)
-            
-            
-            let currentUser = AppUser(name: userName!, photoID: photoID!, age: "", userID: userID, bio: "", badge: false, flags: 0, hostedWhims: [], interests: [])
-            AppUser.currentAppUser = currentUser
-            DBService.manager.addAppUser(currentUser)
-            completion()
+            StorageService.manager.storeUserImage(image: image, userID: userID, completion: { url in
+                
+                let currentUser = AppUser(name: userName!, photoID: url, age: "", userID: userID, bio: "", badge: false, flags: 0, hostedWhims: [], interests: [])
+                AppUser.currentAppUser = currentUser
+                DBService.manager.addAppUser(currentUser)
+                completion()
+            })   
         })
     }
     private func signInToFireBase(with cred: AuthCredential, and response: MyProfileRequest.Response) {
@@ -116,10 +116,16 @@ extension LoginVC: loginViewDelegate {
             // Configure rest of app
             DBService.manager.checkIfUserExists(userID: user.uid, completion: { (userAlreadyExists) in
                 if userAlreadyExists {
-                    AppUser.configureCurrentAppUser(withUID: user.uid, completion: {
-                        self.setupObserversAndMenuDataForCurrentUser {
-                            (self.tabBarController as? MainTabBarVC)?.animateTo(page: .feedAndMap, fromViewController: self)
-                        }
+                    let pictureURL = URL(string: response.profilePictureUrl!)
+                    let image = ImageView()
+                    image.kf.setImage(with: pictureURL, placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+                        let _ = StorageService.manager.storeUserImage(image: image, userID: user.uid, completion: {_ in 
+                            AppUser.configureCurrentAppUser(withUID: user.uid, completion: {
+                                self.setupObserversAndMenuDataForCurrentUser {
+                                    (self.tabBarController as? MainTabBarVC)?.animateTo(page: .feedAndMap, fromViewController: self)
+                                }
+                            })
+                        })
                     })
                 } else {
                     self.createFireBaseUser(with: response, and: user, completion: {

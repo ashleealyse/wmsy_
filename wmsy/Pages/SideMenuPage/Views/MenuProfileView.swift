@@ -99,10 +99,14 @@ class MenuProfileView: UICollectionViewCell {
         editBioButton.setImage(#imageLiteral(resourceName: "editBioIcon"), for: .normal)
         editBioButton.setTitleColor(.black, for: .normal)
         contentView.addSubview(editBioButton)
+
         editBioButton.snp.makeConstraints { (make) in
             make.top.trailing.equalTo(bioTextView.layoutMarginsGuide)
         }
     }
+    
+
+    
     
     private func placeholderTesting() {
         let bgColor = UIColor.white
