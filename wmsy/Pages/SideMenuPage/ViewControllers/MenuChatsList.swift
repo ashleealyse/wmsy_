@@ -87,29 +87,12 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            if !hostedWhims.isEmpty {
                 return hostedWhims.count
-            } else if !guestWhims.isEmpty {
-                return guestWhims.count
-            } else if !pendingInterests.isEmpty {
-                return pendingInterests.count
-            } else {
-                return 0
-            }
         case 1:
-            if !guestWhims.isEmpty {
                 return guestWhims.count
-            } else if !pendingInterests.isEmpty {
-                return pendingInterests.count
-            } else {
-                return 0
-            }
         case 2:
-            if !pendingInterests.isEmpty {
                 return pendingInterests.count
-            } else {
-                return 0
-            }
+            
         default:
             return 0
         }
@@ -118,23 +101,11 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: MenuWhimsHeader.reuseIdentifier) as! MenuWhimsHeader
         switch section {
         case 0:
-            if !hostedWhims.isEmpty {
                 header.titleLabel.text = "Hosted Whims"
-            } else if !guestWhims.isEmpty {
-                header.titleLabel.text = "Guest Whims"
-            } else if !pendingInterests.isEmpty {
-                header.titleLabel.text = "Pending Whims"
-            }
         case 1:
-            if !guestWhims.isEmpty {
                 header.titleLabel.text = "Guest Whims"
-            } else if !pendingInterests.isEmpty {
-                header.titleLabel.text = "Pending Whims"
-            }
         case 2:
-            if !pendingInterests.isEmpty {
                 header.titleLabel.text = "Pending Whims"
-            }
         default:
             break
         }
@@ -170,23 +141,13 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
         
         switch indexPath.section {
         case 0:
-            if !hostedWhims.isEmpty {
                 setupFromHostedWhims()
-            } else if !guestWhims.isEmpty {
-                setupFromGuestWhims()
-            } else if !pendingInterests.isEmpty {
-                setupFromPendingInterests()
-            }
+            
         case 1:
-            if !guestWhims.isEmpty {
                 setupFromGuestWhims()
-            } else if !pendingInterests.isEmpty {
-                setupFromPendingInterests()
-            }
         case 2:
-            if !pendingInterests.isEmpty {
                 setupFromPendingInterests()
-            }
+            
         default:
             break
         }
