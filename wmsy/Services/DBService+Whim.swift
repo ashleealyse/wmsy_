@@ -126,6 +126,8 @@ extension DBService {
         let group = DispatchGroup()
         
         var whims = [Whim]()
+        var count = 0
+        print(whimIDs.count)
         for singleWhim in whimIDs {
             group.enter()
             print("getting whim with id: \(singleWhim)")
@@ -133,9 +135,10 @@ extension DBService {
                 if let whim = whim {
                     print("got single whim with id: \(singleWhim)")
                     whims.append(whim)
+                    count += 1
+                    print(count)
                 }
                 group.leave()
-                return
             })
         }
         group.notify(queue: .main) {

@@ -16,9 +16,14 @@ protocol MenuChatsListVCDelegate: class {
 class MenuChatsListVC: UIViewController {
     
     let chatsListTableView = UITableView()
+    let noDataOverlay = UIView()
+    let noDataLabel = UILabel()
     private var hostedWhims = [(whim: Whim, hasNotification: Bool)]()
     private var guestWhims = [(whim: Whim, hasNotification: Bool)]()
-    private var pendingInterests = [Interest]()
+    private var pendingInterests = [(interest: Interest, title: String)]()
+    private var noData: Bool {
+        return hostedWhims.isEmpty && guestWhims.isEmpty && pendingInterests.isEmpty
+    }
     
     weak var delegate: MenuChatsListVCDelegate?
     
@@ -42,29 +47,69 @@ class MenuChatsListVC: UIViewController {
         chatsListTableView.snp.makeConstraints { (make) in
             make.edges.equalTo(view)
         }
+        
+        noDataOverlay.backgroundColor = Stylesheet.Colors.WMSYShadowBlue
+        
+        view.addSubview(noDataOverlay)
+        noDataOverlay.snp.makeConstraints { (make) in
+            make.edges.equalTo(chatsListTableView)
+        }
+        
+        noDataLabel.numberOfLines = 0
+        noDataLabel.text = "there's nothing here...try browsing for something to do"
+        noDataLabel.textColor = Stylesheet.Colors.WMSYKSUPurple
+        
+        noDataOverlay.addSubview(noDataLabel)
+        noDataLabel.snp.makeConstraints { (make) in
+            make.center.equalTo(noDataOverlay)
+            make.leading.trailing.equalTo(noDataOverlay).inset(50)
+        }
     }
     
-    public func configureWith(hostedWhims: [(Whim, Bool)], guestWhims: [(Whim, Bool)], pendingInterests: [Interest]) {
+    public func configureWith(hostedWhims: [(Whim, Bool)], guestWhims: [(Whim, Bool)], pendingInterests: [(Interest, String)]) {
         self.hostedWhims = hostedWhims
         self.guestWhims = guestWhims
         self.pendingInterests = pendingInterests
         chatsListTableView.reloadData()
+        noDataOverlay.isHidden = !noData
     }
 }
 
 extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
     // MARK: - DataSource Methods
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        var sectionCount = 0
+        if !hostedWhims.isEmpty {sectionCount += 1}
+        if !guestWhims.isEmpty {sectionCount += 1}
+        if !pendingInterests.isEmpty {sectionCount += 1}
+        return sectionCount
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return hostedWhims.count
+            if !hostedWhims.isEmpty {
+                return hostedWhims.count
+            } else if !guestWhims.isEmpty {
+                return guestWhims.count
+            } else if !pendingInterests.isEmpty {
+                return pendingInterests.count
+            } else {
+                return 0
+            }
         case 1:
-            return guestWhims.count
+            if !guestWhims.isEmpty {
+                return guestWhims.count
+            } else if !pendingInterests.isEmpty {
+                return pendingInterests.count
+            } else {
+                return 0
+            }
         case 2:
-            return pendingInterests.count
+            if !pendingInterests.isEmpty {
+                return pendingInterests.count
+            } else {
+                return 0
+            }
         default:
             return 0
         }
@@ -73,11 +118,23 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: MenuWhimsHeader.reuseIdentifier) as! MenuWhimsHeader
         switch section {
         case 0:
-            header.titleLabel.text = "Hosted Whims"
+            if !hostedWhims.isEmpty {
+                header.titleLabel.text = "Hosted Whims"
+            } else if !guestWhims.isEmpty {
+                header.titleLabel.text = "Guest Whims"
+            } else if !pendingInterests.isEmpty {
+                header.titleLabel.text = "Pending Whims"
+            }
         case 1:
-            header.titleLabel.text = "Guest Whims"
+            if !guestWhims.isEmpty {
+                header.titleLabel.text = "Guest Whims"
+            } else if !pendingInterests.isEmpty {
+                header.titleLabel.text = "Pending Whims"
+            }
         case 2:
-            header.titleLabel.text = "Pending Whims"
+            if !pendingInterests.isEmpty {
+                header.titleLabel.text = "Pending Whims"
+            }
         default:
             break
         }
@@ -87,20 +144,49 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath:
         IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MenuWhimsCell.reuseIdentifier, for: indexPath) as! MenuWhimsCell
+        let setupFromHostedWhims: () -> () = { [unowned self] in             let whim = self.hostedWhims[indexPath.row].whim
+            let hasNotif = self.hostedWhims[indexPath.row].hasNotification
+            cell.whimTitle.text = whim.title
+            if hasNotif {
+                cell.whimTitle.font = UIFont.systemFont(ofSize: 23, weight: .bold)
+            } else {
+                cell.whimTitle.font = UIFont.systemFont(ofSize: 23)
+            }
+        }
+        let setupFromGuestWhims: () -> () = { [unowned self] in
+            let whim = self.guestWhims[indexPath.row].whim
+            let hasNotif = self.guestWhims[indexPath.row].hasNotification
+            cell.whimTitle.text = whim.title
+            if hasNotif {
+                cell.whimTitle.font = UIFont.systemFont(ofSize: 23, weight: .bold)
+            } else {
+                cell.whimTitle.font = UIFont.systemFont(ofSize: 23)
+            }
+        }
+        let setupFromPendingInterests: () -> () = { [unowned self] in
+            let title = self.pendingInterests[indexPath.row].title
+            cell.whimTitle.text = title
+        }
+        
         switch indexPath.section {
         case 0:
-            let whim = hostedWhims[indexPath.row].whim
-            let hasNotif = hostedWhims[indexPath.row].hasNotification
-            cell.whimTitle.text = whim.title
-            cell.backgroundColor = hasNotif ? Stylesheet.Colors.WMSYDeepViolet : Stylesheet.Colors.WMSYNeonPurple
+            if !hostedWhims.isEmpty {
+                setupFromHostedWhims()
+            } else if !guestWhims.isEmpty {
+                setupFromGuestWhims()
+            } else if !pendingInterests.isEmpty {
+                setupFromPendingInterests()
+            }
         case 1:
-            let whim = guestWhims[indexPath.row].whim
-            let hasNotif = guestWhims[indexPath.row].hasNotification
-            cell.whimTitle.text = whim.title
-            cell.backgroundColor = hasNotif ? Stylesheet.Colors.WMSYDeepViolet : Stylesheet.Colors.WMSYNeonPurple
+            if !guestWhims.isEmpty {
+                setupFromGuestWhims()
+            } else if !pendingInterests.isEmpty {
+                setupFromPendingInterests()
+            }
         case 2:
-            let interest = pendingInterests[indexPath.row]
-            cell.whimTitle.text = interest.whimID
+            if !pendingInterests.isEmpty {
+                setupFromPendingInterests()
+            }
         default:
             break
         }

@@ -50,17 +50,25 @@ class ChatRoomVCTest: MenuedViewController {
         
         DataQueue.manager.delegate = self
         DataQueue.manager.startSendingData()
+        configureNavBar()
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        MenuData.manager.simpleListener = self
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupObservers()
         chatTVC.configureWith(whim!)
         membersCollectionVC.configureWith(whim!)
+        MenuNotificationTracker.manager.delegate = MenuData.manager
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         detachObservers()
+        MenuData.manager.simpleListener = nil
     }
     
     private func setupSubviewsConstraints() {
@@ -85,6 +93,33 @@ class ChatRoomVCTest: MenuedViewController {
             make.leading.trailing.bottom.equalTo(self.view)
             make.height.greaterThanOrEqualTo(64)
         }
+    }
+    
+    
+    private func configureNavBar() {
+        self.navigationItem.title = "wmsy"
+        let topLeftBarItem = UIBarButtonItem(image:#imageLiteral(resourceName: "feedIcon-1"), style: .plain, target: self, action: #selector(showMenu(sender:)))
+        topLeftBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
+        navigationItem.leftBarButtonItem = topLeftBarItem
+        
+        let topRightBarItem = UIBarButtonItem(image:#imageLiteral(resourceName: "leaveChatIcon"), style: .plain, target: self, action: #selector(leaveChat(sender:)))
+        topRightBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
+        navigationItem.rightBarButtonItem = topRightBarItem
+        self.navigationController?.navigationBar.backgroundColor = .white
+        self.navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.barTintColor = .white
+        self.navigationController?.navigationBar.shadowImage = UIImage.imageWithColor(color: Stylesheet.Colors.WMSYDeepViolet)
+    }
+    
+    
+     @objc func leaveChat(sender: UIViewController){
+        print("left chat")
+    }
+    
+    
+    @objc func showMenu(sender: UIViewController){
+        self.navigationItem.leftBarButtonItem?.tintColor = Stylesheet.Colors.WMSYKSUPurple
+        openMenu(sender: sender)
     }
     
     private func setupKeyboardHandling() {let notificationCenter = NotificationCenter.default
@@ -281,9 +316,6 @@ extension ChatRoomVCTest: ChatMessagesTableVCDelegate, TextInputVCDelegate, Info
         self.members = members
     }
     
-//    func toggleUser(user: AppUser) {
-//        print("ChatRoomVCTest - user: \(user)")
-//    }
     
     func send(message: String) {
         DBService.manager.addMessage(text: message, ofType: .chat, fromUserID: currentUserID, toWhim: whim!)
@@ -300,26 +332,10 @@ extension ChatRoomVCTest: DataReceiver {
 }
 
 
-//extension ChatRoomVCTest: ChatInfoViewDelegate {
-//    func inviteOrRemoveUserPressed(sender: UIButton) {
-//        let index = sender.tag
-//        let member = members[index]
-//        let interests = member.interests.filter{$0.whimID == whimID}
-//        if interests[0].inChat {
-//            removeFromWhimChat(member: member)
-//        } else {
-//            inviteToWhimChat(member: member)
-//        }
-//        print("Member Modified: \(member.name)")
-//    }
-//    
-//    func inviteToWhimChat(member: AppUser) {
-//        print("invite to chat: \(member.name)")
-//        add(user: member)
-//    }
-//    func removeFromWhimChat(member: AppUser) {
-//        print("remove from chat: \(member.name)")
-//    }
-//    
-//}
 
+extension ChatRoomVCTest: MenuDataSimpleNotificationDelegate {
+    func newNotification() {
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.red.withAlphaComponent(0.9)
+        print("there was some notification")
+    }
+}
