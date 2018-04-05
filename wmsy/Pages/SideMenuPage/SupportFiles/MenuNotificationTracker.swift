@@ -96,12 +96,6 @@ class MenuNotificationTracker {
                 print("user interest not properly created from firebase")
                 fatalError()
             }
-//            guard let index = AppUser.currentAppUser?.interests.index(where: {$0.whimID == snapshot.key}) else {
-//                print("current user didnt have this interest")
-//                AppUser.currentAppUser!.interests.forEach{print($0.whimID)}
-//                fatalError()
-//            }
-//            AppUser.currentAppUser?.interests.remove(at: index)
             self.delegate?.currentUserNoLongerInterested(inWhim: snapshot.key)
             self.removeInGuestChatHandle(forWhim: snapshot.key)
         }
