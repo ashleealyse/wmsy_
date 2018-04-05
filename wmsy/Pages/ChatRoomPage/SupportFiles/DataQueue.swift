@@ -53,13 +53,13 @@ protocol DataReceiver: class {
 
 class DataQueue {
     private init(){
-//        for _ in 0..<200 {
-//            let types: [MessageType] = [.chat, .button, .notification]
-//            let randIndex = Int(arc4random_uniform(3))
-//            let message = Message.init(whimID: "12341324", messageID: "12341234", senderID: "12341234", timestamp: "12341234", messageType: types[randIndex], messageBody: "aidfnaoidsufoiudh")
-//            messageQueue.enQueue(message)
-////            whim?.whimChats.append(message)
-//        }
+        for _ in 0..<200 {
+            let types: [MessageType] = [.chat, .button, .notification]
+            let randIndex = Int(arc4random_uniform(3))
+            let message = Message.init(whimID: "12341324", messageID: "12341234", senderID: "12341234", timestamp: "12341234", messageType: types[randIndex], messageBody: "aidfnaoidsufoiudh")
+            messageQueue.enQueue(message)
+//            whim?.whimChats.append(message)
+        }
     }
     static let manager = DataQueue()
     

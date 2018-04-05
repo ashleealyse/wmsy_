@@ -36,13 +36,12 @@ class MenuWhimsHeader: UITableViewHeaderFooterView {
     private func setupTitleLabel() {
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { (make) in
-            make.leading.trailing.top.bottom.equalTo(contentView.layoutMarginsGuide)
+            make.edges.equalTo(contentView.layoutMarginsGuide)
         }
     }
     private func placeholderTesting() {
         titleLabel.font = UIFont(name: "Helvetica-Light", size: 30)
         titleLabel.textColor = Stylesheet.Colors.WMSYDeepViolet
-        titleLabel.text = "Host Chats"
     }
     /*
     // Only override draw() if you perform custom drawing.
