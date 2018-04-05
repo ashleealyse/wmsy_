@@ -58,12 +58,7 @@ class ChatInfoView: UIView {
         return button
     }()
     
-    lazy var guestsButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = Stylesheet.Colors.WMSYGray
-        button.layer.cornerRadius = 10
-        return button
-    }()
+
     
     
     // setup custom view
@@ -90,7 +85,7 @@ class ChatInfoView: UIView {
         addSubview(longLabel)
         addSubview(inviteButton)
         addSubview(showMapButton)
-        addSubview(guestsButton)
+
         
         
     }
@@ -135,13 +130,7 @@ class ChatInfoView: UIView {
             make.leading.equalTo(longLabel.snp.leading)
         }
 
-        guestsButton.snp.makeConstraints { (make) in
-            make.top.equalTo(longLabel.snp.bottom).offset(5)
-            make.height.equalTo(self.snp.height).multipliedBy(0.2)
-            make.width.equalTo(self.snp.width).multipliedBy(0.2)
-            make.bottom.equalTo(self.snp.bottom).offset(-5)
-            make.leading.equalTo(showMapButton.snp.trailing)
-        }
+
         
     }
     
