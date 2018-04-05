@@ -71,11 +71,11 @@ extension FeedMapVC: UITableViewDataSource {
         let interests = getInterestKeys(appUser: AppUser.currentAppUser!)
         if interests.contains(whim.id){
             cell.expandedView.interestedButton.titleLabel?.textColor = .white
-            cell.expandedView.interestedButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)
+            cell.expandedView.interestedButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.5)
             cell.expandedView.interestedButton.setTitle("Remove Interest", for: .normal)
         }else{
-            cell.expandedView.interestedButton.titleLabel?.textColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)
-            cell.expandedView.interestedButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.3)
+            cell.expandedView.interestedButton.titleLabel?.textColor = .white
+            cell.expandedView.interestedButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)
             cell.expandedView.interestedButton.setTitle("Show Interest", for: .normal)
         }
         
@@ -158,12 +158,12 @@ extension FeedMapVC: FeedCellViewDelegate {
         if interests.contains(whim.id){
 
             self.mapView.detailView.interestedButton.titleLabel?.textColor = .white
-            self.mapView.detailView.interestedButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)            
+            self.mapView.detailView.interestedButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.5)            
             self.mapView.detailView.interestedButton.setTitle("Remove Interest", for: .normal)
 
-        }else{
-            self.mapView.detailView.interestedButton.titleLabel?.textColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)
-            self.mapView.detailView.interestedButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.3)
+        } else {
+            self.mapView.detailView.interestedButton.titleLabel?.textColor = .white
+            self.mapView.detailView.interestedButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)
             self.mapView.detailView.interestedButton.setTitle("Show Interest", for: .normal)
 
         }
