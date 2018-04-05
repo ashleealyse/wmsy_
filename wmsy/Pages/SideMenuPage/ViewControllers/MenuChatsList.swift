@@ -20,7 +20,7 @@ class MenuChatsListVC: UIViewController {
     let noDataLabel = UILabel()
     private var hostedWhims = [(whim: Whim, hasNotification: Bool)]()
     private var guestWhims = [(whim: Whim, hasNotification: Bool)]()
-    private var pendingInterests = [(interest: Interest, title: String)]()
+    private var pendingInterests = [(interest: Interest, whim: Whim)]()
     private var noData: Bool {
         return hostedWhims.isEmpty && guestWhims.isEmpty && pendingInterests.isEmpty
     }
@@ -65,11 +65,32 @@ class MenuChatsListVC: UIViewController {
             make.leading.trailing.equalTo(noDataOverlay).inset(50)
         }
     }
-    
-    public func configureWith(hostedWhims: [(Whim, Bool)], guestWhims: [(Whim, Bool)], pendingInterests: [(Interest, String)]) {
-        self.hostedWhims = hostedWhims
-        self.guestWhims = guestWhims
-        self.pendingInterests = pendingInterests
+    let feed = FeedMapVC()
+    public func configureWith(hostedWhims: [(Whim, Bool)], guestWhims: [(Whim, Bool)], pendingInterests: [(Interest, Whim)]) {
+        for hostWhim in hostedWhims{
+         let expiration = feed.getTimeRemaining(whim: hostWhim.0)
+            if expiration.contains("-"){
+               continue
+            }
+           self.hostedWhims.append(hostWhim)
+        }
+        
+        
+        for guestWhim in guestWhims{
+            let expiration = feed.getTimeRemaining(whim: guestWhim.0)
+            if expiration.contains("-"){
+                continue
+            }
+            self.hostedWhims.append(guestWhim)
+        }
+        
+        for interest in pendingInterests{
+            let expiration = feed.getTimeRemaining(whim: interest.1)
+            if expiration.contains("-"){
+                continue
+            }
+            self.pendingInterests.append(interest)
+        }
         chatsListTableView.reloadData()
         noDataOverlay.isHidden = !noData
     }
@@ -135,7 +156,7 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
             }
         }
         let setupFromPendingInterests: () -> () = { [unowned self] in
-            let title = self.pendingInterests[indexPath.row].title
+            let title = self.pendingInterests[indexPath.row].whim.title
             cell.whimTitle.text = title
         }
         
@@ -147,7 +168,6 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
                 setupFromGuestWhims()
         case 2:
                 setupFromPendingInterests()
-            
         default:
             break
         }
