@@ -37,7 +37,7 @@ class ChatRoomVCTest: MenuedViewController {
         self.add(membersCollectionVC)
         self.add(chatTVC)
         self.add(textInputVC)
-        self.membersCollectionVC.detailDrawerClosed = false
+
         
         membersCollectionVC.delegate = self
         chatTVC.delegate = self

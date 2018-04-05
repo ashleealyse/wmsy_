@@ -16,7 +16,7 @@ protocol InfoAndMembersCollectionVCDelegate: class {
 }
 
 class InfoAndMembersCollectionVC: UIViewController {
-    var detailDrawerClosed = false
+
     private var currentWhim: Whim?
     private var heightConstraint: Constraint? = nil
     
@@ -103,8 +103,7 @@ class InfoAndMembersCollectionVC: UIViewController {
         memberInfoView.inviteButton.addTarget(self, action: #selector(inviteButtonHit), for: .touchUpInside)
         memberInfoView.showMapButton.addTarget(self, action: #selector(showMapButtonHit), for: .touchUpInside)
         
-        memberInfoView.guestsButton.setTitle("Guests", for: .normal)
-        memberInfoView.guestsButton.addTarget(self, action: #selector(showGuestsTableView), for: .touchUpInside)
+       
     }
     
     public func new(interestedUser user: AppUser) {
