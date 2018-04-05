@@ -17,7 +17,7 @@ extension FeedMapVC: UICollectionViewDelegateFlowLayout {
         let tuple = categoryList[indexPath.row]
         var selectedCategory = tuple
         self.filtersView.categoryLabel.text = "Filter Whims by: \(selectedCategory.0)"
-        DBService.manager.getCategoryWhims(fromCategory: selectedCategory.0) { (whims) in
+        DBService.manager.getCategoryWhims(fromCategory: selectedCategory.0, location: self.userLocation) { (whims) in
             self.feedWhims = whims
             self.expandedRows = Set<Int>()
         }

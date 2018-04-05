@@ -35,23 +35,38 @@ class MenuData {
     public var currentPage = 1
     public var hostedWhims = [(whim: Whim, hasNotification: Bool)]()
     public var guestWhims = [(whim: Whim, hasNotification: Bool)]()
-    public var pendingInterests = [Interest]()
+    public var pendingInterests = [(interest: Interest, title: String)]()
     
     public func configureInitialData(forUser user: AppUser,
                                      completion: @escaping () -> Void) {
         hostedWhims = user.hostedWhims.map{($0, false)}
-        pendingInterests = user.interests.filter{!$0.inChat}
+        let group = DispatchGroup()
+        
+       /*pendingInterests*/ var interests = user.interests.filter{!$0.inChat}
+        print(interests.count)
+        group.enter()
+        DBService.manager.getWhims(fromList: interests.map({$0.whimID})) { (whims) in
+            interests = interests.sorted(by: {$0.whimID < $1.whimID})
+            var whimTitles = whims.sorted(by: {$0.id < $1.id}).map({$0.title})
+            var tuples = [(Interest, String)]()
+            for i in interests.indices {
+                tuples.append((interests[i], whimTitles[i]))
+            }
+            self.pendingInterests = tuples
+            group.leave()
+        }
         let guestWhimIDs = user.interests.filter{$0.inChat}.map{$0.whimID}
+        group.enter()
         DBService.manager.getWhims(fromList: guestWhimIDs) { (whims) in
             self.guestWhims = whims.map{($0, false)}
-//            let _ = MenuNotificationTracker.manager
-//            MenuNotificationTracker.manager.configure()
+            group.leave()
+        }
+        group.notify(queue: .main) {
             completion()
-//            MenuNotificationTracker.manager.delegate = self
         }
     }
     public func interestAccepted(_ whimID: String) {
-        guard let index = pendingInterests.index(where: {$0.whimID == whimID}) else {return}
+        guard let index = pendingInterests.index(where: {$0.interest.whimID == whimID}) else {return}
         pendingInterests.remove(at: index)
         DBService.manager.getWhim(fromID: whimID) { (whim) in
             if let whim = whim {
@@ -72,13 +87,19 @@ extension MenuData: MenuNotificationTrackerDelegate {
             fatalError()
         }
         let interest = Interest(whimID: whimID, userID: user.userID, inChat: false)
-        pendingInterests.append(interest)
-        delegate?.reconfigure()
+        DBService.manager.getWhim(fromID: whimID) { (whim) in
+            if let whim = whim {
+                self.pendingInterests.append((interest: interest, title: whim.title))
+                self.delegate?.reconfigure()
+            } else {
+                fatalError()
+            }
+        }
     }
     func currentUserNoLongerInterested(inWhim whimID: String) {
         print("no longer interested in whim: \(whimID)")
         print("should no longer show up in menu")
-        guard let index = pendingInterests.index(where: {$0.whimID == whimID}) else {
+        guard let index = pendingInterests.index(where: {$0.interest.whimID == whimID}) else {
             print("interest wasn't pending")
             // whim could be in guest chats list but then it should be removed
             // from that list through the currentUserRemovedFromChat(forWhim:)
@@ -91,7 +112,7 @@ extension MenuData: MenuNotificationTrackerDelegate {
     func currentUserAllowedInChat(forWhim whimID: String) {
         print("user had been allowed in whim: \(whimID)")
         print("should be moved from interests to guest chats")
-        guard let index = pendingInterests.index(where: {$0.whimID == whimID}) else {
+        guard let index = pendingInterests.index(where: {$0.interest.whimID == whimID}) else {
             fatalError()
         }
         pendingInterests.remove(at: index)
