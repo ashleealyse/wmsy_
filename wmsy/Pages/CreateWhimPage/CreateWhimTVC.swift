@@ -246,8 +246,9 @@ extension CreateWhimTVC: UITextViewDelegate {
         if textView.text.isEmpty || textView.text == "" {
             textView.textColor = UIColor.lightGray
             textView.text = placeholderText
+        } else {
+            textView.textColor = UIColor.black
         }
-        textView.textColor = UIColor.black
         textView.resignFirstResponder()
     }
     

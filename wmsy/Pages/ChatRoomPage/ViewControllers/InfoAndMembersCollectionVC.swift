@@ -16,7 +16,7 @@ protocol InfoAndMembersCollectionVCDelegate: class {
 }
 
 class InfoAndMembersCollectionVC: UIViewController {
-    var detailDrawerClosed = false
+
     private var currentWhim: Whim?
     private var heightConstraint: Constraint? = nil
     
@@ -55,9 +55,9 @@ class InfoAndMembersCollectionVC: UIViewController {
         let userImageString = currentWhim?.hostImageURL
         let userImageUrl = URL(string: userImageString!)
         self.memberInfoView.userImageView.kf.setImage(with: userImageUrl)
-//        self.memberInfoView.inviteButton.isHidden = true
-//        self.memberInfoView.showMapButton.isHidden = false
-//        self.memberInfoView.showMapButton.setTitle("Map", for: .normal)
+
+        self.memberInfoView.inviteButton.isHidden = true
+        self.memberInfoView.showMapButton.isHidden = false
     }
     
     override func viewDidLoad() {
@@ -102,9 +102,8 @@ class InfoAndMembersCollectionVC: UIViewController {
         memberInfoView.showMapButton.setTitle("Map", for: .normal)
         memberInfoView.inviteButton.addTarget(self, action: #selector(inviteButtonHit), for: .touchUpInside)
         memberInfoView.showMapButton.addTarget(self, action: #selector(showMapButtonHit), for: .touchUpInside)
-        
-        memberInfoView.guestsButton.setTitle("Guests", for: .normal)
-        memberInfoView.guestsButton.addTarget(self, action: #selector(showGuestsTableView), for: .touchUpInside)
+
+       
     }
     
     public func new(interestedUser user: AppUser) {
@@ -171,8 +170,7 @@ extension InfoAndMembersCollectionVC: UICollectionViewDataSource, UICollectionVi
         cell.guestImageView.kf.indicatorType = .activity
 //        cell.isSelected = true
         cell.guestImageView.alpha = (inChat[user.userID] ?? false) ? 1.0 : 0.5
-//        memberInfoView.inviteButton.isHidden = false
-//        memberInfoView.showMapButton.isHidden = true
+
         return cell
     }
     
