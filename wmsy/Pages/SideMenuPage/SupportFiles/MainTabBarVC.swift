@@ -14,7 +14,7 @@ class MainTabBarVC: UITabBarController {
     let loginVC     = LoginVC()
     let splashScreen = SplashViewController()
     let feedMapVC   = UINavigationController.init(rootViewController: FeedMapVC())
-    let chatRoomVC  = ChatRoomVCTest()
+    let chatRoomVC  =  UINavigationController.init(rootViewController: ChatRoomVCTest())
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)

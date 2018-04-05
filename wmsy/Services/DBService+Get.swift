@@ -57,10 +57,21 @@ extension DBService {
     
     
     // GET SUBSET OF WHIMS BASED ON CATEGORY
-    public func getCategoryWhims(fromCategory category: String, completion: @escaping ([Whim]) -> Void) {
+    public func getCategoryWhims(fromCategory category: String, location: CLLocation, completion: @escaping ([Whim]) -> Void) {
         getAllWhims { (whims) in
+            let userLocation = location
+            var whimArr = [Whim]()
             let categoryWhims = whims.filter{$0.category == category}
-            completion(categoryWhims.sortedByTimestamp())
+            for whim in categoryWhims{
+                let long = Double(whim.long)
+                let lat = Double(whim.lat)
+                let whimLocation = CLLocation(latitude: lat!, longitude: long!)
+                let distanceInMeters = whimLocation.distance(from: userLocation)
+                if distanceInMeters <= 1609{
+                    whimArr.append(whim)
+                }
+            }
+            completion(whimArr)
         }
     }
     

@@ -89,7 +89,8 @@ class SideMenuVC: MenuViewController {
 
 extension SideMenuVC: MenuChatsListVCDelegate {
     func didSelect(whim: Whim) {
-        if let vc = viewController(for: .chatRoom) as? ChatRoomVCTest {
+        if let navVC = viewController(for: .chatRoom) as? UINavigationController,
+            let vc = navVC.viewControllers.first as? ChatRoomVCTest{
             if whim.id != vc.whimID {
                 vc.loadAllInitialData(forWhim: whim, completion: {
                     if let _ = self.fromVC as? ChatRoomVCTest {
