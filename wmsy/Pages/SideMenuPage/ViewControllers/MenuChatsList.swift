@@ -81,7 +81,7 @@ class MenuChatsListVC: UIViewController {
             if expiration.contains("-"){
                 continue
             }
-            self.hostedWhims.append(guestWhim)
+            self.guestWhims.append(guestWhim)
         }
         
         for interest in pendingInterests{
@@ -99,11 +99,7 @@ class MenuChatsListVC: UIViewController {
 extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
     // MARK: - DataSource Methods
     func numberOfSections(in tableView: UITableView) -> Int {
-        var sectionCount = 0
-        if !hostedWhims.isEmpty {sectionCount += 1}
-        if !guestWhims.isEmpty {sectionCount += 1}
-        if !pendingInterests.isEmpty {sectionCount += 1}
-        return sectionCount
+        return 3
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
