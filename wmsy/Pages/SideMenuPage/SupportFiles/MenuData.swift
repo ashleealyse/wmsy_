@@ -35,7 +35,7 @@ class MenuData {
     public var currentPage = 1
     public var hostedWhims = [(whim: Whim, hasNotification: Bool)]()
     public var guestWhims = [(whim: Whim, hasNotification: Bool)]()
-    public var pendingInterests = [(interest: Interest, title: String)]()
+    public var pendingInterests = [(interest: Interest, whim: Whim)]()
     
     public func configureInitialData(forUser user: AppUser,
                                      completion: @escaping () -> Void) {
@@ -47,10 +47,10 @@ class MenuData {
         group.enter()
         DBService.manager.getWhims(fromList: interests.map({$0.whimID})) { (whims) in
             interests = interests.sorted(by: {$0.whimID < $1.whimID})
-            var whimTitles = whims.sorted(by: {$0.id < $1.id}).map({$0.title})
-            var tuples = [(Interest, String)]()
+            var whimTitles = whims.sorted(by: {$0.id < $1.id})
+            var tuples = [(Interest, Whim)]()
             for i in interests.indices {
-                tuples.append((interests[i], whimTitles[i]))
+                tuples.append((interests[i], whims[i]))
             }
             self.pendingInterests = tuples
             group.leave()
@@ -89,7 +89,7 @@ extension MenuData: MenuNotificationTrackerDelegate {
         let interest = Interest(whimID: whimID, userID: user.userID, inChat: false)
         DBService.manager.getWhim(fromID: whimID) { (whim) in
             if let whim = whim {
-                self.pendingInterests.append((interest: interest, title: whim.title))
+                self.pendingInterests.append((interest: interest, whim: whim))
                 self.delegate?.reconfigure()
             } else {
                 fatalError()
