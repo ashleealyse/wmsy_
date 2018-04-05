@@ -335,7 +335,6 @@ extension ChatRoomVCTest: DataReceiver {
 
 extension ChatRoomVCTest: MenuDataSimpleNotificationDelegate {
     func newNotification() {
-        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.red.withAlphaComponent(0.9)
         print("there was some notification")
     }
 }

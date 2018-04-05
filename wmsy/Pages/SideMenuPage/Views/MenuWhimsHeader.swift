@@ -40,7 +40,7 @@ class MenuWhimsHeader: UITableViewHeaderFooterView {
         }
     }
     private func placeholderTesting() {
-        titleLabel.font = UIFont(name: "Helvetica-Light", size: 30)
+        titleLabel.font = UIFont(name: "Helvetica", size: 25)
         titleLabel.textColor = Stylesheet.Colors.WMSYDeepViolet
     }
     /*
