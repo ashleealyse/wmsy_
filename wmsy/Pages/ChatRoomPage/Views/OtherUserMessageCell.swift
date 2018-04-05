@@ -42,9 +42,11 @@ class OtherUserMessageCell: UITableViewCell {
         setupMessageText()
     }
     private func setupProfileImageView() {
-        contentView.addSubview(profileImageView)
         profileImageView.layer.cornerRadius = profileImageView.frame.size.height / 2.0
         profileImageView.layer.masksToBounds = true
+        profileImageView.clipsToBounds = true
+        profileImageView.contentMode = .scaleAspectFill
+        contentView.addSubview(profileImageView)
         profileImageView.snp.makeConstraints { (make) in
             make.top.leading.equalTo(contentView.layoutMarginsGuide)
             make.width.height.equalTo(self.snp.width).multipliedBy(0.1)
