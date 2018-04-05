@@ -106,7 +106,7 @@ extension DBService {
                 if let appUser = appUser {
                     users.append(appUser)
                 } else {
-                    print("getAppUsers(fromID:) error")
+                    print("getAppUsers(fromID:\(singleUser)) error")
                 }
                 group.leave()
             })
