@@ -32,6 +32,7 @@ class SideMenuVC: MenuViewController {
         
         navVC.view.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalTo(self.menuScreen)
+            make.height.equalTo(64)
         }
         menuPagesVC.view.snp.makeConstraints { (make) in
             make.top.equalTo(navVC.view.snp.bottom)
@@ -86,6 +87,13 @@ class SideMenuVC: MenuViewController {
 
 extension SideMenuVC: MenuChatsListVCDelegate {
     func didSelect(whim: Whim) {
+        if let index = MenuData.manager.hostedWhims.index(where: {$0.whim.id == whim.id}) {
+            MenuData.manager.hostedWhims[index].hasNotification = false
+        }
+        if let index = MenuData.manager.guestWhims.index(where: {$0.whim.id == whim.id}) {
+            MenuData.manager.guestWhims[index].hasNotification = false
+        }
+        
         if let navVC = viewController(for: .chatRoom) as? UINavigationController,
             let vc = navVC.viewControllers.first as? ChatRoomVCTest{
             if whim.id != vc.whimID {

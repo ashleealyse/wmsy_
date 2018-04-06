@@ -67,6 +67,8 @@ class MenuChatsListVC: UIViewController {
     }
     let feed = FeedMapVC()
     public func configureWith(hostedWhims: [(Whim, Bool)], guestWhims: [(Whim, Bool)], pendingInterests: [(Interest, Whim)]) {
+        
+        self.hostedWhims = []
         for hostWhim in hostedWhims{
          let expiration = feed.getTimeRemaining(whim: hostWhim.0)
             if expiration.contains("-"){
@@ -76,6 +78,7 @@ class MenuChatsListVC: UIViewController {
         }
         
         
+        self.guestWhims = []
         for guestWhim in guestWhims{
             let expiration = feed.getTimeRemaining(whim: guestWhim.0)
             if expiration.contains("-"){
@@ -84,6 +87,7 @@ class MenuChatsListVC: UIViewController {
             self.guestWhims.append(guestWhim)
         }
         
+        self.pendingInterests = []
         for interest in pendingInterests{
             let expiration = feed.getTimeRemaining(whim: interest.1)
             if expiration.contains("-"){
@@ -140,8 +144,10 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
             cell.whimTitle.text = whim.title
             if hasNotif {
                 cell.whimTitle.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+                cell.notificationBadge.backgroundColor = Stylesheet.Colors.WMSYImperial
             } else {
                 cell.whimTitle.font = UIFont.systemFont(ofSize: 20)
+                cell.notificationBadge.backgroundColor = .clear
             }
         }
         let setupFromGuestWhims: () -> () = { [unowned self] in
@@ -174,6 +180,8 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
     }
     // MARK: - Delegate Methods
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.dequeueReusableCell(withIdentifier: MenuWhimsCell.reuseIdentifier, for: indexPath) as! MenuWhimsCell
+        cell.whimTitle.font = UIFont.systemFont(ofSize: 23)
         switch indexPath.section {
         case 0:
             hostedWhims[indexPath.row].hasNotification = false
