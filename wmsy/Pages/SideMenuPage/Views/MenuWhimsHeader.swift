@@ -26,10 +26,11 @@ class MenuWhimsHeader: UITableViewHeaderFooterView {
     
     private func commonInit() {
         backgroundColor = .clear
-        contentView.backgroundColor = Stylesheet.Colors.WMSYImperial
+        contentView.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.1)
         setupViews()
         placeholderTesting()
-        contentView.addBorders(edges: .bottom, color: .white, thickness: 0.5)
+//        contentView.addBorders(edges: .bottom, color: .white, thickness: 0.5)
+        contentView.addBorders(edges: .bottom, color: Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.3), thickness: 0.5)
     }
     
     private func setupViews() {

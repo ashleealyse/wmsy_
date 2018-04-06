@@ -18,8 +18,6 @@ class MenuProfileVC: UIViewController {
         super.viewDidLoad()
         view.addSubview(profileView)
         view.backgroundColor = .white
-        //        profileView.bioTextView.textColor = UIColor.lightGray
-        //        profileView.bioTextView.delegate = self
         profileView.snp.makeConstraints { (make) in
             make.edges.equalTo(view)
         }
@@ -47,11 +45,6 @@ class MenuProfileVC: UIViewController {
         self.present(editBioAlert, animated: true, completion: nil)
     }
 
-    
-    
-    
-    
-    
     public func configureWith(appUser: AppUser) {
         guard let url = URL(string: appUser.photoID) else {return}
         print(appUser.photoID)

@@ -31,6 +31,7 @@ class MenuWhimsCell: UITableViewCell {
         backgroundColor = .clear
         selectionStyle = .none
         setupViews()
+        contentView.addBorders(edges: .bottom, color: Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.3), thickness: 0.5)
     }
     private func setupViews() {
         setupWhimTitle()
@@ -38,7 +39,7 @@ class MenuWhimsCell: UITableViewCell {
     }
     
     private func setupWhimTitle() {
-        whimTitle.textColor = .white
+        whimTitle.textColor = Stylesheet.Colors.WMSYKSUPurple
         contentView.addSubview(whimTitle)
         whimTitle.numberOfLines = 2
         whimTitle.snp.makeConstraints { (make) in
@@ -57,11 +58,11 @@ class MenuWhimsCell: UITableViewCell {
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         if selected {
-            contentView.backgroundColor = Stylesheet.Colors.WMSYSeaFoamGreen
-            whimTitle.textColor = Stylesheet.Colors.WMSYKSUPurple
+            contentView.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.5)
+            whimTitle.textColor = .white
         } else {
             contentView.backgroundColor = .clear
-            whimTitle.textColor = .white
+            whimTitle.textColor = Stylesheet.Colors.WMSYKSUPurple
         }
     }
 }
