@@ -11,8 +11,6 @@ import SnapKit
 
 protocol ChatInfoViewDelegate: class {
     func inviteOrRemoveUserPressed(sender: UIButton)
-    
-    
 }
 
 class ChatInfoView: UIView {
@@ -20,14 +18,12 @@ class ChatInfoView: UIView {
     lazy var userImageView: UIImageView = {
        let imageView = UIImageView()
         imageView.backgroundColor = .white
-//        imageView.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
         return imageView
     }()
     
     lazy var shortLabel: UILabel = {
        let lb = UILabel()
         lb.backgroundColor = .white
-//        lb.backgroundColor = Stylesheet.Colors.WMSYNeonPurple
         lb.numberOfLines = 0
         lb.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         lb.text = "Short Label for user name or Whim title"
@@ -37,7 +33,6 @@ class ChatInfoView: UIView {
     lazy var longLabel: UILabel = {
         let lb = UILabel()
         lb.backgroundColor = .white
-//        lb.backgroundColor = Stylesheet.Colors.WMSYShadowBlue
         lb.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         lb.numberOfLines = 0
         lb.text = "Long label for user bio or Whim description here with lots of text but only like 100 characters"
@@ -59,8 +54,6 @@ class ChatInfoView: UIView {
     }()
     
 
-    
-    
     // setup custom view
     
     override init(frame: CGRect) {
@@ -87,9 +80,6 @@ class ChatInfoView: UIView {
         addSubview(longLabel)
         addSubview(inviteButton)
         addSubview(showMapButton)
-
-        
-        
     }
     
     private func setupConstraints() {
@@ -98,8 +88,6 @@ class ChatInfoView: UIView {
             make.top.equalTo(self.snp.top).offset(5)
             make.leading.equalTo(self.snp.leading).offset(5)
             make.bottom.equalTo(self.snp.bottom).offset(-5)
-//            make.width.equalTo(self.snp.width).multipliedBy(0.25)
-//            make.height.equalTo(userImageView.snp.width)
             make.width.equalTo(userImageView.snp.height)
         }
         
@@ -128,12 +116,7 @@ class ChatInfoView: UIView {
             make.height.equalTo(self.snp.height).multipliedBy(0.2)
             make.width.equalTo(self.snp.width).multipliedBy(0.2)
             make.bottom.equalTo(self.snp.bottom).offset(-5)
-//            make.trailing.equalTo(self.snp.trailing).offset(-5)
             make.leading.equalTo(longLabel.snp.leading)
         }
-
-
-        
     }
-    
 }

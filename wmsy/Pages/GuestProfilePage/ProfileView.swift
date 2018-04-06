@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class ProfileView: UIView {
     
     lazy var containerView: UIView = {
@@ -91,14 +89,6 @@ class ProfileView: UIView {
             make.centerX.equalTo(containerView.snp.centerX)
             make.height.equalTo(containerView.snp.height).multipliedBy(0.4)
             make.width.equalTo(profileImageView.snp.height)
-
-//
-//            make.top.equalTo(containerView.snp.top)
-//            make.leading.equalTo(containerView.snp.leading)
-//            make.width.equalTo(containerView.snp.width).multipliedBy(0.5)
-//            make.bottom.equalTo(containerView)
-
-            
         }
     }
     private func setupNameLabel() {
@@ -117,11 +107,6 @@ class ProfileView: UIView {
             make.bottom.equalTo(containerView.snp.bottom)
             make.leading.equalTo(containerView.snp.leading)
             make.trailing.equalTo(containerView.snp.trailing)
-//            make.bottom.equalTo(containerView.snp.bottom)
-//            make.leading.equalTo(profileImageView.snp.trailing)
-//            make.trailing.equalTo(containerView.snp.trailing)
-//            make.bottom.equalTo(containerView.snp.bottom)
-//            make.height.equalTo(containerView.snp.height).multipliedBy(0.6)
         }
     }
     
@@ -133,7 +118,4 @@ class ProfileView: UIView {
         containerView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.90).isActive = true
         containerView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.50).isActive = true
     }
-    
-    
-    
 }

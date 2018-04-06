@@ -24,15 +24,12 @@ class AutoHeightTextView: UITextView {
         commonInit()
     }
     
-    
     private func commonInit() {
         isScrollEnabled = false
         NotificationCenter.default.addObserver(self, selector: #selector(updateHeight), name: NSNotification.Name.UITextViewTextDidChange, object: nil)
     }
     
     @objc func updateHeight() {
-        // trigger your animation here
-//        print("some stuff")
         UIView.animate(withDuration: 0.2) {
          var newFrame = self.frame
          
@@ -98,5 +95,4 @@ class TextInputView: UIView {
             make.width.height.equalTo(64)
         }
     }
-    
 }
