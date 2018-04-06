@@ -93,6 +93,8 @@ class MenuProfileView: UICollectionViewCell {
             make.width.equalTo(contentView).multipliedBy(0.75)
             make.top.equalTo(nameLabel.snp.bottom).offset(20)
             make.bottom.equalTo(signOutButton.snp.top).offset(-20)
+            bioTextView.layer.borderWidth = 1.0
+            bioTextView.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
         }
     }
     private func setupEditBioButton() {
@@ -104,9 +106,6 @@ class MenuProfileView: UICollectionViewCell {
             make.top.trailing.equalTo(bioTextView.layoutMarginsGuide)
         }
     }
-    
-
-    
     
     private func placeholderTesting() {
         let bgColor = UIColor.white

@@ -81,9 +81,9 @@ class FiltersView: UIView {
     
     private func commonInit() {
         backgroundColor = .white
-        self.layer.borderWidth = 1.0
-        self.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
         setUpViews()
+        self.addBorders(edges: .top, color: Stylesheet.Colors.WMSYImperial)
+        self.addBorders(edges: .bottom, color: Stylesheet.Colors.WMSYImperial)
     }
     
     private func setUpViews() {

@@ -28,9 +28,10 @@ class MenuWhimsCell: UITableViewCell {
         commonInit()
     }
     private func commonInit() {
-//        backgroundColor = Stylesheet.Colors.WMSYIsabelline
         backgroundColor = .clear
+        selectionStyle = .none
         setupViews()
+        contentView.addBorders(edges: .bottom, color: Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.3), thickness: 0.5)
     }
     private func setupViews() {
         setupWhimTitle()
@@ -55,21 +56,13 @@ class MenuWhimsCell: UITableViewCell {
             make.centerY.equalTo(whimTitle.snp.top)
         }
     }
-    private func placeholderTesting() {
-        whimTitle.text = "Testing putting some very long message in a chat title when looking at it through a menu. This text is set in MenuWhimsCell.swift"
-        notificationBadge.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
-        selectionStyle = .none
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        if selected {
+            contentView.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.5)
+            whimTitle.textColor = .white
+        } else {
+            contentView.backgroundColor = .clear
+            whimTitle.textColor = Stylesheet.Colors.WMSYKSUPurple
+        }
     }
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//        
-//        // Configure the view for the selected state
-//        UIView.animate(withDuration: 0.4, animations: {
-//            if selected {
-//                self.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
-//            } else {
-//                self.backgroundColor = .clear
-//            }
-//        })
-//    }
 }

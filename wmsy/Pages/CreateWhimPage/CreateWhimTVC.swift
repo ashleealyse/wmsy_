@@ -36,10 +36,10 @@ class CreateWhimTVC: UITableViewController {
         self.tableView.estimatedRowHeight = 100
         self.tableView.allowsSelection = false
         self.tableView.bounces = false
-        
-        
-        
-//        self.tableView.separatorStyle = .singleLine
+//        self.tableView.contentInset = .zero
+        self.tableView.contentInsetAdjustmentBehavior = .never
+//        self.edgesForExtendedLayout = .all
+        self.tableView.separatorStyle = .none
 //        self.tableView.separatorColor = Stylesheet.Colors.WMSYOuterSpace
         self.tableView.register(WhimColorViewTableViewCell.self, forCellReuseIdentifier: "ColorViewCell")
         self.tableView.register(WhimCategoryTableViewCell.self, forCellReuseIdentifier: "CategoryCell")
@@ -60,12 +60,6 @@ class CreateWhimTVC: UITableViewController {
             self.whimHostImageURL = user!.photoID
         }
 
-    }
-    
- 
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = false 
     }
     
     @objc func tapped(){
@@ -169,6 +163,12 @@ class CreateWhimTVC: UITableViewController {
     
     
     @objc func dismissButtonClicked() {
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.type = kCATransitionReveal
+        transition.subtype = kCATransitionFromBottom
+        navigationController?.view.layer.add(transition, forKey: nil)
         navigationController?.popViewController(animated: false)
     }
     
@@ -246,8 +246,9 @@ extension CreateWhimTVC: UITextViewDelegate {
         if textView.text.isEmpty || textView.text == "" {
             textView.textColor = UIColor.lightGray
             textView.text = placeholderText
+        } else {
+            textView.textColor = UIColor.black
         }
-        textView.textColor = UIColor.black
         textView.resignFirstResponder()
     }
     

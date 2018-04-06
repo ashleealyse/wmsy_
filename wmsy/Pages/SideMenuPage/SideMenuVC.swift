@@ -18,7 +18,6 @@ class SideMenuVC: MenuViewController {
     private var guestWhims = [Whim]()
     private var pendingInterests = [Interest]()
     
-    let editBioVC = PopUpTextViewVC()
     let navVC = MenuNavigationBarVC()
     let menuPagesVC = MenuPagesVC.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     
@@ -26,6 +25,7 @@ class SideMenuVC: MenuViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        menuScreen.backgroundColor = .white
         
         self.add(navVC)
         self.add(menuPagesVC)
@@ -47,7 +47,6 @@ class SideMenuVC: MenuViewController {
         }
         menuPagesVC.pageOne.profileView.signOutButton.addTarget(self, action: #selector(signOut), for: .touchUpInside)
         menuPagesVC.pageOne.profileView.editBioButton.addTarget(self, action: #selector(editBio), for: .touchUpInside)
-//        menuPagesVC.pageOne.profileView.bioTextView.delegate = self
         
         
         // whim list
@@ -61,10 +60,8 @@ class SideMenuVC: MenuViewController {
     }
     
     @objc private func editBio() {
-//        editBioVC.modalTransitionStyle = .crossDissolve
-//        self.present(editBioVC, animated: true, completion: nil)
         let tv = menuPagesVC.pageOne.profileView.bioTextView
-        tv.isEditable = true
+//        tv.isEditable = true
         tv.becomeFirstResponder()
         
     }

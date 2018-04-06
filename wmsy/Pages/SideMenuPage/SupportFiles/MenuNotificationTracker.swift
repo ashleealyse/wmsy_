@@ -47,24 +47,20 @@ class MenuNotificationTracker {
         hostChatHandle.values.forEach{$0.removeAllObservers()}
         guestInterestedHandle.values.forEach{$0.removeAllObservers()}
     }
-//    public func whimChatOpen(_ whim: Whim) {
-//        if let handle = guestChatsHandle[whim.id] {
-//            handle.removeAllObservers()
-//        } else if let handle = hostChatHandle[whim.id] {
-//            handle.removeAllObservers()
-//        }
-//    }
-//    public func whimChatClosed(_ whim: Whim) {
-//        if let handle = guestChatsHandle[whim.id] {
-//            handle.observe(.value, with: { (snapshot) in
-//                self.delegate?.guestChatNotification(inWhim: whim.id)
-//            })
-//        } else if let handle = hostChatHandle[whim.id] {
-//            handle.observe(.value, with: { (snapshot) in
-//                self.delegate?.guestChatNotification(inWhim: whim.id)
-//            })
-//        }
-//    }
+    public func whimChatOpen(_ whim: Whim) {
+        if let handle = currentUserHostedWhimsNewMessageHandle[whim.id] {
+            handle.removeAllObservers()
+        } else if let handle = currentUserGuestWhimsNewMessageHandle[whim.id] {
+            handle.removeAllObservers()
+        }
+    }
+    public func whimChatClosed(_ whim: Whim) {
+        if let _ = currentUserHostedWhimsNewMessageHandle[whim.id] {
+            addReceivedMessageInHostedWhimHandle(forWhim: whim.id)
+        } else if let _ = currentUserGuestWhimsNewMessageHandle[whim.id] {
+            addReceivedMessageInGuestWhimHandle(forWhim: whim.id)
+        }
+    }
     
     // Current User Has shown interest in something
     private var hookedUpCurrentUserIsInterested = false
@@ -96,12 +92,6 @@ class MenuNotificationTracker {
                 print("user interest not properly created from firebase")
                 fatalError()
             }
-//            guard let index = AppUser.currentAppUser?.interests.index(where: {$0.whimID == snapshot.key}) else {
-//                print("current user didnt have this interest")
-//                AppUser.currentAppUser!.interests.forEach{print($0.whimID)}
-//                fatalError()
-//            }
-//            AppUser.currentAppUser?.interests.remove(at: index)
             self.delegate?.currentUserNoLongerInterested(inWhim: snapshot.key)
             self.removeInGuestChatHandle(forWhim: snapshot.key)
         }

@@ -59,7 +59,7 @@ class NotificationTableViewCell: UITableViewCell {
         notificationLabel.textColor = Stylesheet.Colors.WMSYPastelBlue
         contentView.addSubview(notificationLabel)
         notificationLabel.snp.makeConstraints { (make) in
-            make.leading.trailing.equalTo(contentView).inset(100)
+            make.leading.trailing.equalTo(contentView).inset(30)
             make.top.bottom.equalTo(contentView).inset(15)
         }
     }

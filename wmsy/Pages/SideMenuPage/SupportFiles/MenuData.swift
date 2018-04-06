@@ -8,11 +8,6 @@
 
 import Foundation
 
-// TODO: add a way to connect to a guest chat to forcably kick them out of that VC if the user has been removed from the whim
-//protocol GuestChat: class {
-//    func gotKickedOut
-//}
-
 protocol MenuDataSimpleNotificationDelegate: class {
     func newNotification() -> Void
 }
@@ -35,7 +30,7 @@ class MenuData {
     public var currentPage = 1
     public var hostedWhims = [(whim: Whim, hasNotification: Bool)]()
     public var guestWhims = [(whim: Whim, hasNotification: Bool)]()
-    public var pendingInterests = [(interest: Interest, title: String)]()
+    public var pendingInterests = [(interest: Interest, whim: Whim)]()
     
     public func configureInitialData(forUser user: AppUser,
                                      completion: @escaping () -> Void) {
@@ -47,10 +42,10 @@ class MenuData {
         group.enter()
         DBService.manager.getWhims(fromList: interests.map({$0.whimID})) { (whims) in
             interests = interests.sorted(by: {$0.whimID < $1.whimID})
-            var whimTitles = whims.sorted(by: {$0.id < $1.id}).map({$0.title})
-            var tuples = [(Interest, String)]()
+            var whimTitles = whims.sorted(by: {$0.id < $1.id})
+            var tuples = [(Interest, Whim)]()
             for i in interests.indices {
-                tuples.append((interests[i], whimTitles[i]))
+                tuples.append((interests[i], whims[i]))
             }
             self.pendingInterests = tuples
             group.leave()
@@ -89,7 +84,7 @@ extension MenuData: MenuNotificationTrackerDelegate {
         let interest = Interest(whimID: whimID, userID: user.userID, inChat: false)
         DBService.manager.getWhim(fromID: whimID) { (whim) in
             if let whim = whim {
-                self.pendingInterests.append((interest: interest, title: whim.title))
+                self.pendingInterests.append((interest: interest, whim: whim))
                 self.delegate?.reconfigure()
             } else {
                 fatalError()
@@ -183,7 +178,8 @@ extension MenuData: MenuNotificationTrackerDelegate {
         print("show show notif in that guest whim")
         guard let index = guestWhims.index(where: {$0.whim.id == whimID}) else {
             print("guest whims does not have a whim with id: \(whimID)")
-            fatalError()
+//            fatalError()
+            return
         }
         guestWhims[index].hasNotification = true
         simpleListener?.newNotification()

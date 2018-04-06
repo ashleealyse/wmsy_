@@ -8,68 +8,6 @@
 
 import UIKit
 
-
-class MyCell: UITableViewCell {
-    lazy var dummyImage: UIView = {
-        let v = UIView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        v.backgroundColor = .blue
-        v.layer.cornerRadius = 25
-        return v
-    }()
-    
-    lazy var messageBackground: UIView = {
-        let v = UIView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        v.backgroundColor = .gray
-        v.layer.cornerRadius = 5
-        return v
-    }()
-    
-    lazy var someLabel: UILabel = {
-        let l = UILabel()
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.numberOfLines = 0
-        l.backgroundColor = .red
-        l.textColor = .white
-        return l
-    }()
-    
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        layoutViews()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        layoutViews()
-    }
-    
-    func layoutViews() {
-        contentView.addSubview(dummyImage)
-        contentView.addSubview(messageBackground)
-        messageBackground.addSubview(someLabel)
-        
-        NSLayoutConstraint.activate([
-            dummyImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            dummyImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            dummyImage.widthAnchor.constraint(equalToConstant: 50),
-            dummyImage.heightAnchor.constraint(equalTo: dummyImage.widthAnchor),
-            dummyImage.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -5),
-            
-            messageBackground.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            messageBackground.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8), //change this to lessThanOrEqualTo if you want the message to be as minimal as possible (see the case where there's one line of text)
-            messageBackground.leadingAnchor.constraint(equalTo: dummyImage.trailingAnchor, constant: 12),
-            messageBackground.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -20),
-            
-            someLabel.trailingAnchor.constraint(lessThanOrEqualTo: messageBackground.trailingAnchor, constant: -5),
-            someLabel.topAnchor.constraint(equalTo: messageBackground.topAnchor, constant: 5),
-            someLabel.bottomAnchor.constraint(equalTo: messageBackground.bottomAnchor, constant: -5),
-            someLabel.leadingAnchor.constraint(equalTo: messageBackground.leadingAnchor, constant: 5)
-            ])
-    }
-}
-
 class CurrentUserMessageCell: UITableViewCell {
     
     static let reuseIdentifier = "HostMessageTableViewCell"
@@ -97,7 +35,6 @@ class CurrentUserMessageCell: UITableViewCell {
     private func commonInit() {
         self.backgroundColor = .clear
         setupViews()
-        //        placeholderTesting()
     }
     private func setupViews() {
         setupProfileImageView()
@@ -117,7 +54,7 @@ class CurrentUserMessageCell: UITableViewCell {
         }
     }
     private func setupTextContainer() {
-        textContainer.backgroundColor = Stylesheet.Colors.WMSYDeepViolet.withAlphaComponent(0.03)
+        textContainer.backgroundColor = Stylesheet.Colors.WMSYDeepViolet.withAlphaComponent(0.2)
         textContainer.layer.cornerRadius = 10
         contentView.addSubview(textContainer)
         textContainer.snp.makeConstraints { (make) in
