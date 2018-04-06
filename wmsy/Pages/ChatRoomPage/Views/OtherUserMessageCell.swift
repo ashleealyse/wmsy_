@@ -27,14 +27,12 @@ class OtherUserMessageCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         commonInit()
     }
     
     private func commonInit() {
         self.backgroundColor = .clear
         setupViews()
-//        placeholderTesting()
     }
     private func setupViews() {
         setupProfileImageView()
@@ -65,9 +63,6 @@ class OtherUserMessageCell: UITableViewCell {
     }
     private func setupMessageText() {
         messageText.numberOfLines = 0
-//        messageText.setContentHuggingPriority(.required, for: .vertical)
-//        messageText.setContentCompressionResistancePriority(.required, for: .vertical)
-//        messageText.preferredMaxLayoutWidth = self.bounds.width - 10
         textContainer.addSubview(messageText)
         messageText.snp.makeConstraints { (make) in
             make.edges.equalTo(textContainer).inset(5)
@@ -87,8 +82,5 @@ class OtherUserMessageCell: UITableViewCell {
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
-
 }

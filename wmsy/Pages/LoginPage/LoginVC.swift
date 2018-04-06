@@ -31,7 +31,6 @@ struct MyProfileRequest: GraphRequestProtocol {
                 self.id = id
             }
             
-            
             if let picture = response["picture"] as? Dictionary<String, Any> {
                 if let data = picture["data"] as? Dictionary<String, Any> {
                     if let url = data["url"] as? String {
@@ -156,6 +155,5 @@ extension LoginVC: loginViewDelegate {
             completion()
         }
     }
-    
 }
 

@@ -63,9 +63,6 @@
 		81BAD68F205AEEE200C7F039 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BAD68E205AEEE200C7F039 /* Message.swift */; };
 		81BAD691205AEF6600C7F039 /* SideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BAD690205AEF6600C7F039 /* SideMenuVC.swift */; };
 		81BAD695205AEF8900C7F039 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BAD694205AEF8900C7F039 /* ProfileView.swift */; };
-		81BAD69B205AF03600C7F039 /* ChatRoomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BAD69A205AF03600C7F039 /* ChatRoomVC.swift */; };
-		81BAD69D205AF04600C7F039 /* HostChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BAD69C205AF04600C7F039 /* HostChatView.swift */; };
-		81BAD69F205AF05500C7F039 /* GuestChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BAD69E205AF05500C7F039 /* GuestChatView.swift */; };
 		81BAD6A1205AF06900C7F039 /* HostMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BAD6A0205AF06900C7F039 /* HostMessageCell.swift */; };
 		81BAD6A3205AF07300C7F039 /* GuestMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BAD6A2205AF07300C7F039 /* GuestMessageCell.swift */; };
 		81BAD6A5205AF08100C7F039 /* NotificationMsgCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BAD6A4205AF08100C7F039 /* NotificationMsgCell.swift */; };
@@ -190,9 +187,6 @@
 		81BAD68E205AEEE200C7F039 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		81BAD690205AEF6600C7F039 /* SideMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuVC.swift; sourceTree = "<group>"; };
 		81BAD694205AEF8900C7F039 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		81BAD69A205AF03600C7F039 /* ChatRoomVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomVC.swift; sourceTree = "<group>"; };
-		81BAD69C205AF04600C7F039 /* HostChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostChatView.swift; sourceTree = "<group>"; };
-		81BAD69E205AF05500C7F039 /* GuestChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestChatView.swift; sourceTree = "<group>"; };
 		81BAD6A0205AF06900C7F039 /* HostMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostMessageCell.swift; sourceTree = "<group>"; };
 		81BAD6A2205AF07300C7F039 /* GuestMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestMessageCell.swift; sourceTree = "<group>"; };
 		81BAD6A4205AF08100C7F039 /* NotificationMsgCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationMsgCell.swift; sourceTree = "<group>"; };
@@ -437,9 +431,7 @@
 				81D12DD22065AA200056920C /* SupportFiles */,
 				81D12DD520673A7A0056920C /* ViewControllers */,
 				81B928DF20617CFB002CD355 /* Views */,
-				81BAD69C205AF04600C7F039 /* HostChatView.swift */,
 				812112EA20632889002D80C2 /* ChatGuestCollectionViewCell.swift */,
-				81BAD69E205AF05500C7F039 /* GuestChatView.swift */,
 				81BAD6A0205AF06900C7F039 /* HostMessageCell.swift */,
 				81BAD6A2205AF07300C7F039 /* GuestMessageCell.swift */,
 				81BAD6A4205AF08100C7F039 /* NotificationMsgCell.swift */,
@@ -501,7 +493,6 @@
 		81D12DD520673A7A0056920C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				81BAD69A205AF03600C7F039 /* ChatRoomVC.swift */,
 				81D12DDC20674ED70056920C /* ChatRoomVCTest.swift */,
 				810816B1207465EA00E59456 /* WMSYNavigationBarController.swift */,
 				81D12DDA20673B1F0056920C /* InfoAndMembersCollectionVC.swift */,
@@ -834,7 +825,6 @@
 				81DECD21205C882900214866 /* DismissMenuAnimator.swift in Sources */,
 				810816B2207465EA00E59456 /* WMSYNavigationBarController.swift in Sources */,
 				81DECD23205C892B00214866 /* MenuViewController.swift in Sources */,
-				81BAD69D205AF04600C7F039 /* HostChatView.swift in Sources */,
 				93632551206C1597002FFAED /* WhimColorViewTableViewCell.swift in Sources */,
 				81202D8C206BEE0E00CC5588 /* MenuChatsList.swift in Sources */,
 				81B928E120617D07002CD355 /* ChatView.swift in Sources */,
@@ -861,7 +851,6 @@
 				81202D86206BEBC200CC5588 /* MenuNavigationBarVC.swift in Sources */,
 				81DECD26205C91F900214866 /* MenuProfileView.swift in Sources */,
 				81DECD19205C87ED00214866 /* MenuedViewController.swift in Sources */,
-				81BAD69F205AF05500C7F039 /* GuestChatView.swift in Sources */,
 				816D11CA206C333F001D199C /* ChatInfoView.swift in Sources */,
 				81AB7AC2205C80B4009845EA /* WhimCategoryTableViewCell.swift in Sources */,
 				81EBB5892060117D008A6CE7 /* StorageService.swift in Sources */,
@@ -890,7 +879,6 @@
 				8139A9A6205C3130006C7058 /* CreateWhimView.swift in Sources */,
 				81C3AF54206DA6AC001686F0 /* MenuNotificationTracker.swift in Sources */,
 				81A57A512068952D00E4BE0B /* DBService+Interest.swift in Sources */,
-				81BAD69B205AF03600C7F039 /* ChatRoomVC.swift in Sources */,
 				81B928E320618D41002CD355 /* CurrentUserMessageCell.swift in Sources */,
 				81C7DCC8207459050008D940 /* ChatGuestTableViewCell.swift in Sources */,
 				81EBB58B20601939008A6CE7 /* StorageService+Image.swift in Sources */,

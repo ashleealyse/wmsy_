@@ -119,11 +119,11 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: MenuWhimsHeader.reuseIdentifier) as! MenuWhimsHeader
         switch section {
         case 0:
-                header.titleLabel.text = "Hosted Whims"
+                header.titleLabel.text = "Hosting"
         case 1:
-                header.titleLabel.text = "Guest Whims"
+                header.titleLabel.text = "Guest"
         case 2:
-                header.titleLabel.text = "Pending Whims"
+                header.titleLabel.text = "Pending"
         default:
             break
         }
@@ -139,9 +139,9 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
             let hasNotif = self.hostedWhims[indexPath.row].hasNotification
             cell.whimTitle.text = whim.title
             if hasNotif {
-                cell.whimTitle.font = UIFont.systemFont(ofSize: 23, weight: .bold)
+                cell.whimTitle.font = UIFont.systemFont(ofSize: 20, weight: .bold)
             } else {
-                cell.whimTitle.font = UIFont.systemFont(ofSize: 23)
+                cell.whimTitle.font = UIFont.systemFont(ofSize: 20)
             }
         }
         let setupFromGuestWhims: () -> () = { [unowned self] in
@@ -149,14 +149,15 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
             let hasNotif = self.guestWhims[indexPath.row].hasNotification
             cell.whimTitle.text = whim.title
             if hasNotif {
-                cell.whimTitle.font = UIFont.systemFont(ofSize: 23, weight: .bold)
+                cell.whimTitle.font = UIFont.systemFont(ofSize: 20, weight: .bold)
             } else {
-                cell.whimTitle.font = UIFont.systemFont(ofSize: 23)
+                cell.whimTitle.font = UIFont.systemFont(ofSize: 20)
             }
         }
         let setupFromPendingInterests: () -> () = { [unowned self] in
             let title = self.pendingInterests[indexPath.row].whim.title
             cell.whimTitle.text = title
+            cell.whimTitle.font = UIFont.systemFont(ofSize: 20)
         }
         
         switch indexPath.section {

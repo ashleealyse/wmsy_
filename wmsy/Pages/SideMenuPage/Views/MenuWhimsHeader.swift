@@ -26,11 +26,10 @@ class MenuWhimsHeader: UITableViewHeaderFooterView {
     
     private func commonInit() {
         backgroundColor = .clear
-        contentView.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.1)
+        contentView.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.2)
         setupViews()
         placeholderTesting()
-//        contentView.addBorders(edges: .bottom, color: .white, thickness: 0.5)
-        contentView.addBorders(edges: .bottom, color: Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.3), thickness: 0.5)
+        contentView.addBorders(edges: .bottom, color: Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.1), thickness: 0.5)
     }
     
     private func setupViews() {
@@ -44,6 +43,7 @@ class MenuWhimsHeader: UITableViewHeaderFooterView {
     }
     private func placeholderTesting() {
         titleLabel.font = UIFont(name: "Helvetica", size: 25)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 25)
         titleLabel.textColor = Stylesheet.Colors.WMSYDeepViolet
     }
 
