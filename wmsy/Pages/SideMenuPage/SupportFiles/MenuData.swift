@@ -8,11 +8,6 @@
 
 import Foundation
 
-// TODO: add a way to connect to a guest chat to forcably kick them out of that VC if the user has been removed from the whim
-//protocol GuestChat: class {
-//    func gotKickedOut
-//}
-
 protocol MenuDataSimpleNotificationDelegate: class {
     func newNotification() -> Void
 }

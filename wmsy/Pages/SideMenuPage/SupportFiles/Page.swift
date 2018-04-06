@@ -13,13 +13,6 @@ enum Page: Int {
     case splashScreen
     case feedAndMap
     case chatRoom
-//    case create
-//    case home
-//    case decks
-//    case progress
-//    case browse
-//    case profile
-//    case inbox
 }
 
 

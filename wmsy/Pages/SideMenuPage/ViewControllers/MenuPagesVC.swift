@@ -42,44 +42,13 @@ class MenuPagesVC: UIPageViewController {
 }
 
 extension MenuPagesVC: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
-//    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-//
-//        guard let viewControllerIndex = menuPages.index(of: viewController) else { return nil }
-//
-//        let previousIndex = viewControllerIndex - 1
-//
-//        guard previousIndex >= 0          else { return menuPages.last }
-//
-//        guard menuPages.count > previousIndex else { return nil        }
-//
-//        return menuPages[previousIndex]
-//    }
-//
-//    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController?
-//    {
-//        guard let viewControllerIndex = menuPages.index(of: viewController) else { return nil }
-//
-//        let nextIndex = viewControllerIndex + 1
-//
-//        guard nextIndex < menuPages.count else { return menuPages.first }
-//
-//        guard menuPages.count > nextIndex else { return nil         }
-//
-//        return menuPages[nextIndex]
-//    }
+
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         let pageContentViewController = pageViewController.viewControllers![0]
         self.pageControl.currentPage = menuPages.index(of: pageContentViewController)!
     }
     
-//    func presentationCount(for pageViewController: UIPageViewController) -> Int {
-//        configurePageControl()
-//        return self.menuPages.count
-//    }
-//
-//    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-//        return 0
-//    }
+
     // MARK: Data source functions.
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let viewControllerIndex = menuPages.index(of: viewController) else {

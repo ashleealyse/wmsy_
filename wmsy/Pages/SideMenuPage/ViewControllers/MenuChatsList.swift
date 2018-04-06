@@ -134,7 +134,8 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath:
         IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MenuWhimsCell.reuseIdentifier, for: indexPath) as! MenuWhimsCell
-        let setupFromHostedWhims: () -> () = { [unowned self] in             let whim = self.hostedWhims[indexPath.row].whim
+        let setupFromHostedWhims: () -> () = { [unowned self] in
+            let whim = self.hostedWhims[indexPath.row].whim
             let hasNotif = self.hostedWhims[indexPath.row].hasNotification
             cell.whimTitle.text = whim.title
             if hasNotif {
