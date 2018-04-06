@@ -34,7 +34,3 @@
 //        self.dismiss(animated: true, completion: nil)
 //    }
 //}
-<<<<<<< HEAD
-=======
-
->>>>>>> qa
