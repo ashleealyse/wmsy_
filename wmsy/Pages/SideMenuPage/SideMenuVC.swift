@@ -32,6 +32,7 @@ class SideMenuVC: MenuViewController {
         
         navVC.view.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalTo(self.menuScreen)
+            make.height.equalTo(64)
         }
         menuPagesVC.view.snp.makeConstraints { (make) in
             make.top.equalTo(navVC.view.snp.bottom)
