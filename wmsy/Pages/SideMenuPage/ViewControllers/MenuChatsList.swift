@@ -174,9 +174,11 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
+            hostedWhims[indexPath.row].hasNotification = false
             let whim = hostedWhims[indexPath.row].whim
             delegate?.didSelect(whim: whim)
         case 1:
+            guestWhims[indexPath.row].hasNotification = false
             let whim = guestWhims[indexPath.row].whim
             delegate?.didSelect(whim: whim)
         case 2:

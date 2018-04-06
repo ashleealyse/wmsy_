@@ -391,7 +391,7 @@ func minutes(from date: Date) -> Int {
 extension FeedMapVC: MenuDataSimpleNotificationDelegate {
     func newNotification() {
         // add any code that should trigger when there's been a notification here
-        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.red.withAlphaComponent(0.5)
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.red.withAlphaComponent(0.9)
         print("there was some notification")
     }
 }
