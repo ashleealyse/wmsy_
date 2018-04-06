@@ -57,8 +57,8 @@ class MenuWhimsCell: UITableViewCell {
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         if selected {
-            contentView.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.5)
-            whimTitle.textColor = .white
+            contentView.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.1)
+            whimTitle.textColor = Stylesheet.Colors.WMSYKSUPurple
         } else {
             contentView.backgroundColor = .clear
             whimTitle.textColor = Stylesheet.Colors.WMSYKSUPurple

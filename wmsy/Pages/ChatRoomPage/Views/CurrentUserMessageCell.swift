@@ -66,15 +66,9 @@ class CurrentUserMessageCell: UITableViewCell {
     }
     private func setupMessageText() {
         messageText.numberOfLines = 0
-//        messageText.setContentHuggingPriority(.required, for: .vertical)
-//        messageText.setContentCompressionResistancePriority(.required, for: .vertical)
-//        messageText.preferredMaxLayoutWidth = self.bounds.width - 10
         textContainer.addSubview(messageText)
         messageText.snp.makeConstraints { (make) in
               make.edges.equalTo(textContainer).inset(5)
-//            make.width.equalTo(textContainer).inset(10)
-//            make.centerX.equalTo(textContainer)
-//            make.top.bottom.equalTo(textContainer)
         }
     }
     private func placeholderTesting() {
@@ -84,16 +78,12 @@ class CurrentUserMessageCell: UITableViewCell {
         textContainer.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
         textContainer.layer.cornerRadius = 10
     }
-    
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         profileImageView.layer.cornerRadius = profileImageView.bounds.width / 2
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
-    
 }

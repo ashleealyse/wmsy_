@@ -40,14 +40,11 @@ class ChatRoomVCTest: MenuedViewController {
         self.add(membersCollectionVC)
         self.add(chatTVC)
         self.add(textInputVC)
-
         
         membersCollectionVC.delegate = self
         chatTVC.delegate = self
         textInputVC.delegate = self
-        
-//        membersCollectionVC.memberInfoView.delegate = self
-        
+
         setupSubviewsConstraints()
         setupKeyboardHandling()
         

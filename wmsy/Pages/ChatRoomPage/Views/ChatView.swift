@@ -59,6 +59,4 @@ class ChatView: UIView {
             make.leading.trailing.bottom.equalTo(self)
         }
     }
-    
-    
 }

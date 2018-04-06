@@ -11,7 +11,6 @@ import UIKit
 
 protocol loginViewDelegate: class {
     func loginButtonPressed()
-    
 }
 
 class LoginView: UIView {
