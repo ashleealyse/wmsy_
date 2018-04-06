@@ -25,9 +25,11 @@ class MenuWhimsHeader: UITableViewHeaderFooterView {
     }
     
     private func commonInit() {
-        contentView.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.1)
+        backgroundColor = .clear
+        contentView.backgroundColor = Stylesheet.Colors.WMSYImperial
         setupViews()
         placeholderTesting()
+        contentView.addBorders(edges: .bottom, color: .white, thickness: 0.5)
     }
     
     private func setupViews() {
@@ -43,12 +45,5 @@ class MenuWhimsHeader: UITableViewHeaderFooterView {
         titleLabel.font = UIFont(name: "Helvetica", size: 25)
         titleLabel.textColor = Stylesheet.Colors.WMSYDeepViolet
     }
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
 
 }

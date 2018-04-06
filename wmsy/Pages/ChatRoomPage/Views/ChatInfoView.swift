@@ -77,6 +77,8 @@ class ChatInfoView: UIView {
         backgroundColor = .white
         setupViews()
         setupConstraints()
+        self.addBorders(edges: .bottom, color: Stylesheet.Colors.WMSYImperial)
+        self.addBorders(edges: .top, color: Stylesheet.Colors.WMSYImperial)
     }
     
     private func setupViews() {

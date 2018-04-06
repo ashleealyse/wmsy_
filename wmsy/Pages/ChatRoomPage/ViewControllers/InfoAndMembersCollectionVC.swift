@@ -89,8 +89,8 @@ class InfoAndMembersCollectionVC: UIViewController {
         
         memberInfoView = ChatInfoView()
         memberInfoView.backgroundColor = .white
-        memberInfoView?.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
-        memberInfoView?.layer.borderWidth = 1.0
+//        memberInfoView?.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
+//        memberInfoView?.layer.borderWidth = 1.0
         
         self.view.addSubview(membersCollectionView!)
         membersCollectionView?.snp.makeConstraints { (make) in

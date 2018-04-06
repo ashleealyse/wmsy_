@@ -17,7 +17,7 @@ class MenuProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(profileView)
-        
+        view.backgroundColor = .white
         //        profileView.bioTextView.textColor = UIColor.lightGray
         //        profileView.bioTextView.delegate = self
         profileView.snp.makeConstraints { (make) in
