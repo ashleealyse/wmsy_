@@ -144,8 +144,10 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
             cell.whimTitle.text = whim.title
             if hasNotif {
                 cell.whimTitle.font = UIFont.systemFont(ofSize: 23, weight: .bold)
+                cell.notificationBadge.backgroundColor = Stylesheet.Colors.WMSYImperial
             } else {
                 cell.whimTitle.font = UIFont.systemFont(ofSize: 23)
+                cell.notificationBadge.backgroundColor = .clear
             }
         }
         let setupFromGuestWhims: () -> () = { [unowned self] in

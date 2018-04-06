@@ -13,7 +13,7 @@ class MenuWhimsCell: UITableViewCell {
     
     static let reuseIdentifier = "MenuWhimsCell"
     public var whimTitle = UILabel()
-    private var notificationBadge = UIView()
+    public var notificationBadge = UIView()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -48,12 +48,11 @@ class MenuWhimsCell: UITableViewCell {
     }
     private func setupNotificationBadge() {
         contentView.addSubview(notificationBadge)
-        notificationBadge.layer.cornerRadius = 15 / 2
-        notificationBadge.clipsToBounds = true
         notificationBadge.snp.makeConstraints { (make) in
-            make.height.width.equalTo(15)
-            make.centerX.equalTo(whimTitle.snp.trailing)
-            make.centerY.equalTo(whimTitle.snp.top)
+            make.height.equalTo(contentView)
+            make.leading.equalTo(contentView)
+            make.centerY.equalTo(contentView)
+            make.width.equalTo(5)
         }
     }
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -217,7 +217,6 @@ class ChatRoomVCTest: MenuedViewController {
             }
         }
         
-        
         newInterestHandle = DBService.manager.interestsRef.child(whim.id)
         newInterestHandle.queryLimited(toLast: 1).observe(.childAdded) { (snapshot) in
             guard let inChat = snapshot.value as? Bool else {
@@ -269,7 +268,10 @@ class ChatRoomVCTest: MenuedViewController {
     private func addInChatListener(forUser user: AppUser) {
         guard let whim = whim else {return}
         newUserInChatHandles[user.userID] = DBService.manager.interestsRef.child(whim.id).child(user.userID)
-        newUserInChatHandles[user.userID]!.observe(.value) { (snapshot) in
+        newUserInChatHandles[user.userID]!.observe(.value) { [weak self] (snapshot) in
+            guard let `self` = self else {
+                return
+            }
             if let inChat = snapshot.value as? Bool {
                 if inChat,
                     let inChatLocally = self.membersCollectionVC.inChat[user.userID],
