@@ -18,7 +18,7 @@ class SideMenuVC: MenuViewController {
     private var guestWhims = [Whim]()
     private var pendingInterests = [Interest]()
     
-    let editBioVC = PopUpTextViewVC()
+//    let editBioVC = PopUpTextViewVC()
     let navVC = MenuNavigationBarVC()
     let menuPagesVC = MenuPagesVC.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     
