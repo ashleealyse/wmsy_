@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 protocol InfoAndMembersCollectionVCDelegate: class {
     func updateMembers(members: [AppUser])
@@ -17,7 +18,11 @@ protocol InfoAndMembersCollectionVCDelegate: class {
 
 class InfoAndMembersCollectionVC: UIViewController {
 
-    private var currentWhim: Whim?
+    private var currentWhim: Whim?{
+        didSet{
+            membersCollectionView?.reloadData()
+        }
+    }
     private var heightConstraint: Constraint? = nil
     
     private var membersCollectionView: UICollectionView?
@@ -56,8 +61,13 @@ class InfoAndMembersCollectionVC: UIViewController {
         let userImageUrl = URL(string: userImageString!)
         self.memberInfoView.userImageView.kf.setImage(with: userImageUrl)
 
+//        let indexPath = IndexPath(row: 0, section: 0)
+//        let firstCell = self.membersCollectionView?.cellForItem(at: indexPath) as! ChatGuestCollectionViewCell
+//        firstCell.guestImageView.kf.setImage(with: userImageUrl)
+
         self.memberInfoView.inviteButton.isHidden = true
         self.memberInfoView.showMapButton.isHidden = false
+        
     }
     
     override func viewDidLoad() {
@@ -75,10 +85,12 @@ class InfoAndMembersCollectionVC: UIViewController {
         membersCollectionView?.register(ChatGuestCollectionViewCell.self, forCellWithReuseIdentifier: "ChatGuestCell")
         membersCollectionView?.backgroundColor = .white
         
+
+        
         memberInfoView = ChatInfoView()
         memberInfoView.backgroundColor = .white
-        memberInfoView?.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
-        memberInfoView?.layer.borderWidth = 1.0
+//        memberInfoView?.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
+//        memberInfoView?.layer.borderWidth = 1.0
         
         self.view.addSubview(membersCollectionView!)
         membersCollectionView?.snp.makeConstraints { (make) in
@@ -103,7 +115,7 @@ class InfoAndMembersCollectionVC: UIViewController {
         memberInfoView.inviteButton.addTarget(self, action: #selector(inviteButtonHit), for: .touchUpInside)
         memberInfoView.showMapButton.addTarget(self, action: #selector(showMapButtonHit), for: .touchUpInside)
 
-       
+
     }
     
     public func new(interestedUser user: AppUser) {
@@ -143,7 +155,7 @@ class InfoAndMembersCollectionVC: UIViewController {
             memberInfoView.inviteButton.backgroundColor = UIColor.red.withAlphaComponent(0.5)
             memberInfoView.inviteButton.setTitle("Remove", for: .normal)
         }
-        self.membersCollectionView?.reloadData()
+        self.membersCollectionView!.reloadData()
     }
     
     @objc func showMapButtonHit() {
@@ -159,8 +171,14 @@ extension InfoAndMembersCollectionVC: UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChatGuestCell", for: indexPath) as! ChatGuestCollectionViewCell
         if indexPath.row == 0 {
-            cell.guestImageView.image = #imageLiteral(resourceName: "wmsyCategoryIcon")
+            guard self.currentWhim != nil else{return cell}
+            let userImageString = currentWhim?.hostImageURL
+            let userImageUrl = URL(string: userImageString!)
+//            memberInfoView.userImageView.kf.setImage(with: userImageUrl)
+            cell.guestImageView.kf.setImage(with: userImageUrl)
+//            cell.guestImageView.image = #imageLiteral(resourceName: "wmsyCategoryIcon")
             cell.guestImageView.backgroundColor = .white
+            cell.guestImageView.alpha = 1.0
             return cell
         }
         let user = members[indexPath.row - 1]

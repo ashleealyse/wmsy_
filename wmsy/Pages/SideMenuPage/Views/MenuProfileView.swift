@@ -107,9 +107,6 @@ class MenuProfileView: UICollectionViewCell {
         }
     }
     
-
-    
-    
     private func placeholderTesting() {
         let bgColor = UIColor.white
         let fontColor = UIColor.black

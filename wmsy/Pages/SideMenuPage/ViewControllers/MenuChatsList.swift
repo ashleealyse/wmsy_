@@ -41,8 +41,8 @@ class MenuChatsListVC: UIViewController {
         chatsListTableView.sectionHeaderHeight = UITableViewAutomaticDimension
         chatsListTableView.estimatedSectionHeaderHeight = 50
         chatsListTableView.estimatedRowHeight = 50
-        
-        
+        chatsListTableView.backgroundColor = .clear
+        chatsListTableView.separatorStyle = .none
         
         chatsListTableView.snp.makeConstraints { (make) in
             make.edges.equalTo(view)
@@ -114,6 +114,7 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
             return 0
         }
     }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: MenuWhimsHeader.reuseIdentifier) as! MenuWhimsHeader
         switch section {
@@ -126,13 +127,15 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
         default:
             break
         }
+        header.backgroundView?.backgroundColor = .red
         return header
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath:
         IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MenuWhimsCell.reuseIdentifier, for: indexPath) as! MenuWhimsCell
-        let setupFromHostedWhims: () -> () = { [unowned self] in             let whim = self.hostedWhims[indexPath.row].whim
+        let setupFromHostedWhims: () -> () = { [unowned self] in
+            let whim = self.hostedWhims[indexPath.row].whim
             let hasNotif = self.hostedWhims[indexPath.row].hasNotification
             cell.whimTitle.text = whim.title
             if hasNotif {
@@ -159,7 +162,6 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
         switch indexPath.section {
         case 0:
                 setupFromHostedWhims()
-            
         case 1:
                 setupFromGuestWhims()
         case 2:
@@ -173,9 +175,11 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
+            hostedWhims[indexPath.row].hasNotification = false
             let whim = hostedWhims[indexPath.row].whim
             delegate?.didSelect(whim: whim)
         case 1:
+            guestWhims[indexPath.row].hasNotification = false
             let whim = guestWhims[indexPath.row].whim
             delegate?.didSelect(whim: whim)
         case 2:
