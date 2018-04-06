@@ -115,6 +115,7 @@ class ChatRoomVCTest: MenuedViewController {
         
         navView.leftButton.addTarget(self, action: #selector(showMenu(sender:)), for: .touchUpInside)
         navView.rightButton.addTarget(self, action: #selector(leaveChat(sender:)), for: .touchUpInside)
+        navView.rightButton.setImage(#imageLiteral(resourceName: "leaveChatIcon"), for: .normal)
         view.addSubview(navView)
         navView.snp.makeConstraints { (make) in
             make.height.equalTo(64)
