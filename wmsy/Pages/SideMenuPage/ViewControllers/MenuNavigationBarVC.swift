@@ -23,7 +23,7 @@ class MenuNavigationBarVC: UIViewController {
         view.addSubview(feedButton)
         view.addSubview(titleLabel)
         view.backgroundColor = Stylesheet.Colors.WMSYImperial
-        
+        view.addBorders(edges: .bottom, color: .white)
 
         feedButton.setImage(#imageLiteral(resourceName: "whiteForwardIcon"), for: .normal)
         titleLabel.text = "My Whims"
@@ -31,7 +31,7 @@ class MenuNavigationBarVC: UIViewController {
         titleLabel.font = UIFont.boldSystemFont(ofSize: 30)
         
         feedButton.snp.makeConstraints { (make) in
-            make.top.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.top.bottom.equalTo(view)
             make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-5)
             make.height.equalTo(64)
         }

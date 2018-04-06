@@ -13,7 +13,7 @@ class WhimColorViewTableViewCell: UITableViewCell {
     
     lazy var colorView: UIView = {
        let cV = UIView()
-        cV.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.7)
+        cV.backgroundColor = Stylesheet.Colors.WMSYImperial
         return cV
     }()
     
@@ -39,20 +39,22 @@ class WhimColorViewTableViewCell: UITableViewCell {
     private func setUpView() {
         setUpColoredView()
         setUpCreatWhimLabel()
+        contentView.addBorders(edges: .bottom, color: .white)
     }
     
     func setUpColoredView() {
-        addSubview(colorView)
+        contentView.addSubview(colorView)
         colorView.snp.makeConstraints { (make) in
-            make.edges.equalTo(safeAreaLayoutGuide)
-            make.height.equalTo(200)
+            make.edges.equalTo(contentView)
+            make.height.equalTo(64)
         }
     }
     
     func setUpCreatWhimLabel() {
-        addSubview(createWhimLabel)
+        contentView.addSubview(createWhimLabel)
         createWhimLabel.snp.makeConstraints { (make) in
-            make.centerX.centerY.equalTo(colorView)
+            make.centerX.equalTo(colorView)
+            make.bottom.equalTo(colorView).inset(8)
         }
     }
 

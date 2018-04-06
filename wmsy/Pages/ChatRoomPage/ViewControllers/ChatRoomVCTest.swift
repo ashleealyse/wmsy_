@@ -34,6 +34,9 @@ class ChatRoomVCTest: MenuedViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        self.navigationController?.navigationBar.isHidden = true
+        
+        configureNavBar()
         self.add(membersCollectionVC)
         self.add(chatTVC)
         self.add(textInputVC)
@@ -50,7 +53,6 @@ class ChatRoomVCTest: MenuedViewController {
         
         DataQueue.manager.delegate = self
         DataQueue.manager.startSendingData()
-        configureNavBar()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -82,7 +84,8 @@ class ChatRoomVCTest: MenuedViewController {
 //        on one screen
         
         membersCollectionVC.view.snp.makeConstraints { (make) in
-            make.top.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
+            make.top.equalTo(navView.snp.bottom)
+            make.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
         }
         chatTVC.view.snp.makeConstraints { (make) in
             make.top.equalTo(membersCollectionVC.view.snp.bottom)
@@ -95,7 +98,7 @@ class ChatRoomVCTest: MenuedViewController {
         }
     }
     
-    
+    private let navView = NavView()
     private func configureNavBar() {
         self.navigationItem.title = "wmsy"
         let topLeftBarItem = UIBarButtonItem(image:#imageLiteral(resourceName: "feedIcon-1"), style: .plain, target: self, action: #selector(showMenu(sender:)))
@@ -109,6 +112,14 @@ class ChatRoomVCTest: MenuedViewController {
         self.navigationController?.navigationBar.tintColor = .white
         self.navigationController?.navigationBar.barTintColor = .white
         self.navigationController?.navigationBar.shadowImage = UIImage.imageWithColor(color: Stylesheet.Colors.WMSYDeepViolet)
+        
+        navView.leftButton.addTarget(self, action: #selector(showMenu(sender:)), for: .touchUpInside)
+        navView.rightButton.addTarget(self, action: #selector(leaveChat(sender:)), for: .touchUpInside)
+        view.addSubview(navView)
+        navView.snp.makeConstraints { (make) in
+            make.height.equalTo(64)
+            make.top.leading.trailing.equalTo(self.view)
+        }
     }
     
     

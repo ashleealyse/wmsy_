@@ -26,6 +26,7 @@ class SideMenuVC: MenuViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        menuScreen.backgroundColor = Stylesheet.Colors.WMSYImperial
         
         self.add(navVC)
         self.add(menuPagesVC)
