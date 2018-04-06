@@ -34,7 +34,7 @@ class OtherUserMessageCell: UITableViewCell {
     private func commonInit() {
         self.backgroundColor = .clear
         setupViews()
-        placeholderTesting()
+//        placeholderTesting()
     }
     private func setupViews() {
         setupProfileImageView()
@@ -48,25 +48,26 @@ class OtherUserMessageCell: UITableViewCell {
         profileImageView.contentMode = .scaleAspectFill
         contentView.addSubview(profileImageView)
         profileImageView.snp.makeConstraints { (make) in
-            make.top.leading.equalTo(contentView.layoutMarginsGuide)
-            make.width.height.equalTo(self.snp.width).multipliedBy(0.1)
+            make.top.leading.equalTo(contentView).inset(5)
+            make.width.height.equalTo(contentView.snp.width).multipliedBy(0.1)
+            make.bottom.lessThanOrEqualTo(contentView).inset(5)
         }
     }
     private func setupTextContainer() {
+        textContainer.backgroundColor = Stylesheet.Colors.WMSYDeepViolet.withAlphaComponent(0.075)
+        textContainer.layer.cornerRadius = 10
         contentView.addSubview(textContainer)
         textContainer.snp.makeConstraints { (make) in
+            make.top.bottom.equalTo(contentView).inset(5)
             make.leading.equalTo(profileImageView.snp.trailing).offset(16)
-//            make.trailing.equalTo(contentView).offset(-50)
-            make.trailing.equalTo(contentView).offset(-10)
-            make.top.equalTo(profileImageView)
-            make.bottom.equalTo(contentView.layoutMarginsGuide)
+            make.trailing.lessThanOrEqualTo(contentView).inset(70)
         }
     }
     private func setupMessageText() {
         messageText.numberOfLines = 0
-        messageText.setContentHuggingPriority(.required, for: .vertical)
-        messageText.setContentCompressionResistancePriority(.required, for: .vertical)
-        messageText.preferredMaxLayoutWidth = self.bounds.width - 10
+//        messageText.setContentHuggingPriority(.required, for: .vertical)
+//        messageText.setContentCompressionResistancePriority(.required, for: .vertical)
+//        messageText.preferredMaxLayoutWidth = self.bounds.width - 10
         textContainer.addSubview(messageText)
         messageText.snp.makeConstraints { (make) in
             make.edges.equalTo(textContainer).inset(5)

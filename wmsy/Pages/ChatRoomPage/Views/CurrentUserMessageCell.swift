@@ -117,7 +117,7 @@ class CurrentUserMessageCell: UITableViewCell {
         }
     }
     private func setupTextContainer() {
-        textContainer.backgroundColor = Stylesheet.Colors.WMSYDeepViolet.withAlphaComponent(0.03)
+        textContainer.backgroundColor = Stylesheet.Colors.WMSYDeepViolet.withAlphaComponent(0.2)
         textContainer.layer.cornerRadius = 10
         contentView.addSubview(textContainer)
         textContainer.snp.makeConstraints { (make) in
