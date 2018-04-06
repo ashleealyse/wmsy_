@@ -45,9 +45,9 @@ class MapDetailView: UIView {
     lazy var interestedButton: UIButton = {
         let interestButton = UIButton()
         interestButton.addTarget(self, action: #selector(interestButtonPressed), for: .touchUpInside)
-        interestButton.setTitle("Show Interest", for: .normal)
+//        interestButton.setTitle("Show Interest", for: .normal)
         interestButton.titleLabel?.textColor = .white
-        interestButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.3)
+//        interestButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.3)
 //        interestButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
 //       interestButton.semanticContentAttribute = .forceRightToLeft
         return interestButton

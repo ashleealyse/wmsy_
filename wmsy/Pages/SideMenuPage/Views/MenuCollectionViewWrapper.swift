@@ -26,7 +26,7 @@ class MenuCollectionViewWrapper: UIView {
         cv.register(MenuChatView.self, forCellWithReuseIdentifier: MenuCollectionViewWrapper.pageThreeIdentifier)
         return cv
     }()
-    public var dotsView = FooterTabDotsView()
+//    public var dotsView = FooterTabDotsView()
 //    private var persistentMenuFooter = UIView()
 //    private var leftDot = UIView()
 //    private var rightDot = UIView()
@@ -53,7 +53,7 @@ class MenuCollectionViewWrapper: UIView {
     
     private func setupViews() {
         setupMenuPagesCollectionView()
-        setupDotsView()
+//        setupDotsView()
     }
     private func setupMenuPagesCollectionView() {
         addSubview(menuPagesCollectionView)
@@ -62,14 +62,14 @@ class MenuCollectionViewWrapper: UIView {
             make.edges.equalTo(self)
         }
     }
-    private func setupDotsView() {
-        addSubview(dotsView)
-        dotsView.translatesAutoresizingMaskIntoConstraints = false
-        dotsView.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self)
-            make.bottom.equalTo(self).inset(30)
-        }
-    }
+//    private func setupDotsView() {
+//        addSubview(dotsView)
+//        dotsView.translatesAutoresizingMaskIntoConstraints = false
+//        dotsView.snp.makeConstraints { (make) in
+//            make.centerX.equalTo(self)
+//            make.bottom.equalTo(self).inset(30)
+//        }
+//    }
 //
 //
 //    private let bottomViewHeight: CGFloat = 100
@@ -108,22 +108,22 @@ class MenuCollectionViewWrapper: UIView {
     public func layoutStuff() {
     }
     
-    public func currentlyOn(page: Int) {
-        switch page {
-        case 0:
-            dotsView.dotOne.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
-            dotsView.dotTwo.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
-            dotsView.dotThree.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
-        case 1:
-            dotsView.dotOne.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
-            dotsView.dotTwo.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
-            dotsView.dotThree.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
-        case 2:
-            dotsView.dotOne.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
-            dotsView.dotTwo.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
-            dotsView.dotThree.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
-        default:
-            return
-        }
-    }
+//    public func currentlyOn(page: Int) {
+//        switch page {
+//        case 0:
+//            dotsView.dotOne.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
+//            dotsView.dotTwo.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
+//            dotsView.dotThree.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
+//        case 1:
+//            dotsView.dotOne.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
+//            dotsView.dotTwo.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
+//            dotsView.dotThree.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
+//        case 2:
+//            dotsView.dotOne.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
+//            dotsView.dotTwo.backgroundColor = Stylesheet.Colors.WMSYPastelBlue
+//            dotsView.dotThree.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
+//        default:
+//            return
+//        }
+//    }
 }
