@@ -11,7 +11,9 @@
 //
 //class PopUpTextViewVC: UIViewController {
 //    
-//    let popUpTV = PopUpTextView()
+
+////    let popUpTV = PopUpTextView()
+
 //    
 //    override func viewDidLoad() {
 //        super.viewDidLoad()
@@ -32,3 +34,7 @@
 //        self.dismiss(animated: true, completion: nil)
 //    }
 //}
+<<<<<<< HEAD
+=======
+
+>>>>>>> qa

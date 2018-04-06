@@ -281,8 +281,7 @@ class FeedMapVC: MenuedViewController {
         let topRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addIcon"), style: .plain, target: self, action: #selector(hostAWhim))
         topRightBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
         navigationItem.rightBarButtonItem = topRightBarItem
-        
-        
+
     }
     
     @objc func showMenu(sender: UIViewController){
@@ -377,7 +376,7 @@ func minutes(from date: Date) -> Int {
 extension FeedMapVC: MenuDataSimpleNotificationDelegate {
     func newNotification() {
         // add any code that should trigger when there's been a notification here
-        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.red.withAlphaComponent(0.5)
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.red.withAlphaComponent(0.9)
         print("there was some notification")
     }
 }
