@@ -41,8 +41,8 @@ class MenuChatsListVC: UIViewController {
         chatsListTableView.sectionHeaderHeight = UITableViewAutomaticDimension
         chatsListTableView.estimatedSectionHeaderHeight = 50
         chatsListTableView.estimatedRowHeight = 50
-        
-        
+        chatsListTableView.backgroundColor = .clear
+        chatsListTableView.separatorStyle = .none
         
         chatsListTableView.snp.makeConstraints { (make) in
             make.edges.equalTo(view)
@@ -114,6 +114,7 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
             return 0
         }
     }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: MenuWhimsHeader.reuseIdentifier) as! MenuWhimsHeader
         switch section {
@@ -126,6 +127,7 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
         default:
             break
         }
+        header.backgroundView?.backgroundColor = .red
         return header
     }
     
@@ -159,7 +161,6 @@ extension MenuChatsListVC: UITableViewDataSource, UITableViewDelegate {
         switch indexPath.section {
         case 0:
                 setupFromHostedWhims()
-            
         case 1:
                 setupFromGuestWhims()
         case 2:

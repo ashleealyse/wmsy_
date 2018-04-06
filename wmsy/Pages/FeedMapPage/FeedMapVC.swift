@@ -88,7 +88,7 @@ class FeedMapVC: MenuedViewController {
         super.viewDidLoad()
         self.feedView.tableView.separatorStyle = .none
         self.view.backgroundColor = Stylesheet.Colors.WMSYGray
-        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.isHidden = true
         self.navigationController?.navigationBar.backgroundColor = .white
         self.navigationController?.navigationBar.tintColor = .white
         self.navigationController?.navigationBar.barTintColor = .white
@@ -139,7 +139,7 @@ class FeedMapVC: MenuedViewController {
     
     func addTapGesture(view: UIView) {
         let tap = UITapGestureRecognizer(target: self, action: #selector(FeedMapVC.openFeed(sender:)))
-        self.navigationController?.navigationBar.addGestureRecognizer(tap)
+        self.navView.addGestureRecognizer(tap)
     }
     
     @objc func openFeed(sender: UITapGestureRecognizer) {
@@ -196,13 +196,11 @@ class FeedMapVC: MenuedViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = true
         MenuData.manager.simpleListener = nil
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = false
         MenuData.manager.simpleListener = self
     }
     
@@ -217,7 +215,7 @@ class FeedMapVC: MenuedViewController {
         view.addSubview(feedView)
 
         feedView.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(navView.snp.bottom)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(toolBarHeight)
@@ -271,18 +269,26 @@ class FeedMapVC: MenuedViewController {
     
     
     
+    let navView = NavView()
     // setup UIBarButtonItems
     private func configureNavBar() {
-        navigationItem.title = "wmsy"
-        let topLeftBarItem = UIBarButtonItem(image:#imageLiteral(resourceName: "feedIcon-1"), style: .plain, target: self, action: #selector(showMenu(sender:)))
-        topLeftBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
-        navigationItem.leftBarButtonItem = topLeftBarItem
+//        navigationItem.title = "wmsy"
+//        let topLeftBarItem = UIBarButtonItem(image:#imageLiteral(resourceName: "feedIcon-1"), style: .plain, target: self, action: #selector(showMenu(sender:)))
+//        topLeftBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
+//        navigationItem.leftBarButtonItem = topLeftBarItem
+//
+//        let topRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addIcon"), style: .plain, target: self, action: #selector(hostAWhim))
+//        topRightBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
+//        navigationItem.rightBarButtonItem = topRightBarItem
         
-        let topRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addIcon"), style: .plain, target: self, action: #selector(hostAWhim))
-        topRightBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
-        navigationItem.rightBarButtonItem = topRightBarItem
         
-        
+        navView.leftButton.addTarget(self, action: #selector(showMenu(sender:)), for: .touchUpInside)
+        navView.rightButton.addTarget(self, action: #selector(hostAWhim), for: .touchUpInside)
+        self.view.addSubview(navView)
+        navView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.equalTo(self.view)
+            make.height.equalTo(64)
+        }
     }
     
     @objc func showMenu(sender: UIViewController){
@@ -291,8 +297,16 @@ class FeedMapVC: MenuedViewController {
     }
     
     @objc func hostAWhim() {
-        navigationController?.pushViewController(CreateWhimTVC(), animated: false)
-        navigationController?.isToolbarHidden = true
+//        navigationController?.pushViewController(CreateWhimTVC(), animated: false)
+//        navigationController?.isToolbarHidden = true
+        let vc = CreateWhimTVC()
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.type = kCATransitionMoveIn
+        transition.subtype = kCATransitionFromTop
+        navigationController?.view.layer.add(transition, forKey: nil)
+        navigationController?.pushViewController(vc, animated: false)
         print("Show Whim Host User Profile")
     }
     
@@ -304,7 +318,7 @@ class FeedMapVC: MenuedViewController {
     
     func pinFilterViewToTop() {
         filterMapContainerView.snp.makeConstraints { (make) in
-            verticalPinConstraint = make.top.equalTo(view.safeAreaLayoutGuide.snp.top).constraint
+            verticalPinConstraint = make.top.equalTo(navView.snp.bottom).offset(-1).constraint
         }
     }
     
