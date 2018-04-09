@@ -63,9 +63,11 @@ extension FeedMapVC: UITableViewDataSource {
         
         cell.collapsedView.postTitleLabel.attributedText = customString
         cell.collapsedView.categoryIcon.image = UIImage(named: "\(whim.category.lowercased())CategoryIcon")
-        cell.collapsedView.userImageButton.imageView?.kf.setImage(with: URL(string: whim.hostImageURL), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
-            cell.collapsedView.userImageButton.setImage(image, for: .normal)
-        })
+        DBService.manager.getUserImageURL(userID: whim.hostID) { (url) in
+            cell.collapsedView.userImageButton.imageView?.kf.setImage(with: URL(string: url), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+                cell.collapsedView.userImageButton.setImage(image, for: .normal)
+            })
+        }
         
         cell.expandedView.postDescriptionTF.text = whim.description
         let interests = getInterestKeys(appUser: AppUser.currentAppUser!)
