@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import GoogleMaps
 
 class SplashViewController: UIViewController {
 
@@ -22,10 +23,15 @@ class SplashViewController: UIViewController {
             print("some fuck up here i guess")
             return
         }
+        
+        let locationManager = CLLocationManager()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.delegate = self
+        locationManager.distanceFilter = 50
+        
         AppUser.configureCurrentAppUser(withUID: user.uid) {
-            self.setupObserversAndMenuDataForCurrentUser {
-                (self.tabBarController as? MainTabBarVC)?.animateTo(page: .feedAndMap, fromViewController: self)
-            }
+                locationManager.requestAlwaysAuthorization()
+                locationManager.startUpdatingLocation()
         }
 ////        DBService.manager.getAppUser(fromID: user.uid, completion: { (appUser) in
 ////            if let appUser = appUser {
@@ -53,21 +59,45 @@ class SplashViewController: UIViewController {
     }
     
     private func setupObserversAndMenuDataForCurrentUser(completion: @escaping () -> Void) {
-        guard let user = AppUser.currentAppUser else {
-            print("no current app user")
+        guard let user = Auth.auth().currentUser else {
+            print("no current user")
             fatalError()
         }
-        let group = DispatchGroup()
-        group.enter()
-        MenuData.manager.configureInitialData(forUser: user) {
-            group.leave()
+        
+        DBService.manager.getAppUser(fromID: user.uid) { (appUser) in
+            guard let user = appUser else {
+                print("no current app user")
+                fatalError()
+            }
+            let group = DispatchGroup()
+            group.enter()
+            MenuData.manager.configureInitialData(forUser: user) {
+                group.leave()
+            }
+            group.enter()
+            MenuNotificationTracker.manager.setupListeners(forUser: user) {
+                group.leave()
+            }
+            group.notify(queue: .main) {
+                completion()
+            }
         }
-        group.enter()
-        MenuNotificationTracker.manager.setupListeners(forUser: user) {
-            group.leave()
-        }
-        group.notify(queue: .main) {
-            completion()
+        
+        
+        
+    }
+}
+
+extension SplashViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedWhenInUse, .authorizedAlways:
+            self.setupObserversAndMenuDataForCurrentUser {
+                (self.tabBarController as? MainTabBarVC)?.animateTo(page: .feedAndMap, fromViewController: self)
+            }
+        default:
+            (self.tabBarController as? MainTabBarVC)?.animateTo(page: .login, fromViewController: self)
         }
     }
 }
+
