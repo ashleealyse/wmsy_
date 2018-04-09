@@ -31,7 +31,6 @@ struct MyProfileRequest: GraphRequestProtocol {
                 self.id = id
             }
             
-            
             if let picture = response["picture"] as? Dictionary<String, Any> {
                 if let data = picture["data"] as? Dictionary<String, Any> {
                     if let url = data["url"] as? String {
@@ -119,8 +118,10 @@ extension LoginVC: loginViewDelegate {
                     let pictureURL = URL(string: response.profilePictureUrl!)
                     let image = ImageView()
                     image.kf.setImage(with: pictureURL, placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
-                        let _ = StorageService.manager.storeUserImage(image: image, userID: user.uid, completion: {_ in 
+                        let _ = StorageService.manager.storeUserImage(image: image, userID: user.uid, completion: { url in
+                            DBService.cachedUsers[user.uid]?.photoID = url
                             AppUser.configureCurrentAppUser(withUID: user.uid, completion: {
+                                AppUser.currentAppUser?.photoID = url
                                 self.setupObserversAndMenuDataForCurrentUser {
                                     (self.tabBarController as? MainTabBarVC)?.animateTo(page: .feedAndMap, fromViewController: self)
                                 }
@@ -156,6 +157,5 @@ extension LoginVC: loginViewDelegate {
             completion()
         }
     }
-    
 }
 

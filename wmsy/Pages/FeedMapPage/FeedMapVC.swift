@@ -292,13 +292,11 @@ class FeedMapVC: MenuedViewController {
     }
     
     @objc func showMenu(sender: UIViewController){
-        self.navigationItem.leftBarButtonItem?.tintColor = Stylesheet.Colors.WMSYKSUPurple
+        navView.leftButton.imageView?.tintColor = Stylesheet.Colors.WMSYKSUPurple
         openMenu(sender: sender)
     }
     
     @objc func hostAWhim() {
-//        navigationController?.pushViewController(CreateWhimTVC(), animated: false)
-//        navigationController?.isToolbarHidden = true
         let vc = CreateWhimTVC()
         let transition = CATransition()
         transition.duration = 0.5
@@ -391,7 +389,7 @@ func minutes(from date: Date) -> Int {
 extension FeedMapVC: MenuDataSimpleNotificationDelegate {
     func newNotification() {
         // add any code that should trigger when there's been a notification here
-        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.red.withAlphaComponent(0.9)
+        navView.leftButton.imageView?.tintColor = .red
         print("there was some notification")
     }
 }

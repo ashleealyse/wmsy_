@@ -15,8 +15,6 @@ protocol TextInputVCDelegate: class {
 
 class TextInputVC: UIViewController {
     
-//    public let messageTextView = UITextView()
-//    public let sendButton = UIButton()
     private let textInputView = TextInputView()
     
     private let placeholderText = "Say Something..."
@@ -29,7 +27,6 @@ class TextInputVC: UIViewController {
         self.view.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(textInputView)
         
-        
         textInputView.snp.makeConstraints { (make) in
             make.edges.equalTo(self.view)
         }
@@ -37,7 +34,7 @@ class TextInputVC: UIViewController {
         textInputView.messageTextView.delegate = self
         textInputView.messageTextView.text = placeholderText
         textInputView.messageTextView.textColor = UIColor.lightGray
-        
+
         textInputView.sendButton.addTarget(self, action: #selector(sendMessage), for: .touchUpInside)
         
     }

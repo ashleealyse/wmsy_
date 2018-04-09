@@ -10,7 +10,7 @@ import Foundation
 
 struct AppUser: Codable {
     let name: String
-    let photoID: String
+    var photoID: String
     let age: String
     let userID: String
     var bio: String

@@ -11,6 +11,9 @@ import SnapKit
 
 class CreateWhimTVC: UITableViewController {
    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
     var defaultLook = true
     let categoryList = categoryTuples
     let hoursList = hoursOfTwentyFour
@@ -76,8 +79,9 @@ class CreateWhimTVC: UITableViewController {
         navigationItem.title = "Host a Whim"
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
 //        self.navigationController?.navigationBar.isHidden = true
+        super.viewDidAppear(animated)
         view.setNeedsLayout()
         view.layoutIfNeeded()
         tableView.reloadData()
@@ -253,6 +257,10 @@ extension CreateWhimTVC: UITextViewDelegate {
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
         let characterCountLimit = 99
         let startingLength = textView.text?.count ?? 0
         let lengthToAdd = text.count

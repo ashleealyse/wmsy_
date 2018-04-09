@@ -17,41 +17,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
-    
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         GMSServices.provideAPIKey("AIzaSyDoVxDTMUODq896Vbusf_6Al7u4PHc95cw")
-        
-        
-//<<<<<<< HEAD
-////        if AccessToken.current != nil{
-////            let vc = FeedMapVC()
-////            let nav = UINavigationController(rootViewController: vc)
-////            window = UIWindow(frame: UIScreen.main.bounds)
-////            window?.rootViewController = nav
-////            window?.makeKeyAndVisible()
-////        }else{
-////        let vc = LoginVC()
-//        let vc = MainTabBarVC()
-//=======
-//        if Auth.auth().currentUser != nil{
-//            let vc = FeedMapVC()
-//            let nav = UINavigationController(rootViewController: vc)
-//            window = UIWindow(frame: UIScreen.main.bounds)
-//            window?.rootViewController = nav
-//            window?.makeKeyAndVisible()
-//        }else{
-//        let vc = LoginVC()
-//>>>>>>> qa
+
         let vc = MainTabBarVC()
         vc.navigationItem.backBarButtonItem?.image = #imageLiteral(resourceName: "backIcon")
         vc.navigationItem.backBarButtonItem?.tintColor = Stylesheet.Colors.WMSYKSUPurple
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
-//        }
         return true
     }
 
