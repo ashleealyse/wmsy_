@@ -69,9 +69,9 @@ class LoginView: UIView {
     private func setButton(){
         self.addSubview(facebookButton)
         facebookButton.snp.makeConstraints { (make) in
-            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
-            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
-            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
+            make.bottom.equalTo(self)
+            make.leading.equalTo(self)
+            make.trailing.equalTo(self)
             make.height.equalTo(self.snp.height).multipliedBy(0.07)
         }
     }
@@ -79,10 +79,10 @@ class LoginView: UIView {
     func setUpColorView() {
         self.addSubview(colorView)
         colorView.snp.makeConstraints { (make) in
-            make.top.equalTo(safeAreaLayoutGuide.snp.top)
-            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
-            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
-            make.height.equalTo(self.snp.height).multipliedBy(0.2)
+            make.top.equalTo(self)
+            make.leading.equalTo(self)
+            make.trailing.equalTo(self)
+            make.height.equalTo(self.snp.height).multipliedBy(0.93)
         }
     }
     
