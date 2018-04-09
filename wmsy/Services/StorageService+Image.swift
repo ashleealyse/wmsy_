@@ -43,8 +43,8 @@ extension StorageService {
             }
             downloadURLStr = downloadURL.absoluteString
             DBService.manager.addImageToUser(url: downloadURLStr, userID: userID)
+            completion(downloadURLStr)
         }
-        completion(downloadURLStr)
     }
     
     
