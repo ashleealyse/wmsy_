@@ -84,7 +84,7 @@ class ExpandedFeedCellView: UIView {
             make.leading.equalTo(showOnMapButton.snp.trailing)
             make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
             make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
-            make.width.equalTo(self.snp.width).multipliedBy(0.7)
+            make.width.equalTo(self.snp.width).multipliedBy(0.69)
         }
     }
 
