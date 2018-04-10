@@ -56,7 +56,7 @@ class FiltersView: UIView {
     lazy var clearSearchButton: UIButton = {
         let button = UIButton()
        button.setTitle("Clear", for: .normal)
-        button.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.5)
+        button.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)
         return button
     }()
     
