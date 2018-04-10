@@ -1,5 +1,6 @@
 # wmsy
-Meeting people on a whim
+Connecting people on a Whim
+
 
 Check out our [website](https://thewmsyapp.wixsite.com/wmsy)
 
