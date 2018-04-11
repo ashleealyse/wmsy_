@@ -1,4 +1,5 @@
 # wmsy
+
 *Connecting people on a whim*
 
 Go on a whim to connect with the people around you.
@@ -19,6 +20,7 @@ Meeting new people these days is often attempted through dating or networking ap
 - Whims can be sorted by category to make it easier to find activities of interest.
 - The Host of a Whim has access to a private chat room where they can view the profiles of Interested users and Invite them into their chatroom to discuss further details.
 - Hosts can invite as many Interested guests into their Whim chatroom as they would like, as well as remove any guests they do not want to meet.
+
 
 ## Requirements
 - iOS 8.0+ / Mac OS X 10.11+ / tvOS 9.0+
