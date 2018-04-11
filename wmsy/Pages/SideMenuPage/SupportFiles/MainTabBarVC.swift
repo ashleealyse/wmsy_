@@ -14,7 +14,7 @@ class MainTabBarVC: UITabBarController {
     let loginVC     = LoginVC()
     let splashScreen = SplashViewController()
     let feedMapVC   = UINavigationController.init(rootViewController: FeedMapVC())
-    let chatRoomVC  = ChatRoomVCTest()
+    let chatRoomVC  =  UINavigationController.init(rootViewController: ChatRoomVCTest())
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -33,9 +33,6 @@ class MainTabBarVC: UITabBarController {
         if Auth.auth().currentUser != nil {
             self.selectedIndex = 1
         }
-//        if UserService.manager.userIsSignedIn() {
-//            self.selectedIndex = 3
-//        }
         self.moreNavigationController.navigationBar.isHidden = true
     }
     
@@ -47,15 +44,11 @@ class MainTabBarVC: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
-        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
-    
     
     // MARK: - Helper functions
     public func viewController(for page: Page) -> UIViewController? {
@@ -77,8 +70,6 @@ class MainTabBarVC: UITabBarController {
             let tabViewControllers = viewControllers,
             let fromView = fromViewController.view,
             let toView = tabViewControllers[toIndex].view
-            //            let fromIndex = tabViewControllers.index(of: selectedViewController!)
-            //            fromIndex != toIndex
             else {
                 return
         }
@@ -110,7 +101,6 @@ class MainTabBarVC: UITabBarController {
             self.view.isUserInteractionEnabled = true
         }
     }
-    
 }
 
 extension MainTabBarVC: UITabBarControllerDelegate {
@@ -119,10 +109,7 @@ extension MainTabBarVC: UITabBarControllerDelegate {
         guard let toIndex = tabViewControllers.index(of: viewController) else {
             return false
         }
-        
-        //        animateTo(page: Page(rawValue: toIndex)!)
         animateTo(page: Page(rawValue: toIndex)!, fromViewController: selectedViewController!)
-        
         return true
     }
 }

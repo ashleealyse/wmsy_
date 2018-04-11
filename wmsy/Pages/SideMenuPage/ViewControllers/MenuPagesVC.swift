@@ -30,55 +30,25 @@ class MenuPagesVC: UIPageViewController {
     }
     func configurePageControl() {
         // The total number of pages that are available is based on how many available colors we have.
-        pageControl = UIPageControl(frame: CGRect(x: 0,y: self.view.frame.maxY - 150,width: UIScreen.main.bounds.width,height: 50))
+        pageControl = UIPageControl(frame: CGRect(x: 100,y: self.view.frame.maxY - 150,width: UIScreen.main.bounds.width/2,height: 50))
         self.pageControl.numberOfPages = menuPages.count
-        self.pageControl.currentPage = 0
+        self.pageControl.currentPage = 1
         self.pageControl.tintColor = UIColor.black
         self.pageControl.pageIndicatorTintColor = UIColor.white
         self.pageControl.currentPageIndicatorTintColor = UIColor.black
+    
         self.view.addSubview(pageControl)
     }
 }
 
 extension MenuPagesVC: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
-//    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-//
-//        guard let viewControllerIndex = menuPages.index(of: viewController) else { return nil }
-//
-//        let previousIndex = viewControllerIndex - 1
-//
-//        guard previousIndex >= 0          else { return menuPages.last }
-//
-//        guard menuPages.count > previousIndex else { return nil        }
-//
-//        return menuPages[previousIndex]
-//    }
-//
-//    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController?
-//    {
-//        guard let viewControllerIndex = menuPages.index(of: viewController) else { return nil }
-//
-//        let nextIndex = viewControllerIndex + 1
-//
-//        guard nextIndex < menuPages.count else { return menuPages.first }
-//
-//        guard menuPages.count > nextIndex else { return nil         }
-//
-//        return menuPages[nextIndex]
-//    }
+
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         let pageContentViewController = pageViewController.viewControllers![0]
         self.pageControl.currentPage = menuPages.index(of: pageContentViewController)!
     }
     
-//    func presentationCount(for pageViewController: UIPageViewController) -> Int {
-//        configurePageControl()
-//        return self.menuPages.count
-//    }
-//
-//    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-//        return 0
-//    }
+
     // MARK: Data source functions.
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let viewControllerIndex = menuPages.index(of: viewController) else {

@@ -33,7 +33,6 @@ struct Message: Codable {
     
     init?(fromDict messageDict: [String:Any]) {
         guard
-            let senderID = messageDict["userID"] as? String,
             let messageBody = messageDict["body"] as? String,
             let timestamp = messageDict["timestamp"] as? String,
             let messageType = messageDict["type"] as? String,
@@ -44,7 +43,7 @@ struct Message: Codable {
         }
         self.whimID = whimID
         self.messageID = messageID
-        self.senderID = senderID
+        self.senderID = (messageDict["userID"] as? String) ?? nil
         self.timestamp = timestamp
         self.messageType = MessageType(rawValue: messageType) ?? .chat
         self.messageBody = messageBody

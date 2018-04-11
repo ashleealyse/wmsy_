@@ -8,20 +8,8 @@
 
 import UIKit
 import SnapKit
-//import MaterialComponents.MaterialCollections
 
 private let reuseIdentifier = "Cell"
-
-//enum Page: Int {
-//    case login
-//    case create
-//    case home
-//    case decks
-//    case progress
-//    case browse
-//    case profile
-//    case inbox
-//}
 
 class MenuViewController: UIViewController {
     @IBAction func closeMenu(sender: AnyObject) {
@@ -29,7 +17,6 @@ class MenuViewController: UIViewController {
     }
     
     var closeButton = UIButton()
-    //    var tabButton = UIButton()
     weak var fromVC: UIViewController? {
         didSet {
             print(0)
@@ -66,18 +53,6 @@ class MenuViewController: UIViewController {
     
     @objc func signOut() {
         switchTo(page: .login)
-//        var keepTryingClosure: ((Bool, Error?) -> Void)!
-//        keepTryingClosure = {(success, error) in
-//            if let error = error {
-//                print(error._userInfo?[NSLocalizedFailureReasonErrorKey] ?? "")
-//                //                UserService.manager.signOut(completion: keepTryingClosure)
-//            }
-//            if success {
-//                print("successfully signed out")
-//                self.switchTo(page: .login)
-//            }
-//        }
-        //        UserService.manager.signOut(completion: keepTryingClosure)
     }
     
     // 1

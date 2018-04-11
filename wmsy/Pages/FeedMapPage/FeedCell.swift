@@ -54,7 +54,7 @@ class FeedCell: UITableViewCell {
         selectionStyle = .none
         setUpCollapsedView()
         setUpExpandedView()
-        
+        self.backgroundColor = Stylesheet.Colors.WMSYGray
        
         
         //        collapsedConstraint.isActive = !isExpanded
@@ -89,12 +89,12 @@ class FeedCell: UITableViewCell {
         //            make.height.equalTo(safeAreaLayoutGuide).multipliedBy(0.5)
         //        }
         collapsedView.translatesAutoresizingMaskIntoConstraints = false
-        [collapsedView.topAnchor.constraint(equalTo: contentView.topAnchor),
-         collapsedView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-         collapsedView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+        [collapsedView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11),
+         collapsedView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,  constant: 8),
+         collapsedView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
          collapsedView.heightAnchor.constraint(equalToConstant: 70)]
             .forEach{$0.isActive = true}
-        collapsedConstraint = contentView.bottomAnchor.constraint(equalTo: collapsedView.topAnchor, constant: 0)//collapsedView.bottomAnchor.constraint(equalTo: contentView.topAnchor, constant: 0)
+        collapsedConstraint = contentView.bottomAnchor.constraint(equalTo: collapsedView.topAnchor, constant: 8)//collapsedView.bottomAnchor.constraint(equalTo: contentView.topAnchor, constant: 0)
         collapsedConstraint.isActive = true
         
     }
@@ -103,11 +103,12 @@ class FeedCell: UITableViewCell {
         contentView.addSubview(expandedView)
         expandedView.translatesAutoresizingMaskIntoConstraints = false
         [expandedView.topAnchor.constraint(equalTo: collapsedView.bottomAnchor),
-         expandedView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-         expandedView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+         expandedView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+         expandedView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
          expandedView.heightAnchor.constraint(equalToConstant: 100)]
             .forEach{$0.isActive = true}
-        expandedConstraint = expandedView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        expandedConstraint = expandedView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 22)
+       
     }
     
 }

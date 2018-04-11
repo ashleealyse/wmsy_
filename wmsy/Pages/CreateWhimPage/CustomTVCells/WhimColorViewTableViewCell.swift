@@ -39,18 +39,19 @@ class WhimColorViewTableViewCell: UITableViewCell {
     private func setUpView() {
         setUpColoredView()
         setUpCreatWhimLabel()
+        contentView.addBorders(edges: .bottom, color: .white)
     }
     
     func setUpColoredView() {
-        addSubview(colorView)
+        contentView.addSubview(colorView)
         colorView.snp.makeConstraints { (make) in
-            make.edges.equalTo(safeAreaLayoutGuide)
-            make.height.equalTo(198)
+            make.edges.equalTo(contentView)
+            make.height.equalTo(242)
         }
     }
     
     func setUpCreatWhimLabel() {
-        addSubview(createWhimLabel)
+        contentView.addSubview(createWhimLabel)
         createWhimLabel.snp.makeConstraints { (make) in
             make.centerX.centerY.equalTo(colorView)
         }

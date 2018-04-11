@@ -28,6 +28,7 @@ class WhimDescriptionTableViewCell: UITableViewCell {
 //        tv.layer.borderWidth = 0.5
 //        tv.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
         tv.font = UIFont.boldSystemFont(ofSize: 20)
+        tv.isScrollEnabled = true
         tv.text = "Describe Your Whim"
         tv.clipsToBounds = true
         tv.layer.cornerRadius = 5.0

@@ -35,7 +35,6 @@ class CurrentUserMessageCell: UITableViewCell {
     private func commonInit() {
         self.backgroundColor = .clear
         setupViews()
-        placeholderTesting()
     }
     private func setupViews() {
         setupProfileImageView()
@@ -49,26 +48,27 @@ class CurrentUserMessageCell: UITableViewCell {
         profileImageView.contentMode = .scaleAspectFill
         contentView.addSubview(profileImageView)
         profileImageView.snp.makeConstraints { (make) in
-            make.top.trailing.equalTo(contentView.layoutMarginsGuide)
-            make.width.height.equalTo(self.snp.width).multipliedBy(0.1)
+            make.top.trailing.equalTo(contentView).inset(5)
+            make.width.height.equalTo(contentView.snp.width).multipliedBy(0.1)
+            make.bottom.lessThanOrEqualTo(contentView).inset(5)
         }
     }
     private func setupTextContainer() {
+        textContainer.backgroundColor = Stylesheet.Colors.WMSYDeepViolet.withAlphaComponent(0.2)
+        textContainer.layer.cornerRadius = 10
         contentView.addSubview(textContainer)
         textContainer.snp.makeConstraints { (make) in
+            make.top.equalTo(contentView).inset(5)
+            make.bottom.equalTo(contentView).inset(5)
             make.trailing.equalTo(profileImageView.snp.leading).offset(-16)
-//            make.leading.equalTo(contentView).offset(50)
-            make.leading.equalTo(contentView).offset(70)
-            make.top.equalTo(profileImageView)
-            make.bottom.equalTo(contentView.layoutMarginsGuide)
+            make.leading.greaterThanOrEqualTo(contentView).offset(70)
         }
     }
     private func setupMessageText() {
         messageText.numberOfLines = 0
         textContainer.addSubview(messageText)
         messageText.snp.makeConstraints { (make) in
-            make.edges.equalTo(textContainer).inset(5)
-            messageText.sizeToFit()
+              make.edges.equalTo(textContainer).inset(5)
         }
     }
     private func placeholderTesting() {
@@ -78,16 +78,12 @@ class CurrentUserMessageCell: UITableViewCell {
         textContainer.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
         textContainer.layer.cornerRadius = 10
     }
-    
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         profileImageView.layer.cornerRadius = profileImageView.bounds.width / 2
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
-
 }

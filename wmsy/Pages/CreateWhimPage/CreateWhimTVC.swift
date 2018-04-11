@@ -11,12 +11,16 @@ import SnapKit
 
 class CreateWhimTVC: UITableViewController {
    
-    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    var defaultLook = true
     let categoryList = categoryTuples
     let hoursList = hoursOfTwentyFour
     var whimCategory = ""
     var whimTitle = ""
     var whimDescription = ""
+    private let placeholderText = "Describe Your Whim"
     var whimDuration = 0
     var whimLocation = ""
     var whimLong = ""
@@ -35,7 +39,10 @@ class CreateWhimTVC: UITableViewController {
         self.tableView.estimatedRowHeight = 100
         self.tableView.allowsSelection = false
         self.tableView.bounces = false
-//        self.tableView.separatorStyle = .singleLine
+//        self.tableView.contentInset = .zero
+        self.tableView.contentInsetAdjustmentBehavior = .never
+//        self.edgesForExtendedLayout = .all
+        self.tableView.separatorStyle = .none
 //        self.tableView.separatorColor = Stylesheet.Colors.WMSYOuterSpace
         self.tableView.register(WhimColorViewTableViewCell.self, forCellReuseIdentifier: "ColorViewCell")
         self.tableView.register(WhimCategoryTableViewCell.self, forCellReuseIdentifier: "CategoryCell")
@@ -46,24 +53,16 @@ class CreateWhimTVC: UITableViewController {
         self.tableView.register(WhimLocationTableViewCell.self, forCellReuseIdentifier: "LocationCell")
         self.tableView.register(CancelCreateWhimTableViewCell.self, forCellReuseIdentifier: "CancelButton")
 
+        
+//        let descriptionCellIndexPath = IndexPath(row: 3, section: 0)
+//        let cell = self.tableView.cellForRow(at: descriptionCellIndexPath) as! WhimDescriptionTableViewCell
+//        cell.descriptionTextView.textColor = UIColor.lightGray
+        
+        
         DBService.manager.getAppUser(fromID: (AuthUserService.manager.getCurrentUser()?.uid)!) { (user) in
             self.whimHostImageURL = user!.photoID
         }
-        
-        
-        
-        
-        // Uncomment the followinwg line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-
-    }
-    
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = false 
     }
     
     @objc func tapped(){
@@ -80,8 +79,9 @@ class CreateWhimTVC: UITableViewController {
         navigationItem.title = "Host a Whim"
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
 //        self.navigationController?.navigationBar.isHidden = true
+        super.viewDidAppear(animated)
         view.setNeedsLayout()
         view.layoutIfNeeded()
         tableView.reloadData()
@@ -120,6 +120,11 @@ class CreateWhimTVC: UITableViewController {
             let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "DescriptionCell", for: indexPath) as! WhimDescriptionTableViewCell
             descriptionCell.descriptionTextView.delegate = self
             descriptionCell.charactersRemainingLabel.tag = 1
+            if defaultLook {
+                descriptionCell.descriptionTextView.textColor = UIColor.lightGray
+            } else {
+                descriptionCell.descriptionTextView.textColor = UIColor.black
+            }
             return descriptionCell
         case 4:
             let locationCell = tableView.dequeueReusableCell(withIdentifier: "LocationCell", for: indexPath) as! WhimLocationTableViewCell
@@ -162,6 +167,12 @@ class CreateWhimTVC: UITableViewController {
     
     
     @objc func dismissButtonClicked() {
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.type = kCATransitionReveal
+        transition.subtype = kCATransitionFromBottom
+        navigationController?.view.layer.add(transition, forKey: nil)
         navigationController?.popViewController(animated: false)
     }
     
@@ -197,7 +208,6 @@ extension CreateWhimTVC: UITextFieldDelegate {
     
     func textField(_ textFieldToChange: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-
             // Title TextField
             let characterCountLimit = 34
             let startingLength = textFieldToChange.text?.count ?? 0
@@ -208,7 +218,6 @@ extension CreateWhimTVC: UITextFieldDelegate {
             let indexPath = IndexPath.init(row: 2, section: 0)
             let cell = tableView.cellForRow(at: indexPath) as! WhimTitleTableViewCell
             cell.charactersRemainingLabel.text = "\(newLength)/35"
-            
             return newLength <= characterCountLimit
 
     }
@@ -216,44 +225,42 @@ extension CreateWhimTVC: UITextFieldDelegate {
     
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-//        switch textField.tag {
-//        case 0:
-            whimTitle = textField.text!
-//        default:
-//            break
-//        }
+        whimTitle = textField.text!
     }
 }
 
 
 extension CreateWhimTVC: UITextViewDelegate {
     func textViewDidBeginEditing (_ textView: UITextView) {
-        if textView.isFirstResponder {
-            textView.text = nil
-            textView.textColor = .black
+        if textView.textColor == UIColor.lightGray {
+            textView.text = ""
+            textView.textColor = UIColor.black
+        } else {
+            textView.textColor = UIColor.black
         }
     }
     
     func textViewDidChange(_ textView: UITextView) {
         whimDescription = textView.text
+        defaultLook = false
     }
 
     
     func textViewDidEndEditing (_ textView: UITextView) {
         if textView.text.isEmpty || textView.text == "" {
-            textView.textColor = .gray
-            textView.text = "Describe your Whim"
-//            print("Description empty")
+            textView.textColor = UIColor.lightGray
+            textView.text = placeholderText
+        } else {
+            textView.textColor = UIColor.black
         }
-//        } else {
-//            whimDescription = textView.text
-//            print("Description: \(whimDescription)")
-//        }
-        textView.isScrollEnabled = false
         textView.resignFirstResponder()
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
         let characterCountLimit = 99
         let startingLength = textView.text?.count ?? 0
         let lengthToAdd = text.count
@@ -263,7 +270,13 @@ extension CreateWhimTVC: UITextViewDelegate {
         let indexPath = IndexPath.init(row: 3, section: 0)
         let cell = tableView.cellForRow(at: indexPath) as! WhimDescriptionTableViewCell
         cell.charactersRemainingLabel.text = "\(newLength)/100"
+
         
+//        if(text == "\n") {
+//            textView.resignFirstResponder()
+//        }
+        
+
         return newLength <= characterCountLimit
     }
 }
@@ -314,13 +327,7 @@ extension CreateWhimTVC: UIPickerViewDataSource, UIPickerViewDelegate {
 //        let hour = hoursList[row]
         let hourIndex = row
         
-        whimDuration = hourIndex + 1
-//        switch hourIndex {
-//        case 0:
-//            print("1 hour until Whim expires")
-//        default:
-//            print("\(hourIndex + 1) hours until Whim expires")
-//        }
+        whimDuration = hourIndex
     }
 
     

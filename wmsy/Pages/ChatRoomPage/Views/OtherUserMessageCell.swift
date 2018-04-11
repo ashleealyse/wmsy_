@@ -27,14 +27,12 @@ class OtherUserMessageCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         commonInit()
     }
     
     private func commonInit() {
         self.backgroundColor = .clear
         setupViews()
-        placeholderTesting()
     }
     private func setupViews() {
         setupProfileImageView()
@@ -42,26 +40,29 @@ class OtherUserMessageCell: UITableViewCell {
         setupMessageText()
     }
     private func setupProfileImageView() {
-        contentView.addSubview(profileImageView)
         profileImageView.layer.cornerRadius = profileImageView.frame.size.height / 2.0
         profileImageView.layer.masksToBounds = true
+        profileImageView.clipsToBounds = true
+        profileImageView.contentMode = .scaleAspectFill
+        contentView.addSubview(profileImageView)
         profileImageView.snp.makeConstraints { (make) in
-            make.top.leading.equalTo(contentView.layoutMarginsGuide)
-            make.width.height.equalTo(self.snp.width).multipliedBy(0.1)
+            make.top.leading.equalTo(contentView).inset(5)
+            make.width.height.equalTo(contentView.snp.width).multipliedBy(0.1)
+            make.bottom.lessThanOrEqualTo(contentView).inset(5)
         }
     }
     private func setupTextContainer() {
+        textContainer.backgroundColor = Stylesheet.Colors.WMSYDeepViolet.withAlphaComponent(0.075)
+        textContainer.layer.cornerRadius = 10
         contentView.addSubview(textContainer)
         textContainer.snp.makeConstraints { (make) in
+            make.top.bottom.equalTo(contentView).inset(5)
             make.leading.equalTo(profileImageView.snp.trailing).offset(16)
-//            make.trailing.equalTo(contentView).offset(-50)
-            make.trailing.equalTo(contentView).offset(-70)
-            make.top.equalTo(profileImageView)
-            make.bottom.equalTo(contentView.layoutMarginsGuide)
+            make.trailing.lessThanOrEqualTo(contentView).inset(70)
         }
     }
     private func setupMessageText() {
-        messageText.numberOfLines = 10
+        messageText.numberOfLines = 0
         textContainer.addSubview(messageText)
         messageText.snp.makeConstraints { (make) in
             make.edges.equalTo(textContainer).inset(5)
@@ -81,8 +82,5 @@ class OtherUserMessageCell: UITableViewCell {
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
-
 }

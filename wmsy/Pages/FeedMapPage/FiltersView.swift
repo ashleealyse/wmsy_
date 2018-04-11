@@ -16,7 +16,7 @@ class FiltersView: UIView {
     
     lazy var pullButton: UIButton = {
        let btn = UIButton()
-        btn.setImage(#imageLiteral(resourceName: "pullIcon"), for: .normal)
+        btn.setImage(#imageLiteral(resourceName: "pullBarIcon"), for: .normal)
         return btn
     }()
     
@@ -56,7 +56,7 @@ class FiltersView: UIView {
     lazy var clearSearchButton: UIButton = {
         let button = UIButton()
        button.setTitle("Clear", for: .normal)
-        button.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.5)
+        button.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)
         return button
     }()
     
@@ -81,9 +81,9 @@ class FiltersView: UIView {
     
     private func commonInit() {
         backgroundColor = .white
-        self.layer.borderWidth = 1.0
-        self.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
         setUpViews()
+        self.addBorders(edges: .top, color: Stylesheet.Colors.WMSYImperial)
+        self.addBorders(edges: .bottom, color: Stylesheet.Colors.WMSYImperial)
     }
     
     private func setUpViews() {

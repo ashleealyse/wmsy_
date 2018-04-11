@@ -23,6 +23,8 @@ class FeedMapVC: MenuedViewController {
     var mapUp: Bool = false
     
     var guestProfile = GuestProfileVC()
+    var hostProfileView = GuestProfileVC()
+
     var expandedRows = Set<Int>()
     var interestButtonCounter = 0
     var currentWhim: Whim?
@@ -55,12 +57,14 @@ class FeedMapVC: MenuedViewController {
             for whim in feedWhims{
                 let position = CLLocationCoordinate2D(latitude: Double(whim.lat)!, longitude: Double(whim.long)!)
                 let marker = GMSMarker(position: position)
+                let timeRemaining = getTimeRemaining(whim: whim)
                 marker.userData = ["title": whim.title,
                                    "description": whim.description,
                                    "hostImageURL": whim.hostImageURL,
                                    "category": whim.category,
                                    "hostID" : whim.hostID,
-                                   "whimID": whim.id
+                                   "whimID": whim.id,
+                                   "expiration": timeRemaining
                 ]
                 marker.icon = GMSMarker.markerImage(with: Stylesheet.Colors.WMSYDeepViolet)
                 marker.map = mapView.mapView
@@ -73,6 +77,7 @@ class FeedMapVC: MenuedViewController {
         DBService.manager.getClosestWhims(location: userLocation) { (whims) in
             self.feedWhims = whims.filter(){$0.finalized != true}
             self.feedView.tableView.reloadData()
+            refreshControl.blink()
             refreshControl.endRefreshing()
         }
     }
@@ -81,17 +86,17 @@ class FeedMapVC: MenuedViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.feedView.tableView.separatorStyle = .singleLine
-        self.feedView.tableView.separatorColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.5)
-        self.feedView.tableView.separatorInset.right = 10
-        self.feedView.tableView.separatorInset.left = 10
-
-        self.navigationController?.navigationBar.isHidden = false
+        self.feedView.tableView.separatorStyle = .none
+        self.view.backgroundColor = Stylesheet.Colors.WMSYGray
+        self.navigationController?.navigationBar.isHidden = true
         self.navigationController?.navigationBar.backgroundColor = .white
         self.navigationController?.navigationBar.tintColor = .white
         self.navigationController?.navigationBar.barTintColor = .white
         self.navigationController?.navigationBar.shadowImage = UIImage.imageWithColor(color: Stylesheet.Colors.WMSYDeepViolet)
         let refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString.init(string: "loading whims")
+        refreshControl.tintColor = .clear
+        refreshControl.backgroundColor = Stylesheet.Colors.WMSYNeonPurple.withAlphaComponent(0.5)
         refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         self.feedView.tableView.refreshControl = refreshControl
         currentUser = AppUser.currentAppUser
@@ -121,6 +126,11 @@ class FeedMapVC: MenuedViewController {
         self.mapView.mapView.delegate = self
         self.mapView.detailView.delegate = self
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        MenuNotificationTracker.manager.delegate = MenuData.manager
+    }
+    
 
     func addPanGesture(view: UIView) {
         let pan = UIPanGestureRecognizer(target: self, action: #selector(FeedMapVC.handlePan(sender:)))
@@ -129,16 +139,14 @@ class FeedMapVC: MenuedViewController {
     
     func addTapGesture(view: UIView) {
         let tap = UITapGestureRecognizer(target: self, action: #selector(FeedMapVC.openFeed(sender:)))
-        self.navigationController?.navigationBar.addGestureRecognizer(tap)
+        self.navView.addGestureRecognizer(tap)
     }
     
     @objc func openFeed(sender: UITapGestureRecognizer) {
         switch sender.state {
-        case .began:
-            openMenu(sender: sender)
-        case .ended:
-            openMenu(sender: sender)
-
+        case .ended, .began, .changed:
+            print("ended")
+            toggleMap(sender: sender)
         default:
             break
         }
@@ -156,13 +164,13 @@ class FeedMapVC: MenuedViewController {
         case .ended:
             if filterMapContainerView.frame.minY > feedView.frame.maxY {
                 print(filterMapContainerView.frame.minY)
-                print(feedView.frame.maxY)
+                print(feedView.frame.minY)
                 verticalPinConstraint?.deactivate()
                 self.mapUp = false
                 self.pinFilterViewToBottom()
-//                UIView.animate(withDuration: 0.2, animations: {
+                UIView.animate(withDuration: 0.3, animations: {
                 self.view.layoutIfNeeded()
-//                })
+                })
             }
             if filterMapContainerView.frame.minY <= CGFloat(368) || velocity.y < -300 {
                 verticalPinConstraint?.deactivate()
@@ -179,6 +187,7 @@ class FeedMapVC: MenuedViewController {
                     self.view.layoutIfNeeded()
                 })
             }
+           
         default:
             break
         }
@@ -186,11 +195,13 @@ class FeedMapVC: MenuedViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = true
+        super.viewWillAppear(animated)
+        MenuData.manager.simpleListener = nil
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = false
+        super.viewWillAppear(animated)
+        MenuData.manager.simpleListener = self
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -204,7 +215,7 @@ class FeedMapVC: MenuedViewController {
         view.addSubview(feedView)
 
         feedView.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(navView.snp.bottom)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(toolBarHeight)
@@ -253,33 +264,47 @@ class FeedMapVC: MenuedViewController {
                                                           zoom: mapView.zoomLevel)
         mapView.mapView.settings.myLocationButton = true
         mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
     }
     
     
     
+    let navView = NavView()
     // setup UIBarButtonItems
     private func configureNavBar() {
-        navigationItem.title = "wmsy"
-        let topLeftBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addIcon"), style: .plain, target: self, action: #selector(hostAWhim))
-        topLeftBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
-        navigationItem.leftBarButtonItem = topLeftBarItem
+//        navigationItem.title = "wmsy"
+//        let topLeftBarItem = UIBarButtonItem(image:#imageLiteral(resourceName: "feedIcon-1"), style: .plain, target: self, action: #selector(showMenu(sender:)))
+//        topLeftBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
+//        navigationItem.leftBarButtonItem = topLeftBarItem
+//
+//        let topRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addIcon"), style: .plain, target: self, action: #selector(hostAWhim))
+//        topRightBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
+//        navigationItem.rightBarButtonItem = topRightBarItem
         
-        let topRightBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "mapIcon"), style: .plain, target: self, action: #selector(toggleMap))
-        topRightBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
-        navigationItem.rightBarButtonItem = topRightBarItem
         
-        
+        navView.leftButton.addTarget(self, action: #selector(showMenu(sender:)), for: .touchUpInside)
+        navView.rightButton.addTarget(self, action: #selector(hostAWhim), for: .touchUpInside)
+        self.view.addSubview(navView)
+        navView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.equalTo(self.view)
+            make.height.equalTo(64)
+        }
     }
     
+    @objc func showMenu(sender: UIViewController){
+        navView.leftButton.imageView?.tintColor = Stylesheet.Colors.WMSYKSUPurple
+        openMenu(sender: sender)
+    }
     
     @objc func hostAWhim() {
-        navigationController?.pushViewController(CreateWhimTVC(), animated: false)
-        
-        navigationController?.isToolbarHidden = true
+        let vc = CreateWhimTVC()
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.type = kCATransitionMoveIn
+        transition.subtype = kCATransitionFromTop
+        navigationController?.view.layer.add(transition, forKey: nil)
+        navigationController?.pushViewController(vc, animated: false)
         print("Show Whim Host User Profile")
-//        CreateWhimTVC().modalPresentationStyle = .none
-//        self.present(CreateWhimTVC(), animated: false, completion: nil)
     }
     
     func pinFilterViewToBottom() {
@@ -290,12 +315,11 @@ class FeedMapVC: MenuedViewController {
     
     func pinFilterViewToTop() {
         filterMapContainerView.snp.makeConstraints { (make) in
-            verticalPinConstraint = make.top.equalTo(view.safeAreaLayoutGuide.snp.top).constraint
+            verticalPinConstraint = make.top.equalTo(navView.snp.bottom).offset(-1).constraint
         }
     }
     
-    @objc func toggleMap(sender: UIBarButtonItem) {
-        sender.isEnabled = false
+    @objc func toggleMap(sender: UITapGestureRecognizer) {
         verticalPinConstraint?.deactivate()
         
         if mapUp {
@@ -309,20 +333,15 @@ class FeedMapVC: MenuedViewController {
             self.view.layoutIfNeeded()
         }, completion: { (_) in
             self.mapUp = !self.mapUp
-            sender.isEnabled = true
         })
     }
     
     @objc func clearSearch() {
         DBService.manager.getClosestWhims(location: userLocation) { (whims) in
             self.feedWhims = whims
-//            for i in 0...5 {
-//                let indexPath = IndexPath.init(row: i, section: 0)
-//                print(i)
-//                let cell = self.filtersView.categoriesCV.cellForItem(at: indexPath) as! WhimCategoryCollectionViewCell
-//                cell.isSelected = false
-//
-//            }
+            self.filtersView.categoriesCV.deselectAllItems(animated: false)
+            self.filtersView.categoryLabel.text = "Filter Whims"
+            
         }
         self.expandedRows = Set<Int>()
     }
@@ -340,3 +359,36 @@ extension UIImage {
     }
 }
 
+
+extension UICollectionView {
+    func deselectAllItems(animated: Bool = false) {
+        for indexPath in self.indexPathsForSelectedItems ?? [] {
+            self.deselectItem(at: indexPath, animated: animated)
+        }
+    }
+}
+
+extension UIView{
+    func blink() {
+        self.alpha = 0.2
+        UIView.animate(withDuration: 1, delay: 0.0, options: [.curveLinear, .repeat, .autoreverse], animations: {self.alpha = 1.0}, completion: nil)
+    }
+}
+
+extension Date{
+func hours(from date: Date) -> Int {
+    return Calendar.current.dateComponents([.hour], from: date, to: self).hour ?? 0
+}
+
+func minutes(from date: Date) -> Int {
+    return Calendar.current.dateComponents([.minute], from: date, to: self).minute ?? 0
+}
+}
+
+extension FeedMapVC: MenuDataSimpleNotificationDelegate {
+    func newNotification() {
+        // add any code that should trigger when there's been a notification here
+        navView.leftButton.imageView?.tintColor = .red
+        print("there was some notification")
+    }
+}

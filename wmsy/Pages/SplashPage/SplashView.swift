@@ -42,7 +42,7 @@ class SplashView: UIView {
     func setUpColoredBackground() {
         addSubview(coloredView)
         coloredView.snp.makeConstraints { (make) in
-            make.edges.equalTo(safeAreaLayoutGuide)
+            make.edges.equalTo(self)
         }
     }
     

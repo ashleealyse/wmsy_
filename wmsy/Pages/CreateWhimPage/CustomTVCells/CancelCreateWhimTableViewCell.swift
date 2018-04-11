@@ -38,7 +38,7 @@ class CancelCreateWhimTableViewCell: UITableViewCell {
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
             let screenHeight = UIScreen.main.bounds.height
-            make.height.equalTo(screenHeight * 0.06)
+            make.height.equalTo(50)
             make.bottom.equalTo(contentView.snp.bottom)
             
         }

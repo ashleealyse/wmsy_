@@ -16,19 +16,32 @@ protocol MenuNavigationBarVCDelegate: class {
 class MenuNavigationBarVC: UIViewController {
     
     let feedButton = UIButton()
+    let titleLabel = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(feedButton)
-        view.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
+        view.addSubview(titleLabel)
+        view.backgroundColor = Stylesheet.Colors.WMSYImperial
+//        view.addBorders(edges: .bottom, color: .white)
         
-        
-        feedButton.setTitleColor(.white, for: .normal)
-        feedButton.setTitle("Go to Feed", for: .normal)
+
+        feedButton.setImage(#imageLiteral(resourceName: "whiteForwardIcon"), for: .normal)
+        titleLabel.text = "My Whims"
+        titleLabel.textColor = .white
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 30)
         
         feedButton.snp.makeConstraints { (make) in
-            make.top.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(64)
+            make.centerY.equalTo(self.view.safeAreaLayoutGuide)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-10)
         }
+        
+        titleLabel.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.view.safeAreaLayoutGuide)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide).inset(5)
+            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(5)
+        }
+        
     }
+    
 }

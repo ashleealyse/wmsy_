@@ -12,6 +12,7 @@ import FacebookCore
 import Kingfisher
 import FirebaseAuth
 import SVProgressHUD
+import GoogleMaps
 
 struct MyProfileRequest: GraphRequestProtocol {
     struct Response: GraphResponseProtocol {
@@ -30,7 +31,6 @@ struct MyProfileRequest: GraphRequestProtocol {
             if let id = response["id"] as? String {
                 self.id = id
             }
-            
             
             if let picture = response["picture"] as? Dictionary<String, Any> {
                 if let data = picture["data"] as? Dictionary<String, Any> {
@@ -52,12 +52,20 @@ struct MyProfileRequest: GraphRequestProtocol {
 class LoginVC: UIViewController {
     
     let loginView = LoginView()
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        locationManager.requestAlwaysAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.distanceFilter = 50
         loginView.delegate = self
         view.addSubview(loginView)
     }
+    
+    
+    
+    
     let connection = GraphRequestConnection()
     
 }
@@ -77,67 +85,85 @@ extension LoginVC: loginViewDelegate {
             // Logged In
             case .success(let grantedPermissions, let declinedPermissions, let accessToken):
                 SVProgressHUD.show()
-                self.connection.add(MyProfileRequest()) { response, result in
+                self.connection.add(MyProfileRequest()) { [weak self] response, result in
                     switch result {
                     case .success(let response):
                         let cred = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
-                        Auth.auth().signIn(with: cred, completion: { (user, error) in
-                            guard let user = user else {
-                                if let error = error {
-                                    print("error logging in?")
-                                }
-                                return
-                            }
-                            // Configure rest of app
-                            DBService.manager.checkIfUserExists(userID: user.uid, completion: { (userAlreadyExists) in
-                                var currentUser: AppUser!
-                                if userAlreadyExists {
-                                    DBService.manager.getAppUser(fromID: user.uid, completion: { (appUser) in
-                                        if let appUser = appUser {
-                                            AppUser.currentAppUser = appUser
-                                            MenuData.manager.configureInitialData(forUser: appUser, completion: {
-                                                print("set up everything already")
-                                                (self.tabBarController as? MainTabBarVC)?.animateTo(page: .feedAndMap, fromViewController: self)
-                                            })
-                                        } else {
-                                            print("some other error here")
-                                        }
-                                    })
-                                } else {
-                                    let userName = response.name
-                                    let userID = user.uid
-                                    var imageView = UIImageView()
-                                    imageView.kf.setImage(with: URL(string: response.profilePictureUrl!), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
-                                        
-                                       let photoID = StorageService.manager.storeUserImage(image: image, userID: userID)
-                                        
-                                        
-                                        currentUser = AppUser(name: userName!, photoID: photoID!, age: "", userID: userID, bio: "", badge: false, flags: 0, hostedWhims: [], interests: [])
-                                        AppUser.currentAppUser = currentUser
-                                        DBService.manager.addAppUser(currentUser)
-                                        MenuData.manager.configureInitialData(forUser: currentUser, completion: {
-                                            print("set up everything already")
-                                            (self.tabBarController as? MainTabBarVC)?.animateTo(page: .feedAndMap, fromViewController: self)
-                                        })
-                                        
-                                        
-                                    })
-                                    
-                                
-                                    
-                                    
-                                    
-                                   
-                                
-                                }
-                            })
-                        })
+                        self?.signInToFireBase(with: cred, and: response)
                     case .failed(let error):
                         print("Custom Graph Request Failed: \(error)")
                     }
                 }
                 self.connection.start()
             }
+        }
+    }
+    private func createFireBaseUser(with response: MyProfileRequest.Response, and user: User, completion: @escaping () -> Void) {
+        let userName = response.name
+        let userID = user.uid
+        let imageView = UIImageView()
+        imageView.kf.setImage(with: URL(string: response.profilePictureUrl!), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+            
+            StorageService.manager.storeUserImage(image: image, userID: userID, completion: { url in
+                
+                let currentUser = AppUser(name: userName!, photoID: url, age: "", userID: userID, bio: "", badge: false, flags: 0, hostedWhims: [], interests: [])
+                AppUser.currentAppUser = currentUser
+                DBService.manager.addAppUser(currentUser)
+                completion()
+            })   
+        })
+    }
+    private func signInToFireBase(with cred: AuthCredential, and response: MyProfileRequest.Response) {
+        Auth.auth().signIn(with: cred, completion: { (user, error) in
+            guard let user = user else {
+                if let error = error {
+                    print("error logging in?")
+                }
+                return
+            }
+            // Configure rest of app
+            DBService.manager.checkIfUserExists(userID: user.uid, completion: { (userAlreadyExists) in
+                if userAlreadyExists {
+                    let pictureURL = URL(string: response.profilePictureUrl!)
+                    let image = ImageView()
+                    image.kf.setImage(with: pictureURL, placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+                        let _ = StorageService.manager.storeUserImage(image: image, userID: user.uid, completion: { url in
+                            DBService.cachedUsers[user.uid]?.photoID = url
+                            AppUser.configureCurrentAppUser(withUID: user.uid, completion: {
+                                AppUser.currentAppUser?.photoID = url
+                                self.setupObserversAndMenuDataForCurrentUser {
+                                    (self.tabBarController as? MainTabBarVC)?.animateTo(page: .feedAndMap, fromViewController: self)
+                                }
+                            })
+                        })
+                    })
+                } else {
+                    self.createFireBaseUser(with: response, and: user, completion: {
+                        self.setupObserversAndMenuDataForCurrentUser {
+                            (self.tabBarController as? MainTabBarVC)?.animateTo(page: .feedAndMap, fromViewController: self)
+                        }
+                    })
+                }
+            })
+        })
+    }
+    
+    private func setupObserversAndMenuDataForCurrentUser(completion: @escaping () -> Void) {
+        guard let user = AppUser.currentAppUser else {
+            print("no current app user")
+            fatalError()
+        }
+        let group = DispatchGroup()
+        group.enter()
+        MenuData.manager.configureInitialData(forUser: user) {
+            group.leave()
+        }
+        group.enter()
+        MenuNotificationTracker.manager.setupListeners(forUser: user) {
+            group.leave()
+        }
+        group.notify(queue: .main) {
+            completion()
         }
     }
 }

@@ -13,7 +13,7 @@ class MenuWhimsCell: UITableViewCell {
     
     static let reuseIdentifier = "MenuWhimsCell"
     public var whimTitle = UILabel()
-    private var notificationBadge = UIView()
+    public var notificationBadge = UIView()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -28,10 +28,10 @@ class MenuWhimsCell: UITableViewCell {
         commonInit()
     }
     private func commonInit() {
-//        backgroundColor = Stylesheet.Colors.WMSYIsabelline
         backgroundColor = .clear
+        selectionStyle = .none
         setupViews()
-        placeholderTesting()
+        contentView.addBorders(edges: .bottom, color: Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.3), thickness: 0.5)
     }
     private func setupViews() {
         setupWhimTitle()
@@ -48,30 +48,20 @@ class MenuWhimsCell: UITableViewCell {
     }
     private func setupNotificationBadge() {
         contentView.addSubview(notificationBadge)
-        notificationBadge.layer.cornerRadius = 15 / 2
-        notificationBadge.clipsToBounds = true
         notificationBadge.snp.makeConstraints { (make) in
-            make.height.width.equalTo(15)
-            make.centerX.equalTo(whimTitle.snp.trailing)
-            make.centerY.equalTo(whimTitle.snp.top)
+            make.height.equalTo(contentView)
+            make.leading.equalTo(contentView)
+            make.centerY.equalTo(contentView)
+            make.width.equalTo(5)
         }
     }
-    private func placeholderTesting() {
-        whimTitle.text = "Testing putting some very long message in a chat title when looking at it through a menu. This text is set in MenuWhimsCell.swift"
-        notificationBadge.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
-        selectionStyle = .none
-        
-    }
     override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-        UIView.animate(withDuration: 0.4, animations: {
-            if selected {
-                self.backgroundColor = Stylesheet.Colors.WMSYKSUPurple
-            } else {
-                self.backgroundColor = .clear
-            }
-        })
+        if selected {
+            contentView.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.1)
+            whimTitle.textColor = Stylesheet.Colors.WMSYKSUPurple
+        } else {
+            contentView.backgroundColor = .clear
+            whimTitle.textColor = Stylesheet.Colors.WMSYKSUPurple
+        }
     }
 }

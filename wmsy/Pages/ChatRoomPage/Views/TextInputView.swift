@@ -24,15 +24,12 @@ class AutoHeightTextView: UITextView {
         commonInit()
     }
     
-    
     private func commonInit() {
         isScrollEnabled = false
         NotificationCenter.default.addObserver(self, selector: #selector(updateHeight), name: NSNotification.Name.UITextViewTextDidChange, object: nil)
     }
     
     @objc func updateHeight() {
-        // trigger your animation here
-        print("some stuff")
         UIView.animate(withDuration: 0.2) {
          var newFrame = self.frame
          
@@ -76,11 +73,11 @@ class TextInputView: UIView {
     }
     
     private func setupMessageTextView() {
-        messageTextView.backgroundColor = .clear
+        messageTextView.backgroundColor = .white
         messageTextView.font = UIFont.systemFont(ofSize: 20)
         messageTextView.textColor = .white
-        messageTextView.layer.borderColor = Stylesheet.Colors.WMSYKSUPurple.cgColor
-        messageTextView.layer.borderWidth = 1.0
+        messageTextView.textInputView.addBorders(edges: .top, color: Stylesheet.Colors.WMSYImperial)
+        messageTextView.textInputView.addBorders(edges: .right, color: Stylesheet.Colors.WMSYImperial)
         messageTextView.backgroundColor = .clear
         messageTextView.text = "adlfjhaldksfjn"
         addSubview(messageTextView)
@@ -98,5 +95,4 @@ class TextInputView: UIView {
             make.width.height.equalTo(64)
         }
     }
-    
 }

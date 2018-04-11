@@ -106,7 +106,7 @@ extension DBService {
                 if let appUser = appUser {
                     users.append(appUser)
                 } else {
-                    print("getAppUsers(fromID:) error")
+                    print("getAppUsers(fromID:\(singleUser)) error")
                 }
                 group.leave()
             })
@@ -125,6 +125,30 @@ extension DBService {
         }
         print("should have updated the bio")
     }
+    
+    
+    static var cachedImageURLs = [String: String]()
+    public func getUserImageURL(userID: String, completion: @escaping (String) -> Void) {
+        if let url = DBService.cachedImageURLs[userID] {
+            completion(url)
+            return
+        }
+        
+        let ref = usersRef.child(userID).child("photoID")
+        ref.observeSingleEvent(of: .value) { (snapshot) in
+            if let url = snapshot.value as? String {
+                DBService.cachedImageURLs[userID] = url
+                completion(url)
+            } else {
+                print("no phot url")
+                fatalError()
+            }
+        }
+        
+        
+    }
+    
+    
 }
 
 

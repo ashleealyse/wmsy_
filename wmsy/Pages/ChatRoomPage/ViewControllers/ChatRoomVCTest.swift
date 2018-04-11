@@ -14,6 +14,7 @@ import FirebaseDatabase
 class ChatRoomVCTest: MenuedViewController {
     
     let mainScrollView = UIScrollView()
+    
     let membersCollectionVC = InfoAndMembersCollectionVC()
     let chatTVC = ChatMessagesTableVC()
     let textInputVC = TextInputVC()
@@ -33,33 +34,40 @@ class ChatRoomVCTest: MenuedViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        self.navigationController?.navigationBar.isHidden = true
+        
+        configureNavBar()
         self.add(membersCollectionVC)
         self.add(chatTVC)
         self.add(textInputVC)
-        self.membersCollectionVC.detailDrawerClosed = false
         
         membersCollectionVC.delegate = self
         chatTVC.delegate = self
         textInputVC.delegate = self
-        
-//        membersCollectionVC.memberInfoView.delegate = self
-        
+
         setupSubviewsConstraints()
         setupKeyboardHandling()
         
         DataQueue.manager.delegate = self
         DataQueue.manager.startSendingData()
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        MenuData.manager.simpleListener = self
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupObservers()
         chatTVC.configureWith(whim!)
         membersCollectionVC.configureWith(whim!)
+        MenuNotificationTracker.manager.delegate = MenuData.manager
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         detachObservers()
+        MenuData.manager.simpleListener = nil
     }
     
     private func setupSubviewsConstraints() {
@@ -73,7 +81,8 @@ class ChatRoomVCTest: MenuedViewController {
 //        on one screen
         
         membersCollectionVC.view.snp.makeConstraints { (make) in
-            make.top.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
+            make.top.equalTo(navView.snp.bottom)
+            make.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
         }
         chatTVC.view.snp.makeConstraints { (make) in
             make.top.equalTo(membersCollectionVC.view.snp.bottom)
@@ -84,6 +93,42 @@ class ChatRoomVCTest: MenuedViewController {
             make.leading.trailing.bottom.equalTo(self.view)
             make.height.greaterThanOrEqualTo(64)
         }
+    }
+    
+    private let navView = NavView()
+    private func configureNavBar() {
+        self.navigationItem.title = "wmsy"
+        let topLeftBarItem = UIBarButtonItem(image:#imageLiteral(resourceName: "feedIcon-1"), style: .plain, target: self, action: #selector(showMenu(sender:)))
+        topLeftBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
+        navigationItem.leftBarButtonItem = topLeftBarItem
+        
+        let topRightBarItem = UIBarButtonItem(image:#imageLiteral(resourceName: "leaveChatIcon"), style: .plain, target: self, action: #selector(leaveChat(sender:)))
+        topRightBarItem.tintColor = Stylesheet.Colors.WMSYKSUPurple
+        navigationItem.rightBarButtonItem = topRightBarItem
+        self.navigationController?.navigationBar.backgroundColor = .white
+        self.navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.barTintColor = .white
+        self.navigationController?.navigationBar.shadowImage = UIImage.imageWithColor(color: Stylesheet.Colors.WMSYDeepViolet)
+        
+        navView.leftButton.addTarget(self, action: #selector(showMenu(sender:)), for: .touchUpInside)
+        navView.rightButton.addTarget(self, action: #selector(leaveChat(sender:)), for: .touchUpInside)
+        navView.rightButton.setImage(#imageLiteral(resourceName: "leaveChatIcon"), for: .normal)
+        view.addSubview(navView)
+        navView.snp.makeConstraints { (make) in
+            make.height.equalTo(64)
+            make.top.leading.trailing.equalTo(self.view)
+        }
+    }
+    
+    
+     @objc func leaveChat(sender: UIViewController){
+        print("left chat")
+    }
+    
+    
+    @objc func showMenu(sender: UIViewController){
+        self.navigationItem.leftBarButtonItem?.tintColor = Stylesheet.Colors.WMSYKSUPurple
+        openMenu(sender: sender)
     }
     
     private func setupKeyboardHandling() {let notificationCenter = NotificationCenter.default
@@ -114,13 +159,13 @@ class ChatRoomVCTest: MenuedViewController {
         self.whim = whim
         let group = DispatchGroup()
         group.enter()
-        // TODO: get all whim messages
+        // get all whim messages
         DBService.manager.getAllMessages(forWhim: whim) { (messages) in
             self.whim!.whimChats = messages
             self.chatTVC.configureWith(self.whim!)
             group.leave()
         }
-        // TODO: get all interests associated with the whim
+        // get all interests associated with the whim
         group.enter()
         DBService.manager.getAllInterests(forWhim: whim) { (interests) in
             self.interests = interests
@@ -129,7 +174,7 @@ class ChatRoomVCTest: MenuedViewController {
                 interestDict[interest.userID] = interest.inChat
             }
             
-            // TODO: get all user info for interested users
+            // get all user info for interested users
             let userIDs = interests.map{$0.userID}
             DBService.manager.getAppUsers(fromList: userIDs) { (users) in
                 self.interestedUsers = users
@@ -140,7 +185,7 @@ class ChatRoomVCTest: MenuedViewController {
         group.notify(queue: .main) {
             completion()
         }
-        // TODO: hand off that data to childVCs
+        // hand off that data to childVCs
     }
     private var messageHandle: DatabaseReference!
     private var newInterestHandle: DatabaseReference!
@@ -161,13 +206,13 @@ class ChatRoomVCTest: MenuedViewController {
             }
             messageDict["whimID"] = whim.id
             messageDict["messageID"] = snapshot.key
+            print(messageDict)
             if let message = Message.init(fromDict: messageDict),
                 message.messageID != self.chatTVC.lastMessageID {
                 self.whim!.whimChats.append(message)
                 self.chatTVC.new(message: message)
             }
         }
-        
         
         newInterestHandle = DBService.manager.interestsRef.child(whim.id)
         newInterestHandle.queryLimited(toLast: 1).observe(.childAdded) { (snapshot) in
@@ -206,10 +251,12 @@ class ChatRoomVCTest: MenuedViewController {
                         // TODO: get all user info for interested users
                         let userIDs = interests.map{$0.userID}
                         DBService.manager.getAppUsers(fromList: userIDs) { (users) in
-                            self.interestedUsers = users
+                        self.interestedUsers = users
                             self.membersCollectionVC.configureWith(members: users, andPermissions: interestDict)
                         }
                     }
+                    
+//                    self.membersCollectionVC.removed(user)
                     DBService.manager.addMessage(text: "\(user.name) has left", ofType: .notification, fromUserID: nil, toWhim: whim)
                 }
             })
@@ -218,15 +265,24 @@ class ChatRoomVCTest: MenuedViewController {
     private func addInChatListener(forUser user: AppUser) {
         guard let whim = whim else {return}
         newUserInChatHandles[user.userID] = DBService.manager.interestsRef.child(whim.id).child(user.userID)
-        newUserInChatHandles[user.userID]!.observe(.value) { (snapshot) in
+        newUserInChatHandles[user.userID]!.observe(.value) { [weak self] (snapshot) in
+            guard let `self` = self else {
+                return
+            }
             if let inChat = snapshot.value as? Bool {
                 if inChat,
-                    !self.membersCollectionVC.inChat[user.userID]! {
+                    let inChatLocally = self.membersCollectionVC.inChat[user.userID],
+                    !inChatLocally {
+                    self.removeInChatListener(forUser: user)
                     self.membersCollectionVC.invited(user)
                     DBService.manager.addMessage(text: "\(user.name) has joined", ofType: .notification, fromUserID: nil, toWhim: whim)
                 }
             }
         }
+    }
+    private func removeInChatListener(forUser user: AppUser) {
+        newUserInChatHandles[user.userID]?.removeAllObservers()
+        newUserInChatHandles[user.userID] = nil
     }
     private func detachObservers() {
         messageHandle.removeAllObservers()
@@ -271,9 +327,6 @@ extension ChatRoomVCTest: ChatMessagesTableVCDelegate, TextInputVCDelegate, Info
         self.members = members
     }
     
-    func toggleUser(user: AppUser) {
-        print("ChatRoomVCTest - user: \(user)")
-    }
     
     func send(message: String) {
         DBService.manager.addMessage(text: message, ofType: .chat, fromUserID: currentUserID, toWhim: whim!)
@@ -290,26 +343,9 @@ extension ChatRoomVCTest: DataReceiver {
 }
 
 
-//extension ChatRoomVCTest: ChatInfoViewDelegate {
-//    func inviteOrRemoveUserPressed(sender: UIButton) {
-//        let index = sender.tag
-//        let member = members[index]
-//        let interests = member.interests.filter{$0.whimID == whimID}
-//        if interests[0].inChat {
-//            removeFromWhimChat(member: member)
-//        } else {
-//            inviteToWhimChat(member: member)
-//        }
-//        print("Member Modified: \(member.name)")
-//    }
-//    
-//    func inviteToWhimChat(member: AppUser) {
-//        print("invite to chat: \(member.name)")
-//        add(user: member)
-//    }
-//    func removeFromWhimChat(member: AppUser) {
-//        print("remove from chat: \(member.name)")
-//    }
-//    
-//}
 
+extension ChatRoomVCTest: MenuDataSimpleNotificationDelegate {
+    func newNotification() {
+        print("there was some notification")
+    }
+}

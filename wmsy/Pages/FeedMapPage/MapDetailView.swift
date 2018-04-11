@@ -46,8 +46,9 @@ class MapDetailView: UIView {
         let interestButton = UIButton()
         interestButton.addTarget(self, action: #selector(interestButtonPressed), for: .touchUpInside)
 //        interestButton.setTitle("Show Interest", for: .normal)
-//        interestButton.titleLabel?.textColor = .black
-        interestButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
+        interestButton.titleLabel?.textColor = .white
+//        interestButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.3)
+//        interestButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
 //       interestButton.semanticContentAttribute = .forceRightToLeft
         return interestButton
     }()
@@ -79,21 +80,25 @@ class MapDetailView: UIView {
     }
     
     private func commonInit(){
+        setUpInterestButton()
         setUpUserPicture()
         setUpTitle()
         setUpDescription()
-        setUpInterestButton()
-        setUpInterestLabel()
+//        setUpInterestLabel()
     }
     
     private func setUpUserPicture(){
         addSubview(userPicture)
         userPicture.snp.makeConstraints { (make) in
-            make.leading.equalTo(self)
-            make.width.equalTo(self).multipliedBy(0.3)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
+            make.top.equalTo(safeAreaLayoutGuide)
+//            make.height.equalTo(self).multipliedBy(0.5)
+            make.width.equalTo(self.snp.height).multipliedBy(0.8)
+            make.bottom.equalTo(interestedButton.snp.top)
+//            make.centerY.equalTo(self)
 //            make.height.equalTo(userPicture.snp.width)
-            make.top.equalTo(self.snp.top)
-            make.bottom.equalTo(self.snp.bottom)
+//            make.top.equalTo(self.snp.top)
+//            make.bottom.equalTo(self.snp.bottom)
         }
         
     }
@@ -101,7 +106,8 @@ class MapDetailView: UIView {
     private func setUpTitle(){
         addSubview(whimTitle)
         whimTitle.snp.makeConstraints { (make) in
-            make.top.equalTo(self.snp.top)
+            make.top.equalTo(self.snp.top).offset(5)
+//            make.centerY.equalTo(userPicture.snp.centerY)
             make.leading.equalTo(userPicture.snp.trailing).offset(5)
             make.trailing.equalTo(self.snp.trailing)
         }
@@ -122,10 +128,12 @@ class MapDetailView: UIView {
     private func setUpInterestButton() {
         addSubview(interestedButton)
         interestedButton.snp.makeConstraints { (make) in
-            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-10)
-            make.bottom.equalTo(self.snp.bottom).offset(-5)
-            make.width.equalTo(self.snp.width).multipliedBy(0.07)
-            make.height.equalTo(self.snp.width).multipliedBy(0.07)
+//            make.top.equalTo(userPicture.snp.bottom)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
+//            make.width.equalTo(self.snp.width).multipliedBy(0.07)
+//            make.height.equalTo(self.snp.width).multipliedBy(0.07)
         }
     }
     

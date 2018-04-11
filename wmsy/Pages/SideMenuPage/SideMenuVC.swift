@@ -9,6 +9,8 @@
 import UIKit
 import SnapKit
 import FirebaseAuth
+import FacebookCore
+import FacebookLogin
 
 class SideMenuVC: MenuViewController {
     
@@ -16,20 +18,21 @@ class SideMenuVC: MenuViewController {
     private var guestWhims = [Whim]()
     private var pendingInterests = [Interest]()
     
-    let editBioVC = PopUpTextViewVC()
     let navVC = MenuNavigationBarVC()
     let menuPagesVC = MenuPagesVC.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     
-    let info = MenuData.manager
+    var info = MenuData.manager
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        menuScreen.backgroundColor = .white
         
         self.add(navVC)
         self.add(menuPagesVC)
         
         navVC.view.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalTo(self.menuScreen)
+            make.height.equalTo(64)
         }
         menuPagesVC.view.snp.makeConstraints { (make) in
             make.top.equalTo(navVC.view.snp.bottom)
@@ -45,22 +48,21 @@ class SideMenuVC: MenuViewController {
         }
         menuPagesVC.pageOne.profileView.signOutButton.addTarget(self, action: #selector(signOut), for: .touchUpInside)
         menuPagesVC.pageOne.profileView.editBioButton.addTarget(self, action: #selector(editBio), for: .touchUpInside)
-        menuPagesVC.pageOne.profileView.bioTextView.delegate = self
         
         
         // whim list
         menuPagesVC.pageTwo.delegate = self
-        let hostedWhims = info.hostedWhims.map{$0.whim}
-        let guestWhims = info.guestWhims.map{$0.whim}
+        let hostedWhims = info.hostedWhims
+        let guestWhims = info.guestWhims
         let pendingInterests = info.pendingInterests
         menuPagesVC.pageTwo.configureWith(hostedWhims: hostedWhims, guestWhims: guestWhims, pendingInterests: pendingInterests)
+        
+        MenuData.manager.delegate = self
     }
     
     @objc private func editBio() {
-//        editBioVC.modalTransitionStyle = .crossDissolve
-//        self.present(editBioVC, animated: true, completion: nil)
         let tv = menuPagesVC.pageOne.profileView.bioTextView
-        tv.isEditable = true
+//        tv.isEditable = true
         tv.becomeFirstResponder()
         
     }
@@ -74,6 +76,8 @@ class SideMenuVC: MenuViewController {
     override func signOut() {
         super.signOut()
         do {
+            let loginManager = LoginManager()
+            loginManager.logOut()
             try Auth.auth().signOut()
         } catch {
             print(error)
@@ -83,7 +87,15 @@ class SideMenuVC: MenuViewController {
 
 extension SideMenuVC: MenuChatsListVCDelegate {
     func didSelect(whim: Whim) {
-        if let vc = viewController(for: .chatRoom) as? ChatRoomVCTest {
+        if let index = MenuData.manager.hostedWhims.index(where: {$0.whim.id == whim.id}) {
+            MenuData.manager.hostedWhims[index].hasNotification = false
+        }
+        if let index = MenuData.manager.guestWhims.index(where: {$0.whim.id == whim.id}) {
+            MenuData.manager.guestWhims[index].hasNotification = false
+        }
+        
+        if let navVC = viewController(for: .chatRoom) as? UINavigationController,
+            let vc = navVC.viewControllers.first as? ChatRoomVCTest{
             if whim.id != vc.whimID {
                 vc.loadAllInitialData(forWhim: whim, completion: {
                     if let _ = self.fromVC as? ChatRoomVCTest {
@@ -105,14 +117,15 @@ extension SideMenuVC: MenuChatsListVCDelegate {
     }
 }
 
-extension SideMenuVC: UITextViewDelegate {
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if(text == "\n") {
-            textView.resignFirstResponder()
-            let text = textView.text!
-            DBService.manager.updateBio(text, forUser: AppUser.currentAppUser!)
-            return false
-        }
-        return true
+extension SideMenuVC: MenuDataDelegate {
+    func receivedUpdate() {
+        
+    }
+    
+    func reconfigure() {
+        let hostedWhims = info.hostedWhims
+        let guestWhims = info.guestWhims
+        let pendingInterests = info.pendingInterests
+        menuPagesVC.pageTwo.configureWith(hostedWhims: hostedWhims, guestWhims: guestWhims, pendingInterests: pendingInterests)
     }
 }

@@ -42,17 +42,36 @@ extension DBService {
                 let whim = Whim(id: id, category: category, title: title, description: description, hostID: hostID, hostImageURL: hostImageURL, location: location, long: long, lat: lat, duration: duration, expiration: expiration, finalized: finalized, timestamp: timestamp, whimChats: whimChats)
                 whims.append(whim)
             }
-            completion(whims.sortedByTimestamp())
+            let feed = FeedMapVC()
+            var finalWhims = whims.filter({ (whim) -> Bool in
+                let expiration = feed.getTimeRemaining(whim: whim)
+                if expiration.contains("-"){
+                    return false
+                }
+                return true
+            })
+            completion(finalWhims.sortedByTimestamp())
         }
     
     }
     
     
     // GET SUBSET OF WHIMS BASED ON CATEGORY
-    public func getCategoryWhims(fromCategory category: String, completion: @escaping ([Whim]) -> Void) {
+    public func getCategoryWhims(fromCategory category: String, location: CLLocation, completion: @escaping ([Whim]) -> Void) {
         getAllWhims { (whims) in
+            let userLocation = location
+            var whimArr = [Whim]()
             let categoryWhims = whims.filter{$0.category == category}
-            completion(categoryWhims.sortedByTimestamp())
+            for whim in categoryWhims{
+                let long = Double(whim.long)
+                let lat = Double(whim.lat)
+                let whimLocation = CLLocation(latitude: lat!, longitude: long!)
+                let distanceInMeters = whimLocation.distance(from: userLocation)
+                if distanceInMeters <= 1609{
+                    whimArr.append(whim)
+                }
+            }
+            completion(whimArr)
         }
     }
     

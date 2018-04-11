@@ -59,7 +59,7 @@ class NotificationTableViewCell: UITableViewCell {
         notificationLabel.textColor = Stylesheet.Colors.WMSYPastelBlue
         contentView.addSubview(notificationLabel)
         notificationLabel.snp.makeConstraints { (make) in
-            make.leading.trailing.equalTo(contentView).inset(100)
+            make.leading.trailing.equalTo(contentView).inset(30)
             make.top.bottom.equalTo(contentView).inset(15)
         }
     }
@@ -68,11 +68,7 @@ class NotificationTableViewCell: UITableViewCell {
         notificationLabel.text = "here is a simple notification"
     }
     
-    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
-
 }
