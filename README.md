@@ -31,3 +31,6 @@ Meeting new people these days is often attempted through dating or networking ap
 - **Design Lead**: [Ashlee Krammer](https://github.com/ashleealyse)
 - **Demo Lead**: [Diego Baca](https://github.com/adjNoun)
 - **Scrum Master**: [Tristan Myers](https://github.com/tristifano)
+
+## Website
+[The wmsy app](https://thewmsyapp.wixsite.com/wmsy)
