@@ -12,6 +12,7 @@ import FacebookCore
 import Kingfisher
 import FirebaseAuth
 import SVProgressHUD
+import GoogleMaps
 
 struct MyProfileRequest: GraphRequestProtocol {
     struct Response: GraphResponseProtocol {
@@ -51,12 +52,20 @@ struct MyProfileRequest: GraphRequestProtocol {
 class LoginVC: UIViewController {
     
     let loginView = LoginView()
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        locationManager.requestAlwaysAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.distanceFilter = 50
         loginView.delegate = self
         view.addSubview(loginView)
     }
+    
+    
+    
+    
     let connection = GraphRequestConnection()
     
 }
