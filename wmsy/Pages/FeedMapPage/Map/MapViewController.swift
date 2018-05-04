@@ -16,4 +16,11 @@ class MapViewController: UIViewController {
     
     var delegate: MapViewControllerDelegate?
     
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.view.translatesAutoresizingMaskIntoConstraints = false
+        self.view.backgroundColor = . blue
+    }
 }

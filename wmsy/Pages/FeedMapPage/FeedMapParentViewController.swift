@@ -35,13 +35,15 @@ class FeedMapParentViewController: MenuedViewController {
         feedVC.delegate = self
         toolbarVC.delegate = self
         mapVC.delegate = self
+        
+        addPanToolbarGesture()
+        addTapNavBarToToggleFeedGesture()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewsLayedOut = true
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -75,31 +77,93 @@ class FeedMapParentViewController: MenuedViewController {
         mapVC.view.snp.makeConstraints { (make) in
             make.top.equalTo(toolbarVC.view.snp.bottom)
             make.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
-            make.height.equalTo(feedVC.view)
+            make.height.equalTo(feedVC.view).offset(1)
         }
     }
     
     // MARK: - Feed-to-Map animations
-    var viewsLayedOut: Bool = false // used to avoid recursion in didset of constraint
-    var verticalPinConstraint: Constraint? {
-        didSet {
-            guard viewsLayedOut else { return }
-            // correct toolbar if dragged too high
-            if toolbarVC.view.frame.origin.y < navBarVC.view.frame.maxY {
-                print(toolbarVC.view.frame.origin.y)
-                print(navBarVC.view.frame.maxY)
-                toolbarVC.view.snp.makeConstraints { (make) in
-                    verticalPinConstraint = make.top.equalTo(navBarVC.view.snp.bottom).constraint
-                }
-            }
-            // correct toolbar if dragged too low
-            if toolbarVC.view.frame.origin.y > feedVC.view.frame.maxY {
-                toolbarVC.view.snp.makeConstraints { (make) in
-                    verticalPinConstraint = make.top.equalTo(feedVC.view.snp.bottom).constraint
-                }
-            }
+    var mapIsShowing: Bool = false
+    var verticalPinConstraint: Constraint?
+    private func addPanToolbarGesture() {
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan(sender:)))
+        toolbarVC.view.addGestureRecognizer(pan)
+    }
+    private func addTapNavBarToToggleFeedGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(toggleMap(sender:)))
+        self.navBarVC.view.addGestureRecognizer(tap)
+    }
+    
+    private func pinToolbarToBottom() {
+        toolbarVC.view.snp.makeConstraints { (make) in
+            verticalPinConstraint = make.top.equalTo(feedVC.view.snp.bottom).constraint
         }
     }
+    private func pinToolbarToTop() {
+        toolbarVC.view.snp.makeConstraints { (make) in
+            verticalPinConstraint = make.top.equalTo(navBarVC.view.snp.bottom).offset(-1).constraint
+        }
+    }
+    @objc func toggleMap(sender: UITapGestureRecognizer) {
+        verticalPinConstraint?.deactivate()
+        if mapIsShowing {
+            pinToolbarToBottom()
+//            self.mapView.detailView.isHidden = true
+        } else {
+            pinToolbarToTop()
+        }
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: { (_) in
+            self.mapIsShowing = !self.mapIsShowing
+        })
+    }
+    @objc func handlePan(sender: UIPanGestureRecognizer) {
+        guard let toolbar = sender.view else { return }
+        let translation = sender.translation(in: view)
+        let velocity = sender.velocity(in: view)
+        switch sender.state {
+        case .began, .changed:
+            //Check to make sure new center is within bounds
+            toolbar.center = CGPoint(x: view.center.x, y: toolbar.center.y + translation.y)
+            sender.setTranslation(CGPoint.zero, in: view)
+            correctToolbarFrame()
+            mapVC.view.frame.origin.y = toolbarVC.view.frame.maxY
+        case .ended:
+            if toolbar.frame.minY <= feedVC.view.frame.maxY / 2 || velocity.y < -300 {
+                verticalPinConstraint?.deactivate()
+                self.pinToolbarToTop()
+                UIView.animate(withDuration: 0.3, animations: {
+                    toolbar.frame.origin.y = self.navBarVC.view.frame.maxY - 1
+                    self.mapVC.view.frame.origin.y = toolbar.frame.maxY
+                    self.view.layoutIfNeeded()
+                })
+                self.mapIsShowing = false
+            }
+            if toolbar.frame.minY > feedVC.view.frame.maxY / 2 || velocity.y > 300 {
+                verticalPinConstraint?.deactivate()
+                self.pinToolbarToBottom()
+                UIView.animate(withDuration: 0.3, animations: {
+                    toolbar.frame.origin.y = self.feedVC.view.frame.maxY
+                    self.mapVC.view.frame.origin.y = toolbar.frame.maxY
+                    self.view.layoutIfNeeded()
+                })
+                self.mapIsShowing = true
+            }
+        default: break
+        }
+    }
+    private func correctToolbarFrame() {
+        // correct toolbar if dragged too high
+        if toolbarVC.view.frame.origin.y < navBarVC.view.frame.maxY {
+            toolbarVC.view.frame.origin.y = navBarVC.view.frame.maxY - 1
+        }
+        // correct toolbar if dragged too low
+        if toolbarVC.view.frame.origin.y > feedVC.view.frame.maxY {
+            toolbarVC.view.frame.origin.y = feedVC.view.frame.maxY
+        }
+    }
+    
 }
 
 extension FeedMapParentViewController: FeedViewControllerDelegate {
