@@ -35,6 +35,7 @@
 		81663A5E209CA9A000C1370B /* ToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81663A5D209CA9A000C1370B /* ToolbarViewController.swift */; };
 		81663A60209CA9AB00C1370B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81663A5F209CA9AB00C1370B /* MapViewController.swift */; };
 		81663A62209CA9CC00C1370B /* FeedMapParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81663A61209CA9CC00C1370B /* FeedMapParentViewController.swift */; };
+		81663A64209CAD7500C1370B /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81663A63209CAD7500C1370B /* ToolbarView.swift */; };
 		816D11CA206C333F001D199C /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816D11C9206C333F001D199C /* ChatInfoView.swift */; };
 		81903105205ADCF200932A55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81903104205ADCF200932A55 /* AppDelegate.swift */; };
 		8190310A205ADCF200932A55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81903108205ADCF200932A55 /* Main.storyboard */; };
@@ -159,6 +160,7 @@
 		81663A5D209CA9A000C1370B /* ToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarViewController.swift; sourceTree = "<group>"; };
 		81663A5F209CA9AB00C1370B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		81663A61209CA9CC00C1370B /* FeedMapParentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedMapParentViewController.swift; sourceTree = "<group>"; };
+		81663A63209CAD7500C1370B /* ToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarView.swift; sourceTree = "<group>"; };
 		816D11C9206C333F001D199C /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
 		81903101205ADCF200932A55 /* wmsy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wmsy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81903104205ADCF200932A55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				81663A5D209CA9A000C1370B /* ToolbarViewController.swift */,
+				81663A63209CAD7500C1370B /* ToolbarView.swift */,
 			);
 			path = Toolbar;
 			sourceTree = "<group>";
@@ -925,6 +928,7 @@
 				81BAD68F205AEEE200C7F039 /* Message.swift in Sources */,
 				93D5CDB2206AB20A00ABB3E1 /* SplashViewController.swift in Sources */,
 				8196983B2072D970000267A6 /* Interest.swift in Sources */,
+				81663A64209CAD7500C1370B /* ToolbarView.swift in Sources */,
 				81BAD67B205AEDAA00C7F039 /* FeedMapVC.swift in Sources */,
 				81DECD3220600FB000214866 /* Page.swift in Sources */,
 				811FFB5720606B5500F3312B /* CollapsedFeedCellView.swift in Sources */,
