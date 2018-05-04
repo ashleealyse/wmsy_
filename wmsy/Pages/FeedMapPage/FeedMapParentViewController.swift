@@ -29,6 +29,8 @@ class FeedMapParentViewController: MenuedViewController {
         
         self.layoutNavBarVC()
         self.layoutFeedVC()
+        self.layoutToolbarVC()
+        self.layoutMapVC()
         
         feedVC.delegate = self
         toolbarVC.delegate = self
@@ -39,6 +41,7 @@ class FeedMapParentViewController: MenuedViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        viewsLayedOut = true
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -61,7 +64,42 @@ class FeedMapParentViewController: MenuedViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(toolbarHeight)
         }
     }
+    private func layoutToolbarVC() {
+        toolbarVC.view.snp.makeConstraints { (make) in
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(toolbarHeight)
+            verticalPinConstraint = make.top.equalTo(feedVC.view.snp.bottom).constraint
+        }
+    }
+    private func layoutMapVC() {
+        mapVC.view.snp.makeConstraints { (make) in
+            make.top.equalTo(toolbarVC.view.snp.bottom)
+            make.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
+            make.height.equalTo(feedVC.view)
+        }
+    }
     
+    // MARK: - Feed-to-Map animations
+    var viewsLayedOut: Bool = false // used to avoid recursion in didset of constraint
+    var verticalPinConstraint: Constraint? {
+        didSet {
+            guard viewsLayedOut else { return }
+            // correct toolbar if dragged too high
+            if toolbarVC.view.frame.origin.y < navBarVC.view.frame.maxY {
+                print(toolbarVC.view.frame.origin.y)
+                print(navBarVC.view.frame.maxY)
+                toolbarVC.view.snp.makeConstraints { (make) in
+                    verticalPinConstraint = make.top.equalTo(navBarVC.view.snp.bottom).constraint
+                }
+            }
+            // correct toolbar if dragged too low
+            if toolbarVC.view.frame.origin.y > feedVC.view.frame.maxY {
+                toolbarVC.view.snp.makeConstraints { (make) in
+                    verticalPinConstraint = make.top.equalTo(feedVC.view.snp.bottom).constraint
+                }
+            }
+        }
+    }
 }
 
 extension FeedMapParentViewController: FeedViewControllerDelegate {

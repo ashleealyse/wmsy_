@@ -301,6 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				81663A5B209CA98100C1370B /* FeedViewController.swift */,
+				81BAD67C205AEDBF00C7F039 /* FeedView.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -453,7 +454,6 @@
 				81337774206A960B00F1F657 /* FeedMapVC+Feed.swift */,
 				81337776206A978900F1F657 /* FeedMapVC+Map.swift */,
 				81337778206A98BD00F1F657 /* FeedMapVC+Filter.swift */,
-				81BAD67C205AEDBF00C7F039 /* FeedView.swift */,
 				81DD10A72065CCC5002BAB42 /* MapDetailView.swift */,
 				81BAD67E205AEDC800C7F039 /* MapView.swift */,
 				81F9F06D20656B2200D288E8 /* FiltersView.swift */,

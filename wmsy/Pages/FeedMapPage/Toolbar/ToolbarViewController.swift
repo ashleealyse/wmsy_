@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 protocol ToolbarViewControllerDelegate: class {
     func toolbar(_ toolbar: ToolbarViewController, selectedCategory category: Category) -> Void
@@ -23,6 +24,12 @@ class ToolbarViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         toolbarView.categoryCV.delegate = self
+        
+        self.view.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(toolbarView)
+        toolbarView.snp.makeConstraints { (make) in
+            make.edges.equalTo(self.view)
+        }
     }
 }
 
