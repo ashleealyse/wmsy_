@@ -326,6 +326,7 @@
 			isa = PBXGroup;
 			children = (
 				81663A66209CC34800C1370B /* NavBarViewController.swift */,
+				810816B3207718D600E59456 /* NavView.swift */,
 			);
 			path = NavBar;
 			sourceTree = "<group>";
@@ -459,7 +460,6 @@
 				811FFB5620606B5500F3312B /* CollapsedFeedCellView.swift */,
 				93495B0520603F9A0080BDBA /* ExpandedFeedCellView.swift */,
 				93495B07206041080080BDBA /* FeedCell.swift */,
-				810816B3207718D600E59456 /* NavView.swift */,
 			);
 			path = FeedMapPage;
 			sourceTree = "<group>";

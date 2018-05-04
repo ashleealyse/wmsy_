@@ -27,6 +27,7 @@ class FeedMapParentViewController: MenuedViewController {
         self.add(toolbarVC)
         self.add(mapVC)
         
+        self.layoutNavBarVC()
         self.layoutFeedVC()
         
         feedVC.delegate = self
@@ -47,11 +48,16 @@ class FeedMapParentViewController: MenuedViewController {
     }
     
     // MARK: - Helper Functions
+    private func layoutNavBarVC() {
+        navBarVC.view.snp.makeConstraints { (make) in
+            make.top.leading.trailing.equalTo(self.view)
+            make.height.equalTo(64)
+        }
+    }
     private func layoutFeedVC() {
         feedVC.view.snp.makeConstraints { (make) in
             make.top.equalTo(navBarVC.view.snp.bottom)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.trailing.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(toolbarHeight)
         }
     }

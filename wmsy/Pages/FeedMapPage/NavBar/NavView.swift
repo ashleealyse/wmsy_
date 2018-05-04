@@ -26,47 +26,73 @@ class NavView: UIView {
         commonInit()
     }
     private func commonInit() {
-        backgroundColor = .white
         setupViews()
         self.addBorders(edges: .bottom, color: Stylesheet.Colors.WMSYImperial)
     }
     
     private func setupViews() {
-        setupLeftButton()
-        setupRightButton()
-        setupTitleButton()
+        self.addSubviews()
+        self.customizeSubviews()
+        self.constrainSubviews()
     }
-    private func setupLeftButton() {
+    
+    private func addSubviews() {
+        self.addSubview(leftButton)
+        self.addSubview(rightButton)
+        self.addSubview(titleButton)
+    }
+    private func customizeSubviews() {
+        self.customizeLeftButton()
+        self.customizeRightButton()
+        self.customizeTitleButton()
+    }
+    private func constrainSubviews() {
+        self.constrainLeftButton()
+        self.constrainRightButton()
+        self.constrainTitleButton()
+    }
+    
+    // MARK: - LeftButton
+    private func customizeLeftButton() {
         let tintedImage = (#imageLiteral(resourceName: "feedIcon-1")).withRenderingMode(.alwaysTemplate)
         leftButton.setImage(tintedImage, for: .normal)
         leftButton.imageView?.tintColor = Stylesheet.Colors.WMSYKSUPurple
         leftButton.imageView?.contentMode = .scaleAspectFit
-        self.addSubview(leftButton)
+    }
+    private func constrainLeftButton() {
         leftButton.snp.makeConstraints { (make) in
             make.leading.equalTo(self).inset(12)
             make.bottom.equalTo(self).inset(8)
             make.top.equalTo(self).inset(28)
         }
     }
-    private func setupRightButton() {
+    
+    // MARK: - RightButton
+    private func customizeRightButton() {
         let tintedImage = (#imageLiteral(resourceName: "addIcon")).withRenderingMode(.alwaysTemplate)
         rightButton.setImage(tintedImage, for: .normal)
         rightButton.imageView?.tintColor = Stylesheet.Colors.WMSYKSUPurple
         rightButton.imageView?.contentMode = .scaleAspectFit
-        self.addSubview(rightButton)
+    }
+    private func constrainRightButton() {
         rightButton.snp.makeConstraints { (make) in
             make.trailing.equalTo(self).inset(12)
             make.bottom.equalTo(self).inset(8)
             make.top.equalTo(self).inset(28)
         }
     }
-    private func setupTitleButton() {
+    
+    // MARK: - TitleButton
+    private func customizeTitleButton() {
         self.addSubview(titleButton)
         titleButton.setTitle("wmsy", for: .normal)
         titleButton.setTitleColor(.black, for: .normal)
+    }
+    private func constrainTitleButton() {
         titleButton.snp.makeConstraints { (make) in
             make.centerX.equalTo(self)
             make.bottom.equalTo(self).inset(8)
         }
     }
+    
 }
