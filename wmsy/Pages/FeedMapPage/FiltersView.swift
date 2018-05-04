@@ -113,7 +113,7 @@ class FiltersView: UIView {
             make.leading.equalTo(self.snp.leading).offset(5)
             make.width.equalTo(screenWidth * 0.8)
 //            make.bottom.equalTo(self.snp.bottom).offset(-5)
-           
+            make.height.equalTo(self.snp.height).multipliedBy(0.4)
         }
         
         addSubview(clearSearchButton)

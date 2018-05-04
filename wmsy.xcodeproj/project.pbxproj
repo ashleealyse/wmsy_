@@ -36,6 +36,7 @@
 		81663A60209CA9AB00C1370B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81663A5F209CA9AB00C1370B /* MapViewController.swift */; };
 		81663A62209CA9CC00C1370B /* FeedMapParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81663A61209CA9CC00C1370B /* FeedMapParentViewController.swift */; };
 		81663A64209CAD7500C1370B /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81663A63209CAD7500C1370B /* ToolbarView.swift */; };
+		81663A67209CC34800C1370B /* NavBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81663A66209CC34800C1370B /* NavBarViewController.swift */; };
 		816D11CA206C333F001D199C /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816D11C9206C333F001D199C /* ChatInfoView.swift */; };
 		81903105205ADCF200932A55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81903104205ADCF200932A55 /* AppDelegate.swift */; };
 		8190310A205ADCF200932A55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81903108205ADCF200932A55 /* Main.storyboard */; };
@@ -161,6 +162,7 @@
 		81663A5F209CA9AB00C1370B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		81663A61209CA9CC00C1370B /* FeedMapParentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedMapParentViewController.swift; sourceTree = "<group>"; };
 		81663A63209CAD7500C1370B /* ToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarView.swift; sourceTree = "<group>"; };
+		81663A66209CC34800C1370B /* NavBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarViewController.swift; sourceTree = "<group>"; };
 		816D11C9206C333F001D199C /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
 		81903101205ADCF200932A55 /* wmsy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wmsy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81903104205ADCF200932A55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -320,6 +322,14 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
+		81663A65209CC33000C1370B /* NavBar */ = {
+			isa = PBXGroup;
+			children = (
+				81663A66209CC34800C1370B /* NavBarViewController.swift */,
+			);
+			path = NavBar;
+			sourceTree = "<group>";
+		};
 		817C73852072DF3300EF160F /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -434,6 +444,7 @@
 			isa = PBXGroup;
 			children = (
 				81663A61209CA9CC00C1370B /* FeedMapParentViewController.swift */,
+				81663A65209CC33000C1370B /* NavBar */,
 				81663A58209CA95700C1370B /* Feed */,
 				81663A59209CA95D00C1370B /* Toolbar */,
 				81663A5A209CA96300C1370B /* Map */,
@@ -870,6 +881,7 @@
 				81B928E120617D07002CD355 /* ChatView.swift in Sources */,
 				81BAD6A5205AF08100C7F039 /* NotificationMsgCell.swift in Sources */,
 				81202D88206BECCB00CC5588 /* MenuPagesVC.swift in Sources */,
+				81663A67209CC34800C1370B /* NavBarViewController.swift in Sources */,
 				8139A9A2205C30D7006C7058 /* CreateWhimTVC.swift in Sources */,
 				81D12DD42065AA470056920C /* DataQueue.swift in Sources */,
 				81DECD2C205DECF900214866 /* MenuWhimsHeader.swift in Sources */,

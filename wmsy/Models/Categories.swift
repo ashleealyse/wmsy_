@@ -9,6 +9,19 @@
 import Foundation
 import UIKit
 
+enum Category: String {
+    case wmsy
+    case animals
+    case arts
+    case coffee
+    case drinks
+    case entertainment
+    case games
+    case restaurants
+    case shopping
+    case sports
+}
+
 let categoryTuples = [
     ("wmsy", UIImage(named: "wmsyCategoryIcon")),
     ("Animals", UIImage(named: "animalsCategoryIcon")),
