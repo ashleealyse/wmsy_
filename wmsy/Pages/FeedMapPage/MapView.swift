@@ -17,9 +17,6 @@ class MapView: UIView {
     var zoomLevel: Float = 15.0
     var detailView = MapDetailView()
     
-    
-    
-    
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         loadView()

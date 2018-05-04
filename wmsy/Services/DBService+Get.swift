@@ -77,7 +77,7 @@ extension DBService {
     
     
     public func getClosestWhims(location: CLLocation,completion: @escaping ([Whim]) -> Void){
-        getAllWhims { (whims) in
+        getAllWhims { (whims) in 
             let userLocation = location
             var whimArr = [Whim]()
             for whim in whims{

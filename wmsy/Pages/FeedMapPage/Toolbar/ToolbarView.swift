@@ -38,6 +38,7 @@ class ToolbarView: UIView {
         setupViews()
         self.addBorders(edges: .top, color: Stylesheet.Colors.WMSYImperial)
         self.addBorders(edges: .bottom, color: Stylesheet.Colors.WMSYImperial)
+        self.backgroundColor = .white
     }
     
     private func setupViews() {

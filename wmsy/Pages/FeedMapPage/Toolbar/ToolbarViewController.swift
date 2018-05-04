@@ -23,6 +23,8 @@ class ToolbarViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        toolbarView.categoryCV.dataSource = self
         toolbarView.categoryCV.delegate = self
         
         self.view.translatesAutoresizingMaskIntoConstraints = false

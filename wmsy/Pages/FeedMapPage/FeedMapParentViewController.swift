@@ -52,7 +52,7 @@ class FeedMapParentViewController: MenuedViewController {
         super.viewDidDisappear(animated)
     }
     
-    // MARK: - Helper Functions
+    // MARK: - UI helper Functions
     private func layoutNavBarVC() {
         navBarVC.view.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalTo(self.view)
@@ -163,6 +163,9 @@ class FeedMapParentViewController: MenuedViewController {
             toolbarVC.view.frame.origin.y = feedVC.view.frame.maxY
         }
     }
+    
+    // MARK: - Database networking
+    
     
 }
 
