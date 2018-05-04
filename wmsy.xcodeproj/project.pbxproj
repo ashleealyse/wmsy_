@@ -34,6 +34,7 @@
 		81663A5C209CA98100C1370B /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81663A5B209CA98100C1370B /* FeedViewController.swift */; };
 		81663A5E209CA9A000C1370B /* ToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81663A5D209CA9A000C1370B /* ToolbarViewController.swift */; };
 		81663A60209CA9AB00C1370B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81663A5F209CA9AB00C1370B /* MapViewController.swift */; };
+		81663A62209CA9CC00C1370B /* FeedMapParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81663A61209CA9CC00C1370B /* FeedMapParentViewController.swift */; };
 		816D11CA206C333F001D199C /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816D11C9206C333F001D199C /* ChatInfoView.swift */; };
 		81903105205ADCF200932A55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81903104205ADCF200932A55 /* AppDelegate.swift */; };
 		8190310A205ADCF200932A55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81903108205ADCF200932A55 /* Main.storyboard */; };
@@ -157,6 +158,7 @@
 		81663A5B209CA98100C1370B /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		81663A5D209CA9A000C1370B /* ToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarViewController.swift; sourceTree = "<group>"; };
 		81663A5F209CA9AB00C1370B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		81663A61209CA9CC00C1370B /* FeedMapParentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedMapParentViewController.swift; sourceTree = "<group>"; };
 		816D11C9206C333F001D199C /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
 		81903101205ADCF200932A55 /* wmsy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wmsy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81903104205ADCF200932A55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -428,6 +430,7 @@
 		81BAD679205AED7900C7F039 /* FeedMapPage */ = {
 			isa = PBXGroup;
 			children = (
+				81663A61209CA9CC00C1370B /* FeedMapParentViewController.swift */,
 				81663A58209CA95700C1370B /* Feed */,
 				81663A59209CA95D00C1370B /* Toolbar */,
 				81663A5A209CA96300C1370B /* Map */,
@@ -889,6 +892,7 @@
 				816D11CA206C333F001D199C /* ChatInfoView.swift in Sources */,
 				81AB7AC2205C80B4009845EA /* WhimCategoryTableViewCell.swift in Sources */,
 				81EBB5892060117D008A6CE7 /* StorageService.swift in Sources */,
+				81663A62209CA9CC00C1370B /* FeedMapParentViewController.swift in Sources */,
 				811FFB9B20616B1E00F3312B /* DBService+Message.swift in Sources */,
 				81B928E720618D64002CD355 /* NotificationTableViewCell.swift in Sources */,
 				81BAD6A7205AF09400C7F039 /* LocationDetailsMsgCell.swift in Sources */,

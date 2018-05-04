@@ -8,7 +8,12 @@
 
 import UIKit
 
+protocol MapViewControllerDelegate: class {
+    
+}
 
 class MapViewController: UIViewController {
+    
+    var delegate: MapViewControllerDelegate?
     
 }

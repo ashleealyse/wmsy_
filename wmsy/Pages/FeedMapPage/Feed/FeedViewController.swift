@@ -8,9 +8,13 @@
 
 import UIKit
 
+protocol FeedViewControllerDelegate: class {
+    
+}
+
 class FeedViewController: UIViewController {
     
-    
+    var delegate: FeedViewControllerDelegate?
     
     
 }

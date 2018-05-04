@@ -8,6 +8,13 @@
 
 import UIKit
 
+protocol ToolbarViewControllerDelegate: class {
+    
+}
+
 class ToolbarViewController: UIViewController {
+    
+    var delegate: ToolbarViewControllerDelegate?
+    
     
 }
