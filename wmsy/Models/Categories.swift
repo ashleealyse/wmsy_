@@ -20,6 +20,19 @@ enum Category: String {
     case restaurants
     case shopping
     case sports
+    
+    static func all() -> [Category] {
+        return [.wmsy,
+                .animals,
+                .arts,
+                .coffee,
+                .drinks,
+                .entertainment,
+                .games,
+                .restaurants,
+                .shopping,
+                .sports]
+    }
 }
 
 let categoryTuples = [

@@ -125,6 +125,8 @@ class ToolbarView: UIView {
     // MARK: - CategoryCV
     private func customizeCategoryCV() {
         categoryCV.register(WhimCategoryCollectionViewCell.self, forCellWithReuseIdentifier: "FilterCategoryCell")
+        categoryCV.allowsMultipleSelection = true
+        categoryCV.backgroundColor = .clear
     }
     private func constrainCategoryCV() {
         categoryCV.snp.makeConstraints { (make) in

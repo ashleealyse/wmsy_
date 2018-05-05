@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import CoreLocation
 
 class FeedMapParentViewController: MenuedViewController {
     
@@ -183,5 +184,7 @@ extension FeedMapParentViewController: ToolbarViewControllerDelegate {
 }
 
 extension FeedMapParentViewController: MapViewControllerDelegate {
-    
+    func mapView(_ mapView: MapViewController, didChangeLocation location: CLLocation) {
+        
+    }
 }

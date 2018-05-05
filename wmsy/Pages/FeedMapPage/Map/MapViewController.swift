@@ -11,7 +11,7 @@ import SnapKit
 import GoogleMaps
 
 protocol MapViewControllerDelegate: class {
-    
+    func mapView(_ mapView: MapViewController, didChangeLocation location: CLLocation) -> Void
 }
 
 class MapViewController: UIViewController {

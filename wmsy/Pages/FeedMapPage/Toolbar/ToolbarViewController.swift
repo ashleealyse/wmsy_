@@ -19,7 +19,7 @@ class ToolbarViewController: UIViewController {
     let toolbarView = ToolbarView()
     var delegate: ToolbarViewControllerDelegate?
     
-    var categories = [Category]()
+    var categories = Category.all()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,10 +75,7 @@ extension ToolbarViewController: UICollectionViewDelegateFlowLayout {
         let category = categories[indexPath.row]
         delegate?.toolbar(self, selectedCategory: category)
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCategoryCell", for: indexPath) as! WhimCategoryCollectionViewCell
-        UIView.animate(withDuration: 0.4) {
-            cell.categoryImage.backgroundColor = .black
-        }
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCategoryCell", for: indexPath) as! WhimCategoryCollectionViewCell
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
