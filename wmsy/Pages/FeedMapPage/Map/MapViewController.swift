@@ -61,10 +61,10 @@ extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let mostRecentLocation = locations.last else { return }
         self.mapView.updateCameraTo(location: mostRecentLocation, range: self.desiredRange)
+        self.delegate?.mapView(self, didChangeLocation: mostRecentLocation)
     }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
-        print()
     }
 }
 

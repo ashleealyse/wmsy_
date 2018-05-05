@@ -20,6 +20,19 @@ class ToolbarViewController: UIViewController {
     var delegate: ToolbarViewControllerDelegate?
     
     var categories = Category.all()
+    var selectedCategories = Set<Category>() {
+        didSet {
+            UIView.animate(withDuration: 0.3) {
+                if self.selectedCategories.count == self.categories.count {
+                    self.toolbarView.allFiltersButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)
+                    self.toolbarView.allFiltersButton.setTitleColor(.white, for: .normal)
+                } else {
+                    self.toolbarView.allFiltersButton.backgroundColor = .white
+                    self.toolbarView.allFiltersButton.setTitleColor(Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8), for: .normal)
+                }
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +45,28 @@ class ToolbarViewController: UIViewController {
         toolbarView.snp.makeConstraints { (make) in
             make.edges.equalTo(self.view)
         }
+        
+        toolbarView.allFiltersButton.addTarget(self, action: #selector(toggleAllCategories(_:)), for: .touchUpInside)
+        
+        // cheap way to start with everything selected
+        toggleAllCategories(nil)
     }
+    
+    @objc private func toggleAllCategories(_ sender: UIButton?) {
+        if categories.count == selectedCategories.count {
+            selectedCategories.removeAll()
+            toolbarView.categoryCV.deselectAllItems(animated: true)
+        } else {
+            var indexPath = IndexPath()
+            for (index, category) in categories.enumerated() {
+                selectedCategories.insert(category)
+                indexPath = IndexPath(item: index, section: 0)
+                toolbarView.categoryCV.selectItem(at: indexPath, animated: true, scrollPosition: .top)
+            }
+        }
+    }
+    
+    
 }
 
 extension ToolbarViewController: UICollectionViewDataSource {
@@ -80,15 +114,13 @@ extension ToolbarViewController: UICollectionViewDelegateFlowLayout {
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let category = categories[indexPath.row]
+        selectedCategories.insert(category)
         delegate?.toolbar(self, selectedCategory: category)
-        
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCategoryCell", for: indexPath) as! WhimCategoryCollectionViewCell
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let category = categories[indexPath.row]
+        selectedCategories.remove(category)
         delegate?.toolbar(self, deselectedCategory: category)
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCategoryCell", for: indexPath) as! WhimCategoryCollectionViewCell
     }
 }

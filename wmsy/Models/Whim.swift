@@ -22,7 +22,7 @@ extension DateFormatter {
 
 struct Whim: Codable {
     let id: String
-    let category: String
+    let category: Category
     let title: String
     let description: String
     let hostID: String
@@ -38,7 +38,7 @@ struct Whim: Codable {
     
     init(id: String, category: String, title: String, description: String, hostID: String, hostImageURL: String, location: String, long: String, lat: String, duration: Int, expiration: String, finalized: Bool, timestamp: String, whimChats: [Message]) {
         self.id = id
-        self.category =  category
+        self.category = Category(rawValue: category) ?? .wmsy
         self.title =  title
         self.description =  description
         self.hostID =  hostID
@@ -74,7 +74,7 @@ struct Whim: Codable {
                 return nil
         }
         self.id = id
-        self.category =  category
+        self.category =  Category(rawValue: category) ?? .wmsy
         self.title =  title
         self.description =  description
         self.hostID =  hostID
@@ -89,6 +89,9 @@ struct Whim: Codable {
         self.whimChats =  []
     }
     
+    func toDictionary() -> [String: Any] {
+        return [:]
+    }
 }
 
 extension Array where Element == Whim {
@@ -101,3 +104,10 @@ extension Array where Element == Whim {
     }
 }
 
+extension Whim: Equatable {
+    static func == (lhs: Whim, rhs: Whim) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    
+}

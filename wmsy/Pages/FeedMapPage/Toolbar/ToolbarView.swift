@@ -14,7 +14,7 @@ class ToolbarView: UIView {
     // MARK: - Properties
     let pullButton = UIButton()
     let categoryLabel = UILabel()
-    let clearFiltersButton = UIButton()
+    let allFiltersButton = UIButton()
     let distanceSegmentedControl = UISegmentedControl()
     lazy var categoryCV: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -50,21 +50,21 @@ class ToolbarView: UIView {
     private func addSubviews() {
         self.addSubview(pullButton)
         self.addSubview(categoryLabel)
-        self.addSubview(clearFiltersButton)
+        self.addSubview(allFiltersButton)
         self.addSubview(distanceSegmentedControl)
         self.addSubview(categoryCV)
     }
     private func customizeViews() {
         self.customizePullButton()
         self.customizeCategoryLabel()
-        self.customizeClearFiltersButton()
+        self.customizeAllFiltersButton()
         self.customizeDistanceSegmentedControl()
         self.customizeCategoryCV()
     }
     private func constrainSubviews() {
         self.constrainPullButton()
         self.constrainCategoryLabel()
-        self.constrainClearFiltersButton()
+        self.constrainAllFiltersButton()
         self.constrainDistanceSegmentedControl()
         self.constrainCategoryCV()
     }
@@ -95,13 +95,14 @@ class ToolbarView: UIView {
         }
     }
     
-    // MARK: - ClearFiltersButton
-    private func customizeClearFiltersButton() {
-        clearFiltersButton.setTitle("Clear", for: .normal)
-        clearFiltersButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)
+    // MARK: - AllFiltersButton
+    private func customizeAllFiltersButton() {
+        allFiltersButton.setTitle("All", for: .normal)
+        allFiltersButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)
+        allFiltersButton.addBorders(edges: .all, color: Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8))
     }
-    private func constrainClearFiltersButton() {
-        clearFiltersButton.snp.makeConstraints { (make) in
+    private func constrainAllFiltersButton() {
+        allFiltersButton.snp.makeConstraints { (make) in
             make.leading.equalTo(categoryCV.snp.trailing).offset(5)
             make.top.bottom.equalTo(categoryCV)
             make.trailing.equalTo(self).inset(5)
@@ -127,6 +128,7 @@ class ToolbarView: UIView {
         categoryCV.register(WhimCategoryCollectionViewCell.self, forCellWithReuseIdentifier: "FilterCategoryCell")
         categoryCV.allowsMultipleSelection = true
         categoryCV.backgroundColor = .clear
+        categoryCV.showsHorizontalScrollIndicator = false
     }
     private func constrainCategoryCV() {
         categoryCV.snp.makeConstraints { (make) in

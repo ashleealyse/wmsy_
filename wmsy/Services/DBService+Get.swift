@@ -42,17 +42,17 @@ extension DBService {
                 let whim = Whim(id: id, category: category, title: title, description: description, hostID: hostID, hostImageURL: hostImageURL, location: location, long: long, lat: lat, duration: duration, expiration: expiration, finalized: finalized, timestamp: timestamp, whimChats: whimChats)
                 whims.append(whim)
             }
-            let feed = FeedMapVC()
-            var finalWhims = whims.filter({ (whim) -> Bool in
-                let expiration = feed.getTimeRemaining(whim: whim)
-                if expiration.contains("-"){
-                    return false
-                }
-                return true
-            })
-            completion(finalWhims.sortedByTimestamp())
+            completion(whims)
         }
     
+        //            let feed = FeedMapVC()
+        //            var finalWhims = whims.filter({ (whim) -> Bool in
+        //                let expiration = feed.getTimeRemaining(whim: whim)
+        //                if expiration.contains("-"){
+        //                    return false
+        //                }
+        //                return true
+        //            })
     }
     
     
@@ -61,7 +61,7 @@ extension DBService {
         getAllWhims { (whims) in
             let userLocation = location
             var whimArr = [Whim]()
-            let categoryWhims = whims.filter{$0.category == category}
+            let categoryWhims = whims.filter{$0.category.rawValue == category}
             for whim in categoryWhims{
                 let long = Double(whim.long)
                 let lat = Double(whim.lat)

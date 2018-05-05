@@ -12,7 +12,7 @@ import UIKit
 extension DBService {
     // Create a Whim by current user
     
-    public func addWhimWith(category: String,
+    public func addWhimWith(category: Category,
                         title: String,
                         description: String,
                         hostImageURL: String,
@@ -40,7 +40,7 @@ extension DBService {
         let expirationString = DateFormatter.wmsyDateFormatter.string(from: expiration)
         
         
-        let whim = Whim(id: ref.key, category: category, title: title, description: description, hostID: currentUser.userID, hostImageURL: currentUser.photoID, location: location, long: long, lat: lat, duration: duration, expiration: expirationString, finalized: false, timestamp: dateString, whimChats: [])
+        let whim = Whim(id: ref.key, category: category.rawValue, title: title, description: description, hostID: currentUser.userID, hostImageURL: currentUser.photoID, location: location, long: long, lat: lat, duration: duration, expiration: expirationString, finalized: false, timestamp: dateString, whimChats: [])
         AppUser.currentAppUser?.hostedWhims.append(whim)
         
         let group = DispatchGroup()

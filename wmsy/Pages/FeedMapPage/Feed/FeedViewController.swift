@@ -16,6 +16,7 @@ protocol FeedViewControllerDelegate: class {
 class FeedViewController: UIViewController {
     
     let feedView = FeedView()
+    let refreshControl = UIRefreshControl()
     var delegate: FeedViewControllerDelegate?
     
     private var whims = [Whim]()
@@ -32,9 +33,33 @@ class FeedViewController: UIViewController {
         
         feedView.tableView.dataSource = self
         feedView.tableView.delegate = self
+        feedView.tableView.refreshControl?.addSubview(refreshControl)
+        feedView.tableView.refreshControl?.sendSubview(toBack: refreshControl)
+        
+        let attributes = [NSAttributedStringKey.foregroundColor: UIColor.white,
+                            NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15)]
+        refreshControl.attributedTitle = NSAttributedString.init(string: "loading whims", attributes: attributes)
+        refreshControl.tintColor = .white
+        refreshControl.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)
+        refreshControl.addTarget(self, action: #selector(refreshControlDragged), for: UIControlEvents.valueChanged)
+        feedView.tableView.addSubview(refreshControl)
+        
+        refreshControl.beginRefreshing()
     }
-    
-    public func setWhimsTo(_ whims: [Whim]) {
+    @objc private func refreshControlDragged() {
+        if !feedView.tableView.isDragging {
+            refreshData()
+        }
+    }
+    private func refreshData() {
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+            self.refreshControl.blink()
+            self.refreshControl.endRefreshing()
+        }
+    }
+    public func updateWhimsTo(_ whims: [Whim]) {
+        refreshControl.endRefreshing()
+        guard self.whims != whims else {return}
         self.whims = whims
         feedView.tableView.reloadData()
     }
@@ -47,6 +72,7 @@ extension FeedViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WhimFeedCell", for: indexPath) as! FeedCell
+        cell.backgroundColor = .red
         return cell
     }
     
@@ -54,5 +80,9 @@ extension FeedViewController: UITableViewDataSource {
 }
 
 extension FeedViewController: UITableViewDelegate {
-    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if refreshControl.isRefreshing {
+            refreshData()
+        }
+    }
 }

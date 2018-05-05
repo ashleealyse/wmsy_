@@ -19,6 +19,18 @@ class FeedMapParentViewController: MenuedViewController {
     
     let toolbarHeight: CGFloat = 90.0
     
+    var selectedCategories = Set(Category.all())
+    var currentLocation: CLLocation?
+    var selectedDistance: Int = 25
+    var allWhims = [Whim]() {
+        didSet {
+            feedVC.updateWhimsTo(displayingWhims)
+        }
+    }
+    var displayingWhims: [Whim] {
+        return distanceFilterWhims(categoryFilterWhims(allWhims))
+    }
+    
     // MARK: - VC Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +51,8 @@ class FeedMapParentViewController: MenuedViewController {
         
         addPanToolbarGesture()
         addTapNavBarToToggleFeedGesture()
+        
+        loadData()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -166,8 +180,31 @@ class FeedMapParentViewController: MenuedViewController {
     }
     
     // MARK: - Database networking
+    private func loadData() {
+        DBService.manager.getAllWhims { [weak self] (whims) in
+            self?.allWhims = whims
+        }
+    }
     
-    
+    // MARK: - Helper Functions
+    private func categoryFilterWhims(_ whims: [Whim]) -> [Whim] {
+        return whims.filter{selectedCategories.contains($0.category)}
+    }
+    private func distanceFilterWhims(_ whims: [Whim]) -> [Whim] {
+        guard let userLocation = currentLocation else { return whims }
+        var whimArr = [Whim]()
+        for whim in whims{
+            let long = Double(whim.long)
+            let lat = Double(whim.lat)
+            let whimLocation = CLLocation(latitude: lat!, longitude: long!)
+            let distanceInMeters = whimLocation.distance(from: userLocation)
+            if distanceInMeters <= 1609{
+                whimArr.append(whim)
+            }
+        }
+        return whimArr
+    }
+
 }
 
 extension FeedMapParentViewController: FeedViewControllerDelegate {
@@ -185,6 +222,7 @@ extension FeedMapParentViewController: ToolbarViewControllerDelegate {
 
 extension FeedMapParentViewController: MapViewControllerDelegate {
     func mapView(_ mapView: MapViewController, didChangeLocation location: CLLocation) {
-        
+        self.currentLocation = location
+        self.loadData()
     }
 }

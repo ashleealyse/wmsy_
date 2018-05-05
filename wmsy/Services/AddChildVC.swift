@@ -110,3 +110,10 @@ extension UIView {
 //view.addBorder(edges: [.all]) // All with default arguments
 //view.addBorder(edges: [.top], color: UIColor.greenColor()) // Just Top, green, default thickness
 //view.addBorder(edges: [.left, .right, .bottom], color: UIColor.redColor(), thickness: 3) // All except Top, red, thickness 3
+
+extension UIView{
+    func blink() {
+        self.alpha = 0.2
+        UIView.animate(withDuration: 1, delay: 0.0, options: [.curveLinear], animations: {self.alpha = 1.0}, completion: nil)
+    }
+}

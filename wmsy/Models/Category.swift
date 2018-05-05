@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-enum Category: String {
+enum Category: String, Codable {
     case wmsy
     case animals
     case arts
