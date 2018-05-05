@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 protocol mapDetailViewDelegate: class{
-    func  userPicturePressed()
+    func userPicturePressed()
     func interestPressed()
 }
 

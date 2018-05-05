@@ -321,6 +321,7 @@
 			isa = PBXGroup;
 			children = (
 				81663A5F209CA9AB00C1370B /* MapViewController.swift */,
+				81BAD67E205AEDC800C7F039 /* MapView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -465,7 +466,6 @@
 				81337776206A978900F1F657 /* FeedMapVC+Map.swift */,
 				81337778206A98BD00F1F657 /* FeedMapVC+Filter.swift */,
 				81DD10A72065CCC5002BAB42 /* MapDetailView.swift */,
-				81BAD67E205AEDC800C7F039 /* MapView.swift */,
 				81F9F06D20656B2200D288E8 /* FiltersView.swift */,
 				811FFB5620606B5500F3312B /* CollapsedFeedCellView.swift */,
 				93495B0520603F9A0080BDBA /* ExpandedFeedCellView.swift */,

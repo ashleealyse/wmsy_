@@ -28,6 +28,7 @@ class NavView: UIView {
     private func commonInit() {
         setupViews()
         self.addBorders(edges: .bottom, color: Stylesheet.Colors.WMSYImperial)
+        self.backgroundColor = .white
     }
     
     private func setupViews() {

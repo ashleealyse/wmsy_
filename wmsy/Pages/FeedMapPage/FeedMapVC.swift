@@ -17,7 +17,7 @@ class FeedMapVC: MenuedViewController {
     let toolBarHeight: CGFloat = 90.0
     var verticalPinConstraint: Constraint? = nil
     var feedView = FeedView()
-    var mapView = MapView()
+    var mapView = MapViewOld()
     var filtersView = FiltersView()
     var filterMapContainerView = UIView()
     var mapUp: Bool = false
@@ -259,9 +259,9 @@ class FeedMapVC: MenuedViewController {
         }
 
         let mylocation = mapView.mapView.myLocation
-        mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
-                                                          longitude: (mylocation?.coordinate.longitude)!,
-                                                          zoom: mapView.zoomLevel)
+//        mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
+//                                                          longitude: (mylocation?.coordinate.longitude)!,
+//                                                          zoom: mapView.zoomLevel)
         mapView.mapView.settings.myLocationButton = true
         mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
