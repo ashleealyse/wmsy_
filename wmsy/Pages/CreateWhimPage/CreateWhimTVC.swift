@@ -301,7 +301,7 @@ extension CreateWhimTVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! WhimCategoryCollectionViewCell
         let categoryImage = categoryList[indexPath.row].1
-        cell.categoryImage.image = categoryImage
+        cell.categoryImageView.image = categoryImage
         return cell
     }
     

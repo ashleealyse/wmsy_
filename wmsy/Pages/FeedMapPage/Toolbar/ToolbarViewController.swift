@@ -65,12 +65,19 @@ extension ToolbarViewController: UICollectionViewDataSource {
         case .sports:
             categoryImage = #imageLiteral(resourceName: "sportsCategoryIcon")
         }
-        cell.categoryImage.image = categoryImage
+        cell.categoryImageView.image = categoryImage
+        
+        cell.layer.cornerRadius = cell.bounds.width / 2
         return cell
     }
 }
 
 extension ToolbarViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let height = collectionView.frame.height
+        let size = CGSize.init(width: height, height: height)
+        return size
+    }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let category = categories[indexPath.row]
         delegate?.toolbar(self, selectedCategory: category)
@@ -83,8 +90,5 @@ extension ToolbarViewController: UICollectionViewDelegateFlowLayout {
         delegate?.toolbar(self, deselectedCategory: category)
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCategoryCell", for: indexPath) as! WhimCategoryCollectionViewCell
-        UIView.animate(withDuration: 0.4) {
-            cell.categoryImage.backgroundColor = .white
-        }
     }
 }
