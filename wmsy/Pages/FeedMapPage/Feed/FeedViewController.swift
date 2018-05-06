@@ -47,20 +47,6 @@ class FeedViewController: UIViewController {
         self.feedView.refreshControl.beginRefreshing()
         self.feedView.refreshControl.addTarget(self, action: #selector(refreshControlDragged), for: UIControlEvents.valueChanged)
     }
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//         TODO: fix this jittery trash
-//         it's suposed to have the refresh control show on first load
-//         problems:
-//         -shows a have rendered version of the control
-//         -tint color hasn't take effect here yet for some reason
-//        let point = CGPoint.init(x: 0, y: -feedView.refreshControl.frame.height)
-//        self.feedView.tableView.contentOffset = CGPoint.init(x: 0, y: -1)
-//        self.feedView.tableView.contentOffset = CGPoint.zero
-//            self.feedView.tableView.setContentOffset(point, animated: true)
-//            self.feedView.refreshControl.beginRefreshing()
-//    }
-    
     
     @objc private func refreshControlDragged() {
         if !feedView.tableView.isDragging {

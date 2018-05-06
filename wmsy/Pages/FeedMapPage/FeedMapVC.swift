@@ -347,38 +347,14 @@ class FeedMapVC: MenuedViewController {
     }
 }
 
-extension UIImage {
-    class func imageWithColor(color: UIColor) -> UIImage {
-        let rect = CGRect(x: 0.0, y: 0.0, width: 1.0, height: 0.5)
-        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
-        color.setFill()
-        UIRectFill(rect)
-        let image : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return image
-    }
-}
-
-
-extension UICollectionView {
-    func deselectAllItems(animated: Bool = false) {
-        for indexPath in self.indexPathsForSelectedItems ?? [] {
-            self.deselectItem(at: indexPath, animated: animated)
-        }
-    }
-}
 
 
 
-extension Date{
-func hours(from date: Date) -> Int {
-    return Calendar.current.dateComponents([.hour], from: date, to: self).hour ?? 0
-}
 
-func minutes(from date: Date) -> Int {
-    return Calendar.current.dateComponents([.minute], from: date, to: self).minute ?? 0
-}
-}
+
+
+
+
 
 extension FeedMapVC: MenuDataSimpleNotificationDelegate {
     func newNotification() {

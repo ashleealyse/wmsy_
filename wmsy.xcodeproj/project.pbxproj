@@ -56,6 +56,12 @@
 		81AB7AC8205C9548009845EA /* Stylesheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AB7AC7205C9548009845EA /* Stylesheet.swift */; };
 		81AB7ACB205CA256009845EA /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AB7ACA205CA256009845EA /* Category.swift */; };
 		81B84FE3209D0D7300111E94 /* index.js in Resources */ = {isa = PBXBuildFile; fileRef = 81B84FE2209D0D7200111E94 /* index.js */; };
+		81B85028209ED69600111E94 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B85027209ED69600111E94 /* UIViewExtensions.swift */; };
+		81B8502A209ED6E300111E94 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B85029209ED6E300111E94 /* UIViewControllerExtensions.swift */; };
+		81B8502D209ED7E000111E94 /* DateFormatterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B8502C209ED7E000111E94 /* DateFormatterExtensions.swift */; };
+		81B8502F209ED89500111E94 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B8502E209ED89500111E94 /* UIImageExtensions.swift */; };
+		81B85031209ED8CC00111E94 /* UICollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B85030209ED8CC00111E94 /* UICollectionViewExtensions.swift */; };
+		81B85033209ED90300111E94 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B85032209ED90300111E94 /* DateExtensions.swift */; };
 		81B928E120617D07002CD355 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B928E020617D07002CD355 /* ChatView.swift */; };
 		81B928E320618D41002CD355 /* CurrentUserMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B928E220618D40002CD355 /* CurrentUserMessageCell.swift */; };
 		81B928E520618D54002CD355 /* OtherUserMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B928E420618D54002CD355 /* OtherUserMessageCell.swift */; };
@@ -187,6 +193,12 @@
 		81AB7AC7205C9548009845EA /* Stylesheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stylesheet.swift; sourceTree = "<group>"; };
 		81AB7ACA205CA256009845EA /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		81B84FE2209D0D7200111E94 /* index.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = index.js; path = functions/index.js; sourceTree = SOURCE_ROOT; };
+		81B85027209ED69600111E94 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		81B85029209ED6E300111E94 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
+		81B8502C209ED7E000111E94 /* DateFormatterExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterExtensions.swift; sourceTree = "<group>"; };
+		81B8502E209ED89500111E94 /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
+		81B85030209ED8CC00111E94 /* UICollectionViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtensions.swift; sourceTree = "<group>"; };
+		81B85032209ED90300111E94 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		81B928E020617D07002CD355 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		81B928E220618D40002CD355 /* CurrentUserMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserMessageCell.swift; sourceTree = "<group>"; };
 		81B928E420618D54002CD355 /* OtherUserMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserMessageCell.swift; sourceTree = "<group>"; };
@@ -367,6 +379,7 @@
 		81903103205ADCF200932A55 /* wmsy */ = {
 			isa = PBXGroup;
 			children = (
+				81B85026209ED67D00111E94 /* CoreExtensions */,
 				81903108205ADCF200932A55 /* Main.storyboard */,
 				81BAD686205AEE6A00C7F039 /* Models */,
 				81BAD687205AEEA800C7F039 /* Services */,
@@ -415,6 +428,27 @@
 			path = CloudFunctions;
 			sourceTree = "<group>";
 		};
+		81B85026209ED67D00111E94 /* CoreExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				81B85027209ED69600111E94 /* UIViewExtensions.swift */,
+				81B85029209ED6E300111E94 /* UIViewControllerExtensions.swift */,
+				81B8502C209ED7E000111E94 /* DateFormatterExtensions.swift */,
+				81B8502E209ED89500111E94 /* UIImageExtensions.swift */,
+				81B85030209ED8CC00111E94 /* UICollectionViewExtensions.swift */,
+				81B85032209ED90300111E94 /* DateExtensions.swift */,
+			);
+			path = CoreExtensions;
+			sourceTree = "<group>";
+		};
+		81B8502B209ED71A00111E94 /* FeedMapParent */ = {
+			isa = PBXGroup;
+			children = (
+				81663A61209CA9CC00C1370B /* FeedMapParentViewController.swift */,
+			);
+			path = FeedMapParent;
+			sourceTree = "<group>";
+		};
 		81B928DF20617CFB002CD355 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -456,7 +490,7 @@
 		81BAD679205AED7900C7F039 /* FeedMapPage */ = {
 			isa = PBXGroup;
 			children = (
-				81663A61209CA9CC00C1370B /* FeedMapParentViewController.swift */,
+				81B8502B209ED71A00111E94 /* FeedMapParent */,
 				81663A65209CC33000C1370B /* NavBar */,
 				81663A58209CA95700C1370B /* Feed */,
 				81663A59209CA95D00C1370B /* Toolbar */,
@@ -869,6 +903,7 @@
 				812112E120609D3F002D80C2 /* AuthUserService.swift in Sources */,
 				81DECD2A205C93A300214866 /* MenuCollectionViewWrapper.swift in Sources */,
 				81BAD67F205AEDC800C7F039 /* MapView.swift in Sources */,
+				81B85031209ED8CC00111E94 /* UICollectionViewExtensions.swift in Sources */,
 				81DECD2E205E229E00214866 /* MenuWhimsCell.swift in Sources */,
 				810816B4207718D600E59456 /* NavView.swift in Sources */,
 				81D12DD120643A920056920C /* MenuChatView.swift in Sources */,
@@ -876,6 +911,7 @@
 				81AB7ABA205C800E009845EA /* WhimTitleTableViewCell.swift in Sources */,
 				812112E52062C856002D80C2 /* Alert.swift in Sources */,
 				81EBB58F20601C86008A6CE7 /* DBService.swift in Sources */,
+				81B8502A209ED6E300111E94 /* UIViewControllerExtensions.swift in Sources */,
 				81BAD689205AEEC300C7F039 /* AppUser.swift in Sources */,
 				81D12DD720673AC30056920C /* ChatMessagesTableVC.swift in Sources */,
 				81337779206A98BD00F1F657 /* FeedMapVC+Filter.swift in Sources */,
@@ -907,6 +943,7 @@
 				932F180D2065A3F300950104 /* FloatingPopsicleView.swift in Sources */,
 				81AB7AC8205C9548009845EA /* Stylesheet.swift in Sources */,
 				81F9F06E20656B2200D288E8 /* FiltersView.swift in Sources */,
+				81B85028209ED69600111E94 /* UIViewExtensions.swift in Sources */,
 				81C3AF52206D324D001686F0 /* TextInputView.swift in Sources */,
 				811FFB9720615B6200F3312B /* DBService+Whim.swift in Sources */,
 				81337775206A960B00F1F657 /* FeedMapVC+Feed.swift in Sources */,
@@ -914,6 +951,8 @@
 				812112E72062F660002D80C2 /* AddWhimLocationViewController.swift in Sources */,
 				81C7DCC6207452D10008D940 /* ChatGuestsTableVC.swift in Sources */,
 				81202D86206BEBC200CC5588 /* MenuNavigationBarVC.swift in Sources */,
+				81B85033209ED90300111E94 /* DateExtensions.swift in Sources */,
+				81B8502F209ED89500111E94 /* UIImageExtensions.swift in Sources */,
 				81DECD26205C91F900214866 /* MenuProfileView.swift in Sources */,
 				81DECD19205C87ED00214866 /* MenuedViewController.swift in Sources */,
 				816D11CA206C333F001D199C /* ChatInfoView.swift in Sources */,
@@ -941,6 +980,7 @@
 				81202D8A206BED3C00CC5588 /* MenuProfileVC.swift in Sources */,
 				81A57A5320697D7000E4BE0B /* MenuData.swift in Sources */,
 				81BAD67D205AEDBF00C7F039 /* FeedView.swift in Sources */,
+				81B8502D209ED7E000111E94 /* DateFormatterExtensions.swift in Sources */,
 				8107D92420729A9100CEC5B2 /* AppUser+CurrentUser.swift in Sources */,
 				81663A60209CA9AB00C1370B /* MapViewController.swift in Sources */,
 				8139A9A6205C3130006C7058 /* CreateWhimView.swift in Sources */,

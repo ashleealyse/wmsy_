@@ -8,16 +8,7 @@
 
 import Foundation
 
-extension DateFormatter {
-//    "March 21, 2018 at 3:11:50 PM EDT"
-    static let wmsyDateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.timeZone = TimeZone.current
-        formatter.timeStyle = .long
-        formatter.dateStyle = .long
-        return formatter
-    }()
-}
+
 
 
 struct Whim: Codable {
