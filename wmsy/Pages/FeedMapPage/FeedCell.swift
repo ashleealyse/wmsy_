@@ -90,11 +90,11 @@ class FeedCell2: UITableViewCell {
     
     // MARK: - CollapsedView
     private func customizeCollapsedView(){
-        collapsedView.backgroundColor = .blue
+        self.collapsedView.backgroundColor = .white
     }
     private func constrainCollapsedView() {
         collapsedView.snp.makeConstraints { (make) in
-            make.height.equalTo(50).priority(ConstraintPriority.high)
+            make.height.equalTo(70).priority(ConstraintPriority.high)
             make.top.leading.trailing.equalTo(marginsContainerView)
             contentViewBottomPin = make.bottom.equalTo(marginsContainerView).constraint
         }
@@ -102,13 +102,13 @@ class FeedCell2: UITableViewCell {
     
     // MARK: - ExpandedView
     private func customizeExpandedView() {
-        expandedView.backgroundColor = .brown
+        expandedView.backgroundColor = .white
     }
     private func constrainExpandedView() {
         expandedView.snp.makeConstraints { (make) in
             make.top.equalTo(collapsedView.snp.bottom)
             make.leading.trailing.equalTo(marginsContainerView)
-            make.height.equalTo(200)
+            make.height.equalTo(100)
         }
     }
     
@@ -139,13 +139,33 @@ class FeedCell2: UITableViewCell {
         
         self.collapsedView.postTitleLabel.attributedText = customString
         self.collapsedView.categoryIcon.image = UIImage(named: "\(whim.category.rawValue.lowercased())CategoryIcon")
+        
         DBService.manager.getUserImageURL(userID: whim.hostID) { [whim] (url) in
             guard self.whim == whim else { return }
             self.collapsedView.userImageButton.imageView?.kf.setImage(with: URL(string: url), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
                 self.collapsedView.userImageButton.setImage(image, for: .normal)
             })
-            
         }
+        
+        self.expandedView.postDescriptionTF.text = whim.description
+        let interests = AppUser.currentAppUser?.getInterestKeys() ?? []
+        if interests.contains(whim.id){
+            self.expandedView.interestedButton.titleLabel?.textColor = .white
+            self.expandedView.interestedButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.5)
+            self.expandedView.interestedButton.setTitle("Remove Interest", for: .normal)
+        }else{
+            self.expandedView.interestedButton.titleLabel?.textColor = .white
+            self.expandedView.interestedButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)
+            self.expandedView.interestedButton.setTitle("Show Interest", for: .normal)
+        }
+        
+        if whim.hostID == AppUser.currentAppUser?.userID{
+            self.expandedView.interestedButton.isHidden = true
+            self.expandedView.showOnMapButton.isHidden = true
+            return
+        }
+        self.expandedView.interestedButton.isHidden = false
+        self.expandedView.showOnMapButton.isHidden = false
     }
 //    override func prepareForReuse() {
 //        super.prepareForReuse()

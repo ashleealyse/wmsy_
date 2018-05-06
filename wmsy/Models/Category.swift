@@ -37,14 +37,14 @@ enum Category: String, Codable {
 
 let categoryTuples = [
     ("wmsy", UIImage(named: "wmsyCategoryIcon")),
-    ("Animals", UIImage(named: "animalsCategoryIcon")),
-    ("Arts", UIImage(named: "artsCategoryIcon")),
-    ("Coffee", UIImage(named: "coffeeCategoryIcon")),
-    ("Drinks", UIImage(named: "drinksCategoryIcon")),
-    ("Entertainment", UIImage(named: "entertainmentCategoryIcon")),
-    ("Games", UIImage(named: "gamesCategoryIcon")),
-    ("Restaurants", UIImage(named: "restaurantsCategoryIcon")),
-    ("Shopping", UIImage(named: "shoppingCategoryIcon")),
-    ("Sports", UIImage(named: "sportsCategoryIcon"))]
+    ("animals", UIImage(named: "animalsCategoryIcon")),
+    ("arts", UIImage(named: "artsCategoryIcon")),
+    ("coffee", UIImage(named: "coffeeCategoryIcon")),
+    ("drinks", UIImage(named: "drinksCategoryIcon")),
+    ("entertainment", UIImage(named: "entertainmentCategoryIcon")),
+    ("games", UIImage(named: "gamesCategoryIcon")),
+    ("restaurants", UIImage(named: "restaurantsCategoryIcon")),
+    ("shopping", UIImage(named: "shoppingCategoryIcon")),
+    ("sports", UIImage(named: "sportsCategoryIcon"))]
 
 let hoursOfTwentyFour = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"]

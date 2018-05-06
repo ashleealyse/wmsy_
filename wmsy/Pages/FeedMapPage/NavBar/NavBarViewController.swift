@@ -25,3 +25,10 @@ class NavBarViewController: UIViewController {
     }
     
 }
+extension FeedMapVC: MenuDataSimpleNotificationDelegate {
+    func newNotification() {
+        // add any code that should trigger when there's been a notification here
+        navView.leftButton.imageView?.tintColor = .red
+    }
+}
+

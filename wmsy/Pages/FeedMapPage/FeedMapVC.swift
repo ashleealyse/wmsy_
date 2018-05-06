@@ -86,6 +86,7 @@ class FeedMapVC: MenuedViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.feedView.tableView.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
         self.feedView.tableView.separatorStyle = .none
         self.view.backgroundColor = Stylesheet.Colors.WMSYGray
         self.navigationController?.navigationBar.isHidden = true
@@ -347,16 +348,7 @@ class FeedMapVC: MenuedViewController {
     }
 }
 
-
-
-
-
-
-
-
-
-
-extension FeedMapVC: MenuDataSimpleNotificationDelegate {
+extension NavBarViewController: MenuDataSimpleNotificationDelegate {
     func newNotification() {
         // add any code that should trigger when there's been a notification here
         navView.leftButton.imageView?.tintColor = .red

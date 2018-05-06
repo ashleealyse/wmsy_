@@ -62,6 +62,10 @@
 		81B8502F209ED89500111E94 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B8502E209ED89500111E94 /* UIImageExtensions.swift */; };
 		81B85031209ED8CC00111E94 /* UICollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B85030209ED8CC00111E94 /* UICollectionViewExtensions.swift */; };
 		81B85033209ED90300111E94 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B85032209ED90300111E94 /* DateExtensions.swift */; };
+		81B85035209ED9C900111E94 /* FeedMapParentViewController+NavBarViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B85034209ED9C900111E94 /* FeedMapParentViewController+NavBarViewControllerDelegate.swift */; };
+		81B85037209ED9E500111E94 /* FeedMapParentViewController+FeedViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B85036209ED9E500111E94 /* FeedMapParentViewController+FeedViewControllerDelegate.swift */; };
+		81B85039209EDA1100111E94 /* FeedMapParentViewController+ToolBarViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B85038209EDA1100111E94 /* FeedMapParentViewController+ToolBarViewControllerDelegate.swift */; };
+		81B8503B209EDA2800111E94 /* FeedMapParentViewController+MapViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B8503A209EDA2800111E94 /* FeedMapParentViewController+MapViewControllerDelegate.swift */; };
 		81B928E120617D07002CD355 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B928E020617D07002CD355 /* ChatView.swift */; };
 		81B928E320618D41002CD355 /* CurrentUserMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B928E220618D40002CD355 /* CurrentUserMessageCell.swift */; };
 		81B928E520618D54002CD355 /* OtherUserMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B928E420618D54002CD355 /* OtherUserMessageCell.swift */; };
@@ -199,6 +203,10 @@
 		81B8502E209ED89500111E94 /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		81B85030209ED8CC00111E94 /* UICollectionViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtensions.swift; sourceTree = "<group>"; };
 		81B85032209ED90300111E94 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
+		81B85034209ED9C900111E94 /* FeedMapParentViewController+NavBarViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedMapParentViewController+NavBarViewControllerDelegate.swift"; sourceTree = "<group>"; };
+		81B85036209ED9E500111E94 /* FeedMapParentViewController+FeedViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedMapParentViewController+FeedViewControllerDelegate.swift"; sourceTree = "<group>"; };
+		81B85038209EDA1100111E94 /* FeedMapParentViewController+ToolBarViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedMapParentViewController+ToolBarViewControllerDelegate.swift"; sourceTree = "<group>"; };
+		81B8503A209EDA2800111E94 /* FeedMapParentViewController+MapViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedMapParentViewController+MapViewControllerDelegate.swift"; sourceTree = "<group>"; };
 		81B928E020617D07002CD355 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		81B928E220618D40002CD355 /* CurrentUserMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserMessageCell.swift; sourceTree = "<group>"; };
 		81B928E420618D54002CD355 /* OtherUserMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserMessageCell.swift; sourceTree = "<group>"; };
@@ -445,6 +453,10 @@
 			isa = PBXGroup;
 			children = (
 				81663A61209CA9CC00C1370B /* FeedMapParentViewController.swift */,
+				81B85034209ED9C900111E94 /* FeedMapParentViewController+NavBarViewControllerDelegate.swift */,
+				81B85036209ED9E500111E94 /* FeedMapParentViewController+FeedViewControllerDelegate.swift */,
+				81B85038209EDA1100111E94 /* FeedMapParentViewController+ToolBarViewControllerDelegate.swift */,
+				81B8503A209EDA2800111E94 /* FeedMapParentViewController+MapViewControllerDelegate.swift */,
 			);
 			path = FeedMapParent;
 			sourceTree = "<group>";
@@ -926,10 +938,12 @@
 				81DECD23205C892B00214866 /* MenuViewController.swift in Sources */,
 				93632551206C1597002FFAED /* WhimColorViewTableViewCell.swift in Sources */,
 				81202D8C206BEE0E00CC5588 /* MenuChatsList.swift in Sources */,
+				81B8503B209EDA2800111E94 /* FeedMapParentViewController+MapViewControllerDelegate.swift in Sources */,
 				81B928E120617D07002CD355 /* ChatView.swift in Sources */,
 				81BAD6A5205AF08100C7F039 /* NotificationMsgCell.swift in Sources */,
 				81202D88206BECCB00CC5588 /* MenuPagesVC.swift in Sources */,
 				81663A67209CC34800C1370B /* NavBarViewController.swift in Sources */,
+				81B85037209ED9E500111E94 /* FeedMapParentViewController+FeedViewControllerDelegate.swift in Sources */,
 				8139A9A2205C30D7006C7058 /* CreateWhimTVC.swift in Sources */,
 				81D12DD42065AA470056920C /* DataQueue.swift in Sources */,
 				81DECD2C205DECF900214866 /* MenuWhimsHeader.swift in Sources */,
@@ -963,6 +977,7 @@
 				81B928E720618D64002CD355 /* NotificationTableViewCell.swift in Sources */,
 				81BAD6A7205AF09400C7F039 /* LocationDetailsMsgCell.swift in Sources */,
 				81AB7ACB205CA256009845EA /* Category.swift in Sources */,
+				81B85039209EDA1100111E94 /* FeedMapParentViewController+ToolBarViewControllerDelegate.swift in Sources */,
 				812112E320615BF7002D80C2 /* DBService+Get.swift in Sources */,
 				81D12DD920673AE60056920C /* TextInputVC.swift in Sources */,
 				81BAD695205AEF8900C7F039 /* ProfileView.swift in Sources */,
@@ -993,6 +1008,7 @@
 				93D5CDB2206AB20A00ABB3E1 /* SplashViewController.swift in Sources */,
 				8196983B2072D970000267A6 /* Interest.swift in Sources */,
 				81663A64209CAD7500C1370B /* ToolbarView.swift in Sources */,
+				81B85035209ED9C900111E94 /* FeedMapParentViewController+NavBarViewControllerDelegate.swift in Sources */,
 				81BAD67B205AEDAA00C7F039 /* FeedMapVC.swift in Sources */,
 				81DECD3220600FB000214866 /* Page.swift in Sources */,
 				811FFB5720606B5500F3312B /* CollapsedFeedCellView.swift in Sources */,

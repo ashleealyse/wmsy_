@@ -22,8 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         GMSServices.provideAPIKey("AIzaSyDoVxDTMUODq896Vbusf_6Al7u4PHc95cw")
         
-//        let vc = MainTabBarVC()
-        let vc = FeedMapParentViewController()
+        let vc = MainTabBarVC()
+//        let vc = FeedMapParentViewController()
         vc.navigationItem.backBarButtonItem?.image = #imageLiteral(resourceName: "backIcon")
         vc.navigationItem.backBarButtonItem?.tintColor = Stylesheet.Colors.WMSYKSUPurple
         window = UIWindow(frame: UIScreen.main.bounds)

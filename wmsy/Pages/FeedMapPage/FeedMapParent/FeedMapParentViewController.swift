@@ -25,15 +25,20 @@ class FeedMapParentViewController: MenuedViewController {
     var allWhims = [Whim]() {
         didSet {
             feedVC.updateWhimsTo(displayingWhims)
+            mapVC.updateWhimsTo(displayingWhims)
         }
     }
     var displayingWhims: [Whim] {
-        return distanceFilterWhims(categoryFilterWhims(allWhims)).sortedByTimestamp()
+        return allWhims
+            .filter{ selectedCategories.contains($0.category)
+                    && $0.withinDistance(currentLocation, distance: 25)
+        }
     }
     
     // MARK: - VC Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.isHidden = true
         
         self.add(navBarVC)
         self.add(feedVC)
@@ -52,6 +57,9 @@ class FeedMapParentViewController: MenuedViewController {
         addPanToolbarGesture()
         addTapNavBarToToggleFeedGesture()
         
+        navBarVC.navView.leftButton.addTarget(self, action: #selector(showMenu(sender:)), for: .touchUpInside)
+        navBarVC.navView.rightButton.addTarget(self, action: #selector(hostAWhim), for: .touchUpInside)
+        
         loadData()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -67,7 +75,7 @@ class FeedMapParentViewController: MenuedViewController {
         super.viewDidDisappear(animated)
     }
     
-    // MARK: - UI helper Functions
+    // MARK: - UI Constraints
     private func layoutNavBarVC() {
         navBarVC.view.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalTo(self.view)
@@ -180,51 +188,28 @@ class FeedMapParentViewController: MenuedViewController {
     }
     
     // MARK: - Database networking
-    private func loadData() {
+    public func loadData() {
         DBService.manager.getAllWhims { [weak self] (whims) in
             self?.allWhims = whims
         }
     }
     
     // MARK: - Helper Functions
-    private func categoryFilterWhims(_ whims: [Whim]) -> [Whim] {
-        return whims.filter{selectedCategories.contains($0.category)}
+    @objc func showMenu(sender: UIViewController){
+        navBarVC.navView.leftButton.imageView?.tintColor = Stylesheet.Colors.WMSYKSUPurple
+        openMenu(sender: sender)
     }
-    private func distanceFilterWhims(_ whims: [Whim]) -> [Whim] {
-        guard let userLocation = currentLocation else { return whims }
-        var whimArr = [Whim]()
-        for whim in whims{
-            let long = Double(whim.long)
-            let lat = Double(whim.lat)
-            let whimLocation = CLLocation(latitude: lat!, longitude: long!)
-            let distanceInMeters = whimLocation.distance(from: userLocation)
-            if distanceInMeters <= 16090{
-                whimArr.append(whim)
-            }
-        }
-        return whimArr
-    }
-
-}
-
-extension FeedMapParentViewController: FeedViewControllerDelegate {
-    func feedView(_ feedView: FeedViewController, requestingUpdate request: Bool) {
-        loadData()
+    @objc func hostAWhim() {
+        let vc = CreateWhimTVC()
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.type = kCATransitionMoveIn
+        transition.subtype = kCATransitionFromTop
+        navigationController?.view.layer.add(transition, forKey: nil)
+        navigationController?.pushViewController(vc, animated: false) ?? present(vc, animated: false, completion: nil)
+        print("Show Whim Host User Profile")
     }
 }
 
-extension FeedMapParentViewController: ToolbarViewControllerDelegate {
-    func toolbar(_ toolbar: ToolbarViewController, selectedCategory category: Category) {
-        
-    }
-    func toolbar(_ toolbar: ToolbarViewController, deselectedCategory category: Category) {
-        
-    }
-}
 
-extension FeedMapParentViewController: MapViewControllerDelegate {
-    func mapView(_ mapView: MapViewController, didChangeLocation location: CLLocation) {
-        self.currentLocation = location
-        self.loadData()
-    }
-}

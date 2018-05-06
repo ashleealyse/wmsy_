@@ -46,7 +46,7 @@ extension DBService {
         let group = DispatchGroup()
         group.enter()
         ref.setValue(["id": whim.id,
-                      "category": whim.category,
+                      "category": whim.category.rawValue,
                       "title": whim.title,
                       "description": whim.description,
                       "hostID": whim.hostID,

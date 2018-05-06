@@ -103,7 +103,18 @@ extension Whim: Equatable {
     
 }
 
+import CoreLocation
 extension Whim {
+    
+    public func withinDistance(_ location: CLLocation?, distance miles: Double) -> Bool {
+        guard let userLocation = location else { return true }
+            let long = Double(self.long)
+            let lat = Double(self.lat)
+            let whimLocation = CLLocation(latitude: lat!, longitude: long!)
+            let distanceInMeters = whimLocation.distance(from: userLocation)
+            return distanceInMeters < miles * 1609.34
+    }
+    
     public func getTimeRemaining() -> String{
         let expirationDate = DateFormatter.wmsyDateFormatter.date(from: self.expiration)
         let currentDate = Date()

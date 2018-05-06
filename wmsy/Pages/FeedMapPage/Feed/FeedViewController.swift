@@ -64,10 +64,16 @@ class FeedViewController: UIViewController {
         delegate.feedView(self, requestingUpdate: true)
     }
     public func updateWhimsTo(_ whims: [Whim]) {
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
-            self.feedView.refreshControl.blink()
-            self.feedView.refreshControl.endRefreshing()
-            
+        if self.feedView.refreshControl.isRefreshing {
+            Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+                self.feedView.refreshControl.blink()
+                self.feedView.refreshControl.endRefreshing()
+                
+                guard self.whims != whims else {return}
+                self.whims = whims
+                self.feedView.tableView.reloadData()
+            }
+        } else {
             guard self.whims != whims else {return}
             self.whims = whims
             self.feedView.tableView.reloadData()
@@ -82,7 +88,6 @@ extension FeedViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WhimFeedCell", for: indexPath) as! FeedCell2
-        cell.backgroundColor = .red
         
         cell.isExpanded = self.expandedRows.contains(indexPath.row)
         let whim = whims[indexPath.row]

@@ -23,6 +23,31 @@ class MapViewController: UIViewController {
     // TODO: have segmented control decide this range
     let desiredRange: Int = 5 // miles
     
+    var whims: [Whim] = [] {
+        didSet {
+            DispatchQueue.main.async {
+                print("number of whims to load: \(self.whims.count)")
+                self.mapView.googleMap.clear()
+                for whim in self.whims{
+                    let position = CLLocationCoordinate2D(latitude: Double(whim.lat)!, longitude: Double(whim.long)!)
+                    let marker = GMSMarker(position: position)
+                    let timeRemaining = whim.getTimeRemaining()
+                    marker.userData = ["title": whim.title,
+                                       "description": whim.description,
+                                       "hostImageURL": whim.hostImageURL,
+                                       "category": whim.category,
+                                       "hostID" : whim.hostID,
+                                       "whimID": whim.id,
+                                       "expiration": timeRemaining
+                    ]
+                    marker.icon = GMSMarker.markerImage(with: Stylesheet.Colors.WMSYDeepViolet)
+                    marker.map = self.mapView.googleMap
+                }
+            }
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,12 +64,17 @@ class MapViewController: UIViewController {
         case .authorizedAlways, .authorizedWhenInUse:
             locationManager.startUpdatingLocation()
             locationManager.requestLocation()
+            self.mapView.showUserLocationAndLocationButton(true)
         }
         
         self.view.addSubview(mapView)
         mapView.snp.makeConstraints { (make) in
             make.edges.equalTo(self.view)
         }
+    }
+    
+    public func updateWhimsTo(_ whims: [Whim]) {
+        self.whims = whims
     }
 }
 

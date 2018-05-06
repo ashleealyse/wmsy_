@@ -10,8 +10,8 @@ import UIKit
 import SnapKit
 
 protocol ToolbarViewControllerDelegate: class {
-    func toolbar(_ toolbar: ToolbarViewController, selectedCategory category: Category) -> Void
-    func toolbar(_ toolbar: ToolbarViewController, deselectedCategory category: Category) -> Void
+    func toolbar(_ toolbar: ToolbarViewController, selectedCategories categories: [Category]) -> Void
+    func toolbar(_ toolbar: ToolbarViewController, deselectedCategories categories: [Category]) -> Void
 }
 
 class ToolbarViewController: UIViewController {
@@ -56,6 +56,7 @@ class ToolbarViewController: UIViewController {
         if categories.count == selectedCategories.count {
             selectedCategories.removeAll()
             toolbarView.categoryCV.deselectAllItems(animated: true)
+            delegate?.toolbar(self, deselectedCategories: categories)
         } else {
             var indexPath = IndexPath()
             for (index, category) in categories.enumerated() {
@@ -63,6 +64,7 @@ class ToolbarViewController: UIViewController {
                 indexPath = IndexPath(item: index, section: 0)
                 toolbarView.categoryCV.selectItem(at: indexPath, animated: true, scrollPosition: .top)
             }
+            delegate?.toolbar(self, selectedCategories: categories)
         }
     }
     
@@ -115,12 +117,12 @@ extension ToolbarViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let category = categories[indexPath.row]
         selectedCategories.insert(category)
-        delegate?.toolbar(self, selectedCategory: category)
+        delegate?.toolbar(self, selectedCategories: [category])
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let category = categories[indexPath.row]
         selectedCategories.remove(category)
-        delegate?.toolbar(self, deselectedCategory: category)
+        delegate?.toolbar(self, deselectedCategories: [category])
     }
 }
