@@ -52,7 +52,7 @@ class CollapsedFeedCellView: UIView {
         addSubview(userImageButton)
         userImageButton.snp.makeConstraints { (make) in
             make.leading.equalTo(self).offset(5)
-            make.centerY.equalTo(safeAreaLayoutGuide.snp.centerY)
+            make.centerY.equalTo(self)
             make.width.equalTo(self).multipliedBy(0.1)
             make.height.equalTo(userImageButton.snp.width)
         }

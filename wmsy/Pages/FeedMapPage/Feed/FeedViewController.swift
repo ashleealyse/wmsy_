@@ -10,13 +10,14 @@ import UIKit
 import SnapKit
 
 protocol FeedViewControllerDelegate: class {
-    
+    func feedView(_ feedView: FeedViewController, requestingUpdate request: Bool) -> Void
 }
 
 class FeedViewController: UIViewController {
     
     let feedView = FeedView()
-    let refreshControl = UIRefreshControl()
+//    let refreshControl = UIRefreshControl()
+    var expandedRows = Set<Int>()
     var delegate: FeedViewControllerDelegate?
     
     private var whims = [Whim]()
@@ -33,35 +34,58 @@ class FeedViewController: UIViewController {
         
         feedView.tableView.dataSource = self
         feedView.tableView.delegate = self
-        feedView.tableView.refreshControl?.addSubview(refreshControl)
-        feedView.tableView.refreshControl?.sendSubview(toBack: refreshControl)
         
-        let attributes = [NSAttributedStringKey.foregroundColor: UIColor.white,
-                            NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15)]
-        refreshControl.attributedTitle = NSAttributedString.init(string: "loading whims", attributes: attributes)
-        refreshControl.tintColor = .white
-        refreshControl.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)
-        refreshControl.addTarget(self, action: #selector(refreshControlDragged), for: UIControlEvents.valueChanged)
-        feedView.tableView.addSubview(refreshControl)
-        
-        refreshControl.beginRefreshing()
+        // TODO: fix this jittery trash
+        // it's suposed to have the refresh control show on first load
+        // problems:
+        // -shows a have rendered version of the control
+        // -tint color hasn't take effect here yet for some reason
+        let point = CGPoint.init(x: 0, y: -feedView.refreshControl.frame.height)
+        self.feedView.tableView.contentOffset = CGPoint.init(x: 0, y: -1)
+        self.feedView.tableView.contentOffset = CGPoint.zero
+        self.feedView.tableView.setContentOffset(point, animated: true)
+        self.feedView.refreshControl.beginRefreshing()
+        self.feedView.refreshControl.addTarget(self, action: #selector(refreshControlDragged), for: UIControlEvents.valueChanged)
     }
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//         TODO: fix this jittery trash
+//         it's suposed to have the refresh control show on first load
+//         problems:
+//         -shows a have rendered version of the control
+//         -tint color hasn't take effect here yet for some reason
+//        let point = CGPoint.init(x: 0, y: -feedView.refreshControl.frame.height)
+//        self.feedView.tableView.contentOffset = CGPoint.init(x: 0, y: -1)
+//        self.feedView.tableView.contentOffset = CGPoint.zero
+//            self.feedView.tableView.setContentOffset(point, animated: true)
+//            self.feedView.refreshControl.beginRefreshing()
+//    }
+    
+    
     @objc private func refreshControlDragged() {
         if !feedView.tableView.isDragging {
             refreshData()
         }
     }
     private func refreshData() {
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
-            self.refreshControl.blink()
-            self.refreshControl.endRefreshing()
+        guard let delegate = delegate else {
+            Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+                self.feedView.refreshControl.blink()
+                self.feedView.refreshControl.endRefreshing()
+            }
+            return
         }
+        delegate.feedView(self, requestingUpdate: true)
     }
     public func updateWhimsTo(_ whims: [Whim]) {
-        refreshControl.endRefreshing()
-        guard self.whims != whims else {return}
-        self.whims = whims
-        feedView.tableView.reloadData()
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+            self.feedView.refreshControl.blink()
+            self.feedView.refreshControl.endRefreshing()
+            
+            guard self.whims != whims else {return}
+            self.whims = whims
+            self.feedView.tableView.reloadData()
+        }
     }
 }
 
@@ -71,18 +95,40 @@ extension FeedViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "WhimFeedCell", for: indexPath) as! FeedCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "WhimFeedCell", for: indexPath) as! FeedCell2
         cell.backgroundColor = .red
+        
+        cell.isExpanded = self.expandedRows.contains(indexPath.row)
+        let whim = whims[indexPath.row]
+        cell.whim = whim
         return cell
     }
-    
-    
 }
 
 extension FeedViewController: UITableViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if refreshControl.isRefreshing {
+        if feedView.refreshControl.isRefreshing {
             refreshData()
         }
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? FeedCell2 else {
+            return
+        }
+        
+        switch cell.isExpanded {
+        case true:
+            self.expandedRows.remove(indexPath.row)
+        default:
+            self.expandedRows.insert(indexPath.row)
+        }
+        
+        cell.isExpanded = !cell.isExpanded
+        
+        tableView.beginUpdates()
+        UIView.animate(withDuration: 0.3) {
+            cell.layoutIfNeeded()
+        }
+        tableView.endUpdates()
     }
 }

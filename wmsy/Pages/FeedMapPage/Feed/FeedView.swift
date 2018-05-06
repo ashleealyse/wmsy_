@@ -10,14 +10,13 @@ import UIKit
 import SnapKit
 
 
-// Only holds a tableView for now
-// made to easily extend this view later
 class FeedView: UIView {
     
     lazy var tableView: UITableView = {
-        let tv = UITableView.init(frame: CGRect.zero, style: .grouped)
+        let tv = UITableView.init(frame: .zero, style: UITableViewStyle.plain)
         return tv
     }()
+    let refreshControl = UIRefreshControl()
     
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
@@ -38,22 +37,40 @@ class FeedView: UIView {
     }
     private func addSubviews() {
         self.addSubview(tableView)
+        self.tableView.addSubview(refreshControl)
     }
     private func customizeSubviews() {
         self.customizeTableView()
+        self.customizeRefreshControl()
     }
     private func constrainSubviews() {
         self.constrainTableView()
+        self.constrainRefreshControl()
     }
     
     // MARK: - TableView
     private func customizeTableView() {
         tableView.backgroundColor = Stylesheet.Colors.WMSYGray
-        tableView.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
+        tableView.register(FeedCell2.self, forCellReuseIdentifier: "WhimFeedCell")
+        tableView.separatorStyle = .none
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 50
     }
     private func constrainTableView() {
         tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(self)
         }
+    }
+    
+    // MARK: - RefreshControl
+    private func customizeRefreshControl() {
+        let attributes = [NSAttributedStringKey.foregroundColor: UIColor.white,
+                          NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15)]
+        refreshControl.attributedTitle = NSAttributedString.init(string: "loading whims", attributes: attributes)
+        refreshControl.tintColor = .white
+        refreshControl.backgroundColor = Stylesheet.Colors.WMSYImperial
+    }
+    private func constrainRefreshControl() {
+        // not needed?
     }
 }

@@ -11,7 +11,8 @@ import Firebase
 import FacebookCore
 import FacebookLogin
 import GoogleMaps
-
+import SnapKit
+    
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -20,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         GMSServices.provideAPIKey("AIzaSyDoVxDTMUODq896Vbusf_6Al7u4PHc95cw")
-
+        
 //        let vc = MainTabBarVC()
         let vc = FeedMapParentViewController()
         vc.navigationItem.backBarButtonItem?.image = #imageLiteral(resourceName: "backIcon")
@@ -57,3 +58,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+    class TestViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+        lazy var tableView: UITableView = {
+            let tv = UITableView(frame: .zero, style: .grouped)
+            tv.register(FeedCell.self, forCellReuseIdentifier: "FeedCell")
+            return tv
+        }()
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            view.addSubview(tableView)
+            self.edgesForExtendedLayout = []
+            tableView.snp.makeConstraints { (make) in
+                make.edges.equalTo(self.view)
+            }
+//            self.edgesForExtendedLayout = []
+            tableView.contentInsetAdjustmentBehavior = .never
+            print(tableView.safeAreaInsets)
+            tableView.estimatedRowHeight = 2.0
+//            tableView.estimatedSectionHeaderHeight = 0
+//            tableView.estimatedSectionFooterHeight = 0
+            tableView.dataSource = self
+            tableView.delegate = self
+        }
+        
+        func numberOfSections(in tableView: UITableView) -> Int {
+            return 4
+        }
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return 20
+        }
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath)
+            cell.backgroundColor = .red
+            return cell
+        }
+        func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+            return "test"
+        }
+        func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+            return "test"
+        }
+//        func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//            return 0.0
+//        }
+//        func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//            return 0.0
+//        }
+    }

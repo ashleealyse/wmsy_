@@ -111,3 +111,21 @@ extension Whim: Equatable {
     
     
 }
+
+extension Whim {
+    public func getTimeRemaining() -> String{
+        let expirationDate = DateFormatter.wmsyDateFormatter.date(from: self.expiration)
+        let currentDate = Date()
+        let hoursRemaining =  expirationDate!.hours(from: currentDate)
+        let minutesRemaining = expirationDate!.minutes(from: currentDate)
+        let hourConversion = hoursRemaining * 60
+        let finalMinutes = minutesRemaining - hourConversion
+        
+        switch hoursRemaining{
+        case 0:
+            return "\(finalMinutes.description) m left"
+        default:
+            return "\(hoursRemaining.description) hr left"
+        }
+    }
+}

@@ -60,10 +60,10 @@ class ExpandedFeedCellView: UIView {
     private func setUpPostDescription() {
         addSubview(postDescriptionTF)
         postDescriptionTF.snp.makeConstraints { (make) in
-            make.top.equalTo(safeAreaLayoutGuide)
-            make.leading.equalTo(safeAreaLayoutGuide).offset(5)
-            make.trailing.equalTo(safeAreaLayoutGuide).offset(-5)
-            make.height.equalTo(safeAreaLayoutGuide).multipliedBy(0.65)
+            make.top.equalTo(self)
+            make.leading.equalTo(self).offset(5)
+            make.trailing.equalTo(self).offset(-5)
+            make.height.equalTo(self).multipliedBy(0.65)
         }
     }
     
@@ -71,9 +71,9 @@ class ExpandedFeedCellView: UIView {
         addSubview(showOnMapButton)
         showOnMapButton.snp.makeConstraints { (make) in
             make.top.equalTo(postDescriptionTF.snp.bottom)
-            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
-            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
-            make.width.equalTo(self.snp.width).multipliedBy(0.3)
+            make.leading.equalTo(self)
+            make.bottom.equalTo(self)
+            make.width.equalTo(self).multipliedBy(0.3)
         }
     }
     
@@ -82,9 +82,8 @@ class ExpandedFeedCellView: UIView {
         interestedButton.snp.makeConstraints { (make) in
             make.top.equalTo(postDescriptionTF.snp.bottom)
             make.leading.equalTo(showOnMapButton.snp.trailing)
-            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
-            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
-            make.width.equalTo(self.snp.width).multipliedBy(0.69)
+            make.trailing.equalTo(self)
+            make.bottom.equalTo(self)
         }
     }
 

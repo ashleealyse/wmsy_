@@ -28,7 +28,7 @@ class FeedMapParentViewController: MenuedViewController {
         }
     }
     var displayingWhims: [Whim] {
-        return distanceFilterWhims(categoryFilterWhims(allWhims))
+        return distanceFilterWhims(categoryFilterWhims(allWhims)).sortedByTimestamp()
     }
     
     // MARK: - VC Lifecycle
@@ -198,7 +198,7 @@ class FeedMapParentViewController: MenuedViewController {
             let lat = Double(whim.lat)
             let whimLocation = CLLocation(latitude: lat!, longitude: long!)
             let distanceInMeters = whimLocation.distance(from: userLocation)
-            if distanceInMeters <= 1609{
+            if distanceInMeters <= 16090{
                 whimArr.append(whim)
             }
         }
@@ -208,7 +208,9 @@ class FeedMapParentViewController: MenuedViewController {
 }
 
 extension FeedMapParentViewController: FeedViewControllerDelegate {
-    
+    func feedView(_ feedView: FeedViewController, requestingUpdate request: Bool) {
+        loadData()
+    }
 }
 
 extension FeedMapParentViewController: ToolbarViewControllerDelegate {
