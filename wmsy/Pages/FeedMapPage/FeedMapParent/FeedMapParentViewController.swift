@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import CoreLocation
+import SVProgressHUD
 
 class FeedMapParentViewController: MenuedViewController {
     
@@ -16,8 +17,10 @@ class FeedMapParentViewController: MenuedViewController {
     let feedVC = FeedViewController()
     let toolbarVC = ToolbarViewController()
     let mapVC = MapViewController()
+    let iphoneXBottomBarView = UIView()
     
-    let toolbarHeight: CGFloat = 90.0
+    
+    let toolbarHeight: CGFloat = 120.0
     
     var selectedCategories = Set(Category.all())
     var currentLocation: CLLocation?
@@ -38,7 +41,9 @@ class FeedMapParentViewController: MenuedViewController {
     // MARK: - VC Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = Stylesheet.Colors.WMSYImperial
         self.navigationController?.navigationBar.isHidden = true
+        SVProgressHUD.dismiss()
         
         self.add(navBarVC)
         self.add(feedVC)
@@ -49,6 +54,7 @@ class FeedMapParentViewController: MenuedViewController {
         self.layoutFeedVC()
         self.layoutToolbarVC()
         self.layoutMapVC()
+        self.layoutIphoneXBottomBarView()
         
         feedVC.delegate = self
         toolbarVC.delegate = self
@@ -79,7 +85,7 @@ class FeedMapParentViewController: MenuedViewController {
     private func layoutNavBarVC() {
         navBarVC.view.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalTo(self.view)
-            make.height.equalTo(64)
+            make.height.equalTo(self.navigationController!.navigationBar.frame.height + UIApplication.shared.statusBarFrame.height)
         }
     }
     private func layoutFeedVC() {
@@ -103,6 +109,14 @@ class FeedMapParentViewController: MenuedViewController {
             make.height.equalTo(feedVC.view).offset(1)
         }
     }
+    private func layoutIphoneXBottomBarView() {
+        self.view.addSubview(iphoneXBottomBarView)
+        iphoneXBottomBarView.backgroundColor = Stylesheet.Colors.WMSYImperial
+        iphoneXBottomBarView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+            make.leading.trailing.bottom.equalTo(self.view)
+        }
+    }
     
     // MARK: - Feed-to-Map animations
     var mapIsShowing: Bool = false
@@ -117,14 +131,28 @@ class FeedMapParentViewController: MenuedViewController {
     }
     
     private func pinToolbarToBottom() {
+        verticalPinConstraint?.deactivate()
         toolbarVC.view.snp.makeConstraints { (make) in
             verticalPinConstraint = make.top.equalTo(feedVC.view.snp.bottom).constraint
         }
+        UIView.animate(withDuration: 0.3, animations: {
+            self.toolbarVC.view.frame.origin.y = self.feedVC.view.frame.maxY
+            self.mapVC.view.frame.origin.y = self.toolbarVC.view.frame.maxY
+            self.view.layoutIfNeeded()
+        })
+        self.mapIsShowing = true
     }
     private func pinToolbarToTop() {
+        verticalPinConstraint?.deactivate()
         toolbarVC.view.snp.makeConstraints { (make) in
             verticalPinConstraint = make.top.equalTo(navBarVC.view.snp.bottom).offset(-1).constraint
         }
+        UIView.animate(withDuration: 0.3, animations: {
+            self.toolbarVC.view.frame.origin.y = self.navBarVC.view.frame.maxY - 1
+            self.mapVC.view.frame.origin.y = self.toolbarVC.view.frame.maxY
+            self.view.layoutIfNeeded()
+        })
+        self.mapIsShowing = false
     }
     @objc func toggleMap(sender: UITapGestureRecognizer) {
         verticalPinConstraint?.deactivate()
@@ -151,27 +179,12 @@ class FeedMapParentViewController: MenuedViewController {
             toolbar.center = CGPoint(x: view.center.x, y: toolbar.center.y + translation.y)
             sender.setTranslation(CGPoint.zero, in: view)
             correctToolbarFrame()
-            mapVC.view.frame.origin.y = toolbarVC.view.frame.maxY
         case .ended:
-            if toolbar.frame.minY <= feedVC.view.frame.maxY / 2 || velocity.y < -300 {
-                verticalPinConstraint?.deactivate()
+            if toolbar.frame.minY <= feedVC.view.frame.maxY / 2 || velocity.y <= -300 {
                 self.pinToolbarToTop()
-                UIView.animate(withDuration: 0.3, animations: {
-                    toolbar.frame.origin.y = self.navBarVC.view.frame.maxY - 1
-                    self.mapVC.view.frame.origin.y = toolbar.frame.maxY
-                    self.view.layoutIfNeeded()
-                })
-                self.mapIsShowing = false
             }
-            if toolbar.frame.minY > feedVC.view.frame.maxY / 2 || velocity.y > 300 {
-                verticalPinConstraint?.deactivate()
+            if toolbar.frame.minY > feedVC.view.frame.maxY / 2 || velocity.y >= 300 {
                 self.pinToolbarToBottom()
-                UIView.animate(withDuration: 0.3, animations: {
-                    toolbar.frame.origin.y = self.feedVC.view.frame.maxY
-                    self.mapVC.view.frame.origin.y = toolbar.frame.maxY
-                    self.view.layoutIfNeeded()
-                })
-                self.mapIsShowing = true
             }
         default: break
         }
@@ -185,6 +198,7 @@ class FeedMapParentViewController: MenuedViewController {
         if toolbarVC.view.frame.origin.y > feedVC.view.frame.maxY {
             toolbarVC.view.frame.origin.y = feedVC.view.frame.maxY
         }
+        mapVC.view.frame.origin.y = toolbarVC.view.frame.maxY
     }
     
     // MARK: - Database networking
@@ -210,6 +224,7 @@ class FeedMapParentViewController: MenuedViewController {
         navigationController?.pushViewController(vc, animated: false) ?? present(vc, animated: false, completion: nil)
         print("Show Whim Host User Profile")
     }
+    
 }
 
 

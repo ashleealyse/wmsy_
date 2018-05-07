@@ -14,13 +14,14 @@ class ToolbarView: UIView {
     // MARK: - Properties
     let pullButton = UIButton()
     let categoryLabel = UILabel()
-    let allFiltersButton = UIButton()
-    let distanceSegmentedControl = UISegmentedControl()
     lazy var categoryCV: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         return UICollectionView(frame: .zero, collectionViewLayout: layout)
     }()
+    let allFiltersButton = UIButton()
+    let distanceLabel = UILabel()
+    let distanceSegmentedControl = UISegmentedControl()
     
     // MARK: - Lifecycle
     override init(frame: CGRect) {
@@ -50,23 +51,26 @@ class ToolbarView: UIView {
     private func addSubviews() {
         self.addSubview(pullButton)
         self.addSubview(categoryLabel)
-        self.addSubview(allFiltersButton)
-        self.addSubview(distanceSegmentedControl)
         self.addSubview(categoryCV)
+        self.addSubview(allFiltersButton)
+        self.addSubview(distanceLabel)
+        self.addSubview(distanceSegmentedControl)
     }
     private func customizeViews() {
         self.customizePullButton()
         self.customizeCategoryLabel()
-        self.customizeAllFiltersButton()
-        self.customizeDistanceSegmentedControl()
         self.customizeCategoryCV()
+        self.customizeAllFiltersButton()
+        self.customizeDistanceLabel()
+        self.customizeDistanceSegmentedControl()
     }
     private func constrainSubviews() {
         self.constrainPullButton()
         self.constrainCategoryLabel()
-        self.constrainAllFiltersButton()
-        self.constrainDistanceSegmentedControl()
         self.constrainCategoryCV()
+        self.constrainAllFiltersButton()
+        self.constrainDistanceLabel()
+        self.constrainDistanceSegmentedControl()
     }
     
     // MARK: - PullButton
@@ -89,9 +93,26 @@ class ToolbarView: UIView {
     }
     private func constrainCategoryLabel() {
         categoryLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(pullButton.snp.bottom).offset(5)
+            make.top.equalTo(pullButton.snp.bottom)
             make.leading.trailing.equalTo(self).inset(5)
-            make.height.equalTo(self).multipliedBy(0.2)
+            make.height.equalTo(self).multipliedBy(0.125)
+        }
+    }
+    
+    
+    // MARK: - CategoryCV
+    private func customizeCategoryCV() {
+        categoryCV.register(WhimCategoryCollectionViewCell.self, forCellWithReuseIdentifier: "FilterCategoryCell")
+        categoryCV.allowsMultipleSelection = true
+        categoryCV.backgroundColor = .clear
+        categoryCV.showsHorizontalScrollIndicator = false
+    }
+    private func constrainCategoryCV() {
+        categoryCV.snp.makeConstraints { (make) in
+            make.top.equalTo(categoryLabel.snp.bottom)
+            make.leading.equalTo(self).offset(5)
+            make.width.equalTo(self).multipliedBy(0.8)
+            make.height.equalTo(self).multipliedBy(0.25)
         }
     }
     
@@ -109,33 +130,35 @@ class ToolbarView: UIView {
         }
     }
     
+    // MARK: - DistanceLabel
+    private func customizeDistanceLabel() {
+        distanceLabel.text = "Miles"
+        distanceLabel.font = UIFont.systemFont(ofSize: 15)
+        distanceLabel.textColor = Stylesheet.Colors.WMSYKSUPurple
+    }
+    private func constrainDistanceLabel() {
+        distanceLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(categoryCV.snp.bottom)
+            make.leading.trailing.equalTo(self).inset(5)
+            make.height.equalTo(self).multipliedBy(0.125)
+        }
+    }
+    
     // MARK: - DistanceSegmentedControl
     private func customizeDistanceSegmentedControl() {
-        distanceSegmentedControl.backgroundColor = Stylesheet.Colors.WMSYDeepViolet
+        distanceSegmentedControl.tintColor = Stylesheet.Colors.WMSYDeepViolet
+        distanceSegmentedControl.insertSegment(withTitle: "1", at: 0, animated: false)
+        distanceSegmentedControl.insertSegment(withTitle: "5", at: 1, animated: false)
+        distanceSegmentedControl.insertSegment(withTitle: "10", at: 2, animated: false)
+        distanceSegmentedControl.insertSegment(withTitle: "25", at: 3, animated: false)
+        distanceSegmentedControl.insertSegment(withTitle: "25+", at: 4, animated: false)
     }
     private func constrainDistanceSegmentedControl() {
         distanceSegmentedControl.snp.makeConstraints { (make) in
-            make.leading.equalTo(self.snp.leading).offset(5)
-            make.trailing.equalTo(self.snp.trailing).offset(-5)
-            make.top.equalTo(categoryCV.snp.bottom).offset(5)
-            make.height.equalTo(self.snp.height).multipliedBy(0.3)
-        }
-
-    }
-    
-    // MARK: - CategoryCV
-    private func customizeCategoryCV() {
-        categoryCV.register(WhimCategoryCollectionViewCell.self, forCellWithReuseIdentifier: "FilterCategoryCell")
-        categoryCV.allowsMultipleSelection = true
-        categoryCV.backgroundColor = .clear
-        categoryCV.showsHorizontalScrollIndicator = false
-    }
-    private func constrainCategoryCV() {
-        categoryCV.snp.makeConstraints { (make) in
-            make.top.equalTo(categoryLabel.snp.bottom).offset(5)
-            make.leading.equalTo(self).offset(5)
-            make.width.equalTo(self).multipliedBy(0.8)
-            make.height.equalTo(self).multipliedBy(0.4)
+            make.top.equalTo(distanceLabel.snp.bottom)
+            make.leading.trailing.equalTo(self)
+            make.height.equalTo(self).multipliedBy(0.25)
+            make.bottom.equalTo(self)
         }
     }
 }

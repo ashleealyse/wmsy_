@@ -26,7 +26,6 @@ class MapViewController: UIViewController {
     var whims: [Whim] = [] {
         didSet {
             DispatchQueue.main.async {
-                print("number of whims to load: \(self.whims.count)")
                 self.mapView.googleMap.clear()
                 for whim in self.whims{
                     let position = CLLocationCoordinate2D(latitude: Double(whim.lat)!, longitude: Double(whim.long)!)

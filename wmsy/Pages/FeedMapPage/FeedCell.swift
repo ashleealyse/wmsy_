@@ -114,7 +114,6 @@ class FeedCell2: UITableViewCell {
     
     // MARK: - Expansion Animation
     private func resize(_ expanded: Bool){
-        print("expanding: \(expanded)")
         contentViewBottomPin?.deactivate()
         if expanded {
             expandedView.snp.makeConstraints { (make) in
