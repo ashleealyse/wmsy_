@@ -95,7 +95,7 @@ class ToolbarView: UIView {
         categoryLabel.snp.makeConstraints { (make) in
             make.top.equalTo(pullButton.snp.bottom)
             make.leading.trailing.equalTo(self).inset(5)
-            make.height.equalTo(self).multipliedBy(0.125)
+//            make.height.equalTo(self).multipliedBy(0.125)
         }
     }
     

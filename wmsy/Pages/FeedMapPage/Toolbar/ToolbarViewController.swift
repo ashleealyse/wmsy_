@@ -49,7 +49,7 @@ class ToolbarViewController: UIViewController {
         toolbarView.allFiltersButton.addTarget(self, action: #selector(toggleAllCategories(_:)), for: .touchUpInside)
         
         // cheap way to start with everything selected
-        toggleAllCategories(nil)
+//        toggleAllCategories(nil)
     }
     
     @objc private func toggleAllCategories(_ sender: UIButton?) {

@@ -22,7 +22,7 @@ extension DBService {
                 guard let whimDict = whimSnapshot.value as? [String: Any] else { return }
                 guard
                 let id = whimDict["id"] as? String,
-                let category = whimDict["category"] as? String,
+                let category = (whimDict["category"] as? String)?.lowercased(),
                 let title = whimDict["title"] as? String,
                 let description = whimDict["description"] as? String,
                 let hostID = whimDict["hostID"] as? String,

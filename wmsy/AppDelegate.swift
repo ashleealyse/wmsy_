@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let vc = MainTabBarVC()
 //        let vc = FeedMapParentViewController()
+//        let vc = LoadingScreen.storyboardInstance()
         vc.navigationItem.backBarButtonItem?.image = #imageLiteral(resourceName: "backIcon")
         vc.navigationItem.backBarButtonItem?.tintColor = Stylesheet.Colors.WMSYKSUPurple
         window = UIWindow(frame: UIScreen.main.bounds)

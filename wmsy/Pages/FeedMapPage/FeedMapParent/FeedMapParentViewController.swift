@@ -22,7 +22,7 @@ class FeedMapParentViewController: MenuedViewController {
     
     let toolbarHeight: CGFloat = 120.0
     
-    var selectedCategories = Set(Category.all())
+    var selectedCategories = Set<Category>()
     var currentLocation: CLLocation?
     var selectedDistance: Int = 25
     var allWhims = [Whim]() {
@@ -33,7 +33,7 @@ class FeedMapParentViewController: MenuedViewController {
     }
     var displayingWhims: [Whim] {
         return allWhims
-            .filter{ selectedCategories.contains($0.category)
+            .filter{ (selectedCategories.contains($0.category) || selectedCategories.isEmpty)
                     && $0.withinDistance(currentLocation, distance: 25)
         }
     }

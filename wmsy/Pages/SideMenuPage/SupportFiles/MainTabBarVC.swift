@@ -12,7 +12,7 @@ import FirebaseAuth
 class MainTabBarVC: UITabBarController {
     
     let loginVC     = LoginVC()
-    let splashScreen = SplashViewController()
+    let splashScreen = LoadingScreen.storyboardInstance()
 //    let feedMapVC   = UINavigationController.init(rootViewController: FeedMapVC())
     let feedMapVC = UINavigationController.init(rootViewController: FeedMapParentViewController())
     let chatRoomVC  =  UINavigationController.init(rootViewController: ChatRoomVCTest())

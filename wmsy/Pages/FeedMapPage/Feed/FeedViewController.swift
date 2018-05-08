@@ -16,7 +16,6 @@ protocol FeedViewControllerDelegate: class {
 class FeedViewController: UIViewController {
     
     let feedView = FeedView()
-//    let refreshControl = UIRefreshControl()
     var expandedRows = Set<Int>()
     var delegate: FeedViewControllerDelegate?
     
@@ -64,18 +63,15 @@ class FeedViewController: UIViewController {
         delegate.feedView(self, requestingUpdate: true)
     }
     public func updateWhimsTo(_ whims: [Whim]) {
+        guard self.whims != whims else {return}
+        self.whims = whims.sortedByTimestamp()
         if self.feedView.refreshControl.isRefreshing {
             Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
                 self.feedView.refreshControl.blink()
                 self.feedView.refreshControl.endRefreshing()
-                
-                guard self.whims != whims else {return}
-                self.whims = whims
                 self.feedView.tableView.reloadData()
             }
         } else {
-            guard self.whims != whims else {return}
-            self.whims = whims
             self.feedView.tableView.reloadData()
         }
     }

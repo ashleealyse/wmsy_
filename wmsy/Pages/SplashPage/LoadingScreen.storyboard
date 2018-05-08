@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Loading Screen-->
+        <scene sceneID="y3e-oH-YtB">
+            <objects>
+                <viewController storyboardIdentifier="LoadingScreen" id="axW-fm-cv8" customClass="LoadingScreen" customModule="wmsy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="82w-T1-g6g">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="w" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RW8-NZ-KWK">
+                                <rect key="frame" x="132" y="293.5" width="32" height="80"/>
+                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="50"/>
+                                <color key="textColor" red="0.98412295599999999" green="1" blue="0.96645829539999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TYb-pc-Aqc">
+                                <rect key="frame" x="164" y="293.5" width="32" height="80"/>
+                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="50"/>
+                                <color key="textColor" red="0.98412295599999999" green="1" blue="0.96645829539999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="s" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sq5-EW-he6">
+                                <rect key="frame" x="196" y="293.5" width="23" height="80"/>
+                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="50"/>
+                                <color key="textColor" red="0.98412295599999999" green="1" blue="0.96645829539999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="y" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="09x-Y0-JXI">
+                                <rect key="frame" x="219" y="293.5" width="24" height="80"/>
+                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="50"/>
+                                <color key="textColor" red="0.98412295599999999" green="1" blue="0.96645829539999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Qa-nE-vnC">
+                                <rect key="frame" x="243" y="278" width="132" height="132"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="0Qa-nE-vnC" secondAttribute="height" multiplier="1:1" id="t4d-YH-Ain"/>
+                                </constraints>
+                            </view>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WJp-Vx-Rpe">
+                                <rect key="frame" x="0.0" y="278" width="132" height="132"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="WJp-Vx-Rpe" secondAttribute="height" multiplier="1:1" id="i51-3A-exn"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.21176470589999999" green="0.050980392159999999" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="edu-nn-1jn" firstAttribute="trailing" secondItem="0Qa-nE-vnC" secondAttribute="trailing" id="4sE-uU-WXk"/>
+                            <constraint firstItem="WJp-Vx-Rpe" firstAttribute="leading" secondItem="82w-T1-g6g" secondAttribute="leading" id="66h-ZZ-d4Z"/>
+                            <constraint firstItem="0Qa-nE-vnC" firstAttribute="centerY" secondItem="82w-T1-g6g" secondAttribute="centerY" constant="10.25" id="Hc9-iO-zYI"/>
+                            <constraint firstItem="0Qa-nE-vnC" firstAttribute="leading" secondItem="09x-Y0-JXI" secondAttribute="trailing" id="Lr2-HU-Hb3"/>
+                            <constraint firstItem="TYb-pc-Aqc" firstAttribute="leading" secondItem="RW8-NZ-KWK" secondAttribute="trailing" id="OoA-lW-xcg"/>
+                            <constraint firstItem="09x-Y0-JXI" firstAttribute="leading" secondItem="Sq5-EW-he6" secondAttribute="trailing" id="P4K-kx-un6"/>
+                            <constraint firstItem="Sq5-EW-he6" firstAttribute="leading" secondItem="TYb-pc-Aqc" secondAttribute="trailing" id="bIf-Vf-ET2"/>
+                            <constraint firstItem="0Qa-nE-vnC" firstAttribute="width" secondItem="WJp-Vx-Rpe" secondAttribute="width" id="bK6-ee-gsC"/>
+                            <constraint firstItem="Sq5-EW-he6" firstAttribute="centerY" secondItem="82w-T1-g6g" secondAttribute="centerY" id="clf-aq-eIz"/>
+                            <constraint firstItem="RW8-NZ-KWK" firstAttribute="centerY" secondItem="82w-T1-g6g" secondAttribute="centerY" id="ifc-Zx-nGu"/>
+                            <constraint firstItem="09x-Y0-JXI" firstAttribute="centerY" secondItem="82w-T1-g6g" secondAttribute="centerY" id="lRJ-ub-m2O"/>
+                            <constraint firstItem="WJp-Vx-Rpe" firstAttribute="centerY" secondItem="82w-T1-g6g" secondAttribute="centerY" constant="10.25" id="pD3-Uw-Siy"/>
+                            <constraint firstItem="TYb-pc-Aqc" firstAttribute="centerY" secondItem="82w-T1-g6g" secondAttribute="centerY" id="yjT-Es-vJH"/>
+                            <constraint firstItem="RW8-NZ-KWK" firstAttribute="leading" secondItem="WJp-Vx-Rpe" secondAttribute="trailing" id="zYc-tL-ANs"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="edu-nn-1jn"/>
+                    </view>
+                    <connections>
+                        <outlet property="mView" destination="TYb-pc-Aqc" id="ipG-mb-rn4"/>
+                        <outlet property="sView" destination="Sq5-EW-he6" id="ecc-Jf-cSQ"/>
+                        <outlet property="wView" destination="RW8-NZ-KWK" id="GQ5-xj-LyT"/>
+                        <outlet property="yView" destination="09x-Y0-JXI" id="h3F-nk-CRN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ehD-Mh-aKG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52" y="374.66266866566718"/>
+        </scene>
+    </scenes>
+</document>

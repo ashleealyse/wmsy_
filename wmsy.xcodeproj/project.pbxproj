@@ -109,6 +109,7 @@
 		81DECD2E205E229E00214866 /* MenuWhimsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DECD2D205E229E00214866 /* MenuWhimsCell.swift */; };
 		81DECD3020600C8900214866 /* MainTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DECD2F20600C8900214866 /* MainTabBarVC.swift */; };
 		81DECD3220600FB000214866 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DECD3120600FB000214866 /* Page.swift */; };
+		81E18BCB20A0F1A300863102 /* LoadingScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81E18BCA20A0F1A300863102 /* LoadingScreen.storyboard */; };
 		81EBB5892060117D008A6CE7 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBB5882060117D008A6CE7 /* StorageService.swift */; };
 		81EBB58B20601939008A6CE7 /* StorageService+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBB58A20601939008A6CE7 /* StorageService+Image.swift */; };
 		81EBB58D20601C7E008A6CE7 /* DBService+AppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBB58C20601C7E008A6CE7 /* DBService+AppUser.swift */; };
@@ -250,6 +251,7 @@
 		81DECD2D205E229E00214866 /* MenuWhimsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuWhimsCell.swift; sourceTree = "<group>"; };
 		81DECD2F20600C8900214866 /* MainTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarVC.swift; sourceTree = "<group>"; };
 		81DECD3120600FB000214866 /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
+		81E18BCA20A0F1A300863102 /* LoadingScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoadingScreen.storyboard; sourceTree = "<group>"; };
 		81EBB5882060117D008A6CE7 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		81EBB58A20601939008A6CE7 /* StorageService+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageService+Image.swift"; sourceTree = "<group>"; };
 		81EBB58C20601C7E008A6CE7 /* DBService+AppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DBService+AppUser.swift"; sourceTree = "<group>"; };
@@ -644,6 +646,7 @@
 		93D5CDAE206AB14A00ABB3E1 /* SplashPage */ = {
 			isa = PBXGroup;
 			children = (
+				81E18BCA20A0F1A300863102 /* LoadingScreen.storyboard */,
 				93D5CDAF206AB1FC00ABB3E1 /* SplashView.swift */,
 				93D5CDB1206AB20A00ABB3E1 /* SplashViewController.swift */,
 			);
@@ -753,6 +756,7 @@
 				81B84FE3209D0D7300111E94 /* index.js in Resources */,
 				8190310F205ADCF200932A55 /* LaunchScreen.storyboard in Resources */,
 				8139A99D205C2E9F006C7058 /* GoogleService-Info.plist in Resources */,
+				81E18BCB20A0F1A300863102 /* LoadingScreen.storyboard in Resources */,
 				8190310C205ADCF200932A55 /* Assets.xcassets in Resources */,
 				8190310A205ADCF200932A55 /* Main.storyboard in Resources */,
 			);

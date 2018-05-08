@@ -88,6 +88,7 @@ class NavView: UIView {
         self.addSubview(titleButton)
         titleButton.setTitle("wmsy", for: .normal)
         titleButton.setTitleColor(.black, for: .normal)
+        titleButton.titleLabel?.font = UIFont(name: "Noteworthy-Light", size: 25)
     }
     private func constrainTitleButton() {
         titleButton.snp.makeConstraints { (make) in

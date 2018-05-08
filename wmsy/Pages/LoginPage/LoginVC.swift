@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 import FacebookLogin
 import FacebookCore
 import Kingfisher
@@ -61,6 +62,9 @@ class LoginVC: UIViewController {
         locationManager.distanceFilter = 50
         loginView.delegate = self
         view.addSubview(loginView)
+        loginView.snp.makeConstraints { (make) in
+            make.edges.equalTo(self.view)
+        }
     }
     
     

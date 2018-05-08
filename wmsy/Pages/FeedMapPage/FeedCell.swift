@@ -166,11 +166,10 @@ class FeedCell2: UITableViewCell {
         self.expandedView.interestedButton.isHidden = false
         self.expandedView.showOnMapButton.isHidden = false
     }
-//    override func prepareForReuse() {
-//        super.prepareForReuse()
-//        self.invalidatePreviousAsyncCalls = true
-//    }
-    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.collapsedView.userImageButton.setImage(nil, for: .normal)
+    }
 }
 
 
@@ -240,11 +239,6 @@ class FeedCell: UITableViewCell {
     
     private func setUpCollapsedView() {
         contentView.addSubview(collapsedView)
-        //        collapsedView.snp.makeConstraints { (make) in
-        //            make.top.equalTo(safeAreaLayoutGuide)
-        //            make.trailing.leading.equalTo(safeAreaLayoutGuide)
-        //            make.height.equalTo(safeAreaLayoutGuide).multipliedBy(0.5)
-        //        }
         collapsedView.translatesAutoresizingMaskIntoConstraints = false
         [collapsedView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11),
          collapsedView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,  constant: 8),
