@@ -23,10 +23,24 @@ class MapViewController: UIViewController {
     let whimDetailsView = UIView()
     // TODO: have segmented control decide this range
     let desiredRange: Int = 5 // miles
+    var currentLocation: CLLocation?
     
-    var markers: [String: GMSMarker] = [:]
+    var markers: [Whim: GMSMarker] = [:]
     var whimsSet = Set<Whim>()
-    
+    var selectedWhim: Whim? {
+        didSet {
+            guard let whim = selectedWhim,
+                let marker = markers[whim]
+                else {
+                self.mapView.updateCameraTo(location: currentLocation, range: desiredRange)
+                return
+            }
+            let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude,
+                                                  longitude: marker.position.longitude,
+                                                  zoom: 17.0)
+            self.mapView.googleMap.animate(to: camera)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +48,7 @@ class MapViewController: UIViewController {
         self.view.translatesAutoresizingMaskIntoConstraints = false
         self.view.backgroundColor = . blue
         
+        mapView.googleMap.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = 50
@@ -51,8 +66,12 @@ class MapViewController: UIViewController {
         mapView.snp.makeConstraints { (make) in
             make.edges.equalTo(self.view)
         }
+        
     }
     
+    
+    
+    // MARK: - Receiving data
     public func updateWhimsTo(_ whims: [Whim]) {
         let whims = Set(whims)
         let addingWhims = whims.subtracting(self.whimsSet)
@@ -67,30 +86,21 @@ class MapViewController: UIViewController {
             self.whimsSet.remove($0)
         }
     }
-    
     private func addMarkerFor(_ whim: Whim) {
         DispatchQueue.main.async {
             let position = CLLocationCoordinate2D(latitude: Double(whim.lat)!, longitude: Double(whim.long)!)
             let marker = GMSMarker(position: position)
-            let timeRemaining = whim.getTimeRemaining()
-            marker.userData = ["title": whim.title,
-                               "description": whim.description,
-                               "hostImageURL": whim.hostImageURL,
-                               "category": whim.category,
-                               "hostID" : whim.hostID,
-                               "whimID": whim.id,
-                               "expiration": timeRemaining
-            ]
+            marker.userData = ["whim": whim]
             marker.icon = GMSMarker.markerImage(with: Stylesheet.Colors.WMSYDeepViolet)
             marker.map = self.mapView.googleMap
-            self.markers[whim.id] = marker
+            self.markers[whim] = marker
         }
     }
     private func removeMarkerFor(_ whim: Whim) {
         DispatchQueue.main.async {
-            guard let marker = self.markers[whim.id] else { return }
+            guard let marker = self.markers[whim] else { return }
             marker.map = nil
-            self.markers.removeValue(forKey: whim.id)
+            self.markers.removeValue(forKey: whim)
         }
     }
 }
@@ -107,6 +117,7 @@ extension MapViewController: CLLocationManagerDelegate {
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let mostRecentLocation = locations.last else { return }
+        self.currentLocation = mostRecentLocation
         self.mapView.updateCameraTo(location: mostRecentLocation, range: self.desiredRange)
         self.delegate?.mapView(self, didChangeLocation: mostRecentLocation)
     }
@@ -115,3 +126,18 @@ extension MapViewController: CLLocationManagerDelegate {
     }
 }
 
+extension MapViewController: GMSMapViewDelegate {
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        guard let dict = marker.userData as? [String: Any],
+            let whim = dict["whim"] as? Whim
+            else {
+                print("doesn't work this way")
+            return false
+        }
+        self.selectedWhim = whim
+        return true
+    }
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        self.selectedWhim = nil
+    }
+}
