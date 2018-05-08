@@ -31,7 +31,8 @@ extension DismissMenuAnimator : UIViewControllerAnimatedTransitioning {
             withDuration: transitionDuration(using: transitionContext),
             animations: {
                 // 2
-                snapshot.frame = CGRect(origin: CGPoint.zero, size: UIScreen.main.bounds.size)
+//                snapshot.frame = CGRect(origin: CGPoint.zero, size: UIScreen.main.bounds.size)
+                fromVC.view.frame.origin.x -= UIScreen.main.bounds.width * MenuHelper.menuWidth
         },
             completion: { _ in
                 let didTransitionComplete = !transitionContext.transitionWasCancelled
