@@ -20,11 +20,6 @@ extension DBService {
                         long: String,
                         lat: String,
                         duration: Int) {
-        
-//        guard let currentUser = AuthUserService.manager.getCurrentUser() else {
-//            print("Error: could not get current user id, please exit the app and log back in.")
-//            return
-//        }
         guard let currentUser = AppUser.currentAppUser else {
             print("Error: could not get current user id, please exit the app and log back in.")
             return
@@ -74,19 +69,6 @@ extension DBService {
         print("also added to users")
         group.leave()
     }
-//    public func add(whim: Whim) {
-//        let appUser = AppUser.singleUser // dummy
-//        let ref = usersRef.child(appUser.userID)
-//        ref.setValue([
-//            "name" : appUser.name,
-//            "photoID" : appUser.photoID,
-//            "age" : appUser.age,
-//            "userID" : appUser.userID,
-//            "bio" : appUser.bio,
-//            "badge" : appUser.badge,
-//            "flags" : appUser.flags
-//            ])
-//    }
     public func getWhim(fromID whimID: String, completion: @escaping (Whim?) -> Void) {
         
         let whimRef = whimsRef.child(whimID)
@@ -127,22 +109,17 @@ extension DBService {
         
         var whims = [Whim]()
         var count = 0
-        print(whimIDs.count)
         for singleWhim in whimIDs {
             group.enter()
-            print("getting whim with id: \(singleWhim)")
             getWhim(fromID: singleWhim, completion: { (whim) in
                 if let whim = whim {
-                    print("got single whim with id: \(singleWhim)")
                     whims.append(whim)
                     count += 1
-                    print(count)
                 }
                 group.leave()
             })
         }
         group.notify(queue: .main) {
-            print("getting whims from list finished")
             completion(whims)
             return
         }

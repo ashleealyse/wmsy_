@@ -14,6 +14,7 @@ protocol MapViewControllerDelegate: class {
     func mapView(_ mapView: MapViewController, didChangeLocation location: CLLocation) -> Void
 }
 
+
 class MapViewController: UIViewController {
     
     var delegate: MapViewControllerDelegate?
@@ -23,28 +24,8 @@ class MapViewController: UIViewController {
     // TODO: have segmented control decide this range
     let desiredRange: Int = 5 // miles
     
-    var whims: [Whim] = [] {
-        didSet {
-            DispatchQueue.main.async {
-                self.mapView.googleMap.clear()
-                for whim in self.whims{
-                    let position = CLLocationCoordinate2D(latitude: Double(whim.lat)!, longitude: Double(whim.long)!)
-                    let marker = GMSMarker(position: position)
-                    let timeRemaining = whim.getTimeRemaining()
-                    marker.userData = ["title": whim.title,
-                                       "description": whim.description,
-                                       "hostImageURL": whim.hostImageURL,
-                                       "category": whim.category,
-                                       "hostID" : whim.hostID,
-                                       "whimID": whim.id,
-                                       "expiration": timeRemaining
-                    ]
-                    marker.icon = GMSMarker.markerImage(with: Stylesheet.Colors.WMSYDeepViolet)
-                    marker.map = self.mapView.googleMap
-                }
-            }
-        }
-    }
+    var markers: [String: GMSMarker] = [:]
+    var whimsSet = Set<Whim>()
     
     
     override func viewDidLoad() {
@@ -73,7 +54,44 @@ class MapViewController: UIViewController {
     }
     
     public func updateWhimsTo(_ whims: [Whim]) {
-        self.whims = whims
+        let whims = Set(whims)
+        let addingWhims = whims.subtracting(self.whimsSet)
+        let removingWhims = self.whimsSet.subtracting(whims)
+        
+        addingWhims.forEach{
+            addMarkerFor($0)
+            self.whimsSet.insert($0)
+        }
+        removingWhims.forEach{
+            removeMarkerFor($0)
+            self.whimsSet.remove($0)
+        }
+    }
+    
+    private func addMarkerFor(_ whim: Whim) {
+        DispatchQueue.main.async {
+            let position = CLLocationCoordinate2D(latitude: Double(whim.lat)!, longitude: Double(whim.long)!)
+            let marker = GMSMarker(position: position)
+            let timeRemaining = whim.getTimeRemaining()
+            marker.userData = ["title": whim.title,
+                               "description": whim.description,
+                               "hostImageURL": whim.hostImageURL,
+                               "category": whim.category,
+                               "hostID" : whim.hostID,
+                               "whimID": whim.id,
+                               "expiration": timeRemaining
+            ]
+            marker.icon = GMSMarker.markerImage(with: Stylesheet.Colors.WMSYDeepViolet)
+            marker.map = self.mapView.googleMap
+            self.markers[whim.id] = marker
+        }
+    }
+    private func removeMarkerFor(_ whim: Whim) {
+        DispatchQueue.main.async {
+            guard let marker = self.markers[whim.id] else { return }
+            marker.map = nil
+            self.markers.removeValue(forKey: whim.id)
+        }
     }
 }
 

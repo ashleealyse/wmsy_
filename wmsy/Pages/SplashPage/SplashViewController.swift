@@ -36,7 +36,9 @@ class LoadingScreen: UIViewController {
         }
         
         AppUser.configureCurrentAppUser(withUID: user.uid) {
-            self.toggleAnimation(UIButton())
+            self.setupObserversAndMenuDataForCurrentUser {
+                self.toggleAnimation(UIButton())
+            }
         }
         
     }

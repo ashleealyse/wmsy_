@@ -75,7 +75,7 @@ class MenuNotificationTracker {
             }
 //            let interest = Interest(whimID: snapshot.key, userID: user.userID, inChat: false)
 //            AppUser.currentAppUser?.interests.append(interest)
-            AppUser.currentAppUser!.interests.forEach{print($0.whimID)}
+//            AppUser.currentAppUser!.interests.forEach{print($0.whimID)}
             self.addInGuestChatHandle(forWhim: snapshot.key)
             self.delegate?.currentUserInterested(inWhim: snapshot.key)
         }
@@ -158,8 +158,6 @@ class MenuNotificationTracker {
                 self.delegate?.currentUserRemovedFromChat(forWhim: whimID)
                 self.removeOutOfGuestChatHandle(forWhim: whimID)
                 self.removeReceivedMessageInGuestWhimHandle(forWhim: whimID)
-            } else {
-                print("no")
             }
         })
     }
@@ -177,7 +175,7 @@ class MenuNotificationTracker {
                 print("user interest not properly created from firebase")
                 fatalError()
             }
-            AppUser.currentAppUser!.hostedWhims.forEach{print($0.id)}
+//            AppUser.currentAppUser!.hostedWhims.forEach{print($0.id)}
             self.addReceivedMessageInHostedWhimHandle(forWhim: snapshot.key)
             self.addOtherUserExpressedInterestInHostedWhimHandle(forWhim: snapshot.key)
             self.delegate?.currentUserStartedHosting(whim: snapshot.key)

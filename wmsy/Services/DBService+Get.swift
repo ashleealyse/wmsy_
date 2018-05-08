@@ -20,39 +20,14 @@ extension DBService {
             guard let whimSnapshots = dataSnapshot.children.allObjects as? [DataSnapshot] else { return }
             for whimSnapshot in whimSnapshots {
                 guard let whimDict = whimSnapshot.value as? [String: Any] else { return }
-                guard
-                let id = whimDict["id"] as? String,
-                let category = (whimDict["category"] as? String)?.lowercased(),
-                let title = whimDict["title"] as? String,
-                let description = whimDict["description"] as? String,
-                let hostID = whimDict["hostID"] as? String,
-                let hostImageURL = whimDict["hostImageURL"] as? String,
-                let location = whimDict["location"] as? String,
-                let long = whimDict["long"] as? String,
-                let lat = whimDict["lat"] as? String,
-                let duration = whimDict["duration"] as? Int,
-                let expiration = whimDict["expiration"] as? String,
-                let finalized = whimDict["finalized"] as? Bool,
-                let timestamp = whimDict["timestamp"] as? String
-                    else {
-                        print("Couldn't get post")
-                        return
+                guard let whim = Whim.init(fromDictionary: whimDict) else {
+                    print("couldn't get post")
+                    return
                 }
-                let whimChats = [Message]()
-                let whim = Whim(id: id, category: category, title: title, description: description, hostID: hostID, hostImageURL: hostImageURL, location: location, long: long, lat: lat, duration: duration, expiration: expiration, finalized: finalized, timestamp: timestamp, whimChats: whimChats)
                 whims.append(whim)
             }
             completion(whims)
         }
-    
-        //            let feed = FeedMapVC()
-        //            var finalWhims = whims.filter({ (whim) -> Bool in
-        //                let expiration = feed.getTimeRemaining(whim: whim)
-        //                if expiration.contains("-"){
-        //                    return false
-        //                }
-        //                return true
-        //            })
     }
     
     

@@ -97,7 +97,6 @@ class MainTabBarVC: UITabBarController {
             }
             
             fromView.removeFromSuperview()
-            print(toIndex)
             self.selectedIndex = toIndex
             self.view.isUserInteractionEnabled = true
         }

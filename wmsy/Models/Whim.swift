@@ -49,7 +49,7 @@ struct Whim: Codable {
     init?(fromDictionary whimDict: [String: Any]) {
         guard
             let id = whimDict["id"] as? String,
-            let category = whimDict["category"] as? String,
+            let category = (whimDict["category"] as? String)?.lowercased(),
             let title = whimDict["title"] as? String,
             let description = whimDict["description"] as? String,
             let hostID = whimDict["hostID"] as? String,
@@ -131,3 +131,10 @@ extension Whim {
         }
     }
 }
+
+extension Whim: Hashable {
+    var hashValue: Int {
+        return Int(self.id) ?? 0
+    }
+}
+
