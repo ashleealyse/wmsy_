@@ -60,3 +60,14 @@ struct AppUser: Codable {
     
     
 }
+
+extension AppUser {
+    public func getInterestKeys() -> [String]{
+        let interests = self.interests
+        var finalArr = [String]()
+        for interest in interests{
+            finalArr.append(interest.whimID)
+        }
+        return finalArr
+    }
+}

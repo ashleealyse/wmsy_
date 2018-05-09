@@ -179,7 +179,7 @@ class CreateWhimTVC: UITableViewController {
     @objc func collectInputs() {
         
         if whimCategory != "", whimTitle != "", whimDescription != "", whimLocation != "", whimLong != "", whimLat != "", whimDuration != 0 {
-            DBService.manager.addWhimWith(category: whimCategory, title: whimTitle, description: whimDescription, hostImageURL: whimHostImageURL, location: whimLocation, long: whimLong, lat: whimLat, duration: whimDuration)
+            DBService.manager.addWhimWith(category: Category(rawValue: whimCategory) ?? .wmsy, title: whimTitle, description: whimDescription, hostImageURL: whimHostImageURL, location: whimLocation, long: whimLong, lat: whimLat, duration: whimDuration)
             
             print("New Whim - Title: \(whimTitle), Description: \(whimDescription), Category: \(whimCategory), Location: \(whimLocation), Long: \(whimLong), Lat: \(whimLat) Duration: \(whimDuration)")
             
@@ -301,7 +301,7 @@ extension CreateWhimTVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! WhimCategoryCollectionViewCell
         let categoryImage = categoryList[indexPath.row].1
-        cell.categoryImage.image = categoryImage
+        cell.categoryImageView.image = categoryImage
         return cell
     }
     

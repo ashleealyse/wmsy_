@@ -10,6 +10,110 @@ import UIKit
 import FirebaseAuth
 import GoogleMaps
 
+class LoadingScreen: UIViewController {
+    
+    @IBOutlet weak var wView: UILabel!
+    @IBOutlet weak var mView: UILabel!
+    @IBOutlet weak var sView: UILabel!
+    @IBOutlet weak var yView: UILabel!
+    
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        animationCompletion = {
+            (self.tabBarController as? MainTabBarVC)?.animateTo(page: .feedAndMap, fromViewController: self)
+        }
+        self.toggleAnimation()
+        guard let user = Auth.auth().currentUser else {
+            print("some fuck up here i guess")
+            return
+        }
+        
+        AppUser.configureCurrentAppUser(withUID: user.uid) {
+            self.setupObserversAndMenuDataForCurrentUser {
+                self.toggleAnimation()
+            }
+        }
+        
+    }
+    
+    var isLoading: Bool = false
+    func toggleAnimation(_ completion: @escaping () -> Void = {}) {
+        if !isLoading {beginAnimation()}
+        isLoading = !isLoading
+    }
+    var animationCompletion: () -> Void = {}
+    func beginAnimation () {
+        windUpRotateView(wView)
+        windUpRotateView(mView, delay: 0.4)
+        windUpRotateView(sView, delay: 0.8)
+        windUpRotateView(yView, delay: 1.2) {
+            if self.isLoading {self.beginAnimation()}
+            else { self.animationCompletion() }
+        }
+    }
+    
+    func windUpRotateView(_ subview: UIView, delay: Double = 0.0, completion: @escaping () -> Void = {}) {
+        UIView.animateKeyframes(withDuration: 1.25, delay: delay, options: [.calculationModeCubic], animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1.0 / 5.0, animations: {
+                subview.transform = subview.transform.rotated(by: CGFloat.pi / -2)
+            })
+            UIView.addKeyframe(withRelativeStartTime: 1.0 / 5.0, relativeDuration: 1.0 / 5.0, animations: {
+                subview.transform = subview.transform.rotated(by: 5.0 * CGFloat.pi / 8.0)
+            })
+            UIView.addKeyframe(withRelativeStartTime: 2.0 / 5.0, relativeDuration: 1.0 / 5.0, animations: {
+                subview.transform = subview.transform.rotated(by: 5.0 * CGFloat.pi / 8.0)
+            })
+            UIView.addKeyframe(withRelativeStartTime: 3.0 / 5.0, relativeDuration: 1.0 / 5.0, animations: {
+                subview.transform = subview.transform.rotated(by: 5.0 * CGFloat.pi / 8.0)
+            })
+            UIView.addKeyframe(withRelativeStartTime: 4.0 / 5.0, relativeDuration: 1.0 / 5.0, animations: {
+                subview.transform = subview.transform.rotated(by: 5.0 * CGFloat.pi / 8.0)
+            })
+        }) { (finished) in
+            completion()
+        }
+    }
+
+    public static func storyboardInstance() -> LoadingScreen {
+        let storyboard = UIStoryboard(name: "LoadingScreen", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "LoadingScreen") as! LoadingScreen
+        return vc
+    }
+    
+    private func setupObserversAndMenuDataForCurrentUser(completion: @escaping () -> Void) {
+        guard let user = Auth.auth().currentUser else {
+            print("no current user")
+            fatalError()
+        }
+        
+        DBService.manager.getAppUser(fromID: user.uid) { (appUser) in
+            guard let user = appUser else {
+                print("no current app user")
+                fatalError()
+            }
+            let group = DispatchGroup()
+            group.enter()
+            MenuData.manager.configureInitialData(forUser: user) {
+                group.leave()
+            }
+            group.enter()
+            MenuNotificationTracker.manager.setupListeners(forUser: user) {
+                group.leave()
+            }
+            group.notify(queue: .main) {
+                completion()
+            }
+        }
+        
+        
+        
+    }
+}
+
+
 class SplashViewController: UIViewController {
 
     var splashView = SplashView()
@@ -89,4 +193,3 @@ extension SplashViewController: CLLocationManagerDelegate {
         }
     }
 }
-

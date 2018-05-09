@@ -17,7 +17,7 @@ class FeedMapVC: MenuedViewController {
     let toolBarHeight: CGFloat = 90.0
     var verticalPinConstraint: Constraint? = nil
     var feedView = FeedView()
-    var mapView = MapView()
+    var mapView = MapViewOld()
     var filtersView = FiltersView()
     var filterMapContainerView = UIView()
     var mapUp: Bool = false
@@ -86,6 +86,7 @@ class FeedMapVC: MenuedViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.feedView.tableView.register(FeedCell.self, forCellReuseIdentifier: "WhimFeedCell")
         self.feedView.tableView.separatorStyle = .none
         self.view.backgroundColor = Stylesheet.Colors.WMSYGray
         self.navigationController?.navigationBar.isHidden = true
@@ -259,9 +260,9 @@ class FeedMapVC: MenuedViewController {
         }
 
         let mylocation = mapView.mapView.myLocation
-        mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
-                                                          longitude: (mylocation?.coordinate.longitude)!,
-                                                          zoom: mapView.zoomLevel)
+//        mapView.mapView.camera = GMSCameraPosition.camera(withLatitude: (mylocation?.coordinate.latitude)!,
+//                                                          longitude: (mylocation?.coordinate.longitude)!,
+//                                                          zoom: mapView.zoomLevel)
         mapView.mapView.settings.myLocationButton = true
         mapView.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
@@ -347,45 +348,7 @@ class FeedMapVC: MenuedViewController {
     }
 }
 
-extension UIImage {
-    class func imageWithColor(color: UIColor) -> UIImage {
-        let rect = CGRect(x: 0.0, y: 0.0, width: 1.0, height: 0.5)
-        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
-        color.setFill()
-        UIRectFill(rect)
-        let image : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return image
-    }
-}
-
-
-extension UICollectionView {
-    func deselectAllItems(animated: Bool = false) {
-        for indexPath in self.indexPathsForSelectedItems ?? [] {
-            self.deselectItem(at: indexPath, animated: animated)
-        }
-    }
-}
-
-extension UIView{
-    func blink() {
-        self.alpha = 0.2
-        UIView.animate(withDuration: 1, delay: 0.0, options: [.curveLinear, .repeat, .autoreverse], animations: {self.alpha = 1.0}, completion: nil)
-    }
-}
-
-extension Date{
-func hours(from date: Date) -> Int {
-    return Calendar.current.dateComponents([.hour], from: date, to: self).hour ?? 0
-}
-
-func minutes(from date: Date) -> Int {
-    return Calendar.current.dateComponents([.minute], from: date, to: self).minute ?? 0
-}
-}
-
-extension FeedMapVC: MenuDataSimpleNotificationDelegate {
+extension NavBarViewController: MenuDataSimpleNotificationDelegate {
     func newNotification() {
         // add any code that should trigger when there's been a notification here
         navView.leftButton.imageView?.tintColor = .red

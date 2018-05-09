@@ -97,7 +97,6 @@ extension DBService {
     func getAppUsers(fromList userIDs: [String], completion: @escaping ([AppUser]) -> Void) {
         let userIdArray = userIDs
         let group = DispatchGroup()
-        let userRef = DBService.manager.usersRef!
         
         var users = [AppUser]()
         for singleUser in userIdArray{
@@ -114,7 +113,6 @@ extension DBService {
         
         group.notify(queue: .main) {
             completion(users)
-            print("loop finished")
         }
     }
     public func updateBio(_ bio: String, forUser user: AppUser) {
@@ -140,7 +138,7 @@ extension DBService {
                 DBService.cachedImageURLs[userID] = url
                 completion(url)
             } else {
-                print("no phot url")
+                print("no photo url")
                 fatalError()
             }
         }
