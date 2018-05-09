@@ -82,7 +82,7 @@ class LoginView: UIView {
             make.top.equalTo(self)
             make.leading.equalTo(self)
             make.trailing.equalTo(self)
-            make.height.equalTo(self.snp.height).multipliedBy(0.93)
+            make.height.equalTo(self)
         }
     }
     
@@ -90,7 +90,7 @@ class LoginView: UIView {
         self.addSubview(wmsyLabel)
         wmsyLabel.snp.makeConstraints { (make) in
             make.centerX.equalTo(colorView.snp.centerX)
-            make.centerY.equalTo(colorView.snp.centerY)
+            make.centerY.equalTo(self.snp.centerY)
         }
     }
 }

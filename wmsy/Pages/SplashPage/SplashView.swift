@@ -17,6 +17,9 @@ class SplashView: UIView {
         return view
     }()
     
+    
+    
+    
     lazy var logo: UIImageView = {
         let logoImage = UIImageView()
         logoImage.image = #imageLiteral(resourceName: "wmsyLogo")

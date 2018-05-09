@@ -8,21 +8,12 @@
 
 import Foundation
 
-extension DateFormatter {
-//    "March 21, 2018 at 3:11:50 PM EDT"
-    static let wmsyDateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.timeZone = TimeZone.current
-        formatter.timeStyle = .long
-        formatter.dateStyle = .long
-        return formatter
-    }()
-}
+
 
 
 struct Whim: Codable {
     let id: String
-    let category: String
+    let category: Category
     let title: String
     let description: String
     let hostID: String
@@ -38,7 +29,7 @@ struct Whim: Codable {
     
     init(id: String, category: String, title: String, description: String, hostID: String, hostImageURL: String, location: String, long: String, lat: String, duration: Int, expiration: String, finalized: Bool, timestamp: String, whimChats: [Message]) {
         self.id = id
-        self.category =  category
+        self.category = Category(rawValue: category) ?? .wmsy
         self.title =  title
         self.description =  description
         self.hostID =  hostID
@@ -58,7 +49,7 @@ struct Whim: Codable {
     init?(fromDictionary whimDict: [String: Any]) {
         guard
             let id = whimDict["id"] as? String,
-            let category = whimDict["category"] as? String,
+            let category = (whimDict["category"] as? String)?.lowercased(),
             let title = whimDict["title"] as? String,
             let description = whimDict["description"] as? String,
             let hostID = whimDict["hostID"] as? String,
@@ -74,7 +65,7 @@ struct Whim: Codable {
                 return nil
         }
         self.id = id
-        self.category =  category
+        self.category =  Category(rawValue: category) ?? .wmsy
         self.title =  title
         self.description =  description
         self.hostID =  hostID
@@ -89,6 +80,9 @@ struct Whim: Codable {
         self.whimChats =  []
     }
     
+    func toDictionary() -> [String: Any] {
+        return [:]
+    }
 }
 
 extension Array where Element == Whim {
@@ -98,6 +92,49 @@ extension Array where Element == Whim {
             let secondTimeStamp = DateFormatter.wmsyDateFormatter.date(from: second.timestamp)!.timeIntervalSinceNow
             return firstTimeStamp > secondTimeStamp
         })
+    }
+}
+
+extension Whim: Equatable {
+    static func == (lhs: Whim, rhs: Whim) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    
+}
+
+import CoreLocation
+extension Whim {
+    
+    public func withinDistance(_ location: CLLocation?, distance miles: Double) -> Bool {
+        guard let userLocation = location else { return true }
+            let long = Double(self.long)
+            let lat = Double(self.lat)
+            let whimLocation = CLLocation(latitude: lat!, longitude: long!)
+            let distanceInMeters = whimLocation.distance(from: userLocation)
+            return distanceInMeters < miles * 1609.34
+    }
+    
+    public func getTimeRemaining() -> String{
+        let expirationDate = DateFormatter.wmsyDateFormatter.date(from: self.expiration)
+        let currentDate = Date()
+        let hoursRemaining =  expirationDate!.hours(from: currentDate)
+        let minutesRemaining = expirationDate!.minutes(from: currentDate)
+        let hourConversion = hoursRemaining * 60
+        let finalMinutes = minutesRemaining - hourConversion
+        
+        switch hoursRemaining{
+        case 0:
+            return "\(finalMinutes.description) m left"
+        default:
+            return "\(hoursRemaining.description) hr left"
+        }
+    }
+}
+
+extension Whim: Hashable {
+    var hashValue: Int {
+        return Int(self.id) ?? 0
     }
 }
 

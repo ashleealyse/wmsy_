@@ -38,7 +38,6 @@ class MenuData {
         let group = DispatchGroup()
         
        /*pendingInterests*/ var interests = user.interests.filter{!$0.inChat}
-        print(interests.count)
         group.enter()
         DBService.manager.getWhims(fromList: interests.map({$0.whimID})) { (whims) in
             interests = interests.sorted(by: {$0.whimID < $1.whimID})

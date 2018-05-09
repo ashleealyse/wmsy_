@@ -11,54 +11,64 @@ import SnapKit
 
 class WhimCategoryCollectionViewCell: UICollectionViewCell {
     
-    lazy var categoryImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = .clear
-        imageView.contentMode = .scaleAspectFit
-        imageView.layer.masksToBounds = true
-        imageView.alpha = 0.8
-        return imageView
-    }()
+    var categoryImageView = UIImageView()
     
+    // used to not cut off a piece of the icon when the cells are rounded
+    // TODO: calculate proper value to be the right inset for different size cells and devices
+    let amountToInsetImage: CGFloat = 5
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubViews()
+        commonInit()
+    }
+    convenience init() {
+        self.init(frame: UIScreen.main.bounds)
+    }
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    private func commonInit() {
         setupViews()
+        self.backgroundColor = .clear
+    }
+    private func setupViews() {
+        self.addSubviews()
+        self.customizeSubviews()
+        self.constrainSubviews()
+    }
+    private func addSubviews() {
+        self.contentView.addSubview(categoryImageView)
+    }
+    private func customizeSubviews() {
+        self.customizeCategoryImageView()
+    }
+    private func constrainSubviews() {
+        self.constrainCategoryImageView()
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    // MARK: - CategoryImageView
+    private func customizeCategoryImageView() {
+        categoryImageView.backgroundColor = .clear
+        categoryImageView.contentMode = .scaleAspectFit
+        categoryImageView.layer.masksToBounds = true
+        categoryImageView.alpha = 0.8
+    }
+    private func constrainCategoryImageView(){
+        categoryImageView.snp.makeConstraints { (make) in
+            make.edges.equalTo(self.contentView).inset(amountToInsetImage)
+        }
     }
     
     override var isSelected: Bool {
         didSet {
             if self.isSelected {
-                categoryImage.alpha = 1.0
-                categoryImage.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.2)
+                categoryImageView.alpha = 1.0
+                self.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.2)
             } else {
-                categoryImage.alpha = 0.8
-                categoryImage.backgroundColor = .clear
+                categoryImageView.alpha = 0.8
+                self.backgroundColor = .clear
             }
         }
     }
-    
-    private func setupViews(){
-        setupCategoryImage()
-    }
-    
-    private func addSubViews() {
-        addSubview(categoryImage)
-    }
-    
-    private func setupCategoryImage(){
-        categoryImage.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self)
-            make.centerY.equalTo(self)
-            make.width.equalTo(snp.width)
-            make.height.equalTo(snp.height)
-        }
-    }
-    
-    
 }

@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 protocol mapDetailViewDelegate: class{
-    func  userPicturePressed()
+    func userPicturePressed()
     func interestPressed()
 }
 
@@ -45,11 +45,8 @@ class MapDetailView: UIView {
     lazy var interestedButton: UIButton = {
         let interestButton = UIButton()
         interestButton.addTarget(self, action: #selector(interestButtonPressed), for: .touchUpInside)
-//        interestButton.setTitle("Show Interest", for: .normal)
         interestButton.titleLabel?.textColor = .white
-//        interestButton.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.3)
-//        interestButton.setImage(#imageLiteral(resourceName: "uninterestedCircleIcon"), for: .normal)
-//       interestButton.semanticContentAttribute = .forceRightToLeft
+        interestButton.setTitle("Show Interest", for: .normal)
         return interestButton
     }()
     
@@ -92,13 +89,8 @@ class MapDetailView: UIView {
         userPicture.snp.makeConstraints { (make) in
             make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
             make.top.equalTo(safeAreaLayoutGuide)
-//            make.height.equalTo(self).multipliedBy(0.5)
             make.width.equalTo(self.snp.height).multipliedBy(0.8)
             make.bottom.equalTo(interestedButton.snp.top)
-//            make.centerY.equalTo(self)
-//            make.height.equalTo(userPicture.snp.width)
-//            make.top.equalTo(self.snp.top)
-//            make.bottom.equalTo(self.snp.bottom)
         }
         
     }
@@ -128,12 +120,9 @@ class MapDetailView: UIView {
     private func setUpInterestButton() {
         addSubview(interestedButton)
         interestedButton.snp.makeConstraints { (make) in
-//            make.top.equalTo(userPicture.snp.bottom)
             make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
             make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
-//            make.width.equalTo(self.snp.width).multipliedBy(0.07)
-//            make.height.equalTo(self.snp.width).multipliedBy(0.07)
         }
     }
     
@@ -145,9 +134,30 @@ class MapDetailView: UIView {
         }
     }
     
-    
-    
-    
+    public func configureWith(_ whim: Whim, completion: @escaping () -> Void = {}) {
+        let whimTitle = whim.title
+        let expiration = whim.expiration
+        let titleCount  = whim.title.count
+        let customString = NSMutableAttributedString.init(string: "\(whimTitle) \(expiration)", attributes: [NSAttributedStringKey.font:UIFont(name: "Helvetica", size: 18.0)!])
+        customString.addAttributes([NSAttributedStringKey.font:UIFont(name: "Helvetica", size: 14.0)!,NSAttributedStringKey.foregroundColor:UIColor.lightGray], range: NSRange(location:titleCount,length: expiration.count + 1))
+        
+        
+        
+        self.whimTitle.attributedText = customString
+        self.whimDescription.text = whim.description
+        DBService.manager.getUserImageURL(userID: whim.hostID) { (url) in
+            self.userPicture.kf.setImage(with: URL(string: url), for: .normal, placeholder: nil, options: nil, progressBlock: nil) { (image, error, cache, url) in
+                self.userPicture.imageView?.setNeedsDisplay()
+                //                let interests = AppUser.currentAppUser!.getInterestKeys()
+                
+                
+                self.interestLabel.isHidden = (whim.hostID == AppUser.currentAppUser?.userID)
+                self.interestedButton.isHidden = (whim.hostID == AppUser.currentAppUser?.userID)
+                
+                completion()
+            }
+        }
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()

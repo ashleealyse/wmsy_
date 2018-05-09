@@ -67,7 +67,8 @@ class SideMenuVC: MenuViewController {
         
     }
     @objc private func goToFeed() {
-        if let _ = fromVC as? FeedMapVC {
+        if let _ = fromVC as? FeedMapParentViewController {
+            print("uhfbadhfbaodfb")
             closeMenu(sender: self)
         } else {
             switchTo(page: .feedAndMap)
