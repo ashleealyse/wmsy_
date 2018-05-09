@@ -38,6 +38,7 @@
 		81663A64209CAD7500C1370B /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81663A63209CAD7500C1370B /* ToolbarView.swift */; };
 		81663A67209CC34800C1370B /* NavBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81663A66209CC34800C1370B /* NavBarViewController.swift */; };
 		816D11CA206C333F001D199C /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816D11C9206C333F001D199C /* ChatInfoView.swift */; };
+		8174624A20A2942D00AF8DFC /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8174624920A2942D00AF8DFC /* Result.swift */; };
 		81903105205ADCF200932A55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81903104205ADCF200932A55 /* AppDelegate.swift */; };
 		8190310A205ADCF200932A55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81903108205ADCF200932A55 /* Main.storyboard */; };
 		8190310C205ADCF200932A55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8190310B205ADCF200932A55 /* Assets.xcassets */; };
@@ -176,6 +177,7 @@
 		81663A63209CAD7500C1370B /* ToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarView.swift; sourceTree = "<group>"; };
 		81663A66209CC34800C1370B /* NavBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarViewController.swift; sourceTree = "<group>"; };
 		816D11C9206C333F001D199C /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
+		8174624920A2942D00AF8DFC /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		81903101205ADCF200932A55 /* wmsy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wmsy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81903104205ADCF200932A55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		81903109205ADCF200932A55 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -568,6 +570,7 @@
 				81AB7AC7205C9548009845EA /* Stylesheet.swift */,
 				81AB7ACA205CA256009845EA /* Category.swift */,
 				812112E42062C856002D80C2 /* Alert.swift */,
+				8174624920A2942D00AF8DFC /* Result.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -987,6 +990,7 @@
 				81BAD695205AEF8900C7F039 /* ProfileView.swift in Sources */,
 				93E12D62206DCC0B00BD49FA /* CancelCreateWhimTableViewCell.swift in Sources */,
 				81D12DDD20674ED70056920C /* ChatRoomVCTest.swift in Sources */,
+				8174624A20A2942D00AF8DFC /* Result.swift in Sources */,
 				81DECD28205C932200214866 /* MenuWhimsView.swift in Sources */,
 				811FFB9920615B6900F3312B /* NotificationManager.swift in Sources */,
 				81DECD3020600C8900214866 /* MainTabBarVC.swift in Sources */,
