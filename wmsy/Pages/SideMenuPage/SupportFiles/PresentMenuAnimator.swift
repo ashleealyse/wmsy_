@@ -45,8 +45,7 @@ extension PresentMenuAnimator : UIViewControllerAnimatedTransitioning {
             completion: { _ in
                 fromVC.view.isHidden = false
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-        }
-        )
+        })
     }
 }
 

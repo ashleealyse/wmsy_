@@ -224,7 +224,35 @@ class FeedMapParentViewController: MenuedViewController {
         navigationController?.pushViewController(vc, animated: false) ?? present(vc, animated: false, completion: nil)
         print("Show Whim Host User Profile")
     }
-    
+    public func showUserProfile(_ userID: String) {
+        DBService.manager.getAppUser(fromID: userID) { (appUser) in
+            if let appUser = appUser {
+                let profileVC = GuestProfileVC()
+                profileVC.modalPresentationStyle = .overCurrentContext
+                profileVC.modalTransitionStyle = .crossDissolve
+                profileVC.configure(with: appUser)
+                self.present(profileVC, animated: true, completion: nil)
+            }
+        }
+    }
+    public func toggleInterest(_ whim: Whim) {
+        guard let user = AppUser.currentAppUser else { return }
+        let interests = user.getInterestKeys()
+        if interests.contains(whim.id){
+            //User is no longer interested
+            print("Current User: \(user.name) Is NOT Interested in Whim #: \(whim.id) by Host: \(whim.hostID)")
+            DBService.manager.removeInterest(forWhim: whim, forUser: AppUser.currentAppUser!)
+        } else {
+            //User is now interested
+            print("Current User: \(user.name) is Interested in Whim #: \(whim.id) by Host: \(whim.hostID)")
+            DBService.manager.addInterest(forWhim: whim)
+            //self.feedView.tableView.reloadData()
+        }
+    }
+    public func showOnMap(_ whim: Whim) {
+        self.pinToolbarToTop()
+        self.mapVC.selectedWhim = whim
+    }
 }
 
 

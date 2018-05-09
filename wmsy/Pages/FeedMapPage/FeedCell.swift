@@ -211,7 +211,7 @@ class FeedCell: UITableViewCell {
         setUpCollapsedView()
         setUpExpandedView()
         self.backgroundColor = Stylesheet.Colors.WMSYGray
-       self.selectionStyle = .none
+        self.selectionStyle = .none
         
         //        collapsedConstraint.isActive = !isExpanded
         collapsedConstraint.constant = isExpanded ? 170 : 70

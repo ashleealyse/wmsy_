@@ -10,6 +10,15 @@ import Foundation
 
 extension FeedMapParentViewController: FeedViewControllerDelegate {
     func feedView(_ feedView: FeedViewController, requestingUpdate request: Bool) {
-        loadData()
+        self.loadData()
+    }
+    func feedView(_ feedView: FeedViewController, tappedUserProfile userID: String) {
+        self.showUserProfile(userID)
+    }
+    func feedView(_ feedView: FeedViewController, tappedInterestButton whim: Whim) {
+        self.toggleInterest(whim)
+    }
+    func feedView(_ feedView: FeedViewController, tappedShowOnMapButton whim: Whim) {
+        self.showOnMap(whim)
     }
 }

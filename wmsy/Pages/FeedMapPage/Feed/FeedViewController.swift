@@ -11,6 +11,9 @@ import SnapKit
 
 protocol FeedViewControllerDelegate: class {
     func feedView(_ feedView: FeedViewController, requestingUpdate request: Bool) -> Void
+    func feedView(_ feedView: FeedViewController, tappedUserProfile userID: String) -> Void
+    func feedView(_ feedView: FeedViewController, tappedInterestButton whim: Whim) -> Void
+    func feedView(_ feedView: FeedViewController, tappedShowOnMapButton whim: Whim) -> Void
 }
 
 class FeedViewController: UIViewController {
@@ -75,6 +78,35 @@ class FeedViewController: UIViewController {
             self.feedView.tableView.reloadData()
         }
     }
+    
+    @objc func tappedUserProfile(_ button: UIButton) {
+        if let cell = button.superview?.superview?.superview?.superview as? FeedCell2,
+            let whim = cell.whim {
+            self.delegate?.feedView(self, tappedUserProfile: whim.hostID)
+        }
+    }
+    @objc func tappedShowInterest(_ button: UIButton) {
+        if let cell = button.superview?.superview?.superview?.superview as? FeedCell2,
+            let whim = cell.whim {
+            delegate?.feedView(self, tappedInterestButton: whim)
+            DispatchQueue.main.async {
+                guard let interests = AppUser.currentAppUser?.getInterestKeys() else {return}
+                if interests.contains(whim.id){
+                    button.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.5)
+                    button.setTitle("Remove Interest", for: .normal)
+                }else{
+                    button.backgroundColor = Stylesheet.Colors.WMSYKSUPurple.withAlphaComponent(0.8)
+                    button.setTitle("Show Interest", for: .normal)
+                }
+            }
+        }
+    }
+    @objc func tappedShowOnMap(_ button: UIButton) {
+        if let cell = button.superview?.superview?.superview?.superview as? FeedCell2,
+            let whim = cell.whim {
+            delegate?.feedView(self, tappedShowOnMapButton: whim)
+        }
+    }
 }
 
 extension FeedViewController: UITableViewDataSource {
@@ -86,9 +118,17 @@ extension FeedViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WhimFeedCell", for: indexPath) as! FeedCell2
         
         cell.isExpanded = self.expandedRows.contains(indexPath.row)
+        cell.collapsedView.userImageButton.addTarget(self, action: #selector(tappedUserProfile(_:)), for: .touchUpInside)
+        cell.expandedView.interestedButton.addTarget(self, action: #selector(tappedShowInterest(_:)), for: .touchUpInside)
+        cell.expandedView.showOnMapButton.addTarget(self, action: #selector(tappedShowOnMap(_:)), for: .touchUpInside)
         let whim = whims[indexPath.row]
         cell.whim = whim
         return cell
+    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "WhimFeedCell", for: indexPath) as? FeedCell2 else { return }
+        let whim = whims[indexPath.row]
+        cell.whim = whim
     }
 }
 

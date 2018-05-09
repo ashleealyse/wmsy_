@@ -97,7 +97,6 @@ extension DBService {
     func getAppUsers(fromList userIDs: [String], completion: @escaping ([AppUser]) -> Void) {
         let userIdArray = userIDs
         let group = DispatchGroup()
-        let userRef = DBService.manager.usersRef!
         
         var users = [AppUser]()
         for singleUser in userIdArray{

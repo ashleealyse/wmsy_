@@ -22,14 +22,10 @@ class LoadingScreen: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-//            self.beginAnimation()
         animationCompletion = {
-            //        self.toggleAnimation(UIButton(), {
-            //            print(3)
             (self.tabBarController as? MainTabBarVC)?.animateTo(page: .feedAndMap, fromViewController: self)
-            //        })
         }
-            self.toggleAnimation(UIButton())
+        self.toggleAnimation()
         guard let user = Auth.auth().currentUser else {
             print("some fuck up here i guess")
             return
@@ -37,14 +33,14 @@ class LoadingScreen: UIViewController {
         
         AppUser.configureCurrentAppUser(withUID: user.uid) {
             self.setupObserversAndMenuDataForCurrentUser {
-                self.toggleAnimation(UIButton())
+                self.toggleAnimation()
             }
         }
         
     }
     
     var isLoading: Bool = false
-    func toggleAnimation(_ sender: UIButton, _ completion: @escaping () -> Void = {}) {
+    func toggleAnimation(_ completion: @escaping () -> Void = {}) {
         if !isLoading {beginAnimation()}
         isLoading = !isLoading
     }

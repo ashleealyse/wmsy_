@@ -26,7 +26,7 @@ protocol MenuNotificationTrackerDelegate: class {
 
 class MenuNotificationTracker {
     private init() {
-        guard let user = AppUser.currentAppUser else {
+        guard AppUser.currentAppUser != nil else {
             print("current user hasn't been set yet")
             fatalError()
         }
@@ -240,7 +240,7 @@ class MenuNotificationTracker {
         }
     }
     private func addReceivedMessageInGuestWhimHandle(forWhim whimID: String) {
-        guard let user = AppUser.currentAppUser else {
+        guard AppUser.currentAppUser != nil else {
             print("no user right now")
             fatalError()
         }

@@ -116,7 +116,6 @@
 		81EBB58D20601C7E008A6CE7 /* DBService+AppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBB58C20601C7E008A6CE7 /* DBService+AppUser.swift */; };
 		81EBB58F20601C86008A6CE7 /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBB58E20601C86008A6CE7 /* DBService.swift */; };
 		81F9F06E20656B2200D288E8 /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F9F06D20656B2200D288E8 /* FiltersView.swift */; };
-		81F9F0702065D27700D288E8 /* AddChildVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F9F06F2065D27700D288E8 /* AddChildVC.swift */; };
 		8449A2DA7A870D7DFE6E2428 /* Pods_wmsy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CEEC5ACCA9E78DD3C3881CA /* Pods_wmsy.framework */; };
 		932F180D2065A3F300950104 /* FloatingPopsicleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932F180C2065A3F300950104 /* FloatingPopsicleView.swift */; };
 		93495B0620603F9A0080BDBA /* ExpandedFeedCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93495B0520603F9A0080BDBA /* ExpandedFeedCellView.swift */; };
@@ -259,7 +258,6 @@
 		81EBB58C20601C7E008A6CE7 /* DBService+AppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DBService+AppUser.swift"; sourceTree = "<group>"; };
 		81EBB58E20601C86008A6CE7 /* DBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBService.swift; sourceTree = "<group>"; };
 		81F9F06D20656B2200D288E8 /* FiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
-		81F9F06F2065D27700D288E8 /* AddChildVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChildVC.swift; sourceTree = "<group>"; };
 		876DF1E5D004E38FACE607E8 /* Pods-wmsy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wmsy.release.xcconfig"; path = "Pods/Target Support Files/Pods-wmsy/Pods-wmsy.release.xcconfig"; sourceTree = "<group>"; };
 		932F180C2065A3F300950104 /* FloatingPopsicleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPopsicleView.swift; sourceTree = "<group>"; };
 		93495B0520603F9A0080BDBA /* ExpandedFeedCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedFeedCellView.swift; sourceTree = "<group>"; };
@@ -346,6 +344,7 @@
 			children = (
 				81663A5F209CA9AB00C1370B /* MapViewController.swift */,
 				81BAD67E205AEDC800C7F039 /* MapView.swift */,
+				81DD10A72065CCC5002BAB42 /* MapDetailView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -515,7 +514,6 @@
 				81337774206A960B00F1F657 /* FeedMapVC+Feed.swift */,
 				81337776206A978900F1F657 /* FeedMapVC+Map.swift */,
 				81337778206A98BD00F1F657 /* FeedMapVC+Filter.swift */,
-				81DD10A72065CCC5002BAB42 /* MapDetailView.swift */,
 				81F9F06D20656B2200D288E8 /* FiltersView.swift */,
 				811FFB5620606B5500F3312B /* CollapsedFeedCellView.swift */,
 				93495B0520603F9A0080BDBA /* ExpandedFeedCellView.swift */,
@@ -588,7 +586,6 @@
 				81A57A502068952D00E4BE0B /* DBService+Interest.swift */,
 				812112E020609D3F002D80C2 /* AuthUserService.swift */,
 				812112E220615BF7002D80C2 /* DBService+Get.swift */,
-				81F9F06F2065D27700D288E8 /* AddChildVC.swift */,
 				811FFB9820615B6900F3312B /* NotificationManager.swift */,
 			);
 			path = Services;
@@ -935,7 +932,6 @@
 				81D12DD720673AC30056920C /* ChatMessagesTableVC.swift in Sources */,
 				81337779206A98BD00F1F657 /* FeedMapVC+Filter.swift in Sources */,
 				81BAD6A1205AF06900C7F039 /* HostMessageCell.swift in Sources */,
-				81F9F0702065D27700D288E8 /* AddChildVC.swift in Sources */,
 				81AB7AC4205C80FC009845EA /* HostAWhimButtonTableViewCell.swift in Sources */,
 				81AB7AC6205C94DD009845EA /* WhimCategoryCollectionViewCell.swift in Sources */,
 				93495B08206041080080BDBA /* FeedCell.swift in Sources */,

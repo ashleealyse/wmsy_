@@ -20,6 +20,7 @@ class MapViewController: UIViewController {
     var delegate: MapViewControllerDelegate?
     let locationManager = CLLocationManager()
     var mapView = MapView()
+    var detailView = MapDetailView()
     let whimDetailsView = UIView()
     // TODO: have segmented control decide this range
     let desiredRange: Int = 5 // miles
@@ -29,16 +30,11 @@ class MapViewController: UIViewController {
     var whimsSet = Set<Whim>()
     var selectedWhim: Whim? {
         didSet {
-            guard let whim = selectedWhim,
-                let marker = markers[whim]
-                else {
-                self.mapView.updateCameraTo(location: currentLocation, range: desiredRange)
+            guard let whim = selectedWhim else {
+                self.detailView.isHidden = true
                 return
             }
-            let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude,
-                                                  longitude: marker.position.longitude,
-                                                  zoom: 17.0)
-            self.mapView.googleMap.animate(to: camera)
+            self.showDetail(whim)
         }
     }
     
@@ -63,10 +59,16 @@ class MapViewController: UIViewController {
         }
         
         self.view.addSubview(mapView)
+        self.view.addSubview(detailView)
         mapView.snp.makeConstraints { (make) in
             make.edges.equalTo(self.view)
         }
-        
+        detailView.snp.makeConstraints { (make) in
+            make.bottom.leading.trailing.equalTo(view).inset(-11)
+            make.centerX.equalTo(view.snp.centerX)
+            make.height.equalTo(view.snp.height).multipliedBy(0.25)
+        }
+        self.detailView.isHidden = true
     }
     
     
@@ -101,6 +103,18 @@ class MapViewController: UIViewController {
             guard let marker = self.markers[whim] else { return }
             marker.map = nil
             self.markers.removeValue(forKey: whim)
+        }
+    }
+    public func showDetail(_ whim: Whim? = nil) {
+        guard let whim = whim,
+            let marker = markers[whim]
+            else { return }
+        let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude,
+                                              longitude: marker.position.longitude,
+                                              zoom: 17.0)
+        self.mapView.googleMap.animate(to: camera)
+        detailView.configureWith(whim){
+            self.detailView.isHidden = false
         }
     }
 }
