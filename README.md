@@ -21,6 +21,22 @@ Meeting new people these days is often attempted through dating or networking ap
 - The Host of a Whim has access to a private chat room where they can view the profiles of Interested users and Invite them into their chatroom to discuss further details.
 - Hosts can invite as many Interested guests into their Whim chatroom as they would like, as well as remove any guests they do not want to meet.
 
+## GIFs
+|Login With Facebook|Customize Bio|
+|:-------------:|:-------------:|
+|<img src="https://github.com/lynksdomain/wmsy_/blob/prod/gifs/wmsy-login.gif" width="358" height="626">|<img src="https://github.com/lynksdomain/wmsy_/blob/prod/gifs/wmsy-editbio.gif" width="358" height="626">|
+
+|Host a Whim|Show Interest in a Whim|
+|:-------------:|:-------------:|
+|<img src="https://github.com/lynksdomain/wmsy_/blob/prod/gifs/wmsy-hostwhim.gif" width="358" height="626">|<img src="https://github.com/lynksdomain/wmsy_/blob/prod/gifs/wmsy-showinterest.gif" width="358" height="626">|
+
+|Search Whims|Sort Whims|
+|:-------------:|:-------------:|
+|<img src="https://github.com/lynksdomain/wmsy_/blob/prod/gifs/wmsy-browsemap.gif" width="358" height="626">|<img src="https://github.com/lynksdomain/wmsy_/blob/prod/gifs/wmsy-sortwhims.gif" width="358" height="626">|
+
+|Invite to WhimChat|WhimChat Live|
+|:-------------:|:-------------:|
+|<img src="https://github.com/lynksdomain/wmsy_/blob/prod/gifs/wmsy-invitetochat.gif" width="358" height="626">|<img src="https://github.com/lynksdomain/wmsy_/blob/prod/gifs/wmsy-chat.gif" width="358" height="626">|
 
 ## Requirements
 - iOS 8.0+ / Mac OS X 10.11+ / tvOS 9.0+
