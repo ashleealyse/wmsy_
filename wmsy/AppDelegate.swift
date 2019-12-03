@@ -7,9 +7,6 @@
 //
 
 import UIKit
-import Firebase
-import FacebookCore
-import FacebookLogin
 import GoogleMaps
 
 @UIApplicationMain
@@ -17,16 +14,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        FirebaseApp.configure()
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
         GMSServices.provideAPIKey("AIzaSyDoVxDTMUODq896Vbusf_6Al7u4PHc95cw")
 
-        let vc = MainTabBarVC()
-        vc.navigationItem.backBarButtonItem?.image = #imageLiteral(resourceName: "backIcon")
-        vc.navigationItem.backBarButtonItem?.tintColor = Stylesheet.Colors.WMSYKSUPurple
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = vc
-        window?.makeKeyAndVisible()
         return true
     }
 
@@ -36,7 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        LoginManager().logOut()
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
