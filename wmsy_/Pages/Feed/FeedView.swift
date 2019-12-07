@@ -14,6 +14,7 @@ class FeedView: UIView {
     lazy var header: WmsyHeader = {
         let h = WmsyHeader()
         h.backgroundColor = .purple
+        h.delegate = self
         return h
     }()
     
@@ -24,6 +25,22 @@ class FeedView: UIView {
         return tv
     }()
     
+    
+    lazy var filterBar: FilterBar = {
+        let fb = FilterBar()
+        fb.filterCollection.dataSource = self
+        fb.filterCollection.delegate = self
+        return fb
+    }()
+    
+    var filterOpened = false {
+        didSet{
+            UIView.animate(withDuration: 0.5) {
+                self.filterBarHeightConstraint?.constant = self.filterOpened ? 33 : 0
+                self.layoutIfNeeded()
+            }
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,21 +53,77 @@ class FeedView: UIView {
     }
     
     func commonInit() {
+        addSubviews()
+        constrainHeader()
+        constrainFeed()
+        constrainFilterBar()
+    }
+    
+    func addSubviews() {
         addSubview(header)
         addSubview(feedTableView)
+        addSubview(filterBar)
+    }
+    
+    func constrainHeader() {
         header.translatesAutoresizingMaskIntoConstraints = false
-        feedTableView.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
-            header.topAnchor.constraint(equalTo: topAnchor),
-            header.leadingAnchor.constraint(equalTo: leadingAnchor),
-            header.trailingAnchor.constraint(equalTo: trailingAnchor),
-            header.heightAnchor.constraint(equalToConstant: 125),
-            feedTableView.topAnchor.constraint(equalTo: header.bottomAnchor),
+        header.topAnchor.constraint(equalTo: topAnchor),
+        header.leadingAnchor.constraint(equalTo: leadingAnchor),
+        header.trailingAnchor.constraint(equalTo: trailingAnchor),
+        header.heightAnchor.constraint(equalToConstant: 77)
+        ])
+    }
+    
+    func constrainFeed() {
+        feedTableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            feedTableView.topAnchor.constraint(equalTo: filterBar.bottomAnchor),
             feedTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             feedTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             feedTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     
+    var filterBarHeightConstraint: NSLayoutConstraint?
+    
+    
+    func constrainFilterBar() {
+        filterBar.translatesAutoresizingMaskIntoConstraints = false
+        filterBarHeightConstraint = filterBar.heightAnchor.constraint(equalToConstant: 0)
+        NSLayoutConstraint.activate([
+                   filterBar.topAnchor.constraint(equalTo: header.bottomAnchor),
+                   filterBar.leadingAnchor.constraint(equalTo: leadingAnchor),
+                   filterBar.trailingAnchor.constraint(equalTo: trailingAnchor),
+                   filterBarHeightConstraint!
+               ])
+    }
+    
 }
+
+
+extension FeedView: wmsyHeaderDelegate {
+    func filterSelected() {
+        filterOpened.toggle()
+    }
+}
+
+
+
+extension FeedView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as! FilterCell
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 33, height: 22)
+    }
+}
+
+
