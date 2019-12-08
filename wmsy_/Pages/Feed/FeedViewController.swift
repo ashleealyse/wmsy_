@@ -17,6 +17,9 @@ class FeedViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         view.addSubview(feed)
+        feed.feedTableView.dataSource = self
+        feed.feedTableView.delegate = self
+        feed.filterBar.delegate = self
     }
     
 
@@ -27,3 +30,32 @@ class FeedViewController: UIViewController {
 }
 
 
+
+
+extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 20
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("cell at row: \(indexPath.row)")
+    }
+}
+
+
+extension FeedViewController: FilterBarDelegate {
+    func filterPressed(filterPressed: String) {
+        print("filter pressed at \(filterPressed)")
+    }
+    
+    func clearPressed() {
+        print("clear pressed")
+    }
+    
+    
+}

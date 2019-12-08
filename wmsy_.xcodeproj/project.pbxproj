@@ -11,6 +11,7 @@
 		391CD1FD239831150062A84F /* WmsyHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391CD1FC239831150062A84F /* WmsyHeader.swift */; };
 		39288D4E23997ADD00C39BF1 /* FilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39288D4D23997ADD00C39BF1 /* FilterBar.swift */; };
 		39288D5023997B3800C39BF1 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39288D4F23997B3800C39BF1 /* FilterCell.swift */; };
+		39C2371E239D70BE00A46148 /* UIViewExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C2371D239D70BE00A46148 /* UIViewExtention.swift */; };
 		39C8DD5523981D1F00D73109 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C8DD5423981D1F00D73109 /* FeedViewController.swift */; };
 		39D30C762396E64900B49EB2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D30C752396E64900B49EB2 /* AppDelegate.swift */; };
 		39D30C782396E64900B49EB2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D30C772396E64900B49EB2 /* SceneDelegate.swift */; };
@@ -23,6 +24,7 @@
 		391CD1FC239831150062A84F /* WmsyHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WmsyHeader.swift; sourceTree = "<group>"; };
 		39288D4D23997ADD00C39BF1 /* FilterBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBar.swift; sourceTree = "<group>"; };
 		39288D4F23997B3800C39BF1 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
+		39C2371D239D70BE00A46148 /* UIViewExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtention.swift; sourceTree = "<group>"; };
 		39C8DD5423981D1F00D73109 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		39D30C722396E64900B49EB2 /* wmsy_.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wmsy_.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39D30C752396E64900B49EB2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 			children = (
 				39D30C752396E64900B49EB2 /* AppDelegate.swift */,
 				39D30C772396E64900B49EB2 /* SceneDelegate.swift */,
+				39C2371D239D70BE00A46148 /* UIViewExtention.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 				39D30C782396E64900B49EB2 /* SceneDelegate.swift in Sources */,
 				391CD1FD239831150062A84F /* WmsyHeader.swift in Sources */,
 				39288D4E23997ADD00C39BF1 /* FilterBar.swift in Sources */,
+				39C2371E239D70BE00A46148 /* UIViewExtention.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

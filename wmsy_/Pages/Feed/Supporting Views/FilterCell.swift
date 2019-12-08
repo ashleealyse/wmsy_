@@ -12,7 +12,7 @@ import UIKit
 class FilterCell: UICollectionViewCell {
     lazy var filterIcon: UIImageView = {
         let iv = UIImageView()
-        iv.backgroundColor = .green
+        iv.backgroundColor = .white
         return iv
     }()
     

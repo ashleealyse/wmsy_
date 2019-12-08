@@ -28,8 +28,6 @@ class FeedView: UIView {
     
     lazy var filterBar: FilterBar = {
         let fb = FilterBar()
-        fb.filterCollection.dataSource = self
-        fb.filterCollection.delegate = self
         return fb
     }()
     
@@ -110,20 +108,5 @@ extension FeedView: wmsyHeaderDelegate {
 
 
 
-extension FeedView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as! FilterCell
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 33, height: 22)
-    }
-}
 
 

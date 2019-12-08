@@ -62,30 +62,21 @@ class WmsyHeader: UIView {
     
     
     
-    
-    
-    
-    
     func addSubviews() {
-        addSubview(wmsyLogo)
-        addSubview(filterButton)
+        addSubviews(subviews: [wmsyLogo,filterButton])
     }
     
     
     
     func constrainLogo() {
-        wmsyLogo.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-           // wmsyLogo.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             wmsyLogo.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -11),
             wmsyLogo.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }
     
     func constrainFilterButton() {
-        filterButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-                   //filterButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             filterButton.centerYAnchor.constraint(equalTo: wmsyLogo.centerYAnchor),
                    filterButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 11)
                ])
