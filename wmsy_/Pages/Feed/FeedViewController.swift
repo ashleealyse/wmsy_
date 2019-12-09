@@ -15,7 +15,7 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        //view.backgroundColor = .white
         view.addSubview(feed)
         feed.feedTableView.dataSource = self
         feed.feedTableView.delegate = self
@@ -38,12 +38,21 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CardCell", for: indexPath) as! CardCell
+        if indexPath.row % 2 == 0 {
+        cell.backgroundImage.image = UIImage(named: "pet")?.darkened()
+        } else {
+            cell.backgroundImage.image =  UIImage(named: "sports")?.darkened()
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("cell at row: \(indexPath.row)")
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
     }
 }
 

@@ -28,25 +28,9 @@ class FilterCell: UICollectionViewCell {
     }
     
     func commonInit() {
-        addSubviews()
-        constrainIcon()
+        addSubviews(subviews: [filterIcon])
+        constrainToAllSides(item: filterIcon)
     }
-    
-    
-    func addSubviews() {
-        addSubview(filterIcon)
-    }
-    
-    
-    
-    func constrainIcon() {
-        filterIcon.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-                 filterIcon.topAnchor.constraint(equalTo: topAnchor),
-                 filterIcon.bottomAnchor.constraint(equalTo: bottomAnchor),
-                 filterIcon.leadingAnchor.constraint(equalTo: leadingAnchor),
-                 filterIcon.trailingAnchor.constraint(equalTo: trailingAnchor)
-             ])
-    }
+  
     
 }

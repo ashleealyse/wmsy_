@@ -29,8 +29,7 @@ class WmsyHeader: UIView {
     lazy var filterButton: UIButton = {
         let button = UIButton()
         button.tintColor = .white
-        button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(textStyle: .body, scale: .large), forImageIn: .normal)
-        button.setImage(UIImage(systemName: "slider.horizontal.3"), for: .normal)
+        button.setBackgroundImage(UIImage(systemName: "slider.horizontal.3"), for: .normal)
         button.addTarget(self, action: #selector(filterSelected), for: .touchUpInside)
         return button
     }()
@@ -78,7 +77,9 @@ class WmsyHeader: UIView {
     func constrainFilterButton() {
         NSLayoutConstraint.activate([
             filterButton.centerYAnchor.constraint(equalTo: wmsyLogo.centerYAnchor),
-                   filterButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 11)
+                   filterButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 11),
+            filterButton.widthAnchor.constraint(equalToConstant: 35),
+            filterButton.heightAnchor.constraint(equalTo: filterButton.widthAnchor )
                ])
     }
     

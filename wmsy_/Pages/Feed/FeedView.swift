@@ -13,7 +13,7 @@ class FeedView: UIView {
     
     lazy var header: WmsyHeader = {
         let h = WmsyHeader()
-        h.backgroundColor = .purple
+        h.backgroundColor = WmsyColors.darkPurple
         h.delegate = self
         return h
     }()
@@ -22,6 +22,9 @@ class FeedView: UIView {
     
     lazy var feedTableView: UITableView = {
         let tv = UITableView()
+        tv.backgroundColor = .systemGray6
+        tv.register(CardCell.self, forCellReuseIdentifier: "CardCell")
+        tv.separatorStyle = .none
         return tv
     }()
     

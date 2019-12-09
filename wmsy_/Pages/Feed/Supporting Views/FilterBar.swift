@@ -23,9 +23,10 @@ class FilterBar: UIView {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(FilterCell.self, forCellWithReuseIdentifier: "FilterCell")
         cv.bounces = false
-        cv.backgroundColor = .purple
+        cv.backgroundColor = WmsyColors.darkPurple
         cv.dataSource = self
         cv.delegate = self
+        cv.showsHorizontalScrollIndicator = false
         return cv
     }()
     
@@ -55,7 +56,7 @@ class FilterBar: UIView {
     
     
     func commonInit() {
-        backgroundColor = .purple
+        backgroundColor = WmsyColors.darkPurple
         addSubviews(subviews: [filterCollection,clearButton])
         constrainFilterCollection()
         constrainClearButton()

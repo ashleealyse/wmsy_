@@ -19,16 +19,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        
-        
-        
-        
         let tab = UITabBarController()
+        let apperance = UITabBar.appearance()
+        apperance.tintColor = .systemPurple
+        apperance.barTintColor = .systemGray6
+        apperance.isTranslucent = false
         let feed = FeedViewController()
         let largeConfiguration = UIImage.SymbolConfiguration(scale: .large)
         let image = UIImage(systemName: "house", withConfiguration: largeConfiguration)?.withRenderingMode(.alwaysTemplate)
         feed.tabBarItem.image = image
-        tab.tabBar.tintColor = .purple
         tab.viewControllers = [feed]
         window?.rootViewController = tab
         window?.makeKeyAndVisible()
