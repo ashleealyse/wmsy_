@@ -13,7 +13,7 @@ class FeedView: UIView {
     
     lazy var header: WmsyHeader = {
         let h = WmsyHeader()
-        h.backgroundColor = WmsyColors.darkPurple
+        h.backgroundColor = WmsyColors.headerPurple
         h.delegate = self
         return h
     }()
@@ -25,6 +25,7 @@ class FeedView: UIView {
         tv.backgroundColor = .systemGray6
         tv.register(CardCell.self, forCellReuseIdentifier: "CardCell")
         tv.separatorStyle = .none
+        tv.showsVerticalScrollIndicator = false
         return tv
     }()
     
@@ -37,7 +38,7 @@ class FeedView: UIView {
     var filterOpened = false {
         didSet{
             UIView.animate(withDuration: 0.5) {
-                self.filterBarHeightConstraint?.constant = self.filterOpened ? 33 : 0
+                self.filterBarHeightConstraint?.constant = self.filterOpened ? 55 : 0
                 self.layoutIfNeeded()
             }
         }
@@ -82,8 +83,11 @@ class FeedView: UIView {
             feedTableView.topAnchor.constraint(equalTo: filterBar.bottomAnchor),
             feedTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             feedTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            feedTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+    
+    func bottomConstraint(bottom: NSLayoutYAxisAnchor) {
+        feedTableView.bottomAnchor.constraint(equalTo: bottom).isActive = true
     }
     
     var filterBarHeightConstraint: NSLayoutConstraint?

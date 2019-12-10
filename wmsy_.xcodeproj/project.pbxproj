@@ -12,6 +12,9 @@
 		39288D4E23997ADD00C39BF1 /* FilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39288D4D23997ADD00C39BF1 /* FilterBar.swift */; };
 		39288D5023997B3800C39BF1 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39288D4F23997B3800C39BF1 /* FilterCell.swift */; };
 		39682E56239DEE8E0038B887 /* WmsyColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39682E55239DEE8E0038B887 /* WmsyColors.swift */; };
+		396BCD77239ED69700B40469 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396BCD76239ED69700B40469 /* ProfileViewController.swift */; };
+		396BCD7A239EE14B00B40469 /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396BCD79239EE14B00B40469 /* ProfileHeader.swift */; };
+		396BCD7C239EE23C00B40469 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396BCD7B239EE23C00B40469 /* ProfileView.swift */; };
 		39C2371E239D70BE00A46148 /* UIViewExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C2371D239D70BE00A46148 /* UIViewExtention.swift */; };
 		39C23720239D81F300A46148 /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C2371F239D81F300A46148 /* CardCell.swift */; };
 		39C8DD5523981D1F00D73109 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C8DD5423981D1F00D73109 /* FeedViewController.swift */; };
@@ -27,6 +30,9 @@
 		39288D4D23997ADD00C39BF1 /* FilterBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBar.swift; sourceTree = "<group>"; };
 		39288D4F23997B3800C39BF1 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 		39682E55239DEE8E0038B887 /* WmsyColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WmsyColors.swift; sourceTree = "<group>"; };
+		396BCD76239ED69700B40469 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		396BCD79239EE14B00B40469 /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
+		396BCD7B239EE23C00B40469 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		39C2371D239D70BE00A46148 /* UIViewExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtention.swift; sourceTree = "<group>"; };
 		39C2371F239D81F300A46148 /* CardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCell.swift; sourceTree = "<group>"; };
 		39C8DD5423981D1F00D73109 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
@@ -49,9 +55,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		396BCD73239ED62C00B40469 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				39288D4D23997ADD00C39BF1 /* FilterBar.swift */,
+				391CD1FC239831150062A84F /* WmsyHeader.swift */,
+				39288D4F23997B3800C39BF1 /* FilterCell.swift */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		396BCD78239EDC6300B40469 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				396BCD76239ED69700B40469 /* ProfileViewController.swift */,
+				396BCD7B239EE23C00B40469 /* ProfileView.swift */,
+				396BCD79239EE14B00B40469 /* ProfileHeader.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		39C8DD5323981D1100D73109 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
+				396BCD78239EDC6300B40469 /* Profile */,
+				396BCD73239ED62C00B40469 /* Header */,
 				39C8DD5623981D3400D73109 /* Feed */,
 			);
 			path = Pages;
@@ -109,9 +137,6 @@
 		39EC2B54239BE2A400AB4051 /* Supporting Views */ = {
 			isa = PBXGroup;
 			children = (
-				39288D4D23997ADD00C39BF1 /* FilterBar.swift */,
-				39288D4F23997B3800C39BF1 /* FilterCell.swift */,
-				391CD1FC239831150062A84F /* WmsyHeader.swift */,
 				39C2371F239D81F300A46148 /* CardCell.swift */,
 			);
 			path = "Supporting Views";
@@ -188,12 +213,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				39288D5023997B3800C39BF1 /* FilterCell.swift in Sources */,
+				396BCD7C239EE23C00B40469 /* ProfileView.swift in Sources */,
 				391CD1FB23982F600062A84F /* FeedView.swift in Sources */,
 				39D30C762396E64900B49EB2 /* AppDelegate.swift in Sources */,
 				39682E56239DEE8E0038B887 /* WmsyColors.swift in Sources */,
 				39C8DD5523981D1F00D73109 /* FeedViewController.swift in Sources */,
 				39D30C782396E64900B49EB2 /* SceneDelegate.swift in Sources */,
+				396BCD77239ED69700B40469 /* ProfileViewController.swift in Sources */,
 				391CD1FD239831150062A84F /* WmsyHeader.swift in Sources */,
+				396BCD7A239EE14B00B40469 /* ProfileHeader.swift in Sources */,
 				39288D4E23997ADD00C39BF1 /* FilterBar.swift in Sources */,
 				39C2371E239D70BE00A46148 /* UIViewExtention.swift in Sources */,
 				39C23720239D81F300A46148 /* CardCell.swift in Sources */,

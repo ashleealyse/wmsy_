@@ -9,6 +9,11 @@
 import UIKit
 
 
+enum Side {
+    case top, bottom, left, right
+}
+
+
 
 extension UIView {
      func addSubviews(subviews:[UIView]) {
@@ -18,13 +23,26 @@ extension UIView {
         }
     }
     
-    func constrainToAllSides(item: UIView) {
-        NSLayoutConstraint.activate([
-            item.topAnchor.constraint(equalTo: topAnchor),
-            item.bottomAnchor.constraint(equalTo: bottomAnchor),
-            item.leadingAnchor.constraint(equalTo: leadingAnchor),
-            item.trailingAnchor.constraint(equalTo: trailingAnchor)
-        ])
+    private func serveConstraint(item: UIView, side: Side) -> NSLayoutConstraint {
+        switch side {
+        case .top:
+            return item.topAnchor.constraint(equalTo: topAnchor)
+        case .bottom:
+            return item.bottomAnchor.constraint(equalTo: bottomAnchor)
+        case .left:
+            return item.leadingAnchor.constraint(equalTo: leadingAnchor)
+        case .right:
+            return item.trailingAnchor.constraint(equalTo: trailingAnchor)
+        }
+    }
+    
+    
+    func constrainToAllSides(item: UIView, sides: [Side] ) {
+        var constraints: [NSLayoutConstraint] = []
+        sides.forEach {
+            constraints.append(serveConstraint(item: item, side: $0))
+        }
+        NSLayoutConstraint.activate(constraints)
     }
 }
 
@@ -49,4 +67,6 @@ extension UIImage {
 
         return UIGraphicsGetImageFromCurrentImageContext()
     }
+    
+
 }

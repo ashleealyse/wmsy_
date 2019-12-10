@@ -9,6 +9,11 @@
 import UIKit
 
 
+protocol CardCellDelegate: AnyObject {
+    func profilePressed()
+}
+
+
 
 class CardCell: UITableViewCell {
     lazy var card: UIView = {
@@ -24,6 +29,8 @@ class CardCell: UITableViewCell {
         return v
     }()
     
+    weak var delegate: CardCellDelegate?
+    
     
     lazy var backgroundImage: UIImageView = {
         let iv = UIImageView()
@@ -37,6 +44,7 @@ class CardCell: UITableViewCell {
         let iv = UIButton()
         iv.tintColor = .white
         iv.setBackgroundImage(UIImage(systemName: "person.circle")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        iv.addTarget(self, action: #selector(profilePressed), for: .touchUpInside)
         return iv
     }()
     
@@ -86,11 +94,15 @@ class CardCell: UITableViewCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
+        
+        
     }
     
    
     
     func commonInit() {
+        backgroundImage.isUserInteractionEnabled = true
+        descriptionTextView.isUserInteractionEnabled = false
         addSubviews(subviews: [card])
         card.addSubviews(subviews: [backgroundImage])
         backgroundImage.addSubviews(subviews: [titleLabel, profilePicture, descriptionTextView])
@@ -98,13 +110,20 @@ class CardCell: UITableViewCell {
         isOpaque = false
         selectionStyle = .none
         constrainCard()
-        card.constrainToAllSides(item: backgroundImage)
+        card.constrainToAllSides(item: backgroundImage, sides: [.top,.left,.right,.bottom])
         constrainTitleLabel()
         constrainProfilePicture()
         constrainUserInfoStack()
         constrainDescription()
         bringSubviewToFront(card)
     }
+    
+    
+    @objc func profilePressed() {
+        delegate?.profilePressed()
+    }
+    
+    
     
     func constrainCard () {
         NSLayoutConstraint.activate([

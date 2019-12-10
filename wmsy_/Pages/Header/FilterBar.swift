@@ -23,7 +23,7 @@ class FilterBar: UIView {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(FilterCell.self, forCellWithReuseIdentifier: "FilterCell")
         cv.bounces = false
-        cv.backgroundColor = WmsyColors.darkPurple
+        cv.backgroundColor = WmsyColors.headerPurple
         cv.dataSource = self
         cv.delegate = self
         cv.showsHorizontalScrollIndicator = false
@@ -34,6 +34,7 @@ class FilterBar: UIView {
         let button = UIButton()
         button.setTitle("Clear", for: .normal)
         button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .clear
         button.clipsToBounds = true
         button.addTarget(self, action: #selector(clearPressed), for: .touchUpInside)
         return button
@@ -56,7 +57,7 @@ class FilterBar: UIView {
     
     
     func commonInit() {
-        backgroundColor = WmsyColors.darkPurple
+        backgroundColor = WmsyColors.headerPurple
         addSubviews(subviews: [filterCollection,clearButton])
         constrainFilterCollection()
         constrainClearButton()
@@ -106,7 +107,7 @@ extension FilterBar: UICollectionViewDelegateFlowLayout, UICollectionViewDataSou
       }
       
       func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-          return CGSize(width: 33, height: 22)
+          return CGSize(width: 44, height: 33)
       }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

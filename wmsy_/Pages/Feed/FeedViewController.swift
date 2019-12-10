@@ -20,6 +20,7 @@ class FeedViewController: UIViewController {
         feed.feedTableView.dataSource = self
         feed.feedTableView.delegate = self
         feed.filterBar.delegate = self
+        feed.bottomConstraint(bottom: view.safeAreaLayoutGuide.bottomAnchor)
     }
     
 
@@ -32,13 +33,20 @@ class FeedViewController: UIViewController {
 
 
 
-extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
+extension FeedViewController: UITableViewDataSource, UITableViewDelegate, CardCellDelegate {
+    
+    func profilePressed() {
+        let profile = ProfileViewController()
+        present(profile, animated: true, completion: nil)
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 20
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CardCell", for: indexPath) as! CardCell
+        cell.delegate = self
         if indexPath.row % 2 == 0 {
         cell.backgroundImage.image = UIImage(named: "pet")?.darkened()
         } else {
@@ -68,3 +76,5 @@ extension FeedViewController: FilterBarDelegate {
     
     
 }
+
+
