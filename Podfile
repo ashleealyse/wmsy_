@@ -6,19 +6,9 @@ target 'wmsy' do
   use_frameworks!
 
   # Pods for wmsy
-pod 'Firebase'
-pod 'Firebase/Auth'
-pod 'Firebase/Database'
-pod 'Firebase/Storage'
-pod 'FacebookCore'
-pod 'FacebookLogin'
-pod 'FacebookShare'
-pod 'SnapKit', '~> 4.0'
+
 pod 'GoogleMaps'
-pod 'SVProgressHUD'
-pod 'Kingfisher', '~> 4.0'
-pod 'Toucan'
-pod 'TextFieldEffects'
+pod 'Kingfisher'
 
 
   target 'wmsyTests' do
