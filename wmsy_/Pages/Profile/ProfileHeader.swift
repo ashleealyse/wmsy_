@@ -29,7 +29,7 @@ class ProfileHeader: UICollectionReusableView {
     
     lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Spike Spiegel"
+        label.text = "Spike Spiegel, 27"
         label.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
         label.textAlignment = .center
         return label
@@ -70,13 +70,12 @@ class ProfileHeader: UICollectionReusableView {
     
     
     func constrainNameLabel() {
-        constrainToAllSides(item: nameLabel, sides: [.left,.right])
-        nameLabel.topAnchor.constraint(equalTo: profilePicture.bottomAnchor, constant: 11).isActive = true
+        constrainToAllSides(item: nameLabel, sides: ([.left,.right],[nameLabel.topAnchor.constraint(equalTo: profilePicture.bottomAnchor, constant: 11)]))
     }
     
     func constrainDescriptionLabel() {
-        constrainToAllSides(item: descriptionLabel, sides: [.left,.right])
-        descriptionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5).isActive = true
+        constrainToAllSides(item: descriptionLabel, sides: ([.left,.right],[descriptionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5)]))
+       
 
     }
     
@@ -91,8 +90,8 @@ class ProfileHeader: UICollectionReusableView {
     
     
     func constrainColorView() {
-        constrainToAllSides(item: colorView, sides: [.left,.right,.top])
-        colorView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.4).isActive = true
+        constrainToAllSides(item: colorView, sides: ([.left,.right,.top],[colorView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.4)]))
+       
     }
     
     

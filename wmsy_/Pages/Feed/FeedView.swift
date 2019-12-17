@@ -31,7 +31,7 @@ class FeedView: UIView {
     
     
     lazy var filterBar: FilterBar = {
-        let fb = FilterBar()
+        let fb = FilterBar(frame: .zero, withClear: true)
         return fb
     }()
     
@@ -57,8 +57,9 @@ class FeedView: UIView {
     func commonInit() {
         addSubviews()
         constrainHeader()
-        constrainFeed()
         constrainFilterBar()
+        constrainFeed()
+
     }
     
     func addSubviews() {
@@ -73,7 +74,7 @@ class FeedView: UIView {
         header.topAnchor.constraint(equalTo: topAnchor),
         header.leadingAnchor.constraint(equalTo: leadingAnchor),
         header.trailingAnchor.constraint(equalTo: trailingAnchor),
-        header.heightAnchor.constraint(equalToConstant: 77)
+        header.heightAnchor.constraint(equalToConstant: 100)
         ])
     }
     

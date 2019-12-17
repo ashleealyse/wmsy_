@@ -34,6 +34,13 @@ class WmsyHeader: UIView {
         return button
     }()
     
+    lazy var createWhim: UIButton = {
+        let button = UIButton()
+        button.tintColor = .white
+        button.setBackgroundImage(UIImage(systemName: "plus"), for: .normal)
+        return button
+    }()
+    
     weak var delegate: wmsyHeaderDelegate?
     
     override init(frame: CGRect) {
@@ -48,9 +55,10 @@ class WmsyHeader: UIView {
     }
     
     func commonInit() {
-        addSubviews()
+        addSubviews(subviews: [wmsyLogo,filterButton,createWhim])
         constrainLogo()
         constrainFilterButton()
+        constrainCreateWhim()
     }
     
     
@@ -58,12 +66,18 @@ class WmsyHeader: UIView {
         delegate?.filterSelected()
     }
     
-    
-    
-    
-    func addSubviews() {
-        addSubviews(subviews: [wmsyLogo,filterButton])
+    @objc func createWhimSelected() {
+        delegate?.filterSelected()
     }
+    
+    func constrainCreateWhim() {
+         NSLayoutConstraint.activate([
+                  createWhim.centerYAnchor.constraint(equalTo: wmsyLogo.centerYAnchor),
+                         createWhim.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -11),
+                  createWhim.widthAnchor.constraint(equalToConstant: 35),
+                  createWhim.heightAnchor.constraint(equalTo: createWhim.widthAnchor )
+                     ])
+          }
     
     
     
