@@ -37,12 +37,12 @@ extension UIView {
     }
     
     
-    func constrainToAllSides(item: UIView, sides: [Side] ) {
+    func constrainToAllSides(item: UIView, sides: ([Side],[NSLayoutConstraint])) {
         var constraints: [NSLayoutConstraint] = []
-        sides.forEach {
+        sides.0.forEach {
             constraints.append(serveConstraint(item: item, side: $0))
         }
-        NSLayoutConstraint.activate(constraints)
+        NSLayoutConstraint.activate(constraints+sides.1)
     }
 }
 

@@ -56,24 +56,22 @@ class ProfileView: UIView {
        
        func commonInit() {
         backgroundColor = .systemGray6
-        addSubviews(subviews: [gallery, persistentBar])
-        persistentBar.addSubviews(subviews: [persistentUserName])
-        constrainPersistenceBar()
+        addSubviews(subviews: [gallery])
+        //persistentBar.addSubviews(subviews: [persistentUserName])
+        //constrainPersistenceBar()
         constrainGallery()
        }
     
     func constrainGallery() {
-        constrainToAllSides(item: gallery, sides: [.left,.right,.bottom])
-        gallery.topAnchor.constraint(equalTo: persistentBar.bottomAnchor).isActive = true
+        constrainToAllSides(item: gallery, sides: ([.left,.right,.bottom,.top],[]))
     }
 
     
     func constrainPersistenceBar() {
-        constrainToAllSides(item: persistentBar, sides: [.top,.left,.right])
-        persistentBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        persistentBar.constrainToAllSides(item: persistentUserName, sides: [.left,.right])
-        persistentUserName.centerXAnchor.constraint(equalTo: persistentBar.centerXAnchor).isActive = true
-         persistentUserName.centerYAnchor.constraint(equalTo: persistentBar.centerYAnchor).isActive = true
+        constrainToAllSides(item: persistentBar, sides: ([.top,.left,.right],[persistentBar.heightAnchor.constraint(equalToConstant: 50)]))
+       
+        persistentBar.constrainToAllSides(item: persistentUserName, sides: ([.left,.right],[persistentUserName.centerXAnchor.constraint(equalTo: persistentBar.centerXAnchor),persistentUserName.centerYAnchor.constraint(equalTo: persistentBar.centerYAnchor)]))
+        
     }
 }
 

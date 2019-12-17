@@ -21,8 +21,13 @@ class FeedViewController: UIViewController {
         feed.feedTableView.delegate = self
         feed.filterBar.delegate = self
         feed.bottomConstraint(bottom: view.safeAreaLayoutGuide.bottomAnchor)
+        feed.header.createWhim.addTarget(self, action: #selector(createWhimPressed), for: .touchUpInside)
     }
     
+    @objc func createWhimPressed() {
+        let create = CreateWhimViewController()
+        present(create, animated: true, completion: nil)
+    }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
          return UIStatusBarStyle.lightContent

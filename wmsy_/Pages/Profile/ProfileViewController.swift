@@ -16,7 +16,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         view.addSubviews(subviews: [profile])
-        view.constrainToAllSides(item: profile, sides: [.top,.right,.left,.bottom])
+        view.constrainToAllSides(item: profile, sides: ([.top,.right,.left,.bottom],[]))
         
         
     }

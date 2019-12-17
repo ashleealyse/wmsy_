@@ -11,6 +11,7 @@ import UIKit
 protocol FilterBarDelegate: AnyObject {
     func clearPressed()
     func filterPressed(filterPressed: String)
+    func createWhimPressed()
 }
 
 
@@ -23,7 +24,6 @@ class FilterBar: UIView {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(FilterCell.self, forCellWithReuseIdentifier: "FilterCell")
         cv.bounces = false
-        cv.backgroundColor = WmsyColors.headerPurple
         cv.dataSource = self
         cv.delegate = self
         cv.showsHorizontalScrollIndicator = false
@@ -43,24 +43,27 @@ class FilterBar: UIView {
     
     weak var delegate: FilterBarDelegate?
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, withClear: Bool) {
         super.init(frame: frame)
-        commonInit()
+        commonInit(withClear: withClear)
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        commonInit()
+        commonInit(withClear: true)
     }
     
     
     
     
-    func commonInit() {
-        backgroundColor = WmsyColors.headerPurple
-        addSubviews(subviews: [filterCollection,clearButton])
-        constrainFilterCollection()
-        constrainClearButton()
+    func commonInit(withClear: Bool) {
+        filterCollection.backgroundColor = withClear ? WmsyColors.headerPurple : .clear
+        backgroundColor = withClear ? WmsyColors.headerPurple : .clear
+        isOpaque = false
+        let subviews = withClear ? [filterCollection,clearButton] : [filterCollection]
+        addSubviews(subviews: subviews)
+        constrainFilterCollection(withClear: withClear)
+        if withClear { constrainClearButton() }
     }
     
     
@@ -71,19 +74,20 @@ class FilterBar: UIView {
     
     
     
-    func constrainFilterCollection() {
+    func constrainFilterCollection(withClear: Bool) {
+        let anchor = withClear ? clearButton.leadingAnchor : trailingAnchor
         NSLayoutConstraint.activate([
             filterCollection.topAnchor.constraint(equalTo: topAnchor),
             filterCollection.bottomAnchor.constraint(equalTo: bottomAnchor),
             filterCollection.leadingAnchor.constraint(equalTo: leadingAnchor),
-            filterCollection.trailingAnchor.constraint(equalTo: clearButton.leadingAnchor, constant: -5)
+            filterCollection.trailingAnchor.constraint(equalTo: anchor, constant: -5)
         ])
     }
     
     func constrainClearButton() {
         NSLayoutConstraint.activate([
-            clearButton.topAnchor.constraint(equalTo: topAnchor, constant: 2),
-            clearButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -2),
+            clearButton.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+            clearButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
             clearButton.widthAnchor.constraint(equalToConstant: 44),
             clearButton.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -5)
         ])

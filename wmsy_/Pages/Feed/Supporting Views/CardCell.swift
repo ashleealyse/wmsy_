@@ -110,7 +110,7 @@ class CardCell: UITableViewCell {
         isOpaque = false
         selectionStyle = .none
         constrainCard()
-        card.constrainToAllSides(item: backgroundImage, sides: [.top,.left,.right,.bottom])
+        card.constrainToAllSides(item: backgroundImage, sides: ([.top,.left,.right,.bottom],[]))
         constrainTitleLabel()
         constrainProfilePicture()
         constrainUserInfoStack()

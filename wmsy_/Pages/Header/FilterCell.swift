@@ -29,7 +29,7 @@ class FilterCell: UICollectionViewCell {
     
     func commonInit() {
         addSubviews(subviews: [filterIcon])
-        constrainToAllSides(item: filterIcon, sides: [.top,.bottom,.left,.right])
+        constrainToAllSides(item: filterIcon, sides: ([.top,.bottom,.left,.right],[]))
     }
   
     
