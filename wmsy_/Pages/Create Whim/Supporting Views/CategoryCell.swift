@@ -25,6 +25,7 @@ class CategoryCell: UITableViewCell {
     
     
     func commonInit() {
+        selectionStyle = .none
         filter.backgroundColor = .systemGray6
         addSubviews(subviews: [filter])
         constrainToAllSides(item: filter, sides: ([.top,.bottom,.left,.right],[]))

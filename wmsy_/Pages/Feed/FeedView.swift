@@ -59,7 +59,7 @@ class FeedView: UIView {
         constrainHeader()
         constrainFilterBar()
         constrainFeed()
-
+        
     }
     
     func addSubviews() {

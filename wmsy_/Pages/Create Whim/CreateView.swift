@@ -18,7 +18,7 @@ class CreateView: UIView {
         tv.register(TimeCell.self, forCellReuseIdentifier: "TimeCell")
         tv.register(CreateCell.self, forCellReuseIdentifier: "CreateCell")
         tv.register(CategoryCell.self, forCellReuseIdentifier: "CategoryCell")
-        tv.backgroundColor = .orange
+        tv.backgroundColor = .systemGray6
         tv.bounces = false
         tv.separatorStyle = .none
         tv.showsVerticalScrollIndicator = false
@@ -61,7 +61,9 @@ class CreateView: UIView {
     }
     
 
-    
+    func resignKey() {
+        
+    }
     
     func constainForm() {
         constrainToAllSides(item: form, sides: ([.bottom,.left,.right,.top],[]))

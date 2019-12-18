@@ -7,18 +7,38 @@
 //
 
 import UIKit
+import MapKit
 
 class LocationCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    lazy var mapView: MKMapView = {
+        let map = MKMapView()
+        map.showsUserLocation = true
+        return map
+    }()
+    
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        commonInit()
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        commonInit()
     }
+    
+    
+    
+    
+    func commonInit() {
+        selectionStyle = .none
+        backgroundColor = .systemGray6
+        addSubviews(subviews: [mapView])
+        constrainToAllSides(item: mapView, sides: ([],[mapView.topAnchor.constraint(equalTo: topAnchor, constant: 11),
+        mapView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -22),
+        mapView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 3),
+        mapView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -3)]))
 
+    }
 }

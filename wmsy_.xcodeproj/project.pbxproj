@@ -29,6 +29,7 @@
 		39D30C822396E64E00B49EB2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39D30C802396E64E00B49EB2 /* LaunchScreen.storyboard */; };
 		39E0D44E239F4CC700986BBA /* CreateWhimViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E0D44D239F4CC700986BBA /* CreateWhimViewController.swift */; };
 		39E0D451239F4CE000986BBA /* CreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E0D450239F4CE000986BBA /* CreateView.swift */; };
+		39F14FEA23A9B31400C5156F /* CreateWhim+Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F14FE923A9B31400C5156F /* CreateWhim+Table.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		39D30C832396E64E00B49EB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		39E0D44D239F4CC700986BBA /* CreateWhimViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWhimViewController.swift; sourceTree = "<group>"; };
 		39E0D450239F4CE000986BBA /* CreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateView.swift; sourceTree = "<group>"; };
+		39F14FE923A9B31400C5156F /* CreateWhim+Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreateWhim+Table.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				39E0D44D239F4CC700986BBA /* CreateWhimViewController.swift */,
+				39F14FE923A9B31400C5156F /* CreateWhim+Table.swift */,
 				39E0D450239F4CE000986BBA /* CreateView.swift */,
 				392EA8FC239F599F004A89D4 /* Supporting Views */,
 			);
@@ -257,6 +260,7 @@
 				39E0D451239F4CE000986BBA /* CreateView.swift in Sources */,
 				39682E56239DEE8E0038B887 /* WmsyColors.swift in Sources */,
 				39C8DD5523981D1F00D73109 /* FeedViewController.swift in Sources */,
+				39F14FEA23A9B31400C5156F /* CreateWhim+Table.swift in Sources */,
 				392EA8FE239F59BD004A89D4 /* TextFieldCell.swift in Sources */,
 				39D30C782396E64900B49EB2 /* SceneDelegate.swift in Sources */,
 				396BCD77239ED69700B40469 /* ProfileViewController.swift in Sources */,

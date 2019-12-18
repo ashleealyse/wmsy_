@@ -13,6 +13,14 @@ enum Side {
     case top, bottom, left, right
 }
 
+extension UITableView {
+    func setBottomInset(to value: CGFloat) {
+          let edgeInset = UIEdgeInsets(top: 0, left: 0, bottom: value, right: 0)
+
+          self.contentInset = edgeInset
+          self.scrollIndicatorInsets = edgeInset
+      }
+}
 
 
 extension UIView {
@@ -21,6 +29,17 @@ extension UIView {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
+    }
+    
+    
+  
+    
+    
+    func addBottomBorderWithColor(color: UIColor, width: CGFloat) {
+      let border = CALayer()
+        border.backgroundColor = color.cgColor
+        border.frame = CGRect(x: center.x - (self.frame.size.width * 0.95 / 2), y: self.frame.size.height - width, width: self.frame.size.width * 0.95, height: width)
+      self.layer.addSublayer(border)
     }
     
     private func serveConstraint(item: UIView, side: Side) -> NSLayoutConstraint {
@@ -69,4 +88,20 @@ extension UIImage {
     }
     
 
+}
+
+
+extension UIColor {
+    
+    static let dynamicBorderColor = UIColor { (traitCollection: UITraitCollection) -> UIColor in
+        switch traitCollection.userInterfaceStyle {
+        case .dark:
+            return .systemGray5
+        case .light, .unspecified:
+            return .black
+        @unknown default:
+            return .black
+        }
+    }
+    
 }

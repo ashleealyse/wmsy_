@@ -16,6 +16,8 @@ class CreateCell: UITableViewCell {
         button.backgroundColor = WmsyColors.darkPurple
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        button.imageView?.clipsToBounds = true
+        //button.clipsToBounds = true//
         return button
     }()
     
@@ -34,13 +36,14 @@ class CreateCell: UITableViewCell {
     
     
     func commonInit(){
+        selectionStyle = .none
+        backgroundColor = .systemGray6
         addSubviews(subviews: [createButton])
         constrainToAllSides(item: createButton, sides: ([.top], [createButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
         createButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)]))
         
         
-        
-        createButton.layer.cornerRadius = 10
+        //createButton.layer.cornerRadius = 10
     }
 
 }

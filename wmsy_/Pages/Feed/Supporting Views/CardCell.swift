@@ -42,7 +42,7 @@ class CardCell: UITableViewCell {
     
     lazy var profilePicture: UIButton = {
         let iv = UIButton()
-        iv.tintColor = .white
+        iv.tintColor = WmsyColors.headerPurple
         iv.setBackgroundImage(UIImage(systemName: "person.circle")?.withRenderingMode(.alwaysTemplate), for: .normal)
         iv.addTarget(self, action: #selector(profilePressed), for: .touchUpInside)
         return iv
@@ -52,7 +52,7 @@ class CardCell: UITableViewCell {
         let label = UILabel()
         label.text = "username"
         label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = .white
+
         label.textAlignment = .right
         return label
     }()
@@ -61,7 +61,7 @@ class CardCell: UITableViewCell {
         let label = UILabel()
         label.text = "2 hrs left"
         label.font = UIFont.systemFont(ofSize: 11, weight: .light)
-        label.textColor = .lightText
+        //label.textColor = .lightText
         label.textAlignment = .right
         return label
     }()
@@ -69,7 +69,7 @@ class CardCell: UITableViewCell {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Some Event!!!"
-        label.textColor = .white
+       // label.textColor = .white
         let font = UIFont.systemFont(ofSize: 25)
         let fontMetrics = UIFontMetrics(forTextStyle: .headline)
         label.font = fontMetrics.scaledFont(for: font)
@@ -80,7 +80,7 @@ class CardCell: UITableViewCell {
     lazy var descriptionTextView: UITextView = {
         let tv = UITextView()
         tv.text = " sadfa sdhfh ads ihj ufasui fiuas hd iud fa udhas jui kdhi aus hdui as hdi uashsd iuahsu idhi a uh dh siua sh diuh"
-        tv.textColor = .white
+       // tv.textColor = .white
         tv.backgroundColor = .clear
         return tv
     }()
@@ -105,12 +105,12 @@ class CardCell: UITableViewCell {
         descriptionTextView.isUserInteractionEnabled = false
         addSubviews(subviews: [card])
         card.addSubviews(subviews: [backgroundImage])
-        backgroundImage.addSubviews(subviews: [titleLabel, profilePicture, descriptionTextView])
+        card.addSubviews(subviews: [titleLabel, profilePicture, descriptionTextView])
         backgroundColor = .clear
         isOpaque = false
         selectionStyle = .none
         constrainCard()
-        card.constrainToAllSides(item: backgroundImage, sides: ([.top,.left,.right,.bottom],[]))
+        card.constrainToAllSides(item: backgroundImage, sides: ([.top,.left,.right,],[backgroundImage.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -100)]))
         constrainTitleLabel()
         constrainProfilePicture()
         constrainUserInfoStack()
