@@ -8,6 +8,9 @@
 
 import UIKit
 
+
+
+
 class FeedViewController: UIViewController {
     
     let feed = FeedView(frame: UIScreen.main.bounds)
@@ -48,15 +51,20 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate, CardCe
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 20
     }
+ 
+    
+    
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CardCell", for: indexPath) as! CardCell
         cell.delegate = self
-        if indexPath.row % 2 == 0 {
-        cell.backgroundImage.image = UIImage(named: "pet")?.darkened()
-        } else {
-            cell.backgroundImage.image =  UIImage(named: "sports")?.darkened()
-        }
+        cell.backgroundImage.backgroundColor = .systemGray6
+//        if indexPath.row % 2 == 0 {
+//        cell.backgroundImage.image = UIImage(named: "pet")?.darkened()
+//        } else {
+//            cell.backgroundImage.image =  UIImage(named: "sports")?.darkened()
+//        }
         return cell
     }
     
@@ -65,7 +73,7 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate, CardCe
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        return 300
     }
 }
 

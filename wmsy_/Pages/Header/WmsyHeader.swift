@@ -22,7 +22,7 @@ class WmsyHeader: UIView {
         let label = UILabel()
         label.text = "WMSY"
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 30)
+        label.font = UIFont.systemFont(ofSize: 34, weight: .bold)
         return label
     }()
     
@@ -55,7 +55,11 @@ class WmsyHeader: UIView {
     }
     
     func commonInit() {
-        addSubviews(subviews: [wmsyLogo,filterButton,createWhim])
+        let image = UIImageView(image: UIImage(named: "pbackground")?.darkened())
+        image.isUserInteractionEnabled = true
+        addSubviews(subviews: [image])
+        constrainToAllSides(item: image, sides: ([.top,.bottom,.left,.right],[]))
+        image.addSubviews(subviews: [wmsyLogo,filterButton,createWhim])
         constrainLogo()
         constrainFilterButton()
         constrainCreateWhim()
@@ -74,7 +78,7 @@ class WmsyHeader: UIView {
          NSLayoutConstraint.activate([
                   createWhim.centerYAnchor.constraint(equalTo: wmsyLogo.centerYAnchor),
                          createWhim.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -11),
-                  createWhim.widthAnchor.constraint(equalToConstant: 35),
+                  createWhim.widthAnchor.constraint(equalToConstant: 30),
                   createWhim.heightAnchor.constraint(equalTo: createWhim.widthAnchor )
                      ])
           }
@@ -84,15 +88,15 @@ class WmsyHeader: UIView {
     func constrainLogo() {
         NSLayoutConstraint.activate([
             wmsyLogo.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -11),
-            wmsyLogo.centerXAnchor.constraint(equalTo: centerXAnchor)
+            wmsyLogo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 11)
         ])
     }
     
     func constrainFilterButton() {
         NSLayoutConstraint.activate([
             filterButton.centerYAnchor.constraint(equalTo: wmsyLogo.centerYAnchor),
-                   filterButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 11),
-            filterButton.widthAnchor.constraint(equalToConstant: 35),
+            filterButton.trailingAnchor.constraint(equalTo: createWhim.leadingAnchor, constant: -11),
+            filterButton.widthAnchor.constraint(equalToConstant: 30),
             filterButton.heightAnchor.constraint(equalTo: filterButton.widthAnchor )
                ])
     }
